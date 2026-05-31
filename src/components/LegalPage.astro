@@ -7,7 +7,6 @@ const { title, description } = Astro.props;
 
 <BaseLayout title={`${title} | ${siteConfig.name}`} description={description} canonicalPath={Astro.url.pathname}>
   <article class="legal-page">
-    <span class="eyebrow">Texto legal base. Revisar antes de publicar.</span>
     <h1>{title}</h1>
     <slot />
   </article>

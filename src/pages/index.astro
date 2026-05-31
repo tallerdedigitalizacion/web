@@ -299,4 +299,13 @@ const diagnosticAreas = ["Dirección y alineamiento", "Procesos y flujos de trab
     carousel.addEventListener("focusin", stopReviewAutoplay);
     carousel.addEventListener("focusout", startReviewAutoplay);
   }
+
+  document.querySelectorAll(".faq-list details").forEach((item) => {
+    item.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("summary")) return;
+      item.open = !item.open;
+    });
+  });
 </script>

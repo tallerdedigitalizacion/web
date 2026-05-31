@@ -2,17 +2,18 @@
 import { siteConfig } from "@/config/site";
 import { withBase } from "@/utils/paths";
 
+const homeHref = import.meta.env.DEV ? "/" : withBase("/");
 const navItems = [
-  ["Problema", "#problema"],
-  ["Autoevaluación", "#autoevaluacion"],
-  ["Diagnóstico", "#diagnostico"],
-  ["Cómo funciona", "#como-funciona"],
-  ["FAQ", "#faq"],
+  ["Problema", `${homeHref}#problema`],
+  ["Autoevaluación", `${homeHref}#autoevaluacion`],
+  ["Diagnóstico", `${homeHref}#diagnostico`],
+  ["Cómo funciona", `${homeHref}#como-funciona`],
+  ["FAQ", `${homeHref}#faq`],
 ];
 ---
 
 <header class="site-header">
-  <a class="brand" href={withBase("/")} aria-label="Inicio">
+  <a class="brand" href={homeHref} aria-label="Inicio">
     <img src={withBase(siteConfig.logo)} alt="Taller de Digitalización" width="48" height="48" />
   </a>
   <nav class="desktop-nav" aria-label="Navegación principal">

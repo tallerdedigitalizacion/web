@@ -3,11 +3,11 @@ export const siteConfig = {
   seoTitle: "Diagnóstico del Impuesto Operativo para Pymes | Taller de Digitalización",
   seoDescription:
     "Ayudo a CEOs de pymes a detectar y reducir el impuesto operativo: procesos invisibles, dependencia del dueño, herramientas mal alineadas y fricción que impide avanzar.",
-  publicUrl: "https://tallerdedigitalizacion.github.io/web",
+  publicUrl: "https://tallerdedigitalizacion.com",
   bookingUrl: "https://calendly.com/tallerdedigitalizacion-info/30min",
   linktreeUrl: "https://linktr.ee/tallerdedigitalizacion",
   whatsappNumber: "34684768974",
-  contactEmail: "[INSERTAR_EMAIL_CONTACTO]",
+  contactEmail: "info@tallerdedigitalizacion.com",
   googleAnalyticsId: "[INSERTAR_GA4_ID]",
   chatbaseId: "V8ryUqCVZxb4N8Hnym06s",
   ogImage: "/og-image.jpg",

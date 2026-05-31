@@ -8,7 +8,7 @@ import { withBase } from "@/utils/paths";
   <div class="section-head">
     <span class="eyebrow">Autoevaluación</span>
     <h2>Haz la Autoevaluación del Impuesto Operativo</h2>
-    <p>Responde unas preguntas rápidas y obtén una lectura inicial de dónde tu empresa está pagando más impuesto operativo.</p>
+    <p>Responde el wizard completo y verás tu resultado al instante. Después podrás descargar tu diagnóstico y acceder al marco de trabajo completo del método.</p>
   </div>
 
   <form class="assessment" data-assessment>
@@ -21,7 +21,7 @@ import { withBase } from "@/utils/paths";
             <h3>{area.name}</h3>
           </div>
           <div class="wizard-progress" aria-hidden="true">
-            <i style={`width: ${((areaIndex + 1) / assessmentAreas.length) * 100}%`}></i>
+            <i data-progress-bar style="width: 0%"></i>
           </div>
         </div>
         {area.questions.map((question, questionIndex) => {
@@ -76,7 +76,10 @@ import { withBase } from "@/utils/paths";
       <h4>3 áreas más flojas</h4>
       <ol data-weak-areas></ol>
     </div>
-    <a class="btn btn-primary" data-event="click_reservar_llamada" href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada para revisar mi resultado</a>
+    <div class="result-actions">
+      <a class="btn btn-primary" data-event="click_reservar_llamada" href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada para revisar mi resultado</a>
+      <button class="btn btn-secondary" type="button" data-reset-assessment>Reiniciar diagnóstico</button>
+    </div>
 
     <div class="lead-capture">
       <h3>Descargar mi diagnóstico</h3>
@@ -88,31 +91,31 @@ import { withBase } from "@/utils/paths";
           <label>Empresa<input required name="empresa" autocomplete="organization" /></label>
           <label>Cargo<input required name="cargo" autocomplete="organization-title" /></label>
         </div>
-        <label class="check"><input required type="checkbox" name="privacidad" /> Acepto la política de privacidad.</label>
+        <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")}>política de privacidad</a>.</span></label>
         <label class="check"><input type="checkbox" name="comunicaciones" /> Quiero recibir comunicaciones relacionadas con el diagnóstico operativo.</label>
         <input type="hidden" name="score_total" data-hidden-score />
         <input type="hidden" name="areas" data-hidden-areas />
         <button class="btn btn-secondary" type="submit" data-event="descarga_diagnostico">Descargar mi diagnóstico</button>
       </form>
     </div>
-  </section>
 
-  <div class="method-download">
-    <div class="method-copy">
-      <span class="eyebrow">Marco de trabajo</span>
-      <h3>Descarga el método completo</h3>
-      <p>Si quieres revisar el método completo con todas las áreas de auditoría, puedes descargar una versión resumida del marco de trabajo.</p>
-      <img class="method-scorecard" src={withBase("/scorecard-placeholder.svg")} alt="Vista previa del scorecard del método" loading="lazy" width="560" height="360" />
+    <div class="method-download">
+      <div class="method-copy">
+        <span class="eyebrow">Marco de trabajo</span>
+        <h3>Descarga el método completo</h3>
+        <p>Si quieres revisar el método completo con todas las áreas de auditoría, puedes descargar una versión resumida del marco de trabajo.</p>
+        <img class="method-scorecard" src={withBase("/scorecard-placeholder.svg")} alt="Vista previa del scorecard del método" loading="lazy" width="560" height="360" />
+      </div>
+      <form class="compact-form" data-method-form action={siteConfig.formEndpoint} method="post">
+        <label>Nombre<input required name="nombre" /><small>Obligatorio.</small></label>
+        <label>Email<input required type="email" name="email" /><small>Obligatorio. Lo usamos para enviarte o habilitar la descarga.</small></label>
+        <label>Empresa<input name="empresa" /><small>Opcional.</small></label>
+        <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")}>política de privacidad</a>.</span></label>
+        <button class="btn btn-primary" type="submit" data-event="descarga_metodo">Descargar método completo</button>
+        <p class="form-help">Archivo preparado en {siteConfig.methodPdfPath}. Si todavía no existe, coloca ahí el PDF cuando esté listo.</p>
+      </form>
     </div>
-    <form class="compact-form" data-method-form action={siteConfig.formEndpoint} method="post">
-      <label>Nombre<input required name="nombre" /><small>Obligatorio.</small></label>
-      <label>Email<input required type="email" name="email" /><small>Obligatorio. Lo usamos para enviarte o habilitar la descarga.</small></label>
-      <label>Empresa<input name="empresa" /><small>Opcional.</small></label>
-      <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")}>política de privacidad</a>.</span></label>
-      <button class="btn btn-primary" type="submit" data-event="descarga_metodo">Descargar método completo</button>
-      <p class="form-help">Archivo preparado en {siteConfig.methodPdfPath}. Si todavía no existe, coloca ahí el PDF cuando esté listo.</p>
-    </form>
-  </div>
+  </section>
 </section>
 
 <script define:vars={{ areas: assessmentAreas, formEndpoint: siteConfig.formEndpoint, methodPdfPath: siteConfig.methodPdfPath }}>
@@ -191,6 +194,14 @@ import { withBase } from "@/utils/paths";
     if (submit instanceof HTMLButtonElement && currentStep === areas.length - 1) submit.disabled = !complete;
   }
 
+  function updateProgress(value = currentStep) {
+    document.querySelectorAll("[data-progress-bar]").forEach((bar) => {
+      if (bar instanceof HTMLElement) {
+        bar.style.width = `${Math.round((value / areas.length) * 100)}%`;
+      }
+    });
+  }
+
   function showStep(step) {
     currentStep = Math.max(0, Math.min(step, areas.length - 1));
     document.querySelectorAll("[data-step]").forEach((panel) => {
@@ -207,6 +218,7 @@ import { withBase } from "@/utils/paths";
     if (next instanceof HTMLButtonElement) next.hidden = currentStep === areas.length - 1;
     if (submit instanceof HTMLButtonElement) submit.hidden = currentStep !== areas.length - 1;
     setWizardError("");
+    updateProgress(currentStep);
     updateStepControls();
   }
 
@@ -286,12 +298,34 @@ import { withBase } from "@/utils/paths";
           .join("");
       }
       updateHiddenFields();
+      updateProgress(areas.length);
       assessment.hidden = true;
       if (result instanceof HTMLElement) result.hidden = false;
       result?.scrollIntoView({ behavior: "smooth", block: "start" });
       window.tdTrackEvent?.("finalizacion_autoevaluacion", { score: state.total });
     });
   }
+
+  document.querySelector("[data-reset-assessment]")?.addEventListener("click", () => {
+    if (!(assessment instanceof HTMLFormElement)) return;
+    assessment.reset();
+    state.areaScores = [];
+    state.total = 0;
+    state.percent = 0;
+    state.level = "";
+    assessment.querySelectorAll('input[type="range"][data-area]').forEach((input) => {
+      if (!(input instanceof HTMLInputElement)) return;
+      input.value = "0";
+      input.dataset.answered = "false";
+      const label = input.closest(".range-answer")?.querySelector("[data-range-label]");
+      if (label) label.textContent = rangeLabels[0];
+    });
+    if (result instanceof HTMLElement) result.hidden = true;
+    assessment.hidden = false;
+    setWizardError("");
+    showStep(0);
+    assessment.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 
   document.querySelector("[data-diagnostic-form]")?.addEventListener("submit", (event) => {
     if (!formEndpoint || formEndpoint.includes("INSERTAR")) {
