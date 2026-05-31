@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="360" viewBox="0 0 560 360" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder de scorecard del método</title>
+  <desc id="desc">Vista previa abstracta de una tarjeta de scoring operativo para sustituir por una imagen final.</desc>
+  <rect width="560" height="360" rx="8" fill="#20242c"/>
+  <rect x="28" y="28" width="504" height="304" rx="8" fill="#292e38" stroke="#3a414d"/>
+  <text x="52" y="70" fill="#4ee58d" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800">Scorecard del método</text>
+  <text x="52" y="99" fill="#f7f8f7" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="900">Impuesto Operativo</text>
+  <g fill="#3a414d">
+    <rect x="52" y="132" width="176" height="14" rx="7"/>
+    <rect x="52" y="174" width="176" height="14" rx="7"/>
+    <rect x="52" y="216" width="176" height="14" rx="7"/>
+    <rect x="52" y="258" width="176" height="14" rx="7"/>
+  </g>
+  <g fill="#4ee58d">
+    <rect x="252" y="132" width="194" height="14" rx="7"/>
+    <rect x="252" y="174" width="132" height="14" rx="7"/>
+    <rect x="252" y="216" width="228" height="14" rx="7"/>
+    <rect x="252" y="258" width="154" height="14" rx="7"/>
+  </g>
+  <circle cx="468" cy="84" r="44" fill="#163620" stroke="#4ee58d"/>
+  <text x="468" y="78" fill="#f7f8f7" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="900">81</text>
+  <text x="468" y="100" fill="#c3cbc7" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12">máx.</text>
+</svg>

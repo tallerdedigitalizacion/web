@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#20242c"/>
+  <g fill="none" stroke="#4ee58d" stroke-opacity=".25" stroke-width="3">
+    <path d="M690 95h300v150H690zM770 190h350v230H770zM590 380h250v145H590z"/>
+    <path d="M690 170H520v300M990 245h100v175M840 454h90"/>
+  </g>
+  <rect x="72" y="72" width="64" height="64" rx="8" fill="#171b22"/>
+  <text x="160" y="114" fill="#f7f8f7" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">Taller de Digitalización</text>
+  <text x="72" y="235" fill="#4ee58d" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800">DIAGNÓSTICO OPERATIVO PARA PYMES</text>
+  <text x="72" y="318" fill="#f7f8f7" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="900">Tu empresa no está</text>
+  <text x="72" y="392" fill="#f7f8f7" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="900">desordenada.</text>
+  <text x="72" y="480" fill="#f7f8f7" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="900">Te está cobrando un</text>
+  <text x="72" y="554" fill="#f7f8f7" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="900">impuesto operativo.</text>
+</svg>

@@ -1,0 +1,34 @@
+---
+import LegalPage from "@/components/LegalPage.astro";
+import { siteConfig } from "@/config/site";
+---
+
+<LegalPage title="Aviso legal" description="Aviso legal de Taller de Digitalización. Texto base pendiente de revisión jurídica.">
+  <section>
+    <h2>Datos identificativos</h2>
+    <p>Este texto legal es una base orientativa. Revisar antes de publicar.</p>
+    <ul>
+      <li>Titular: {siteConfig.legal.owner}</li>
+      <li>NIF/CIF: {siteConfig.legal.taxId}</li>
+      <li>Domicilio fiscal: {siteConfig.legal.address}</li>
+      <li>Email de contacto: {siteConfig.contactEmail}</li>
+      <li>Proveedor de hosting: {siteConfig.legal.hostingProvider}</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Objeto de la web</h2>
+    <p>La web presenta servicios de diagnóstico y acompañamiento para pymes orientados a detectar fricción operativa, dependencia del CEO, procesos invisibles y herramientas mal alineadas.</p>
+  </section>
+  <section>
+    <h2>Uso de la web</h2>
+    <p>La persona usuaria se compromete a usar esta web de forma diligente, lícita y respetuosa. Los formularios deben utilizarse con datos veraces y propios.</p>
+  </section>
+  <section>
+    <h2>Propiedad intelectual</h2>
+    <p>Los textos, diseños, marca, estructura y contenidos son titularidad de {siteConfig.legal.owner} salvo indicación contraria. Queda prohibida su reproducción no autorizada.</p>
+  </section>
+  <section>
+    <h2>Responsabilidad</h2>
+    <p>La información de la web tiene carácter comercial e informativo. No constituye asesoramiento legal, fiscal ni garantía de resultados empresariales.</p>
+  </section>
+</LegalPage>

@@ -1,0 +1,19 @@
+---
+import { siteConfig } from "@/config/site";
+---
+
+<footer class="site-footer">
+  <div class="footer-brand">
+    <img src={siteConfig.logo} alt="Taller de Digitalización" width="48" height="48" loading="lazy" />
+    <div>
+      <strong>{siteConfig.name}</strong>
+      <p>Diagnóstico y reducción de impuesto operativo para pymes.</p>
+    </div>
+  </div>
+  <nav aria-label="Enlaces de pie de página">
+    <a data-event="click_linktree" href={siteConfig.linktreeUrl} target="_blank" rel="noreferrer">Ver hub de enlaces</a>
+    <a href="/aviso-legal">Aviso legal</a>
+    <a href="/politica-privacidad">Política de privacidad</a>
+    <a href="/politica-cookies">Política de cookies</a>
+  </nav>
+</footer>

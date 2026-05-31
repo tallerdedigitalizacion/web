@@ -1,0 +1,27 @@
+---
+import LegalPage from "@/components/LegalPage.astro";
+import { siteConfig } from "@/config/site";
+---
+
+<LegalPage title="Política de cookies" description="Política de cookies de Taller de Digitalización. Texto base pendiente de revisión jurídica.">
+  <section>
+    <h2>Uso de cookies</h2>
+    <p>Texto legal base. Revisar antes de publicar. Esta web utiliza almacenamiento local para recordar preferencias de consentimiento y está preparada para cargar cookies analíticas solo cuando se acepten expresamente.</p>
+  </section>
+  <section>
+    <h2>Cookies necesarias</h2>
+    <p>Permiten recordar la decisión sobre cookies y mantener funciones básicas de la web. No requieren consentimiento analítico.</p>
+  </section>
+  <section>
+    <h2>Cookies analíticas</h2>
+    <p>Google Analytics se cargará únicamente si la persona usuaria acepta cookies analíticas. ID configurado: {siteConfig.googleAnalyticsId}. Si se rechaza, no se carga el script.</p>
+  </section>
+  <section>
+    <h2>Servicios externos</h2>
+    <p>La web puede enlazar o integrar Chatbase ({siteConfig.chatbaseId}), WhatsApp, Calendly, Linktree y formularios externos como Formspree, Netlify Forms o Google Forms. Cada servicio puede aplicar sus propias políticas.</p>
+  </section>
+  <section>
+    <h2>Modificar consentimiento</h2>
+    <p>Para cambiar tu decisión, puedes borrar los datos del sitio desde el navegador y volverá a mostrarse el banner de cookies.</p>
+  </section>
+</LegalPage>

@@ -1,0 +1,13 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+---
+
+<BaseLayout title={`Página no encontrada | ${siteConfig.name}`} description="Página no encontrada." canonicalPath="/404">
+  <section class="section final-cta">
+    <span class="eyebrow">404</span>
+    <h1>Página no encontrada.</h1>
+    <p>La página que buscas no existe o ha cambiado de sitio.</p>
+    <a class="btn btn-primary" href="/">Volver al inicio</a>
+  </section>
+</BaseLayout>

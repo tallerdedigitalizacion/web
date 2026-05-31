@@ -1,0 +1,54 @@
+---
+import { siteConfig } from "@/config/site";
+
+const navItems = [
+  ["Problema", "#problema"],
+  ["Autoevaluación", "#autoevaluacion"],
+  ["Diagnóstico", "#diagnostico"],
+  ["Cómo funciona", "#como-funciona"],
+  ["Precios", "#precios"],
+  ["FAQ", "#faq"],
+];
+---
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Inicio">
+    <img src={siteConfig.logo} alt="Taller de Digitalización" width="48" height="48" />
+  </a>
+  <nav class="desktop-nav" aria-label="Navegación principal">
+    {navItems.map(([label, href]) => <a href={href}>{label}</a>)}
+  </nav>
+  <div class="header-actions">
+    <a class="btn btn-small btn-primary" data-event="click_reservar_llamada" href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada</a>
+    <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+  <nav id="mobile-menu" class="mobile-nav" aria-label="Navegación móvil" hidden>
+    {navItems.map(([label, href]) => <a href={href}>{label}</a>)}
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector(".menu-toggle");
+  const menu = document.querySelector("#mobile-menu");
+
+  if (toggle instanceof HTMLButtonElement && menu instanceof HTMLElement) {
+    const closeMenu = () => {
+      menu.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Abrir menú");
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      menu.hidden = isOpen;
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
+    });
+
+    menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+  }
+</script>
