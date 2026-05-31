@@ -87,16 +87,16 @@ action:
 ];
 
 export const faqItems = [
-  ["¿Esto es una consultoría tecnológica?", "No exactamente. La tecnología puede formar parte del trabajo, pero el punto de partida es entender la operación. Muchas veces el problema no es la herramienta, sino el proceso, la responsabilidad o la dependencia que hay detrás."],
+  ["¿Es esto una consultoría tecnológica?", "No exactamente. La tecnología puede formar parte del trabajo, pero el punto de partida es entender la operación. Muchas veces el problema no es la herramienta, sino el proceso, la responsabilidad o la dependencia que hay detrás."],
   ["¿Qué pasa en la llamada gratuita?", "Durante 30 minutos revisamos tu situación, el tipo de fricción que estás viviendo y si tiene sentido hacer un diagnóstico. Si no veo encaje, te lo diré."],
   ["¿Tengo que tener claro cuál es el problema?", "No. De hecho, muchas veces el problema aparece como sensación: todo pesa, todo pasa por el dueño, las herramientas no ayudan o el equipo pregunta demasiado. El diagnóstico existe para convertir esa sensación en mapa."],
-  ["¿El diagnóstico incluye implementación?", "El diagnóstico inicial incluye mapa, scoring, prioridades, quick wins y roadmap. La implementación se trabaja aparte mediante acompañamiento mensual."],
+  ["¿El diagnóstico incluye implementación?", "El diagnóstico inicial incluye mapa, puntaje, prioridades, 3 implementaciones de alto impacto y una hoja de ruta. La implementación se trabaja aparte mediante acompañamiento mensual."],
   ["¿Puedo contratar solo el diagnóstico?", "Sí. El diagnóstico puede contratarse como producto independiente."],
   ["¿Qué pasa si quiero que solo me configures una herramienta?", "Puede que lo haga si tiene sentido, pero no trabajo bien en vacío. Antes de tocar herramientas necesito entender qué problema operativo están intentando resolver."],
   ["¿Esto sirve para empresas muy pequeñas?", "Depende. Tiene más sentido cuando ya hay cierta complejidad: varias personas, varias herramientas, procesos repetidos, dependencia del dueño o fricción operativa visible."],
   ["¿Garantizas resultados?", "No garantizo resultados mágicos. Sí garantizo un diagnóstico estructurado, claridad, priorización y acompañamiento serio. El avance depende también de la participación del dueño y de la capacidad real de implementar cambios."],
   ["¿Por qué las reuniones son obligatorias?", "Porque este trabajo necesita contexto y decisiones. Si la persona con capacidad de decisión no participa, el diagnóstico se convierte en un documento sin fuerza."],
   ["¿Trabajas presencial o remoto?", "Principalmente remoto. Si hiciera falta presencialidad, se valora según el caso."],
-  ["¿Qué es la Autoevaluación del Impuesto Operativo?", "Es una versión reducida del método de diagnóstico. Sirve para detectar áreas débiles y obtener una primera lectura del estado operativo de la empresa."],
-  ["¿La autoevaluación sustituye el diagnóstico?", "No. La autoevaluación es una primera aproximación. El diagnóstico completo incluye contexto, entrevistas, revisión de herramientas, interpretación y roadmap."],
+  ["¿Qué es la Autoevaluación de Caos Operativo?", "Es una versión reducida del método de diagnóstico. Sirve para que detectes áreas débiles y obtener una primera lectura del estado operativo de la empresa. Pero recuerda ¡contestas las preguntas según tu sesgo!"],
+  ["¿La autoevaluación sustituye el diagnóstico?", "No. La autoevaluación es una primera aproximación. El diagnóstico completo incluye contexto, entrevistas, revisión de herramientas, interpretación y hoja de ruta."],
 ];

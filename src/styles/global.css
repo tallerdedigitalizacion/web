@@ -680,17 +680,112 @@ input {
 
 .compact-form { display: grid; gap: 12px; }
 
-.tag-grid, .card-grid, .pricing-grid, .deliverables-grid {
+.tag-grid, .card-grid, .pricing-grid, .deliverables-grid, .impact-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
-.tag-grid span, .mini-card, .pricing-grid article, .steps article {
+.tag-grid span, .mini-card, .pricing-grid article, .steps article, .diagnostic-card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--paper);
   padding: 18px;
+}
+
+.diagnostic-approach {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.diagnostic-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-height: 280px;
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.diagnostic-card p,
+.impact-grid p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.diagnostic-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(78, 229, 141, 0.38);
+  border-radius: var(--radius);
+  background: rgba(78, 229, 141, 0.1);
+  color: var(--accent);
+}
+
+.diagnostic-icon svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.section-subhead {
+  margin: clamp(34px, 6vw, 54px) 0 18px;
+}
+
+.section-subhead h3 {
+  max-width: 640px;
+  margin-bottom: 0;
+  font-size: clamp(1.45rem, 3vw, 2.1rem);
+}
+
+.deliverables-flow {
+  display: grid;
+  gap: clamp(22px, 4vw, 34px);
+}
+
+.deliverables-row {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.25fr);
+  gap: clamp(18px, 4vw, 34px);
+  align-items: stretch;
+}
+
+.deliverables-row-followup {
+  grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.9fr);
+}
+
+.deliverables-visual {
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--dark);
+  box-shadow: var(--shadow);
+}
+
+.deliverables-visual img {
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  object-fit: cover;
+}
+
+.deliverables-row .deliverables-grid {
+  grid-template-columns: repeat(2, 1fr);
+  align-content: stretch;
+}
+
+.followup-card {
+  display: grid;
+  align-content: center;
+  min-height: 300px;
+  padding: clamp(22px, 4vw, 34px);
 }
 
 .steps {
@@ -761,7 +856,7 @@ input {
 
 .callout { padding: clamp(26px, 5vw, 42px); }
 
-.honest-note { margin-top: 24px; padding: 20px; }
+.honest-note { margin: 24px auto; padding: 20px; }
 
 .pricing-grid article strong {
   display: block;
@@ -985,8 +1080,8 @@ details p {
   .desktop-nav { display: none; }
   .menu-toggle { display: block; }
   .header-actions { margin-left: auto; }
-  .section-split, .two-columns, .method-download, .steps, .result-summary { grid-template-columns: 1fr; }
-  .tag-grid, .card-grid, .pricing-grid, .deliverables-grid, .problem-card-grid { grid-template-columns: repeat(2, 1fr); }
+  .section-split, .two-columns, .method-download, .steps, .result-summary, .diagnostic-approach, .deliverables-row, .deliverables-row-followup { grid-template-columns: 1fr; }
+  .tag-grid, .card-grid, .pricing-grid, .deliverables-grid, .impact-grid, .problem-card-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
@@ -998,7 +1093,9 @@ details p {
   .hero-content p { margin-left: auto; margin-right: auto; }
   .hero-actions { justify-content: center; }
   .question { grid-template-columns: 1fr; }
-  .form-grid, .tag-grid, .card-grid, .pricing-grid, .deliverables-grid, .problem-card-grid, .bar-row { grid-template-columns: 1fr; }
+  .form-grid, .tag-grid, .card-grid, .pricing-grid, .deliverables-grid, .impact-grid, .problem-card-grid, .bar-row { grid-template-columns: 1fr; }
+  .deliverables-row .deliverables-grid { grid-template-columns: 1fr; }
+  .deliverables-visual img { min-height: 240px; }
   .problem-card { min-height: 220px; }
   .problem-card-face { min-height: 220px; }
   .problem-card-solution { padding: 28px 22px; }

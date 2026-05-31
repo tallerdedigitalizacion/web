@@ -1,6 +1,6 @@
 # Taller de Digitalización
 
-Landing page estática en Astro para vender el diagnóstico del Impuesto Operativo y captar leads mediante una autoevaluación interactiva.
+Landing page estática en Astro para vender el diagnóstico de Caos Operativo y captar leads mediante una autoevaluación interactiva.
 
 ## Comandos
 

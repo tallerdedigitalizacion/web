@@ -2,10 +2,18 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SelfAssessment from "@/components/SelfAssessment.astro";
 import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
 import { revealRows, faqItems } from "@/data/content";
 import { reviews } from "@/data/reviews";
 
-const diagnosticAreas = ["Dirección y alineamiento", "Procesos y flujos de trabajo", "Sistema de soporte", "Operación técnica", "Identidad digital", "Gobernanza de datos", "Trazabilidad", "Seguridad", "Automatización y personalización", "Dependencia del CEO", "Herramientas y costes operativos", "Capacidad real de delegación"];
+const impactItems = [
+  ["Desacoplar al CEO de la operativa", "Reducir la dependencia diaria del dueño para que no todo tenga que pasar por su cabeza."],
+  ["Estructurar lo que ya existe", "Ordenar roles, herramientas, procesos y responsabilidades sin cambiarlo todo desde cero."],
+  ["Liberar carga operativa", "Detectar tareas que se pueden eliminar, delegar o automatizar."],
+  ["Ganar control", "Ver qué está pasando, quién hace qué y dónde se atascan las decisiones."],
+  ["Encontrar qué delegar", "Separar lo que solo puede decidir el dueño de lo que debería vivir en un proceso."],
+  ["Priorizar con criterio", "Decidir qué atacar primero según impacto, esfuerzo y riesgo."],
+];
 ---
 
 <BaseLayout>
@@ -89,11 +97,48 @@ const diagnosticAreas = ["Dirección y alineamiento", "Procesos y flujos de trab
   <section id="diagnostico" class="section">
     <div class="section-head">
       <span class="eyebrow">Qué hago</span>
-      <h2>Diagnóstico del Impuesto Operativo</h2>
-      <p>Primero escucho. No parto de una herramienta ni de una receta. Identifico qué problemas duelen más, cuáles son más prácticos de atacar y dónde puede haber mayor retorno con menor esfuerzo.</p>
-      <p>Después cruzo ese contexto con las áreas que analizo para decidir por dónde empezar. El objetivo no es documentarlo todo ni cambiarlo todo: es crear estructura donde más falta hace, definiendo roles, organización y procesos que reduzcan dependencia del CEO y permitan sacar al dueño de la operativa diaria de forma escalable.</p>
+      <h2>Diagnóstico de Caos Operativo</h2>
     </div>
-    <div class="tag-grid">{diagnosticAreas.map((item) => <span>{item}</span>)}</div>
+    <div class="diagnostic-approach">
+      <article class="diagnostic-card">
+        <span class="diagnostic-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M8.5 10.2a3.5 3.5 0 0 1 7 0c0 4.2-5 4-5 7.3a2.5 2.5 0 0 0 4.4 1.6" />
+            <path d="M5 9.8a7 7 0 0 1 14 0" />
+            <path d="M2.5 9.8a9.5 9.5 0 0 1 19 0" />
+          </svg>
+        </span>
+        <h3>1. Primero escucho</h3>
+        <p>No parto de una herramienta ni de una receta. Primero entiendo qué problemas duelen más, cuáles son más prácticos de atacar y dónde puede haber mayor retorno con menor esfuerzo.</p>
+      </article>
+      <article class="diagnostic-card">
+        <span class="diagnostic-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 6h5l3 3h8" />
+            <path d="M4 18h5l3-3h8" />
+            <path d="M12 9v6" />
+            <circle cx="4" cy="6" r="2" />
+            <circle cx="4" cy="18" r="2" />
+            <circle cx="20" cy="9" r="2" />
+            <circle cx="20" cy="15" r="2" />
+          </svg>
+        </span>
+        <h3>2. Cruzo contexto con método</h3>
+        <p>Después cruzo lo que escucho con las áreas que analiza mi método para decidir por dónde empezar. El objetivo no es documentarlo todo ni cambiarlo todo: es crear estructura donde más falta hace.</p>
+      </article>
+    </div>
+    <div class="section-subhead">
+      <span class="eyebrow">Cómo impacta</span>
+      <h3>Menos carga diaria, más capacidad de dirección.</h3>
+    </div>
+    <div class="impact-grid">
+      {impactItems.map(([title, text]) => (
+        <article class="mini-card">
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
   </section>
 
   <section id="como-funciona" class="section section-accent">
@@ -108,7 +153,7 @@ const diagnosticAreas = ["Dirección y alineamiento", "Procesos y flujos de trab
         <div class="step-facts">
           <p><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7H14.5a3.5 3.5 0 0 1 0 7H6" /></svg><strong>Gratis</strong></p>
           <p><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg><strong>30 min</strong></p>
-          <p><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></svg><span>Entender si hay margen, y cuánto, para una intervención de alto valor.</span></p>
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></svg><span>Entender si hay margen de mejora, y cuánto, para una intervención de alto impacto.</span></p>
         </div>
       </article>
       <article>
@@ -133,38 +178,57 @@ const diagnosticAreas = ["Dirección y alineamiento", "Procesos y flujos de trab
   </section>
 
   <section class="section">
-    <div class="section-head"><span class="eyebrow">Entregables</span><h2>Qué recibes</h2></div>
-    <div class="deliverables-grid">
-      <article class="mini-card">
-        <span class="eyebrow">Llamada</span>
-        <h3>Claridad para decidir el siguiente paso</h3>
-        <p>Sales con una lectura honesta de si hace falta diagnóstico, acompañamiento o si no tiene sentido intervenir ahora.</p>
-      </article>
-      <article class="mini-card">
-        <span class="eyebrow">Diagnóstico</span>
-        <h3>Scorecard actual e ideal</h3>
-        <p>Un scorecard del estado actual y otro del estado al que debería acercarse la empresa según su madurez operativa.</p>
-      </article>
-      <article class="mini-card">
-        <span class="eyebrow">Diagnóstico</span>
-        <h3>3 cambios con mayor ROI</h3>
-        <p>Priorización de los cambios con mayor retorno relativo, evitando empezar por lo vistoso si no mueve la aguja.</p>
-      </article>
-      <article class="mini-card">
-        <span class="eyebrow">Diagnóstico</span>
-        <h3>Riesgos y consecuencias</h3>
-        <p>Lista clara de riesgos operativos, qué consecuencias pueden tener y qué pasa si se dejan como están.</p>
-      </article>
-      <article class="mini-card">
-        <span class="eyebrow">Diagnóstico</span>
-        <h3>Plan de ataque</h3>
-        <p>Un plan para atacar los problemas priorizados, con o sin acompañamiento posterior.</p>
-      </article>
+    <div class="section-head">
+      <span class="eyebrow">Entregables</span>
+      <h2>Qué recibes</h2>
+      <p>El diagnóstico no es una lista de deseos ni una colección de recomendaciones sueltas. Es una forma de entender dónde está la empresa, dónde debería estar y qué conviene hacer primero.</p>
+    </div>
+    <div class="deliverables-flow">
+      <div class="deliverables-row deliverables-row-diagnosis">
+        <div class="deliverables-visual">
+          <img src={withBase("/doctor-diagnostico.svg")} alt="Doctor haciendo un diagnóstico operativo" loading="lazy" width="900" height="640" />
+        </div>
+        <div class="deliverables-grid">
+          <article class="mini-card">
+            <span class="eyebrow">Punta A</span>
+            <h3>Un mapa de dónde está</h3>
+            <p>Una lectura clara del estado operativo actual: dependencias, fricciones, herramientas, roles, procesos y puntos de bloqueo.</p>
+          </article>
+          <article class="mini-card">
+            <span class="eyebrow">Punta B</span>
+            <h3>El punto donde debería estar</h3>
+            <p>Una referencia realista del nivel operativo al que debería acercarse la empresa según su madurez, tamaño y complejidad.</p>
+          </article>
+          <article class="mini-card">
+            <span class="eyebrow">Ruta</span>
+            <h3>Qué hacer y en qué orden</h3>
+            <p>Una priorización según impacto, esfuerzo y riesgo para evitar empezar por lo más vistoso si no mueve la aguja.</p>
+          </article>
+          <article class="mini-card">
+            <span class="eyebrow">Primeros pasos</span>
+            <h3>3 implementaciones de alto impacto</h3>
+            <p>Tres acciones concretas para atacar primero los puntos con mayor retorno operativo.</p>
+          </article>
+        </div>
+      </div>
+      <div class="deliverables-row deliverables-row-followup">
+        <article class="mini-card followup-card">
+          <span class="eyebrow">Seguimiento</span>
+          <h3>Guía, ayuda o ejecución del plan</h3>
+          <p>En el acompañamiento se guía, se ayuda o se ejecuta el plan según lo que se acuerde y lo que realmente necesite la empresa.</p>
+        </article>
+        <div class="deliverables-visual">
+          <img src={withBase("/doctor-tratamiento.svg")} alt="Doctor aplicando un tratamiento operativo" loading="lazy" width="900" height="640" />
+        </div>
+      </div>
+      <div class="honest-note">
+        <p>La expectativa es parecida a ir al médico: no vas para cambiarte todas las partes del cuerpo, sino para entender qué está limitando el funcionamiento, mejorar lo que ya tienes y optimizar el sistema para operar mejor. Este proceso busca lo mismo aplicado a la empresa.</p>
+      </div>
     </div>
   </section>
 
   <section class="section section-split dark-band">
-    <div><span class="eyebrow">Límites claros</span><h2>Esto no es otra capa de consultoría decorativa.</h2><p>Si solo quieres que alguien ejecute tareas sin cuestionar el sistema, probablemente no soy la persona adecuada.</p></div>
+    <div><span class="eyebrow">Límites claros</span><h2>Esto no es otra capa de consultoría decorativa.</h2><p>Si solo quieres que alguien ejecute tareas sin cuestionar el sistema, no soy la persona adecuada.</p></div>
     <ul class="plain-list"><li>No es soporte técnico externo.</li><li>No es venderte un ERP.</li><li>No es automatizar por automatizar.</li><li>No es inteligencia artificial como moda.</li><li>No es coaching motivacional.</li><li>No es una auditoría para llenar un PDF y desaparecer.</li><li>No es prometer que vas a vender más.</li><li>No es decirte lo que quieres escuchar.</li></ul>
   </section>
 
