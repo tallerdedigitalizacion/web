@@ -5,6 +5,7 @@ import Footer from "@/components/Footer.astro";
 import CookieBanner from "@/components/CookieBanner.astro";
 import Chatbase from "@/components/Chatbase.astro";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
+import { withBase } from "@/utils/paths";
 import "@/styles/global.css";
 
 const {
@@ -13,8 +14,10 @@ const {
   canonicalPath = "/",
 } = Astro.props;
 
-const canonical = new URL(canonicalPath, siteConfig.publicUrl).toString();
-const ogImage = new URL(siteConfig.ogImage, siteConfig.publicUrl).toString();
+const origin = Astro.site ?? new URL(siteConfig.publicUrl).origin;
+const absoluteUrl = (path: string) => new URL(withBase(path), origin).toString();
+const canonical = absoluteUrl(canonicalPath);
+const ogImage = absoluteUrl(siteConfig.ogImage);
 const schema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -22,7 +25,7 @@ const schema = {
   description: "Consultoría para reducir caos operativo, dependencia del CEO y fricción en pymes.",
   areaServed: ["España", "Remoto"],
   url: siteConfig.publicUrl,
-  logo: new URL(siteConfig.logo, siteConfig.publicUrl).toString(),
+  logo: absoluteUrl(siteConfig.logo),
   sameAs: [siteConfig.linktreeUrl],
 };
 ---
@@ -44,8 +47,8 @@ const schema = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+    <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={withBase("/apple-touch-icon.svg")} />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>

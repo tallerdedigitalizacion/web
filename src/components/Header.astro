@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
 
 const navItems = [
   ["Problema", "#problema"],
@@ -12,8 +13,8 @@ const navItems = [
 ---
 
 <header class="site-header">
-  <a class="brand" href="/" aria-label="Inicio">
-    <img src={siteConfig.logo} alt="Taller de Digitalización" width="48" height="48" />
+  <a class="brand" href={withBase("/")} aria-label="Inicio">
+    <img src={withBase(siteConfig.logo)} alt="Taller de Digitalización" width="48" height="48" />
   </a>
   <nav class="desktop-nav" aria-label="Navegación principal">
     {navItems.map(([label, href]) => <a href={href}>{label}</a>)}

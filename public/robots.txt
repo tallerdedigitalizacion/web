@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tallerdedigitalizacion.com/sitemap.xml
+Sitemap: https://tallerdedigitalizacion.github.io/web/sitemap.xml

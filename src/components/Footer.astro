@@ -1,10 +1,11 @@
 ---
 import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
 ---
 
 <footer class="site-footer">
   <div class="footer-brand">
-    <img src={siteConfig.logo} alt="Taller de Digitalización" width="48" height="48" loading="lazy" />
+    <img src={withBase(siteConfig.logo)} alt="Taller de Digitalización" width="48" height="48" loading="lazy" />
     <div>
       <strong>{siteConfig.name}</strong>
       <p>Diagnóstico y reducción de impuesto operativo para pymes.</p>
@@ -12,8 +13,8 @@ import { siteConfig } from "@/config/site";
   </div>
   <nav aria-label="Enlaces de pie de página">
     <a data-event="click_linktree" href={siteConfig.linktreeUrl} target="_blank" rel="noreferrer">Ver hub de enlaces</a>
-    <a href="/aviso-legal">Aviso legal</a>
-    <a href="/politica-privacidad">Política de privacidad</a>
-    <a href="/politica-cookies">Política de cookies</a>
+    <a href={withBase("/aviso-legal")}>Aviso legal</a>
+    <a href={withBase("/politica-privacidad")}>Política de privacidad</a>
+    <a href={withBase("/politica-cookies")}>Política de cookies</a>
   </nav>
 </footer>

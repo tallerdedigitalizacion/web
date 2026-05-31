@@ -171,7 +171,7 @@ img { max-width: 100%; height: auto; display: block; }
   padding: clamp(64px, 9vw, 110px) clamp(18px, 5vw, 56px) 72px;
   background:
     linear-gradient(90deg, rgba(32, 36, 44, 0.98) 0%, rgba(32, 36, 44, 0.9) 58%, rgba(32, 36, 44, 0.72) 100%),
-    url("/hero-texture.svg") center / cover no-repeat;
+    url("../hero-texture.svg") center / cover no-repeat;
 }
 
 .hero-content {

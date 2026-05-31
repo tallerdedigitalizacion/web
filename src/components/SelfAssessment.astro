@@ -1,6 +1,7 @@
 ---
 import { assessmentAreas } from "@/data/selfAssessment";
 import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
 ---
 
 <section id="autoevaluacion" class="section section-accent">
@@ -99,7 +100,7 @@ import { siteConfig } from "@/config/site";
 
   <div class="method-download">
     <div class="method-copy">
-      <img class="method-scorecard" src="/scorecard-placeholder.svg" alt="Vista previa del scorecard del método" loading="lazy" width="560" height="360" />
+      <img class="method-scorecard" src={withBase("/scorecard-placeholder.svg")} alt="Vista previa del scorecard del método" loading="lazy" width="560" height="360" />
       <span class="eyebrow">Marco de trabajo</span>
       <h3>Descarga el método completo</h3>
       <p>Si quieres revisar el método completo con todas las áreas de auditoría, puedes descargar una versión resumida del marco de trabajo.</p>
@@ -108,7 +109,7 @@ import { siteConfig } from "@/config/site";
       <label>Nombre<input required name="nombre" /><small>Obligatorio.</small></label>
       <label>Email<input required type="email" name="email" /><small>Obligatorio. Lo usamos para enviarte o habilitar la descarga.</small></label>
       <label>Empresa<input name="empresa" /><small>Opcional.</small></label>
-      <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href="/politica-privacidad">política de privacidad</a>.</span></label>
+      <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")}>política de privacidad</a>.</span></label>
       <button class="btn btn-primary" type="submit" data-event="descarga_metodo">Descargar método completo</button>
       <p class="form-help">Archivo preparado en {siteConfig.methodPdfPath}. Si todavía no existe, coloca ahí el PDF cuando esté listo.</p>
     </form>
