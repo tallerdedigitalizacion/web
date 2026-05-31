@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Taller de Digitalización",
-  seoTitle: "Diagnóstico del Impuesto Operativo para Pymes | Taller de Digitalización",
+  seoTitle: "Diagnóstico del Impuesto Operativo para PyMEs | Taller de Digitalización",
   seoDescription:
-    "Ayudo a CEOs de pymes a detectar y reducir el impuesto operativo: procesos invisibles, dependencia del dueño, herramientas mal alineadas y fricción que impide avanzar.",
+    "Ayudo a CEOs de PyMEs a detectar y reducir el impuesto operativo: procesos invisibles, dependencia del dueño, herramientas mal alineadas y fricción que impide avanzar.",
   publicUrl: "https://tallerdedigitalizacion.com",
   bookingUrl: "https://calendly.com/tallerdedigitalizacion-info/30min",
   linktreeUrl: "https://linktr.ee/tallerdedigitalizacion",

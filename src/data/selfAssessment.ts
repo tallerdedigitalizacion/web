@@ -2,7 +2,7 @@ export const assessmentAreas = [
   {
     name: "Dirección y alineamiento",
     questions: [
-      "¿Existe una reunión periódica de dirección con agenda, decisiones registradas y seguimiento?",
+      "¿Existe una reunión periódica con los equipos de dirección con agenda, decisiones registradas y seguimiento?",
       "¿La empresa tiene objetivos estratégicos visibles y revisados periódicamente?",
       "¿El CEO dedica más tiempo a dirigir que a apagar fuegos operativos?",
     ],
@@ -58,7 +58,7 @@ export const assessmentAreas = [
   {
     name: "Seguridad",
     questions: [
-      "¿Los sistemas críticos tienen MFA y políticas básicas de acceso?",
+      "¿Los sistemas críticos tienen MFA (2FA) y políticas básicas de acceso?",
       "¿La empresa usa gestor de contraseñas corporativo o controlado?",
       "¿Existe un procedimiento definido ante pérdida de cuenta, acceso indebido o incidente de seguridad?",
     ],

@@ -1,49 +1,89 @@
+
 export const revealRows = [
-  {
-    says: "Todo pasa por mí.",
-    reveals: "Dependencia estructural del CEO. La empresa no tiene suficiente autonomía operativa.",
-    action:
-      "Medir dónde se concentra la dependencia, identificar procesos que viven en tu cabeza y diseñar un plan para delegar sin perder control.",
-  },
-  {
-    says: "Necesito contratar a alguien.",
-    reveals:
-      "Puede que falte capacidad, pero también puede que el sistema actual esté desperdiciando la capacidad que ya tienes.",
-    action: "Revisar procesos, roles, herramientas y carga operativa antes de sumar más personas al caos.",
-  },
-  {
-    says: "Necesito automatizar.",
-    reveals: "Si automatizas sin proceso, automatizas caos.",
-    action:
-      "Detectar qué tareas son realmente repetitivas, qué procesos necesitan rediseño previo y qué automatizaciones tienen sentido.",
-  },
-  {
-    says: "El equipo me pregunta todo.",
-    reveals: "Falta de documentación, falta de criterio operativo compartido o responsabilidades mal definidas.",
-    action:
-      "Crear claridad sobre quién decide qué, qué procesos deben documentarse y qué información debe estar accesible sin depender de memoria humana.",
-  },
-  {
-    says: "Pago herramientas, pero seguimos igual.",
-    reveals: "La tecnología está siendo usada como parche, no como sistema.",
-    action: "Auditar el stack actual, eliminar duplicidades y alinear herramientas con procesos reales.",
-  },
-  {
-    says: "Estamos creciendo, pero cada vez vamos peor.",
-    reveals: "La empresa llegó al límite de su diseño operativo actual.",
-    action:
-      "Medir el estado real del sistema y crear un roadmap de 90 días para reducir fricción, dependencia y carga innecesaria.",
-  },
-  {
-    says: "Los proveedores mantienen, pero nadie empuja.",
-    reveals: "La empresa está pagando mantenimiento operativo, pero no tiene dirección estructural de mejora.",
-    action: "Separar mantenimiento de progreso, priorizar intervenciones y definir qué cambios tienen impacto real.",
-  },
-  {
-    says: "No sé por dónde empezar.",
-    reveals: "El problema no es falta de trabajo. Es falta de mapa.",
-    action: "Construir un diagnóstico estructurado con scoring, prioridades y próximos pasos claros.",
-  },
+{
+says: "Todo depende de mí.",
+reveals:
+"La empresa depende demasiado del CEO porque faltan procesos, estructura y organización.",
+action:
+"Sacar el trabajo de la cabeza del CEO, ordenar las áreas, definir procesos claros y repartir responsabilidades.",
+},
+{
+says: "Necesito contratar más gente.",
+reveals:
+"El equipo está sobrecargado, pero no está claro si el problema se arregla con más personas o con mejor organización.",
+action:
+"Revisar dónde se pierde tiempo, qué tareas sobran, qué se puede ordenar o automatizar antes de sumar más gente al caos.",
+},
+{
+says: "Necesito automatizar esto.",
+reveals:
+"Hay tareas repetidas, cansadas o propensas a errores, pero no siempre está claro si conviene automatizarlas.",
+action:
+"Verificar si la tarea se repite de verdad, si tiene reglas claras y si automatizarla ahorra más de lo que cuesta.",
+},
+{
+says: "No sé por dónde empezar.",
+reveals:
+"Todo está mezclado en la cabeza del CEO y cualquier cambio parece tocar demasiadas cosas a la vez.",
+action:
+"Empezar por lo que más duele, ordenar ese problema primero y avanzar desde ahí con pasos concretos.",
+},
+{
+says: "Necesitamos esta herramienta para funcionar mejor.",
+reveals:
+"Se espera que una herramienta arregle un problema que todavía no está bien entendido ni ordenado.",
+action:
+"Definir primero el proceso manual paso a paso y luego elegir la herramienta que mejor lo acompañe.",
+},
+{
+says: "Tengo que aprender cómo funciona esto.",
+reveals:
+"El CEO no confía en delegar porque ya tuvo malas experiencias con personas, herramientas o proveedores.",
+action:
+"Crear pequeñas pruebas controladas para recuperar control sin que el CEO tenga que entender todos los detalles técnicos.",
+},
+{
+says: "Siempre los tengo que perseguir.",
+reveals:
+"Faltan comunicación, coordinación, fechas claras y responsabilidad compartida.",
+action:
+"Crear una forma simple de coordinar trabajo, revisar avances y evitar que todo dependa de perseguir a la gente.",
+},
+{
+says: "Estoy todo el día apagando fuegos.",
+reveals:
+"La empresa funciona reaccionando a problemas porque no hay suficiente orden antes de ejecutar.",
+action:
+"Separar urgencias de problemas de fondo, definir procesos claros y evitar que todo llegue al CEO como emergencia.",
+},
+{
+says: "La informática nunca funciona.",
+reveals:
+"La tecnología está haciendo más rápido un proceso que ya venía mal definido desde antes.",
+action:
+"Volver un paso atrás, aclarar cómo debería funcionar el proceso y usar tecnología solo donde haya reglas claras.",
+},
+{
+says: "Aquí todos hacemos de todo.",
+reveals:
+"La falta de roles está normalizada y eso genera confusión, errores y trabajo duplicado.",
+action:
+"Definir quién se ocupa de qué, cómo se coordina el trabajo y qué límites necesita cada rol para operar mejor.",
+},
+{
+says: "Si no lo hago yo, no lo hacen.",
+reveals:
+"El CEO está empujando cada tarea en vez de dirigir con reglas, límites y responsabilidades claras.",
+action:
+"Crear normas simples, fechas claras e incentivos para que el equipo se organice sin depender de presión constante.",
+},
+{
+  says: "Todas las empresas me quieren encajar en una plantilla.",
+  reveals:
+    "La empresa carece de procesos estructurados para acoplarse a sistemas externos, por eso cualquier solución se percibe como rígida.",
+  action:
+    "Crear una interfaz operativa entre la empresa y la solución encontrando los puntos de conexión antes de adaptar o implementar una plantilla.",
+},
 ];
 
 export const faqItems = [

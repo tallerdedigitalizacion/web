@@ -7,8 +7,8 @@ import { withBase } from "@/utils/paths";
 <section id="autoevaluacion" class="section section-accent">
   <div class="section-head">
     <span class="eyebrow">Autoevaluación</span>
-    <h2>Haz la Autoevaluación del Impuesto Operativo</h2>
-    <p>Responde el wizard completo y verás tu resultado al instante. Después podrás descargar tu diagnóstico y acceder al marco de trabajo completo del método.</p>
+    <h2>Autoevalua tu Caos Operativo</h2>
+    <p>Responde todas las preguntas y verás tu resultado frente a nuetro método al instante. Podrás descargar tu diagnóstico y el método de trabajo completo.</p>
   </div>
 
   <form class="assessment" data-assessment>
@@ -17,7 +17,7 @@ import { withBase } from "@/utils/paths";
         <legend class="sr-only">{area.name}</legend>
         <div class="wizard-head" aria-live="polite">
           <div>
-            <span class="eyebrow">Paso {areaIndex + 1} de {assessmentAreas.length}</span>
+            <span class="eyebrow">Área {areaIndex + 1} de {assessmentAreas.length}</span>
             <h3>{area.name}</h3>
           </div>
           <div class="wizard-progress" aria-hidden="true">
@@ -54,7 +54,7 @@ import { withBase } from "@/utils/paths";
     <div class="form-actions">
       <button class="btn btn-secondary" type="button" data-prev-step>Anterior</button>
       <button class="btn btn-primary" type="button" data-next-step>Siguiente área</button>
-      <button class="btn btn-primary" type="submit" data-submit-assessment hidden>Calcular mi impuesto operativo</button>
+      <button class="btn btn-primary" type="submit" data-submit-assessment hidden>Resultado de Caos Operativo</button>
     </div>
   </form>
 
@@ -86,13 +86,12 @@ import { withBase } from "@/utils/paths";
       <p>Deja tus datos para generar una versión imprimible del resultado. Sin backend configurado, se abrirá un informe local para imprimir o guardar como PDF.</p>
       <form data-diagnostic-form action={siteConfig.formEndpoint} method="post">
         <div class="form-grid">
-          <label>Nombre<input required name="nombre" autocomplete="name" /></label>
-          <label>Email<input required type="email" name="email" autocomplete="email" /></label>
-          <label>Empresa<input required name="empresa" autocomplete="organization" /></label>
-          <label>Cargo<input required name="cargo" autocomplete="organization-title" /></label>
+          <label>Nombre<input required name="nombre" autocomplete="name" /><small>Obligatorio.</small></label>
+          <label>Email<input required type="email" name="email" autocomplete="email" /><small>Obligatorio. Lo usamos para enviarte la descarga.</small></label>
+          <label>Empresa<input required name="empresa" autocomplete="organization" /><small>Opcional.</small></label>
+          <label>Cargo<input required name="cargo" autocomplete="organization-title" /><small>Opcional.</small></label>
         </div>
         <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")}>política de privacidad</a>.</span></label>
-        <label class="check"><input type="checkbox" name="comunicaciones" /> Quiero recibir comunicaciones relacionadas con el diagnóstico operativo.</label>
         <input type="hidden" name="score_total" data-hidden-score />
         <input type="hidden" name="areas" data-hidden-areas />
         <button class="btn btn-secondary" type="submit" data-event="descarga_diagnostico">Descargar mi diagnóstico</button>
@@ -108,7 +107,7 @@ import { withBase } from "@/utils/paths";
       </div>
       <form class="compact-form" data-method-form action={siteConfig.formEndpoint} method="post">
         <label>Nombre<input required name="nombre" /><small>Obligatorio.</small></label>
-        <label>Email<input required type="email" name="email" /><small>Obligatorio. Lo usamos para enviarte o habilitar la descarga.</small></label>
+        <label>Email<input required type="email" name="email" /><small>Obligatorio. Lo usamos para enviarte la descarga.</small></label>
         <label>Empresa<input name="empresa" /><small>Opcional.</small></label>
         <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")}>política de privacidad</a>.</span></label>
         <button class="btn btn-primary" type="submit" data-event="descarga_metodo">Descargar método completo</button>
