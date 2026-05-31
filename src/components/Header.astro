@@ -34,8 +34,9 @@ const navItems = [
 <script>
   const toggle = document.querySelector(".menu-toggle");
   const menu = document.querySelector("#mobile-menu");
+  const header = document.querySelector(".site-header");
 
-  if (toggle instanceof HTMLButtonElement && menu instanceof HTMLElement) {
+  if (toggle instanceof HTMLButtonElement && menu instanceof HTMLElement && header instanceof HTMLElement) {
     const closeMenu = () => {
       menu.hidden = true;
       toggle.setAttribute("aria-expanded", "false");
@@ -50,5 +51,16 @@ const navItems = [
     });
 
     menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      if (isOpen && !header.contains(target)) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
   }
 </script>
