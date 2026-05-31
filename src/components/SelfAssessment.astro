@@ -55,7 +55,6 @@ import { withBase } from "@/utils/paths";
       <button class="btn btn-secondary" type="button" data-prev-step>Anterior</button>
       <button class="btn btn-primary" type="button" data-next-step>Siguiente área</button>
       <button class="btn btn-primary" type="submit" data-submit-assessment hidden>Calcular mi impuesto operativo</button>
-      <p class="form-help">Puedes calcular el resultado sin dejar tus datos. Para descargarlo o recibir el método completo, sí pediremos email.</p>
     </div>
   </form>
 
@@ -100,10 +99,10 @@ import { withBase } from "@/utils/paths";
 
   <div class="method-download">
     <div class="method-copy">
-      <img class="method-scorecard" src={withBase("/scorecard-placeholder.svg")} alt="Vista previa del scorecard del método" loading="lazy" width="560" height="360" />
       <span class="eyebrow">Marco de trabajo</span>
       <h3>Descarga el método completo</h3>
       <p>Si quieres revisar el método completo con todas las áreas de auditoría, puedes descargar una versión resumida del marco de trabajo.</p>
+      <img class="method-scorecard" src={withBase("/scorecard-placeholder.svg")} alt="Vista previa del scorecard del método" loading="lazy" width="560" height="360" />
     </div>
     <form class="compact-form" data-method-form action={siteConfig.formEndpoint} method="post">
       <label>Nombre<input required name="nombre" /><small>Obligatorio.</small></label>

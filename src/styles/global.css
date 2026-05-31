@@ -87,7 +87,7 @@ img { max-width: 100%; height: auto; display: block; }
 .desktop-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
   gap: 18px;
   flex: 1;
 }
@@ -175,7 +175,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .hero-content {
-  width: min(850px, 100%);
+  width: min(1180px, 100%);
   margin: 0 auto;
 }
 
@@ -312,7 +312,7 @@ h3 { font-size: 1.22rem; line-height: 1.25; }
 
 .problem-card-face {
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 4fr 6fr;
   align-content: stretch;
   align-items: start;
   min-width: 0;

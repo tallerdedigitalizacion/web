@@ -26,15 +26,15 @@ const diagnosticAreas = ["Dirección y alineamiento", "Procesos y flujos de trab
   <section id="problema" class="section">
     <div class="section-head">
       <span class="eyebrow">Problema</span>
-      <h2>Lo que tú dices vs. lo que normalmente revela</h2>
-      <p>Haz click en cada tarjeta para ver qué suele esconder esa frase y qué se puede hacer después.</p>
+      <h2>Lo que dices vs. lo que revela</h2>
+      <p>Haz click en cada tarjeta para ver qué suele esconder ese dolor y cual es la solución.</p>
     </div>
     <div class="problem-card-grid" aria-label="Frases habituales y diagnóstico operativo">
       {revealRows.map((row) => (
         <article class="problem-card" data-problem-card data-state="front" tabindex="0" aria-label={`Frase: ${row.says}. Pasa el mouse o pulsa Significa para ver qué revela.`}>
           <div class="problem-card-slider">
             <div class="problem-card-face problem-card-front">
-              <span class="problem-card-label">Lo que tú dices</span>
+              <span class="problem-card-label">Lo que dices</span>
               <strong>“{row.says}”</strong>
               <button class="problem-card-action" type="button" data-card-meaning>
                 <span>Significa</span>
@@ -60,7 +60,7 @@ const diagnosticAreas = ["Dirección y alineamiento", "Procesos y flujos de trab
                 <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
               </svg>
             </button>
-            <span class="problem-card-label">Lo que podemos hacer</span>
+            <span class="problem-card-label">Lo que hacemos</span>
             <p>{row.action}</p>
           </div>
         </article>
@@ -178,16 +178,6 @@ const diagnosticAreas = ["Dirección y alineamiento", "Procesos y flujos de trab
     <div class="section-head"><span class="eyebrow">Resultado esperado</span><h2>El resultado es recuperar capacidad de dirección.</h2><p>El lenguaje del CEO es ROI: tiempo, foco, margen de maniobra y capacidad de crecer sin que cada avance añada más caos. El objetivo no es una empresa perfecta. Es una empresa que se puede sostener sin convertirse en una jaula.</p></div>
     <div class="tag-grid"><span>Más tiempo para decisiones importantes</span><span>Menos dependencia operativa del CEO</span><span>Mayor capacidad de sostener crecimiento</span><span>Problemas priorizados por retorno</span><span>Más paz para dirigir con criterio</span><span>Menos energía perdida en fricción diaria</span><span>Roles y procesos más claros</span><span>Menos decisiones reactivas</span><span>Más foco en lo que mueve el negocio</span></div>
     <div class="honest-note"><p>El diagnóstico busca detectar dónde se está perdiendo capacidad y qué cambios tienen más sentido económico y operativo. El acompañamiento apunta a desbloquear crecimiento y devolver tiempo de calidad al CEO, siempre condicionado a contexto, colaboración y capacidad real de implementación.</p></div>
-  </section>
-
-  <section id="precios" class="section section-accent">
-    <div class="section-head"><span class="eyebrow">Precios</span><h2>Precios claros desde el principio</h2></div>
-    <div class="pricing-grid">
-      <article><h3>Llamada y autoevaluación inicial</h3><strong>Gratis</strong><p>30 minutos para entender si tiene sentido trabajar juntos, más resultado inmediato de la autoevaluación como primera lectura del impuesto operativo.</p></article>
-      <article><h3>Diagnóstico inicial</h3><strong>1.000€</strong><p>2 semanas. Incluye scorecard actual e ideal, riesgos, prioridades y plan de ataque.</p></article>
-      <article><h3>Acompañamiento</h3><strong>1.500€/mes o 4.000€ pago único</strong><p>3 meses mínimo. Implementación priorizada, reunión semanal y seguimiento del objetivo definido. Si hace falta más, se puede continuar.</p></article>
-    </div>
-    <p class="muted">Los precios pueden variar según tamaño, complejidad y nivel de implicación requerido.</p>
   </section>
 
   <section class="section">
