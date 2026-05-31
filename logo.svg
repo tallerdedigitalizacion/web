@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="336" height="84" viewBox="0 0 336 84" role="img" aria-labelledby="title">
-  <title id="title">Taller de Digitalización</title>
-  <rect width="336" height="84" rx="8" fill="#17211d"/>
-  <path d="M26 24h34v8H47v30h-8V32H26z" fill="#f6f4ef"/>
-  <path d="M68 24h8v38h-8zM84 24h8v30h18v8H84z" fill="#2f6f5e"/>
-  <text x="124" y="37" fill="#f6f4ef" font-family="Arial, sans-serif" font-size="18" font-weight="700">Taller de</text>
-  <text x="124" y="60" fill="#f6f4ef" font-family="Arial, sans-serif" font-size="18" font-weight="700">Digitalización</text>
-</svg>
