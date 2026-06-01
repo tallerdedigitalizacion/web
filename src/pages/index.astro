@@ -2,7 +2,6 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SelfAssessment from "@/components/SelfAssessment.astro";
 import { siteConfig } from "@/config/site";
-import { withBase } from "@/utils/paths";
 import { revealRows, faqItems } from "@/data/content";
 import { reviews } from "@/data/reviews";
 
@@ -186,7 +185,23 @@ const impactItems = [
     <div class="deliverables-flow">
       <div class="deliverables-row deliverables-row-diagnosis">
         <div class="deliverables-visual">
-          <img src={withBase("/diagnostic.png")} alt="Doctor haciendo un diagnóstico operativo" loading="lazy" width="900" height="640" />
+          <span class="deliverables-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 5.5h16" />
+              <path d="M4 18.5h16" />
+              <path d="M7 5.5v13" />
+              <path d="M17 5.5v13" />
+              <path d="M9.5 10.5h5" />
+              <path d="M9.5 13.5h3" />
+              <circle cx="17" cy="7.5" r="2.5" />
+              <path d="M18.8 9.3l2.7 2.7" />
+            </svg>
+          </span>
+          <div>
+            <span class="eyebrow">Diagnóstico</span>
+            <h3>Ver antes de tocar</h3>
+            <p>Primero se entiende el sistema. Después se decide dónde intervenir.</p>
+          </div>
         </div>
         <div class="deliverables-grid">
           <article class="mini-card">
@@ -218,7 +233,21 @@ const impactItems = [
           <p>En el acompañamiento se guía, se ayuda o se ejecuta el plan según lo que se acuerde y lo que realmente necesite la empresa.</p>
         </article>
         <div class="deliverables-visual">
-          <img src={withBase("/treatment.png")} width="90" height="64" alt="Doctor aplicando un tratamiento operativo" loading="lazy" />
+          <span class="deliverables-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3v18" />
+              <path d="M3 12h18" />
+              <circle cx="12" cy="12" r="7" />
+              <path d="M7 17l10-10" />
+              <path d="M8.5 8.5h3v3" />
+              <path d="M12.5 12.5h3v3" />
+            </svg>
+          </span>
+          <div>
+            <span class="eyebrow">Tratamiento</span>
+            <h3>Aplicar con criterio</h3>
+            <p>El plan se convierte en cambios concretos, con guía o ejecución según el caso.</p>
+          </div>
         </div>
       </div>
       <div class="honest-note">
@@ -246,7 +275,7 @@ const impactItems = [
   </section>
 
   <section class="section">
-    <div class="section-head"><span class="eyebrow">Prueba social</span><h2>Reviews</h2><p>Reseñas reales de <a href="https://maps.app.goo.gl/iJYaupqoL8usLB6X7" target="_blank" rel="noreferrer">Google My Business</a>, ordenadas priorizando las que mejor reflejan claridad, honestidad, resolución y confianza.</p></div>
+    <div class="section-head"><span class="eyebrow">Que dicen nuestros clientes</span><h2>Reseñas</h2><p>Reseñas reales de <a href="https://maps.app.goo.gl/iJYaupqoL8usLB6X7" target="_blank" rel="noreferrer">Google My Business</a>, ordenadas priorizando las que mejor reflejan claridad, honestidad, resolución y confianza.</p></div>
     <div class="reviews-carousel" data-reviews-carousel aria-label="Reseñas de Google My Business">
       <div class="reviews-track" data-reviews-track>
         {reviews.map((review, index) => (
@@ -268,7 +297,7 @@ const impactItems = [
   </section>
 
   <section id="faq" class="section">
-    <div class="section-head"><span class="eyebrow">FAQ</span><h2>Preguntas frecuentes</h2></div>
+    <div class="section-head"><span class="eyebrow">No te quedes con dudas</span><h2>Preguntas frecuentes</h2></div>
     <div class="faq-list">{faqItems.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
   </section>
 

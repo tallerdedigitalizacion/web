@@ -761,14 +761,43 @@ input {
 }
 
 .deliverables-visual {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 18px;
   min-height: 100%;
-  overflow: hidden;
+  padding: clamp(24px, 5vw, 44px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: var(--shadow);
 }
 
-.deliverables-visual img {
-  width: 50%;
-      margin: 6em auto;
-  object-fit: cover;
+.deliverables-visual p {
+  max-width: 420px;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.deliverables-icon {
+  display: grid;
+  place-items: center;
+  width: clamp(88px, 12vw, 132px);
+  height: clamp(88px, 12vw, 132px);
+  border: 1px solid rgba(78, 229, 141, 0.38);
+  border-radius: var(--radius);
+  background: rgba(78, 229, 141, 0.1);
+  color: var(--accent);
+}
+
+.deliverables-icon svg {
+  width: 62%;
+  height: 62%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .deliverables-row .deliverables-grid {
@@ -1090,7 +1119,7 @@ details p {
   .question { grid-template-columns: 1fr; }
   .form-grid, .tag-grid, .card-grid, .pricing-grid, .deliverables-grid, .impact-grid, .problem-card-grid, .bar-row { grid-template-columns: 1fr; }
   .deliverables-row .deliverables-grid { grid-template-columns: 1fr; }
-  .deliverables-visual img { min-height: 240px; }
+  .deliverables-visual { min-height: 240px; }
   .problem-card { min-height: 220px; }
   .problem-card-face { min-height: 220px; }
   .problem-card-solution { padding: 28px 22px; }
