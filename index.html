@@ -207,13 +207,14 @@ const methodPdfPath = "/downloads/metodo-auditoria-caos-operativo.pdf";
 
       try {
         const formData = new FormData(assessment);
-        await postLead("diagnostic", {
+        const response = await postLead("diagnostic", {
           ...leadPayloadFromForm(formData),
           answers: collectAnswers(),
         });
-        document.querySelector("[data-result-title]").textContent = "Te enviamos el diagnóstico por email.";
+        const title = response.emailDelivered === false ? "Recibimos tu diagnóstico." : "Te enviamos el diagnóstico por email.";
+        document.querySelector("[data-result-title]").textContent = title;
         document.querySelector("[data-result-text]").textContent =
-          "Guardamos tus respuestas y generamos el diagnóstico desde el backend. Revisa tu correo en unos minutos.";
+          response.message || "Guardamos tus respuestas y generamos el diagnóstico desde el backend. Revisa tu correo en unos minutos.";
         updateProgress(areas.length, true);
         assessment.hidden = true;
         if (result instanceof HTMLElement) result.hidden = false;
@@ -263,8 +264,8 @@ const methodPdfPath = "/downloads/metodo-auditoria-caos-operativo.pdf";
     if (button instanceof HTMLButtonElement) button.disabled = true;
     if (status instanceof HTMLElement) status.textContent = "Enviando método...";
     try {
-      await postLead("method", leadPayloadFromForm(new FormData(form)));
-      if (status instanceof HTMLElement) status.textContent = "Método enviado. Revisa tu email en unos minutos.";
+      const response = await postLead("method", leadPayloadFromForm(new FormData(form)));
+      if (status instanceof HTMLElement) status.textContent = response.message || "Método enviado. Revisa tu email en unos minutos.";
       form.reset();
       form.querySelectorAll("[data-started-at]").forEach((input) => {
         if (input instanceof HTMLInputElement) input.value = String(Date.now());
