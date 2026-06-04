@@ -7,12 +7,31 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "backend:typecheck": "tsc -p tsconfig.backend.json --noEmit",
+    "cdk:synth": "cdk synth",
+    "cdk:deploy": "cdk deploy",
+    "cdk:destroy": "cdk destroy"
   },
   "dependencies": {
-    "astro": "^4.16.18"
+    "@aws-sdk/client-dynamodb": "^3.1058.0",
+    "@aws-sdk/client-ses": "^3.1061.0",
+    "@aws-sdk/lib-dynamodb": "^3.1058.0",
+    "@types/aws-lambda": "^8.10.161",
+    "@types/node": "^25.9.1",
+    "@types/nodemailer": "^8.0.0",
+    "astro": "^4.16.18",
+    "aws-cdk-lib": "^2.257.0",
+    "constructs": "^10.6.0",
+    "esbuild": "^0.28.0",
+    "hono": "^4.12.23",
+    "nodemailer": "^8.0.10",
+    "tsx": "^4.22.4",
+    "typescript": "^5.9.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "aws-cdk": "^2.1125.0",
     "gh-pages": "^6.3.0"
   }
 }

@@ -12,7 +12,7 @@ export const siteConfig = {
   chatbaseId: "V8ryUqCVZxb4N8Hnym06s",
   ogImage: "/og-image.jpg",
   logo: "/logo.png",
-  formEndpoint: "[INSERTAR_ENDPOINT_FORMULARIO]", // TODO
+  formEndpoint: "https://mbce6dz2wf.execute-api.eu-west-1.amazonaws.com/prod/",
   methodPdfPath: "/downloads/metodo-auditoria-caos-operativo.pdf",
 };
 

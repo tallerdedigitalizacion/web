@@ -619,6 +619,16 @@ h3 { font-size: 1.22rem; line-height: 1.25; }
   gap: 14px;
 }
 
+.assessment-contact[hidden] { display: none; }
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
