@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 
 const title = "Slow website? Technical speed optimization in 3 days | Taller de Digitalización";
 const description = "Is your website loading too slowly? I diagnose and fix the technical issues slowing it down. Measurable results in 3 days. From $150.";
-const bookingUrl = "https://calendly.com/tallerdedigitalizacion-info/free-15-min-website-speed-call";
+const bookingUrl = "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call";
 const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=Hi,%20my%20website%20loads%20too%20slowly`;
 const googleReviewsUrl = "https://maps.app.goo.gl/iJYaupqoL8usLB6X7";
 
@@ -197,7 +197,7 @@ const speedReviews = [
   const utmEntries = [...params.entries()].filter(([key]) => key.toLowerCase().startsWith("utm_"));
 
   if (utmEntries.length > 0) {
-    document.querySelectorAll('[data-preserve-utm], a[href*="calendly.com/tallerdedigitalizacion"]').forEach((link) => {
+    document.querySelectorAll('[data-preserve-utm], a[href*="calendly.com/tallerdedigitalizacion"], a[href*="cal.com/taller-de-digitalizacion"]').forEach((link) => {
       if (!(link instanceof HTMLAnchorElement)) return;
       const url = new URL(link.href);
       utmEntries.forEach(([key, value]) => {
