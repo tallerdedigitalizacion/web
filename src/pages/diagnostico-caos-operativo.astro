@@ -1,0 +1,413 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SelfAssessment from "@/components/SelfAssessment.astro";
+import { siteConfig } from "@/config/site";
+import { revealRows, faqItems } from "@/data/content";
+import { reviews } from "@/data/reviews";
+
+const impactItems = [
+  ["Desacoplar al CEO de la operativa", "Reducir la dependencia diaria del dueño para que no todo tenga que pasar por su cabeza."],
+  ["Estructurar lo que ya existe", "Ordenar roles, herramientas, procesos y responsabilidades sin cambiarlo todo desde cero."],
+  ["Liberar carga operativa", "Detectar tareas que se pueden eliminar, delegar o automatizar."],
+  ["Ganar control", "Ver qué está pasando, quién hace qué y dónde se atascan las decisiones."],
+  ["Encontrar qué delegar", "Separar lo que solo puede decidir el dueño de lo que debería vivir en un proceso."],
+  ["Priorizar con criterio", "Decidir qué atacar primero según impacto, esfuerzo y riesgo."],
+];
+
+const navItems = [
+  ["Problema", "#problema"],
+  ["Autoevaluación", "#autoevaluacion"],
+  ["Diagnóstico", "#diagnostico"],
+  ["Cómo funciona", "#como-funciona"],
+  ["FAQ", "#faq"],
+];
+---
+
+<BaseLayout canonicalPath="/diagnostico-caos-operativo" headerBrandHref="/diagnostico-caos-operativo" headerNavItems={navItems}>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">Diagnóstico de caos operativo para PyMEs</span>
+      <h1>¿El desorden de tu empresa te está pasando factura?</h1>
+      <p class="hero-subtitle">Trabajo con CEOs de PyMEs cuya empresa funciona, pero a costa de demasiada energía, desgaste y dependencia humana.</p>
+      <p>No vendo IA, ni herramientas, ni modas... Primero te escucho, luego diagnostico midiendo dónde se está perdiendo mayor capacidad y luego ejecuto acciones de alto valor.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" data-event="reservar_click" href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">¿Hablamos 30 minutos?</a>
+        <a class="btn btn-secondary" href="#autoevaluacion">Quiero auto-evaluarme</a>
+      </div>
+      <p class="microcopy">Si no veo margen de mejora claro donde pueda aportar valor, te lo diré.</p>
+    </div>
+  </section>
+
+  <section id="problema" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Te traduzco el problema</span>
+      <h2>Lo que dices vs. lo que revela</h2>
+      <p>Haz click en cada tarjeta para ver qué suele esconder lo que dices y cual es la solución.</p>
+    </div>
+    <div class="problem-card-grid" aria-label="Frases habituales y diagnóstico operativo">
+      {revealRows.map((row) => (
+        <article class="problem-card" data-problem-card data-state="front" tabindex="0" aria-label={`Frase: ${row.says}. Pasa el mouse o pulsa Significa para ver qué revela.`}>
+          <div class="problem-card-slider">
+            <div class="problem-card-face problem-card-front">
+              <span class="problem-card-label">Lo que dices</span>
+              <strong>“{row.says}”</strong>
+              <button class="problem-card-action" type="button" data-card-meaning>
+                <span>Significa</span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17">
+                  <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="problem-card-face problem-card-meaning">
+              <span class="problem-card-label">Lo que revela</span>
+              <p>{row.reveals}</p>
+              <button class="problem-card-action" type="button" data-card-solution>
+                <span>Solución</span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17">
+                  <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="problem-card-solution">
+            <button class="problem-card-close" type="button" data-card-reset aria-label="Volver al estado inicial">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17">
+                <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+              </svg>
+            </button>
+            <span class="problem-card-label">Lo que hacemos</span>
+            <p>{row.action}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-split">
+    <div>
+      <span class="eyebrow">Criterio antes que herramienta</span>
+      <h2>El mayor problema de muchas PyMEs no es técnico.</h2>
+      <p>Muchas empresas intentan resolver sus problemas comprando más software, contratando más gente, cambiando herramientas o añadiendo automatizaciones. 
+        Pero sin estructura, procesos y organizacion clara, esas soluciones solo añaden más ruido.</p>
+    </div>
+    <ul class="check-list">
+      <li>Más software no arregla un proceso mal diseñado.</li>
+      <li>Más gente no arregla responsabilidades confusas.</li>
+      <li>Más automatización no arregla falta de criterio.</li>
+      <li>Más control no arregla falta de estructura.</li>
+      <li>Más mantenimiento no significa más progreso.</li>
+    </ul>
+  </section>
+
+  <SelfAssessment />
+
+  <section id="diagnostico" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Qué hago</span>
+      <h2>Diagnóstico de Caos Operativo</h2>
+    </div>
+    <div class="diagnostic-approach">
+      <article class="diagnostic-card">
+        <span class="diagnostic-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M8.5 10.2a3.5 3.5 0 0 1 7 0c0 4.2-5 4-5 7.3a2.5 2.5 0 0 0 4.4 1.6" />
+            <path d="M5 9.8a7 7 0 0 1 14 0" />
+            <path d="M2.5 9.8a9.5 9.5 0 0 1 19 0" />
+          </svg>
+        </span>
+        <h3>1. Primero escucho</h3>
+        <p>No parto de una herramienta ni de una receta. Primero entiendo qué problemas duelen más, cuáles son más prácticos de atacar y dónde puede haber mayor retorno con menor esfuerzo.</p>
+      </article>
+      <article class="diagnostic-card">
+        <span class="diagnostic-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 6h5l3 3h8" />
+            <path d="M4 18h5l3-3h8" />
+            <path d="M12 9v6" />
+            <circle cx="4" cy="6" r="2" />
+            <circle cx="4" cy="18" r="2" />
+            <circle cx="20" cy="9" r="2" />
+            <circle cx="20" cy="15" r="2" />
+          </svg>
+        </span>
+        <h3>2. Cruzo contexto con método</h3>
+        <p>Después cruzo lo que escucho con las áreas que analiza mi método para decidir por dónde empezar. El objetivo no es documentarlo todo ni cambiarlo todo: es crear estructura donde más falta hace.</p>
+      </article>
+    </div>
+    <div class="section-subhead">
+      <span class="eyebrow">Cómo impacta</span>
+      <h3>Menos carga diaria, más capacidad de dirección.</h3>
+    </div>
+    <div class="impact-grid">
+      {impactItems.map(([title, text]) => (
+        <article class="mini-card">
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="como-funciona" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Proceso</span>
+      <h2>Cómo funciona</h2>
+    </div>
+    <div class="steps">
+      <article>
+        <span class="step-number">1</span>
+        <h3>Llamada gratuita</h3>
+        <div class="step-facts">
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7H14.5a3.5 3.5 0 0 1 0 7H6" /></svg><strong>Gratis</strong></p>
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg><strong>30 min</strong></p>
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></svg><span>Entender si hay margen de mejora, y cuánto, para una intervención de alto impacto.</span></p>
+        </div>
+      </article>
+      <article>
+        <span class="step-number">2</span>
+        <h3>Diagnóstico inicial</h3>
+        <div class="step-facts">
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7H14.5a3.5 3.5 0 0 1 0 7H6" /></svg><strong>1.000€</strong></p>
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg><strong>2 semanas</strong></p>
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></svg><span>Crear un mapa de dónde está la empresa hoy y otro de dónde debería estar según su madurez operativa.</span></p>
+        </div>
+      </article>
+      <article>
+        <span class="step-number">3</span>
+        <h3>Acompañamiento</h3>
+        <div class="step-facts">
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7H14.5a3.5 3.5 0 0 1 0 7H6" /></svg><strong>1.500€/mes o 4.000€ pago único</strong></p>
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg><strong>3 meses mínimo</strong></p>
+          <p><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></svg><span>Acercar la empresa a donde debería estar, atacando primero los problemas con mayor retorno. Si hace falta más recorrido, se puede continuar.</span></p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Entregables</span>
+      <h2>Qué recibes</h2>
+      <p>El diagnóstico no es una lista de deseos ni una colección de recomendaciones sueltas. Es una forma de entender dónde está la empresa, dónde debería estar y qué conviene hacer primero.</p>
+    </div>
+    <div class="deliverables-flow">
+      <div class="deliverables-row deliverables-row-diagnosis">
+        <div class="deliverables-visual">
+          <span class="deliverables-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 5.5h16" />
+              <path d="M4 18.5h16" />
+              <path d="M7 5.5v13" />
+              <path d="M17 5.5v13" />
+              <path d="M9.5 10.5h5" />
+              <path d="M9.5 13.5h3" />
+              <circle cx="17" cy="7.5" r="2.5" />
+              <path d="M18.8 9.3l2.7 2.7" />
+            </svg>
+          </span>
+          <div>
+            <span class="eyebrow">Diagnóstico</span>
+            <h3>Ver antes de tocar</h3>
+            <p>Primero se entiende el sistema. Después se decide dónde intervenir.</p>
+          </div>
+        </div>
+        <div class="deliverables-grid">
+          <article class="mini-card">
+            <span class="eyebrow">Punta A</span>
+            <h3>Un mapa de dónde está</h3>
+            <p>Una lectura clara del estado operativo actual: dependencias, fricciones, herramientas, roles, procesos y puntos de bloqueo.</p>
+          </article>
+          <article class="mini-card">
+            <span class="eyebrow">Punta B</span>
+            <h3>El punto donde debería estar</h3>
+            <p>Una referencia realista del nivel operativo al que debería acercarse la empresa según su madurez, tamaño y complejidad.</p>
+          </article>
+          <article class="mini-card">
+            <span class="eyebrow">Ruta</span>
+            <h3>Qué hacer y en qué orden</h3>
+            <p>Una priorización según impacto, esfuerzo y riesgo para evitar empezar por lo más vistoso si no mueve la aguja.</p>
+          </article>
+          <article class="mini-card">
+            <span class="eyebrow">Primeros pasos</span>
+            <h3>3 implementaciones de alto impacto</h3>
+            <p>Tres acciones concretas para atacar primero los puntos con mayor retorno operativo.</p>
+          </article>
+        </div>
+      </div>
+      <div class="deliverables-row deliverables-row-followup">
+        <article class="mini-card followup-card">
+          <span class="eyebrow">Seguimiento</span>
+          <h3>Guía, ayuda o ejecución del plan</h3>
+          <p>En el acompañamiento se guía, se ayuda o se ejecuta el plan según lo que se acuerde y lo que realmente necesite la empresa.</p>
+        </article>
+        <div class="deliverables-visual">
+          <span class="deliverables-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3v18" />
+              <path d="M3 12h18" />
+              <circle cx="12" cy="12" r="7" />
+              <path d="M7 17l10-10" />
+              <path d="M8.5 8.5h3v3" />
+              <path d="M12.5 12.5h3v3" />
+            </svg>
+          </span>
+          <div>
+            <span class="eyebrow">Tratamiento</span>
+            <h3>Aplicar con criterio</h3>
+            <p>El plan se convierte en cambios concretos, con guía o ejecución según el caso.</p>
+          </div>
+        </div>
+      </div>
+      <div class="honest-note">
+        <p>La expectativa es parecida a ir al médico: no vas para cambiarte todas las partes del cuerpo, sino para entender qué está limitando el funcionamiento, mejorar lo que ya tienes y optimizar el sistema para operar mejor. Este proceso busca lo mismo aplicado a la empresa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-split dark-band">
+    <div><span class="eyebrow">Límites claros</span><h2>Esto no es otra capa de consultoría decorativa.</h2><p>Si solo quieres que alguien ejecute tareas sin cuestionar el sistema, no soy la persona adecuada.</p></div>
+    <ul class="plain-list"><li>No es soporte técnico externo.</li><li>No es venderte un ERP.</li><li>No es automatizar por automatizar.</li><li>No es inteligencia artificial como moda.</li><li>No es coaching motivacional.</li><li>No es una auditoría para llenar un PDF y desaparecer.</li><li>No es prometer que vas a vender más.</li><li>No es decirte lo que quieres escuchar.</li></ul>
+  </section>
+
+  <section class="section two-columns">
+    <div><h2>Para quién es</h2><ul class="check-list"><li>CEOs de PyMEs que sienten que todo depende demasiado de ellos.</li><li>Empresas que funcionan, pero cada vez pesan más.</li><li>Negocios que están creciendo y empiezan a notar fricción.</li><li>Empresas que pagan herramientas, proveedores o mantenimiento, pero no sienten progreso.</li><li>Dueños que saben que algo no está bien, pero no consiguen explicarlo con claridad.</li><li>Equipos donde los procesos dependen demasiado de memoria humana.</li><li>Empresas que quieren ordenar antes de contratar, automatizar o cambiar de software.</li></ul></div>
+    <div><h2>No es para</h2><ul class="plain-list"><li>Empresas que buscan magia rápida.</li><li>Personas que quieren pagar para no implicarse.</li><li>Dueños que no asistirán a las reuniones.</li><li>Empresas que solo quieren validar una decisión ya tomada.</li><li>Negocios que buscan únicamente soporte técnico barato.</li><li>Personas que no quieren mirar dónde está realmente el problema.</li></ul></div>
+  </section>
+
+  <section class="section callout"><h2>Sin participación del dueño, no hay diagnóstico real.</h2><p>Este trabajo necesita contexto, criterio y decisiones. Si el CEO o la persona con capacidad real de decisión no participa, el diagnóstico se queda cojo. Las reuniones son parte del trabajo. Se pueden mover. No se pueden eliminar.</p></section>
+
+  <section class="section">
+    <div class="section-head"><span class="eyebrow">Resultado esperado</span><h2>El resultado es recuperar capacidad de dirección.</h2><p>El lenguaje del CEO es ROI: tiempo, foco, margen de maniobra y capacidad de crecer sin que cada avance añada más caos. El objetivo no es una empresa perfecta. Es una empresa que se puede sostener sin convertirse en una jaula.</p></div>
+    <div class="tag-grid"><span>Más tiempo para decisiones importantes</span><span>Menos dependencia operativa del CEO</span><span>Mayor capacidad de sostener crecimiento</span><span>Problemas priorizados por retorno</span><span>Más paz para dirigir con criterio</span><span>Menos energía perdida en fricción diaria</span><span>Roles y procesos más claros</span><span>Menos decisiones reactivas</span><span>Más foco en lo que mueve el negocio</span></div>
+    <div class="honest-note"><p>El diagnóstico busca detectar dónde se está perdiendo capacidad y qué cambios tienen más sentido económico y operativo. El acompañamiento apunta a desbloquear crecimiento y devolver tiempo de calidad al CEO, siempre condicionado a contexto, colaboración y capacidad real de implementación.</p></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><span class="eyebrow">Que dicen nuestros clientes</span><h2>Reseñas</h2><p>Reseñas reales de <a href="https://maps.app.goo.gl/iJYaupqoL8usLB6X7" target="_blank" rel="noreferrer">Google My Business</a>, ordenadas priorizando las que mejor reflejan claridad, honestidad, resolución y confianza.</p></div>
+    <div class="reviews-carousel" data-reviews-carousel aria-label="Reseñas de Google My Business">
+      <div class="reviews-track" data-reviews-track>
+        {reviews.map((review, index) => (
+          <article class="review-card" data-review-card aria-label={`Reseña ${index + 1} de ${reviews.length}`}>
+            <div class="review-meta">
+              <strong>{review.name}</strong>
+              <span>{review.source} · {review.rating}/5 · {review.date}</span>
+            </div>
+            <p>{review.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="carousel-controls">
+        <button class="btn btn-secondary btn-small" type="button" data-review-prev aria-label="Ver reseña anterior">Anterior</button>
+        <div class="carousel-dots" data-review-dots aria-label="Indicador de reseñas"></div>
+        <button class="btn btn-secondary btn-small" type="button" data-review-next aria-label="Ver reseña siguiente">Siguiente</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="section-head"><span class="eyebrow">No te quedes con dudas</span><h2>Preguntas frecuentes</h2></div>
+    <div class="faq-list">{faqItems.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+  </section>
+
+  <section class="section final-cta">
+    <h2>Si tu empresa funciona, pero cada vez te cuesta más sostenerla, empecemos por entender qué está pasando.</h2>
+    <div class="hero-actions"><a class="btn btn-primary" data-event="reservar_click" href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita de 30 minutos</a><a class="btn btn-secondary" href="#autoevaluacion">Hacer la autoevaluación</a></div>
+    <p>Sin compromiso. Sin venta agresiva. Si no veo un problema claro donde pueda aportar, te lo diré.</p>
+  </section>
+</BaseLayout>
+
+<script>
+  const problemCards = document.querySelectorAll("[data-problem-card]");
+
+  problemCards.forEach((card) => {
+    const meaningButton = card.querySelector("[data-card-meaning]");
+    const solutionButton = card.querySelector("[data-card-solution]");
+    const resetButton = card.querySelector("[data-card-reset]");
+
+    meaningButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      card.setAttribute("data-state", "meaning");
+    });
+
+    solutionButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      card.setAttribute("data-state", "solution");
+    });
+
+    resetButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      card.setAttribute("data-state", "front");
+    });
+  });
+
+  const carousel = document.querySelector("[data-reviews-carousel]");
+  const track = document.querySelector("[data-reviews-track]");
+  const cards = [...document.querySelectorAll("[data-review-card]")];
+  const prev = document.querySelector("[data-review-prev]");
+  const next = document.querySelector("[data-review-next]");
+  const dots = document.querySelector("[data-review-dots]");
+  let activeReview = 0;
+  let reviewTimer;
+
+  function renderDots() {
+    if (!(dots instanceof HTMLElement)) return;
+    dots.innerHTML = cards
+      .map((_, index) => `<button type="button" aria-label="Ver reseña ${index + 1}" data-review-dot="${index}"></button>`)
+      .join("");
+  }
+
+  function showReview(index) {
+    if (!(track instanceof HTMLElement) || cards.length === 0) return;
+    activeReview = (index + cards.length) % cards.length;
+    const card = cards[activeReview];
+    track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: "smooth" });
+    dots?.querySelectorAll("[data-review-dot]").forEach((dot) => {
+      dot.toggleAttribute("aria-current", dot.getAttribute("data-review-dot") === String(activeReview));
+    });
+  }
+
+  function startReviewAutoplay() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    stopReviewAutoplay();
+    reviewTimer = window.setInterval(() => showReview(activeReview + 1), 5200);
+  }
+
+  function stopReviewAutoplay() {
+    if (reviewTimer) window.clearInterval(reviewTimer);
+  }
+
+  if (carousel && track && cards.length) {
+    renderDots();
+    showReview(0);
+    startReviewAutoplay();
+
+    prev?.addEventListener("click", () => {
+      showReview(activeReview - 1);
+      startReviewAutoplay();
+    });
+    next?.addEventListener("click", () => {
+      showReview(activeReview + 1);
+      startReviewAutoplay();
+    });
+    dots?.addEventListener("click", (event) => {
+      const dot = event.target instanceof Element ? event.target.closest("[data-review-dot]") : null;
+      if (dot instanceof HTMLElement) {
+        showReview(Number(dot.dataset.reviewDot));
+        startReviewAutoplay();
+      }
+    });
+    carousel.addEventListener("mouseenter", stopReviewAutoplay);
+    carousel.addEventListener("mouseleave", startReviewAutoplay);
+    carousel.addEventListener("focusin", stopReviewAutoplay);
+    carousel.addEventListener("focusout", startReviewAutoplay);
+  }
+
+  document.querySelectorAll(".faq-list details").forEach((item) => {
+    item.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("summary")) return;
+      item.open = !item.open;
+    });
+  });
+</script>

@@ -1,11 +1,9 @@
-
-
+producir el backend que recoge los datos de accion y formulario en una lambda en aws
+instalar GA con tracking de acciones y verificar
 
 hacer un video explicativo y poner en la web
-dar ejemplos reales de soluciones
+dar ejemplos reales de soluciones en la landing
 traducir la web al ingles pero no dinamicamente, sino que producir el doble de paginas sobre otra estructura
-mirar como se comparte en las redes sociales
-verificar que la web se vea bien en mobile
 ---
 crear pagina nicho para caos en telecoms
 crear pagina nicho para caos en startups de software usando mi libro
@@ -22,11 +20,5 @@ crear pagina por cada producto/dolor empaquetado
     tengo demasiado en mi cabeza, como sigo operando sin yo ser el cuello de botella? oraculo IA!
     no doy abasto con la atencion al cliente, necesito un agente con IA de soporte
     pierdo muchos leads por falta de organizacion y rapidez en la atencion
-
-
-me falta superficie de captacion con SEO en la web
-me faltan verticales que cubrir
-checkear google speed, search console, instalar GA con tracking de acciones
-
-producir el backend que recoge los datos de accion y formulario en una lambda en aws
-
+---
+hacer que las cookies respeten gdpr y el usuario pueda seleccionar
