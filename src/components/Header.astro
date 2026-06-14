@@ -2,34 +2,52 @@
 import { siteConfig } from "@/config/site";
 import { withBase } from "@/utils/paths";
 
-const homeHref = import.meta.env.DEV ? "/" : withBase("/");
-const navItems = [
-  ["Problema", `${homeHref}#problema`],
-  ["Autoevaluación", `${homeHref}#autoevaluacion`],
-  ["Diagnóstico", `${homeHref}#diagnostico`],
-  ["Cómo funciona", `${homeHref}#como-funciona`],
-  ["FAQ", `${homeHref}#faq`],
-];
+const {
+  bookingEvent = "reservar_click",
+  brandHref = "/",
+  navItems = [],
+  showBooking = true,
+  lang = "es",
+  bookingHref = siteConfig.bookingUrl,
+} = Astro.props;
+const resolveHref = (href: string) => (href.startsWith("/") ? (import.meta.env.DEV ? href : withBase(href)) : href);
+const brandTarget = resolveHref(brandHref);
+const resolvedNavItems = navItems.map(([label, href]: [string, string]) => [label, resolveHref(href)]);
+const isEnglish = lang === "en";
+const labels = {
+  home: isEnglish ? "Home" : "Inicio",
+  nav: isEnglish ? "Primary navigation" : "Navegación principal",
+  book: isEnglish ? "Book a call" : "Reservar llamada",
+  openMenu: isEnglish ? "Open menu" : "Abrir menú",
+  closeMenu: isEnglish ? "Close menu" : "Cerrar menú",
+  mobileNav: isEnglish ? "Mobile navigation" : "Navegación móvil",
+};
 ---
 
 <header class="site-header">
-  <a class="brand" href={homeHref} aria-label="Inicio">
+  <a class="brand" href={brandTarget} aria-label={labels.home}>
     <img src={withBase(siteConfig.logo)} alt="Taller de Digitalización" width="48" height="48" />
   </a>
-  <nav class="desktop-nav" aria-label="Navegación principal">
-    {navItems.map(([label, href]) => <a href={href}>{label}</a>)}
-  </nav>
+  {resolvedNavItems.length > 0 && (
+    <nav class="desktop-nav" aria-label={labels.nav}>
+      {resolvedNavItems.map(([label, href]) => <a href={href}>{label}</a>)}
+    </nav>
+  )}
   <div class="header-actions">
-    <a class="btn btn-small btn-primary" data-event="click_reservar_llamada" href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada</a>
-    <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    {showBooking && <a class="btn btn-small btn-primary" data-event={bookingEvent} href={bookingHref} target="_blank" rel="noreferrer">{labels.book}</a>}
+    {resolvedNavItems.length > 0 && (
+      <button class="menu-toggle" type="button" aria-label={labels.openMenu} aria-expanded="false" aria-controls="mobile-menu" data-label-open={labels.openMenu} data-label-close={labels.closeMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    )}
   </div>
-  <nav id="mobile-menu" class="mobile-nav" aria-label="Navegación móvil" hidden>
-    {navItems.map(([label, href]) => <a href={href}>{label}</a>)}
-  </nav>
+  {resolvedNavItems.length > 0 && (
+    <nav id="mobile-menu" class="mobile-nav" aria-label={labels.mobileNav} hidden>
+      {resolvedNavItems.map(([label, href]) => <a href={href}>{label}</a>)}
+    </nav>
+  )}
 </header>
 
 <script>
@@ -41,14 +59,14 @@ const navItems = [
     const closeMenu = () => {
       menu.hidden = true;
       toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "Abrir menú");
+      toggle.setAttribute("aria-label", toggle.dataset.labelOpen || "Abrir menú");
     };
 
     toggle.addEventListener("click", () => {
       const isOpen = toggle.getAttribute("aria-expanded") === "true";
       menu.hidden = isOpen;
       toggle.setAttribute("aria-expanded", String(!isOpen));
-      toggle.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
+      toggle.setAttribute("aria-label", isOpen ? toggle.dataset.labelOpen || "Abrir menú" : toggle.dataset.labelClose || "Cerrar menú");
     });
 
     menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));

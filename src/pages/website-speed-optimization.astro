@@ -1,0 +1,274 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+
+const title = "Slow website? Technical speed optimization in 3 days | Taller de Digitalización";
+const description = "Is your website loading too slowly? I diagnose and fix the technical issues slowing it down. Measurable results in 3 days. From $150.";
+const bookingUrl = "https://calendly.com/tallerdedigitalizacion-info/free-15-min-website-speed-call";
+const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=Hi,%20my%20website%20loads%20too%20slowly`;
+const googleReviewsUrl = "https://maps.app.goo.gl/iJYaupqoL8usLB6X7";
+
+const costBullets = ["Visitors leave before it loads", "Google rankings suffer", "Fewer leads and sales"];
+const steps = [
+  "Free 15-minute call",
+  "I diagnose what is slowing the site down and confirm the fixed price",
+  "I fix it within 3 days and verify the result with PageSpeed / Core Web Vitals",
+];
+const faqs = [
+  ["Do I need to rebuild my website?", "No. I optimize what you already have."],
+  ["Which platforms do you work with?", "WordPress and most common stacks."],
+  ["How long does it take?", "Most technical speed fixes are delivered within 3 days after the scope is confirmed."],
+  ["How much does it cost?", "The first call is free. Website speed fixes start at $150, with a fixed quote before any work begins."],
+];
+
+const navItems = [
+  ["Cost", "#cost"],
+  ["What I fix", "#what-i-fix"],
+  ["Process", "#process"],
+  ["Why me", "#why-me"],
+  ["FAQ", "#faq"],
+];
+
+const speedReviews = [
+  {
+    name: "Jorge Signetti",
+    date: "3 months ago",
+    text: "Very good service, very fast work and everything works smoothly. Excellent technical support. He does not try to sell unnecessary things; he goes straight to the problem and solves it. Very satisfied.",
+  },
+  {
+    name: "Noelia Preziosi",
+    date: "3 months ago",
+    text: "Professional, responsive and easy to work with. He gives real solutions to real problems. Fully recommended.",
+  },
+  {
+    name: "Akiwifi Girona Sud",
+    date: "4 months ago",
+    text: "Very professional and approachable service. They explain things clearly, without complications or jargon. They helped me find a quick and effective solution exactly when I needed it. It gives you a lot of confidence to work with a team like this.",
+  },
+  {
+    name: "Nimbus Telecom S.L.",
+    date: "4 months ago",
+    text: "Excellent service and a very human approach. You can tell there is experience and a genuine desire to help. They solved the problem quickly and explained everything simply. Totally recommended.",
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/website-speed-optimization"
+  headerBrandHref="/website-speed-optimization"
+  headerNavItems={navItems}
+  headerBookingEvent="reservar_click"
+  lang="en"
+  bookingHref={bookingUrl}
+  whatsappHref={whatsappUrl}
+  schemaDescription="Technical website speed diagnosis and optimization for businesses that need measurable improvements without rebuilding the site."
+  schemaAreaServed={["United States", "Remote"]}
+>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">Website speed optimization</span>
+      <h1>Is your website losing customers because it loads too slowly?</h1>
+      <p class="hero-subtitle">I diagnose and fix the technical issues slowing it down. Measurable results in 3 days. From $150.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={bookingUrl} target="_blank" rel="noreferrer">Book a free 15-min call</a>
+        <a class="btn btn-secondary" data-event="whatsapp_click" data-preserve-utm href={whatsappUrl} target="_blank" rel="noreferrer">
+          <svg class="btn-icon" aria-hidden="true" viewBox="0 0 32 32" width="20" height="20">
+            <path fill="currentColor" d="M16.02 3.2A12.66 12.66 0 0 0 5.1 22.28L3.6 28.8l6.66-1.56A12.65 12.65 0 1 0 16.02 3.2Zm0 22.9c-1.96 0-3.78-.56-5.34-1.54l-.38-.24-3.94.92.9-3.86-.25-.4a10.24 10.24 0 1 1 9.01 5.12Zm5.62-7.66c-.3-.16-1.82-.9-2.1-1-.28-.1-.48-.16-.68.16-.2.3-.78 1-.96 1.2-.18.2-.36.22-.66.08-.3-.16-1.28-.48-2.44-1.52-.9-.8-1.5-1.8-1.68-2.1-.18-.3-.02-.48.14-.64.14-.14.3-.36.46-.54.16-.18.2-.3.3-.5.1-.2.06-.38-.02-.54-.08-.16-.68-1.64-.94-2.24-.24-.58-.5-.5-.68-.5h-.58c-.2 0-.52.08-.8.38-.28.3-1.04 1.02-1.04 2.48s1.06 2.88 1.22 3.08c.16.2 2.1 3.2 5.08 4.48.7.3 1.26.48 1.7.62.72.22 1.36.2 1.88.12.58-.08 1.82-.74 2.08-1.46.26-.72.26-1.34.18-1.46-.08-.14-.28-.22-.58-.38Z"/>
+          </svg>
+          Message me on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="cost" class="section">
+    <div class="section-head">
+      <span class="eyebrow">The cost of a slow website</span>
+      <h2>Waiting has a price.</h2>
+      <p>A slow site loses visitors before they see your offer, hurts your Google visibility through Core Web Vitals, and reduces conversions. This is not cosmetic. It is revenue leaking out of the page.</p>
+    </div>
+    <div class="tag-grid">
+      {costBullets.map((item) => <span>{item}</span>)}
+    </div>
+  </section>
+
+  <section id="what-i-fix" class="section section-split">
+    <div>
+      <span class="eyebrow">What I fix</span>
+      <h2>Technical diagnosis, measurable improvement.</h2>
+      <p>You book a free 15-minute call. I identify exactly what is slowing your site down: images, caching, render-blocking code, hosting, scripts or theme bloat. If it is a fit, I give you a fixed quote from $150 and fix it within 3 days. We verify the before/after with real metrics.</p>
+    </div>
+    <div class="honest-note">
+      <span class="eyebrow">Clear scope</span>
+      <p>I do not sell content SEO or ad campaigns. I solve the technical speed problem.</p>
+    </div>
+  </section>
+
+  <section id="process" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Process</span>
+      <h2>3 steps, no runaround.</h2>
+    </div>
+    <div class="steps">
+      {steps.map((step, index) => (
+        <article>
+          <span class="step-number">{index + 1}</span>
+          <h3>{step}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="why-me" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Why me</span>
+      <h2>A technical person looking directly at the problem.</h2>
+      <p>15 years building and optimizing software. <a class="google-review-link" href={googleReviewsUrl} target="_blank" rel="noreferrer">
+        <svg class="google-mark" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-8.09Z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.76c-.98.66-2.24 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/>
+          <path fill="#FBBC05" d="M5.84 14.11a6.61 6.61 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84Z"/>
+          <path fill="#EA4335" d="M12 5.36c1.62 0 3.06.56 4.21 1.64l3.15-3.15A10.56 10.56 0 0 0 12 1 11 11 0 0 0 2.18 7.05l3.66 2.84C6.71 7.29 9.14 5.36 12 5.36Z"/>
+        </svg>
+        10+ Google reviews
+      </a> and 1,000+ followers on LinkedIn. You talk to the person doing the technical work, not an agency handoff.</p>
+    </div>
+    <div class="reviews-carousel" data-reviews-carousel aria-label="Google reviews">
+      <div class="reviews-track" data-reviews-track>
+        {speedReviews.map((review, index) => (
+          <article class="review-card" data-review-card aria-label={`Review ${index + 1} of ${speedReviews.length}`}>
+            <div class="review-meta">
+              <strong>{review.name}</strong>
+              <a class="review-source" href={googleReviewsUrl} target="_blank" rel="noreferrer">
+                <svg class="google-mark" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-8.09Z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.76c-.98.66-2.24 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/>
+                  <path fill="#FBBC05" d="M5.84 14.11a6.61 6.61 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84Z"/>
+                  <path fill="#EA4335" d="M12 5.36c1.62 0 3.06.56 4.21 1.64l3.15-3.15A10.56 10.56 0 0 0 12 1 11 11 0 0 0 2.18 7.05l3.66 2.84C6.71 7.29 9.14 5.36 12 5.36Z"/>
+                </svg>
+                Translated Google review · 5/5 · {review.date}
+              </a>
+            </div>
+            <p>{review.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="carousel-controls">
+        <button class="btn btn-secondary btn-small" type="button" data-review-prev aria-label="View previous review">Previous</button>
+        <div class="carousel-dots" data-review-dots aria-label="Review indicator"></div>
+        <button class="btn btn-secondary btn-small" type="button" data-review-next aria-label="View next review">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions before the call.</h2>
+    </div>
+    <div class="faq-list">
+      {faqs.map(([question, answer]) => (
+        <details>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <h2>Book the free call and let us see what is slowing your website down.</h2>
+    <div class="hero-actions">
+      <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={bookingUrl} target="_blank" rel="noreferrer">Book a free 15-min call</a>
+      <a class="btn btn-secondary" data-event="whatsapp_click" data-preserve-utm href={whatsappUrl} target="_blank" rel="noreferrer">
+        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 32 32" width="20" height="20">
+          <path fill="currentColor" d="M16.02 3.2A12.66 12.66 0 0 0 5.1 22.28L3.6 28.8l6.66-1.56A12.65 12.65 0 1 0 16.02 3.2Zm0 22.9c-1.96 0-3.78-.56-5.34-1.54l-.38-.24-3.94.92.9-3.86-.25-.4a10.24 10.24 0 1 1 9.01 5.12Zm5.62-7.66c-.3-.16-1.82-.9-2.1-1-.28-.1-.48-.16-.68.16-.2.3-.78 1-.96 1.2-.18.2-.36.22-.66.08-.3-.16-1.28-.48-2.44-1.52-.9-.8-1.5-1.8-1.68-2.1-.18-.3-.02-.48.14-.64.14-.14.3-.36.46-.54.16-.18.2-.3.3-.5.1-.2.06-.38-.02-.54-.08-.16-.68-1.64-.94-2.24-.24-.58-.5-.5-.68-.5h-.58c-.2 0-.52.08-.8.38-.28.3-1.04 1.02-1.04 2.48s1.06 2.88 1.22 3.08c.16.2 2.1 3.2 5.08 4.48.7.3 1.26.48 1.7.62.72.22 1.36.2 1.88.12.58-.08 1.82-.74 2.08-1.46.26-.72.26-1.34.18-1.46-.08-.14-.28-.22-.58-.38Z"/>
+        </svg>
+        Message me on WhatsApp
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const utmEntries = [...params.entries()].filter(([key]) => key.toLowerCase().startsWith("utm_"));
+
+  if (utmEntries.length > 0) {
+    document.querySelectorAll('[data-preserve-utm], a[href*="calendly.com/tallerdedigitalizacion"]').forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const url = new URL(link.href);
+      utmEntries.forEach(([key, value]) => {
+        if (!url.searchParams.has(key)) url.searchParams.set(key, value);
+      });
+      link.href = url.toString();
+    });
+  }
+
+  document.querySelectorAll(".faq-list details").forEach((item) => {
+    item.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("summary")) return;
+      item.open = !item.open;
+    });
+  });
+
+  const carousel = document.querySelector("[data-reviews-carousel]");
+  const track = document.querySelector("[data-reviews-track]");
+  const cards = [...document.querySelectorAll("[data-review-card]")];
+  const prev = document.querySelector("[data-review-prev]");
+  const next = document.querySelector("[data-review-next]");
+  const dots = document.querySelector("[data-review-dots]");
+  let activeReview = 0;
+  let scrollTimer;
+
+  function renderDots() {
+    if (!(dots instanceof HTMLElement)) return;
+    dots.innerHTML = cards
+      .map((_, index) => `<button type="button" aria-label="View review ${index + 1}" data-review-dot="${index}"></button>`)
+      .join("");
+  }
+
+  function setActiveReview(index) {
+    activeReview = (index + cards.length) % cards.length;
+    dots?.querySelectorAll("[data-review-dot]").forEach((dot) => {
+      dot.toggleAttribute("aria-current", dot.getAttribute("data-review-dot") === String(activeReview));
+    });
+  }
+
+  function showReview(index) {
+    if (!(track instanceof HTMLElement) || cards.length === 0) return;
+    setActiveReview(index);
+    const card = cards[activeReview];
+    track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: "smooth" });
+  }
+
+  function syncReviewFromScroll() {
+    if (!(track instanceof HTMLElement) || cards.length === 0) return;
+    const nearestIndex = cards.reduce((nearest, card, index) => {
+      const currentDistance = Math.abs(card.getBoundingClientRect().left - track.getBoundingClientRect().left);
+      const nearestDistance = Math.abs(cards[nearest].getBoundingClientRect().left - track.getBoundingClientRect().left);
+      return currentDistance < nearestDistance ? index : nearest;
+    }, 0);
+    setActiveReview(nearestIndex);
+  }
+
+  if (carousel && track && cards.length) {
+    renderDots();
+    showReview(0);
+
+    track.addEventListener("scroll", () => {
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(syncReviewFromScroll, 80);
+    });
+    prev?.addEventListener("click", () => showReview(activeReview - 1));
+    next?.addEventListener("click", () => showReview(activeReview + 1));
+    dots?.addEventListener("click", (event) => {
+      const dot = event.target instanceof Element ? event.target.closest("[data-review-dot]") : null;
+      if (dot instanceof HTMLElement) showReview(Number(dot.dataset.reviewDot));
+    });
+  }
+</script>

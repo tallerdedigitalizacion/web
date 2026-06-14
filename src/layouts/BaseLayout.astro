@@ -12,6 +12,16 @@ const {
   title = siteConfig.seoTitle,
   description = siteConfig.seoDescription,
   canonicalPath = "/",
+  showChatbase = true,
+  headerBookingEvent = "reservar_click",
+  headerBrandHref = "/",
+  headerNavItems = [],
+  showHeaderBooking = true,
+  lang = "es",
+  bookingHref = siteConfig.bookingUrl,
+  whatsappHref,
+  schemaDescription = "Consultoría para reducir caos operativo, dependencia del CEO y fricción en PyMEs.",
+  schemaAreaServed = ["España", "Remoto"],
 } = Astro.props;
 
 const origin = Astro.site ?? new URL(siteConfig.publicUrl).origin;
@@ -22,8 +32,8 @@ const schema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   name: siteConfig.name,
-  description: "Consultoría para reducir caos operativo, dependencia del CEO y fricción en PyMEs.",
-  areaServed: ["España", "Remoto"],
+  description: schemaDescription,
+  areaServed: schemaAreaServed,
   url: siteConfig.publicUrl,
   logo: absoluteUrl(siteConfig.logo),
   sameAs: [siteConfig.linktreeUrl],
@@ -31,7 +41,7 @@ const schema = {
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -72,13 +82,13 @@ const schema = {
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
-    <Header />
+    <Header bookingEvent={headerBookingEvent} brandHref={headerBrandHref} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} />
     <main>
       <slot />
     </main>
-    <Footer />
-    <WhatsAppButton />
-    <CookieBanner />
-    <Chatbase />
+    <Footer lang={lang} />
+    <WhatsAppButton lang={lang} href={whatsappHref} />
+    <CookieBanner lang={lang} />
+    {showChatbase && <Chatbase />}
   </body>
 </html>
