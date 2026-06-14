@@ -298,7 +298,7 @@ const methodPdfPath = "/downloads/metodo-auditoria-caos-operativo.pdf";
     const href = target instanceof HTMLAnchorElement ? target.href : "";
     if (href.startsWith("tel:")) return "telefono_click";
     if (href.includes("wa.me/") || href.includes("api.whatsapp.com/")) return "whatsapp_click";
-    if (href.includes("calendly.com/tallerdedigitalizacion")) return "reservar_click";
+    if (href.includes("calendly.com/tallerdedigitalizacion") || href.includes("cal.com/taller-de-digitalizacion")) return "reservar_click";
     return "";
   }
 
@@ -331,7 +331,7 @@ const methodPdfPath = "/downloads/metodo-auditoria-caos-operativo.pdf";
 
     if (attributionEntries.length === 0) return;
 
-    document.querySelectorAll('a[href*="calendly.com/tallerdedigitalizacion"], a[href*="wa.me/"], a[href*="api.whatsapp.com/"]').forEach((link) => {
+    document.querySelectorAll('a[href*="calendly.com/tallerdedigitalizacion"], a[href*="cal.com/taller-de-digitalizacion"], a[href*="wa.me/"], a[href*="api.whatsapp.com/"]').forEach((link) => {
       if (!(link instanceof HTMLAnchorElement)) return;
       const url = new URL(link.href);
       attributionEntries.forEach(([key, value]) => {
