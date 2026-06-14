@@ -1,11 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { siteConfig } from "@/config/site";
 
 const title = "Slow website? Technical speed optimization in 3 days | Taller de Digitalización";
 const description = "Is your website loading too slowly? I diagnose and fix the technical issues slowing it down. Measurable results in 3 days. From $150.";
 const bookingUrl = "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call";
-const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=Hi,%20my%20website%20loads%20too%20slowly`;
 const googleReviewsUrl = "https://maps.app.goo.gl/iJYaupqoL8usLB6X7";
 
 const costBullets = ["Visitors leave before it loads", "Google rankings suffer", "Fewer leads and sales"];
@@ -62,7 +60,8 @@ const speedReviews = [
   headerBookingEvent="reservar_click"
   lang="en"
   bookingHref={bookingUrl}
-  whatsappHref={whatsappUrl}
+  showWhatsAppButton={false}
+  showChatbase={false}
   schemaDescription="Technical website speed diagnosis and optimization for businesses that need measurable improvements without rebuilding the site."
   schemaAreaServed={["United States", "Remote"]}
 >
@@ -73,12 +72,6 @@ const speedReviews = [
       <p class="hero-subtitle">I diagnose and fix the technical issues slowing it down. Measurable results in 3 days. From $150.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={bookingUrl} target="_blank" rel="noreferrer">Book a free 15-min call</a>
-        <a class="btn btn-secondary" data-event="whatsapp_click" data-preserve-utm href={whatsappUrl} target="_blank" rel="noreferrer">
-          <svg class="btn-icon" aria-hidden="true" viewBox="0 0 32 32" width="20" height="20">
-            <path fill="currentColor" d="M16.02 3.2A12.66 12.66 0 0 0 5.1 22.28L3.6 28.8l6.66-1.56A12.65 12.65 0 1 0 16.02 3.2Zm0 22.9c-1.96 0-3.78-.56-5.34-1.54l-.38-.24-3.94.92.9-3.86-.25-.4a10.24 10.24 0 1 1 9.01 5.12Zm5.62-7.66c-.3-.16-1.82-.9-2.1-1-.28-.1-.48-.16-.68.16-.2.3-.78 1-.96 1.2-.18.2-.36.22-.66.08-.3-.16-1.28-.48-2.44-1.52-.9-.8-1.5-1.8-1.68-2.1-.18-.3-.02-.48.14-.64.14-.14.3-.36.46-.54.16-.18.2-.3.3-.5.1-.2.06-.38-.02-.54-.08-.16-.68-1.64-.94-2.24-.24-.58-.5-.5-.68-.5h-.58c-.2 0-.52.08-.8.38-.28.3-1.04 1.02-1.04 2.48s1.06 2.88 1.22 3.08c.16.2 2.1 3.2 5.08 4.48.7.3 1.26.48 1.7.62.72.22 1.36.2 1.88.12.58-.08 1.82-.74 2.08-1.46.26-.72.26-1.34.18-1.46-.08-.14-.28-.22-.58-.38Z"/>
-          </svg>
-          Message me on WhatsApp
-        </a>
       </div>
     </div>
   </section>
@@ -182,12 +175,6 @@ const speedReviews = [
     <h2>Book the free call and let us see what is slowing your website down.</h2>
     <div class="hero-actions">
       <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={bookingUrl} target="_blank" rel="noreferrer">Book a free 15-min call</a>
-      <a class="btn btn-secondary" data-event="whatsapp_click" data-preserve-utm href={whatsappUrl} target="_blank" rel="noreferrer">
-        <svg class="btn-icon" aria-hidden="true" viewBox="0 0 32 32" width="20" height="20">
-          <path fill="currentColor" d="M16.02 3.2A12.66 12.66 0 0 0 5.1 22.28L3.6 28.8l6.66-1.56A12.65 12.65 0 1 0 16.02 3.2Zm0 22.9c-1.96 0-3.78-.56-5.34-1.54l-.38-.24-3.94.92.9-3.86-.25-.4a10.24 10.24 0 1 1 9.01 5.12Zm5.62-7.66c-.3-.16-1.82-.9-2.1-1-.28-.1-.48-.16-.68.16-.2.3-.78 1-.96 1.2-.18.2-.36.22-.66.08-.3-.16-1.28-.48-2.44-1.52-.9-.8-1.5-1.8-1.68-2.1-.18-.3-.02-.48.14-.64.14-.14.3-.36.46-.54.16-.18.2-.3.3-.5.1-.2.06-.38-.02-.54-.08-.16-.68-1.64-.94-2.24-.24-.58-.5-.5-.68-.5h-.58c-.2 0-.52.08-.8.38-.28.3-1.04 1.02-1.04 2.48s1.06 2.88 1.22 3.08c.16.2 2.1 3.2 5.08 4.48.7.3 1.26.48 1.7.62.72.22 1.36.2 1.88.12.58-.08 1.82-.74 2.08-1.46.26-.72.26-1.34.18-1.46-.08-.14-.28-.22-.58-.38Z"/>
-        </svg>
-        Message me on WhatsApp
-      </a>
     </div>
   </section>
 </BaseLayout>

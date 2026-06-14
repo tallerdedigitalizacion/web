@@ -17,6 +17,7 @@ const {
   headerBrandHref = "/",
   headerNavItems = [],
   showHeaderBooking = true,
+  showWhatsAppButton = true,
   lang = "es",
   bookingHref = siteConfig.bookingUrl,
   whatsappHref,
@@ -87,7 +88,7 @@ const schema = {
       <slot />
     </main>
     <Footer lang={lang} />
-    <WhatsAppButton lang={lang} href={whatsappHref} />
+    {showWhatsAppButton && <WhatsAppButton lang={lang} href={whatsappHref} />}
     <CookieBanner lang={lang} />
     {showChatbase && <Chatbase />}
   </body>
