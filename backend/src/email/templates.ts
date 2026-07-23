@@ -1,6 +1,7 @@
 import { assessmentAreas } from "../assessment";
-import type { DiagnosticLeadInput, MethodLeadInput } from "../schemas";
+import type { DiagnosticLeadInput, MethodLeadInput, WebsiteReportLeadInput } from "../schemas";
 import type { scoreAssessment } from "../assessment";
+import type { WebsiteReport } from "../websiteAnalysis";
 
 type DiagnosticScore = ReturnType<typeof scoreAssessment>;
 
@@ -83,6 +84,59 @@ export function notificationEmail(action: "diagnostic" | "method", input: Diagno
         <li><strong>Empresa:</strong> ${escapeHtml(input.company || "-")}</li>
         <li><strong>Cargo:</strong> ${escapeHtml(input.role || "-")}</li>
         <li><strong>Marketing:</strong> ${input.marketingAccepted ? "sí" : "no"}</li>
+      </ul>
+      ${extra ? `<pre>${escapeHtml(extra)}</pre>` : ""}
+    `,
+  };
+}
+
+export function websiteReportEmail(input: WebsiteReportLeadInput, report: WebsiteReport) {
+  const findingsList = report.findings.map((finding) => `<li>${escapeHtml(finding)}</li>`).join("");
+  const scoreRow = (label: string, value: number | null | undefined) =>
+    value === null || value === undefined ? "" : `<tr><td>${label}</td><td>${value}/100</td></tr>`;
+  const scoresTable = report.pageSpeed
+    ? `<table cellpadding="8" cellspacing="0" border="1" style="border-collapse:collapse;border-color:#d8ddd9;">
+        <thead><tr><th align="left">Indicador</th><th align="left">Puntuación</th></tr></thead>
+        <tbody>
+          ${scoreRow("Rendimiento (móvil)", report.pageSpeed.performance)}
+          ${scoreRow("SEO técnico", report.pageSpeed.seo)}
+          ${scoreRow("Buenas prácticas", report.pageSpeed.bestPractices)}
+        </tbody>
+      </table>`
+    : "";
+
+  return {
+    subject: `Tu informe gratuito de ${input.url}`,
+    text: [
+      `Hola,`,
+      "",
+      `Este es el informe automático de ${report.url}.`,
+      "",
+      "Principales hallazgos:",
+      report.findings.map((finding) => `- ${finding}`).join("\n"),
+      "",
+      "Este informe se basa en indicadores automáticos y es una primera lectura, no un diagnóstico completo.",
+    ].join("\n"),
+    html: `
+      <h1>Informe Gratuito de tu Página Web</h1>
+      <p>Este es el análisis automático de <strong>${escapeHtml(report.url)}</strong>.</p>
+      ${scoresTable}
+      <h3>Principales hallazgos</h3>
+      <ol>${findingsList}</ol>
+      <p>Este informe se basa en indicadores automáticos y sirve como primera lectura. Si quieres un análisis más a fondo, con recomendaciones priorizadas y un plan de acción, puedes reservar una llamada.</p>
+    `,
+  };
+}
+
+export function websiteReportNotificationEmail(input: WebsiteReportLeadInput, report: WebsiteReport, extra = "") {
+  return {
+    subject: `Nuevo lead: informe web - ${input.email}`,
+    text: [`Acción: website-report`, `URL analizada: ${report.url}`, `Email: ${input.email}`, extra].join("\n"),
+    html: `
+      <h1>Nuevo lead: informe web</h1>
+      <ul>
+        <li><strong>URL analizada:</strong> ${escapeHtml(report.url)}</li>
+        <li><strong>Email:</strong> ${escapeHtml(input.email)}</li>
       </ul>
       ${extra ? `<pre>${escapeHtml(extra)}</pre>` : ""}
     `,

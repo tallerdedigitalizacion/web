@@ -7,11 +7,12 @@ import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { z } from "zod";
 import { scoreAssessment } from "./assessment";
 import { config } from "./config";
-import { diagnosticLeadSchema, methodLeadSchema } from "./schemas";
-import { diagnosticEmail, methodEmail, notificationEmail } from "./email/templates";
+import { diagnosticLeadSchema, methodLeadSchema, websiteReportLeadSchema } from "./schemas";
+import { diagnosticEmail, methodEmail, notificationEmail, websiteReportEmail, websiteReportNotificationEmail } from "./email/templates";
 import { sendEmail } from "./email/sender";
 import { assertAllowedOrigin, assertHoneypot, assertHumanTiming, assertPayloadSize, assertRateLimit, getClientIp, SecurityError } from "./security";
 import { hashValue, saveLead } from "./store";
+import { analyzeWebsite } from "./websiteAnalysis";
 
 const app = new Hono();
 
@@ -28,6 +29,7 @@ app.use(
 app.get("/health", (c) => c.json({ ok: true }));
 app.post("/lead/diagnostic", async (c) => handleLead(c, "diagnostic"));
 app.post("/lead/method", async (c) => handleLead(c, "method"));
+app.post("/lead/website-report", async (c) => handleWebsiteReport(c));
 
 async function handleLead(c: Context, action: "diagnostic" | "method") {
   try {
@@ -99,6 +101,62 @@ async function handleLead(c: Context, action: "diagnostic" | "method") {
       message: leadDelivery.ok
         ? "Método enviado por email."
         : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+    });
+  } catch (error) {
+    if (error instanceof SecurityError) {
+      const status = error.status as ContentfulStatusCode;
+      return error.silent ? c.json({ ok: true }, status) : c.json({ ok: false, error: error.message }, status);
+    }
+    if (error instanceof z.ZodError) {
+      return c.json({ ok: false, error: "Datos inválidos", issues: error.issues }, 400);
+    }
+    console.error(error);
+    return c.json({ ok: false, error: "Error interno" }, 500);
+  }
+}
+
+async function handleWebsiteReport(c: Context) {
+  try {
+    assertAllowedOrigin(c);
+    const rawBody = await c.req.text();
+    assertPayloadSize(rawBody);
+    let parsedJson: unknown;
+    try {
+      parsedJson = JSON.parse(rawBody || "{}") as unknown;
+    } catch {
+      return c.json({ ok: false, error: "JSON inválido" }, 400);
+    }
+    const input = websiteReportLeadSchema.parse(parsedJson);
+    const ip = getClientIp(c);
+
+    assertHoneypot(input.website);
+    assertHumanTiming(input.startedAt);
+    await assertRateLimit(ip, "website-report");
+
+    const report = await analyzeWebsite(input.url);
+    const saved = await saveLead("website-report", {
+      ...cleanLead(input),
+      ipHash: hashValue(ip),
+      checks: report.checks,
+      pageSpeed: report.pageSpeed,
+    });
+
+    const leadDelivery = await trySendEmail(input.email, websiteReportEmail(input, report));
+    if (config.notifyEmail) {
+      const deliveryNote = leadDelivery.ok
+        ? "Email al lead: enviado."
+        : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+      await trySendEmail(config.notifyEmail, websiteReportNotificationEmail(input, report, `Lead id: ${saved.id}\n${deliveryNote}`));
+    }
+
+    return c.json({
+      ok: true,
+      leadId: saved.id,
+      emailDelivered: leadDelivery.ok,
+      findings: report.findings,
+      message: leadDelivery.ok
+        ? "Te hemos enviado el informe por email."
+        : "Analizamos tu web, pero ahora mismo el envío automático está limitado por la configuración de email. Tus datos quedaron registrados.",
     });
   } catch (error) {
     if (error instanceof SecurityError) {

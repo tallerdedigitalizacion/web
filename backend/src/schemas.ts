@@ -34,5 +34,15 @@ export const diagnosticLeadSchema = baseLeadSchema.extend({
 
 export const methodLeadSchema = baseLeadSchema;
 
+export const websiteReportLeadSchema = z.object({
+  url: z.string().trim().url().max(300),
+  email: z.string().trim().email().max(180),
+  website: z.string().trim().max(200).optional().default(""),
+  startedAt: z.number().int().positive().optional(),
+  pageUrl: z.string().url().max(500).optional(),
+  userAgent: z.string().max(500).optional(),
+});
+
 export type DiagnosticLeadInput = z.infer<typeof diagnosticLeadSchema>;
 export type MethodLeadInput = z.infer<typeof methodLeadSchema>;
+export type WebsiteReportLeadInput = z.infer<typeof websiteReportLeadSchema>;

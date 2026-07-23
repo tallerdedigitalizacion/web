@@ -20,6 +20,7 @@ export const config = {
   rateLimitWindowSeconds: Number(process.env.RATE_LIMIT_WINDOW_SECONDS || "600"),
   minSubmitSeconds: Number(process.env.MIN_SUBMIT_SECONDS || "3"),
   maxPayloadBytes: Number(process.env.MAX_PAYLOAD_BYTES || "65536"),
+  pagespeedApiKey: process.env.PAGESPEED_API_KEY || "",
 };
 
 function requireEnv(name: string) {

@@ -56,6 +56,7 @@ export class LeadsStack extends Stack {
           process.env.ALLOWED_ORIGINS || "https://tallerdedigitalizacion.com,http://localhost:4322,http://localhost:4323",
         IP_HASH_SALT: process.env.IP_HASH_SALT || "b91e4c6cfe32f2309c14f9edecc3490abf3a259bede1c27da7b160814d19febe",
         METHOD_PDF_FILE: "downloads/metodo-auditoria-caos-operativo.pdf",
+        PAGESPEED_API_KEY: process.env.PAGESPEED_API_KEY || "",
       },
     });
 
@@ -81,6 +82,7 @@ export class LeadsStack extends Stack {
     const lead = api.root.addResource("lead");
     lead.addResource("diagnostic").addMethod("POST", integration);
     lead.addResource("method").addMethod("POST", integration);
+    lead.addResource("website-report").addMethod("POST", integration);
     api.root.addResource("health").addMethod("GET", integration);
 
     new CfnOutput(this, "LeadsApiUrl", {

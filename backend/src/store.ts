@@ -9,7 +9,7 @@ export function hashValue(value: string) {
   return createHash("sha256").update(`${config.ipHashSalt}:${value}`).digest("hex");
 }
 
-export async function saveLead(action: "diagnostic" | "method", item: Record<string, unknown>) {
+export async function saveLead(action: "diagnostic" | "method" | "website-report", item: Record<string, unknown>) {
   const now = new Date().toISOString();
   const email = String(item.email || "").toLowerCase();
   const id = randomUUID();

@@ -1,0 +1,243 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+
+const title = "Free Website Report | Taller de Digitalización";
+const description = "Discover what is slowing down your website in under 2 minutes. Enter your URL and get a free report by email.";
+
+const analysisItems = [
+  "Performance and load speed",
+  "Mobile device optimization",
+  "Basic SEO fundamentals",
+  "Security and HTTPS setup",
+  "Quality of contact forms",
+  "Lead capture",
+  "User experience",
+  "Automation and AI opportunities",
+];
+
+const deliverables = [
+  "A personalized report",
+  "The main problems detected",
+  "Clear, prioritized recommendations",
+  "Quick actions you can apply",
+  "Opportunities to improve customer acquisition",
+];
+
+const steps = [
+  "Enter your website's URL",
+  "We automatically analyze the main indicators",
+  "Get your report straight to your inbox",
+];
+
+const idealFor = [
+  "You want to know if your website is actually working",
+  "You invested in a website and don't know if it's delivering results",
+  "You are thinking about refreshing your digital presence",
+  "You want to spot opportunities before your competitors do",
+];
+
+const navItems = [
+  ["What we analyze", "#what-we-analyze"],
+  ["What you get", "#what-you-get"],
+  ["How it works", "#how-it-works"],
+  ["Ideal if", "#ideal-if"],
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/free-website-report"
+  headerBrandHref="/free-website-report"
+  headerNavItems={navItems}
+  showHeaderBooking={false}
+  lang="en"
+  showWhatsAppButton={false}
+  showChatbase={false}
+  schemaDescription="Free automated report on website performance, basic SEO, security and lead capture."
+  schemaAreaServed={["United States", "Remote"]}
+>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">Free Website Report</span>
+      <h1>Discover what is slowing down your website in under 2 minutes.</h1>
+      <p class="hero-subtitle">Your website may be losing customers without you knowing it. A form that doesn't convert, slow loading, or poor structure can make visitors leave before they contact your business.</p>
+      <p>Enter your website address and get a free report with the main factors affecting your digital presence.</p>
+    </div>
+
+    <div class="lead-capture" data-report-form-wrapper>
+      <form class="compact-form" data-report-form>
+        <label>Your website address<input required type="url" name="url" placeholder="https://www.yourbusiness.com" autocomplete="url" /></label>
+        <label>Email address<input required type="email" name="email" placeholder="you@yourbusiness.com" autocomplete="email" /><small>We'll send the report to this email.</small></label>
+        <label class="honeypot" aria-hidden="true">Website<input tabindex="-1" autocomplete="off" name="website" /></label>
+        <input type="hidden" name="started_at" data-started-at />
+        <button class="btn btn-primary" type="submit" data-event="informe_web_click">Get my free report</button>
+        <p class="form-help" data-report-status aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div class="result-panel" data-report-result hidden aria-live="polite">
+      <div class="result-summary">
+        <div>
+          <span class="eyebrow">Analysis complete</span>
+          <h3 data-report-title></h3>
+          <ul data-report-findings></ul>
+          <p class="muted">This report is based on automated indicators and is a first read, not a full audit.</p>
+        </div>
+      </div>
+      <div class="result-actions">
+        <a class="btn btn-primary" data-event="reservar_click" href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Book a call to review my website</a>
+        <button class="btn btn-secondary" type="button" data-report-reset>Analyze another website</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="what-we-analyze" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">What we analyze</span>
+      <h2>The indicators that matter most for your digital presence.</h2>
+    </div>
+    <div class="tag-grid">
+      {analysisItems.map((item) => <span>{item}</span>)}
+    </div>
+  </section>
+
+  <section id="what-you-get" class="section">
+    <div class="section-head">
+      <span class="eyebrow">What you get</span>
+      <h2>An actionable report, not a pile of jargon.</h2>
+    </div>
+    <ul class="check-list">
+      {deliverables.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section id="how-it-works" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2>3 steps, no runaround.</h2>
+    </div>
+    <div class="steps">
+      {steps.map((step, index) => (
+        <article>
+          <span class="step-number">{index + 1}</span>
+          <h3>{step}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="ideal-if" class="section">
+    <div class="section-head">
+      <span class="eyebrow">This report is ideal if…</span>
+      <h2>Does any of this sound familiar?</h2>
+    </div>
+    <ul class="check-list">
+      {idealFor.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="section final-cta">
+    <h2>Start today. Discover your website's potential before investing more time or money.</h2>
+    <p>Just enter your website address and an email. In a few minutes you'll get an analysis with the main opportunities for improvement.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#top" data-scroll-to-form>Get my free report</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ formEndpoint: siteConfig.formEndpoint }}>
+  function apiBaseUrl() {
+    if (!formEndpoint || formEndpoint.includes("INSERTAR")) return "";
+    return String(formEndpoint).replace(/\/$/, "");
+  }
+
+  async function postLead(path, payload) {
+    const baseUrl = apiBaseUrl();
+    if (!baseUrl) throw new Error("Form endpoint not configured.");
+    const response = await fetch(`${baseUrl}/lead/${path}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) {
+      throw new Error(data.error || "Could not process the request.");
+    }
+    return data;
+  }
+
+  const form = document.querySelector("[data-report-form]");
+  const formWrapper = document.querySelector("[data-report-form-wrapper]");
+  const result = document.querySelector("[data-report-result]");
+
+  document.querySelectorAll("[data-started-at]").forEach((input) => {
+    if (input instanceof HTMLInputElement) input.value = String(Date.now());
+  });
+
+  document.querySelectorAll("[data-scroll-to-form]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      formWrapper?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  });
+
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = form.querySelector("button[type='submit']");
+      const status = document.querySelector("[data-report-status]");
+      if (button instanceof HTMLButtonElement) button.disabled = true;
+      if (status instanceof HTMLElement) status.textContent = "Analyzing your website...";
+
+      const formData = new FormData(form);
+      try {
+        const response = await postLead("website-report", {
+          url: String(formData.get("url") || ""),
+          email: String(formData.get("email") || ""),
+          website: String(formData.get("website") || ""),
+          startedAt: Number(formData.get("started_at") || Date.now()),
+          pageUrl: window.location.href,
+          userAgent: navigator.userAgent,
+        });
+
+        const title = document.querySelector("[data-report-title]");
+        const findingsList = document.querySelector("[data-report-findings]");
+        if (title instanceof HTMLElement) {
+          title.textContent = response.emailDelivered === false ? "We analyzed your website." : "We sent the report to your email.";
+        }
+        if (findingsList instanceof HTMLElement) {
+          findingsList.innerHTML = "";
+          const findings = Array.isArray(response.findings) ? response.findings : [];
+          findings.forEach((finding) => {
+            const li = document.createElement("li");
+            li.textContent = finding;
+            findingsList.appendChild(li);
+          });
+        }
+
+        form.hidden = true;
+        if (result instanceof HTMLElement) result.hidden = false;
+        result?.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.tdTrackEvent?.("informe_web_completado");
+      } catch (error) {
+        if (status instanceof HTMLElement) status.textContent = error instanceof Error ? error.message : "Could not analyze the website.";
+        if (button instanceof HTMLButtonElement) button.disabled = false;
+      }
+    });
+  }
+
+  document.querySelector("[data-report-reset]")?.addEventListener("click", () => {
+    if (!(form instanceof HTMLFormElement)) return;
+    form.reset();
+    form.hidden = false;
+    if (result instanceof HTMLElement) result.hidden = true;
+    const button = form.querySelector("button[type='submit']");
+    if (button instanceof HTMLButtonElement) button.disabled = false;
+    document.querySelectorAll("[data-started-at]").forEach((input) => {
+      if (input instanceof HTMLInputElement) input.value = String(Date.now());
+    });
+    formWrapper?.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+</script>
