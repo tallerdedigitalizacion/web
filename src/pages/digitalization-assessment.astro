@@ -1,0 +1,277 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+import { reviews } from "@/data/reviews";
+
+const title = "Digitalization Assessment for businesses | Taller de Digitalización";
+const description = "Discover where you are losing time, money and opportunities. A technical and functional audit of your processes, with a prioritized report and action plan.";
+const bookingUrl = siteConfig.bookingUrl;
+const googleReviewsUrl = "https://maps.app.goo.gl/iJYaupqoL8usLB6X7";
+
+const analysisItems = [
+  "Digital tools used across the business",
+  "How information flows between departments",
+  "Customer and sales pipeline management",
+  "Document organization",
+  "Existing automations",
+  "Repetitive manual processes",
+  "Use of artificial intelligence",
+  "Integrations between platforms",
+  "Operational risks and bottlenecks",
+];
+
+const deliverables = [
+  "An executive report with the main problems detected",
+  "A map of your digital processes",
+  "A prioritized list of improvements",
+  "An impact estimate for each recommendation",
+  "Technical recommendations tailored to your business",
+  "A roadmap for the next 90 days",
+];
+
+const idealFor = [
+  "Have grown and feel things are starting to get chaotic",
+  "Work with too many spreadsheets and emails",
+  "Use several tools that don't talk to each other",
+  "Want to adopt AI without improvising",
+  "Want to save time before hiring more people",
+];
+
+const faqs = [
+  ["Is this the same as an operational chaos diagnosis?", "No. That one looks at processes and how much the business depends on the owner. This one focuses on your digitalization: tools, information flow, automations and integrations between platforms."],
+  ["Do I have to change everything at once?", "No. Recommendations are prioritized by impact and effort, so you can implement them in phases."],
+  ["Are you going to sell me new tools?", "No. The goal is not to sell you software, but to help you make better technology decisions."],
+  ["How much does it cost?", "Scope and price are adjusted to the size and complexity of the business. No commitment until you decide to move forward."],
+];
+
+const navItems = [
+  ["What we analyze", "#what-we-analyze"],
+  ["What you get", "#what-you-get"],
+  ["Ideal for", "#ideal-for"],
+  ["Why me", "#why-me"],
+  ["FAQ", "#faq"],
+];
+
+const translateDate = (date: string) => date.replace(/^Hace (\d+) mes(es)?$/, (_, count) => `${count} month${count === "1" ? "" : "s"} ago`);
+const assessmentReviews = reviews.slice(0, 8).map((review) => ({ ...review, date: translateDate(review.date) }));
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/digitalization-assessment"
+  headerBrandHref="/digitalization-assessment"
+  headerNavItems={navItems}
+  headerBookingEvent="reservar_click"
+  lang="en"
+  bookingHref={bookingUrl}
+  showWhatsAppButton={false}
+  showChatbase={false}
+  schemaDescription="Technical and functional audit of a business's digital processes, with a prioritized report, process map and 90-day action plan."
+  schemaAreaServed={["United States", "Remote"]}
+>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">Digitalization Assessment</span>
+      <h1>Discover where you are losing time, money and opportunities.</h1>
+      <p class="hero-subtitle">Most businesses do not need more tools. They need to understand what they have, how they work, and what is holding back their growth.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={bookingUrl} target="_blank" rel="noreferrer">Request an assessment</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="what-i-do" class="section section-split">
+    <div>
+      <span class="eyebrow">What I do</span>
+      <h2>A technical and functional audit of your processes.</h2>
+      <p>We look at how information flows, which tasks are manual, where duplication exists, which tools are not integrated, and which automation opportunities offer the highest return.</p>
+      <p>At the end, you get a clear, prioritized report with practical recommendations and an action plan.</p>
+    </div>
+    <div class="honest-note">
+      <span class="eyebrow">No runaround</span>
+      <p>No commitment, and no need to change everything at once.</p>
+    </div>
+  </section>
+
+  <section id="what-we-analyze" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">What we analyze</span>
+      <h2>A full map of how your business works today.</h2>
+    </div>
+    <div class="tag-grid">
+      {analysisItems.map((item) => <span>{item}</span>)}
+    </div>
+  </section>
+
+  <section id="what-you-get" class="section">
+    <div class="section-head">
+      <span class="eyebrow">What you get</span>
+      <h2>A report, not a collection of opinions.</h2>
+    </div>
+    <ul class="check-list">
+      {deliverables.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section id="ideal-for" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Ideal for businesses that…</span>
+      <h2>Does any of this sound familiar?</h2>
+    </div>
+    <ul class="check-list">
+      {idealFor.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="section callout">
+    <span class="eyebrow">Our goal</span>
+    <h2>Not to sell you software. To help you make better technology decisions.</h2>
+    <p>A good assessment usually uncovers small improvements with immediate impact, and it also lays the groundwork for later automation, systems integration or AI projects.</p>
+  </section>
+
+  <section id="why-me" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Why me</span>
+      <h2>A technical person looking directly at the problem.</h2>
+      <p>15 years building and optimizing software. <a class="google-review-link" href={googleReviewsUrl} target="_blank" rel="noreferrer">
+        <svg class="google-mark" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-8.09Z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.76c-.98.66-2.24 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/>
+          <path fill="#FBBC05" d="M5.84 14.11a6.61 6.61 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84Z"/>
+          <path fill="#EA4335" d="M12 5.36c1.62 0 3.06.56 4.21 1.64l3.15-3.15A10.56 10.56 0 0 0 12 1 11 11 0 0 0 2.18 7.05l3.66 2.84C6.71 7.29 9.14 5.36 12 5.36Z"/>
+        </svg>
+        10+ Google reviews
+      </a> and 1,000+ followers on LinkedIn. You talk to the person doing the technical work, not an agency handoff.</p>
+    </div>
+    <div class="reviews-carousel" data-reviews-carousel aria-label="Google reviews">
+      <div class="reviews-track" data-reviews-track>
+        {assessmentReviews.map((review, index) => (
+          <article class="review-card" data-review-card aria-label={`Review ${index + 1} of ${assessmentReviews.length}`}>
+            <div class="review-meta">
+              <strong>{review.name}</strong>
+              <a class="review-source" href={googleReviewsUrl} target="_blank" rel="noreferrer">
+                <svg class="google-mark" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-8.09Z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.76c-.98.66-2.24 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"/>
+                  <path fill="#FBBC05" d="M5.84 14.11a6.61 6.61 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84Z"/>
+                  <path fill="#EA4335" d="M12 5.36c1.62 0 3.06.56 4.21 1.64l3.15-3.15A10.56 10.56 0 0 0 12 1 11 11 0 0 0 2.18 7.05l3.66 2.84C6.71 7.29 9.14 5.36 12 5.36Z"/>
+                </svg>
+                Translated Google review · {review.rating}/5 · {review.date}
+              </a>
+            </div>
+            <p>{review.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="carousel-controls">
+        <button class="btn btn-secondary btn-small" type="button" data-review-prev aria-label="View previous review">Previous</button>
+        <div class="carousel-dots" data-review-dots aria-label="Review indicator"></div>
+        <button class="btn btn-secondary btn-small" type="button" data-review-next aria-label="View next review">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions before the call.</h2>
+    </div>
+    <div class="faq-list">
+      {faqs.map(([question, answer]) => (
+        <details>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <h2>Request a Digitalization Assessment and discover which improvements can deliver the highest return for the lowest investment.</h2>
+    <div class="hero-actions">
+      <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={bookingUrl} target="_blank" rel="noreferrer">Request an assessment</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const utmEntries = [...params.entries()].filter(([key]) => key.toLowerCase().startsWith("utm_"));
+
+  if (utmEntries.length > 0) {
+    document.querySelectorAll('[data-preserve-utm], a[href*="calendly.com/tallerdedigitalizacion"], a[href*="cal.com/taller-de-digitalizacion"]').forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const url = new URL(link.href);
+      utmEntries.forEach(([key, value]) => {
+        if (!url.searchParams.has(key)) url.searchParams.set(key, value);
+      });
+      link.href = url.toString();
+    });
+  }
+
+  document.querySelectorAll(".faq-list details").forEach((item) => {
+    item.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("summary")) return;
+      item.open = !item.open;
+    });
+  });
+
+  const carousel = document.querySelector("[data-reviews-carousel]");
+  const track = document.querySelector("[data-reviews-track]");
+  const cards = [...document.querySelectorAll("[data-review-card]")];
+  const prev = document.querySelector("[data-review-prev]");
+  const next = document.querySelector("[data-review-next]");
+  const dots = document.querySelector("[data-review-dots]");
+  let activeReview = 0;
+  let scrollTimer;
+
+  function renderDots() {
+    if (!(dots instanceof HTMLElement)) return;
+    dots.innerHTML = cards
+      .map((_, index) => `<button type="button" aria-label="View review ${index + 1}" data-review-dot="${index}"></button>`)
+      .join("");
+  }
+
+  function setActiveReview(index) {
+    activeReview = (index + cards.length) % cards.length;
+    dots?.querySelectorAll("[data-review-dot]").forEach((dot) => {
+      dot.toggleAttribute("aria-current", dot.getAttribute("data-review-dot") === String(activeReview));
+    });
+  }
+
+  function showReview(index) {
+    if (!(track instanceof HTMLElement) || cards.length === 0) return;
+    setActiveReview(index);
+    const card = cards[activeReview];
+    track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: "smooth" });
+  }
+
+  function syncReviewFromScroll() {
+    if (!(track instanceof HTMLElement) || cards.length === 0) return;
+    const nearestIndex = cards.reduce((nearest, card, index) => {
+      const currentDistance = Math.abs(card.getBoundingClientRect().left - track.getBoundingClientRect().left);
+      const nearestDistance = Math.abs(cards[nearest].getBoundingClientRect().left - track.getBoundingClientRect().left);
+      return currentDistance < nearestDistance ? index : nearest;
+    }, 0);
+    setActiveReview(nearestIndex);
+  }
+
+  if (carousel && track && cards.length) {
+    renderDots();
+    showReview(0);
+
+    track.addEventListener("scroll", () => {
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(syncReviewFromScroll, 80);
+    });
+    prev?.addEventListener("click", () => showReview(activeReview - 1));
+    next?.addEventListener("click", () => showReview(activeReview + 1));
+    dots?.addEventListener("click", (event) => {
+      const dot = event.target instanceof Element ? event.target.closest("[data-review-dot]") : null;
+      if (dot instanceof HTMLElement) showReview(Number(dot.dataset.reviewDot));
+    });
+  }
+</script>
