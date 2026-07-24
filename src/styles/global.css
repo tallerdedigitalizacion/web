@@ -660,6 +660,120 @@ input {
   color: #20242c;
 }
 
+.web-audit-assessment .area-block {
+  display: grid;
+  gap: 18px;
+}
+
+.pagespeed-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(78, 229, 141, 0.08);
+}
+
+.pagespeed-actions .form-help {
+  flex: 1 1 260px;
+  margin: 0;
+}
+
+.radio-group {
+  display: grid;
+  gap: 10px;
+}
+
+.radio-group > p {
+  margin: 0;
+  font-weight: 850;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.choice-grid-answers {
+  grid-template-columns: 1fr;
+}
+
+.choice-card {
+  display: flex;
+  min-height: 52px;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--muted);
+  font-weight: 650;
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.choice-card:hover,
+.choice-card:focus-within {
+  border-color: rgba(78, 229, 141, 0.56);
+  color: var(--ink);
+}
+
+.choice-card input {
+  width: auto;
+  min-height: auto;
+  accent-color: var(--accent);
+}
+
+.choice-card:has(input:checked) {
+  border-color: rgba(78, 229, 141, 0.72);
+  background: rgba(78, 229, 141, 0.12);
+  color: var(--ink);
+}
+
+.web-audit-question {
+  grid-template-columns: minmax(240px, 0.85fr) minmax(280px, 1.15fr);
+  align-items: start;
+}
+
+.penalty-list {
+  margin-top: 18px;
+}
+
+.ai-pricing-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+  gap: clamp(22px, 5vw, 48px);
+  align-items: center;
+  padding: clamp(24px, 5vw, 42px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.ai-pricing-panel strong {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--accent);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1;
+}
+
+.ai-pricing-panel p {
+  max-width: 620px;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.ai-pricing-panel .btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
 .check {
   display: flex;
   gap: 10px;
@@ -1112,23 +1226,6 @@ details p {
   color: var(--muted);
 }
 
-.whatsapp-float {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 30;
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: #25d366;
-  color: #ffffff;
-  font-weight: 900;
-  text-decoration: none;
-  box-shadow: var(--shadow);
-}
-
 .cookie-banner {
   position: fixed;
   left: 18px;
@@ -1206,7 +1303,7 @@ details p {
   .hero-content p { margin-left: auto; margin-right: auto; }
   .hero-actions { justify-content: center; }
   .question { grid-template-columns: 1fr; }
-  .form-grid, .tag-grid, .card-grid, .pricing-grid, .deliverables-grid, .impact-grid, .problem-card-grid, .product-grid, .bar-row { grid-template-columns: 1fr; }
+  .form-grid, .tag-grid, .card-grid, .pricing-grid, .deliverables-grid, .impact-grid, .problem-card-grid, .product-grid, .bar-row, .choice-grid, .web-audit-question { grid-template-columns: 1fr; }
   .deliverables-row .deliverables-grid { grid-template-columns: 1fr; }
   .deliverables-visual { min-height: 240px; }
   .problem-card { min-height: 220px; }
@@ -1231,7 +1328,7 @@ details p {
 }
 
 @media print {
-  .site-header, .site-footer, .whatsapp-float, .cookie-banner { display: none !important; }
+  .site-header, .site-footer, .cookie-banner { display: none !important; }
   body { background: #fff; }
   .section, .section-accent { width: 100%; padding: 20px 0; background: #fff; }
 }

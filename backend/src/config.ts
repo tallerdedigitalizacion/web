@@ -9,7 +9,8 @@ export const config = {
   smtpUser: process.env.SMTP_USER || "",
   smtpPassword: process.env.SMTP_PASSWORD || process.env.SMTP_PASS || "",
   siteUrl: process.env.SITE_URL || "https://tallerdedigitalizacion.com",
-  bookingUrl: process.env.BOOKING_URL || "https://calendly.com/tallerdedigitalizacion-info/30min",
+  bookingUrl: process.env.BOOKING_URL || "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
+  webAuditBookingUrl: process.env.WEB_AUDIT_BOOKING_URL || "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
   allowedOrigins: (process.env.ALLOWED_ORIGINS || "https://tallerdedigitalizacion.com")
     .split(",")
     .map((origin) => origin.trim())
@@ -20,7 +21,8 @@ export const config = {
   rateLimitWindowSeconds: Number(process.env.RATE_LIMIT_WINDOW_SECONDS || "600"),
   minSubmitSeconds: Number(process.env.MIN_SUBMIT_SECONDS || "3"),
   maxPayloadBytes: Number(process.env.MAX_PAYLOAD_BYTES || "65536"),
-  pagespeedApiKey: process.env.PAGESPEED_API_KEY || "",
+  webAuditGuidePdfFileEs: process.env.WEB_AUDIT_GUIDE_PDF_FILE_ES || "downloads/auditoria-web-tecnica-reporte-ejecutivo-es.pdf",
+  webAuditGuidePdfFileEn: process.env.WEB_AUDIT_GUIDE_PDF_FILE_EN || "downloads/technical-web-audit-executive-report-en.pdf",
 };
 
 function requireEnv(name: string) {
