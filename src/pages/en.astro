@@ -1,0 +1,132 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const title = "Taller de Digitalización | Technical solutions for businesses";
+const description = "Taller de Digitalización brings together technical services to solve concrete business problems: digitalization, Google Workspace, leads, AI oracles, integrations and more.";
+
+const products = [
+  {
+    eyebrow: "Digitalization",
+    title: "Digitalization Assessment",
+    text: "Discover where you are losing time, money and opportunities: a technical and functional audit of your processes, with a prioritized report and action plan.",
+    href: "/digitalization-assessment",
+    cta: "View digitalization assessment",
+  },
+  {
+    eyebrow: "Google Workspace",
+    title: "Google Workspace Reorganization",
+    text: "We organize users, licenses, groups and permissions so each person only has access to what they need.",
+    href: "/google-workspace-reorganization",
+    cta: "View Workspace reorganization",
+  },
+  {
+    eyebrow: "Google Drive",
+    title: "Corporate Google Drive Restructuring",
+    text: "A clear, scalable structure to find any document in seconds.",
+    href: "/corporate-google-drive-restructuring",
+    cta: "View Drive restructuring",
+  },
+  {
+    eyebrow: "Security",
+    title: "Centralized Access Management",
+    text: "Know who can access what, with a password manager and onboarding/offboarding procedures.",
+    href: "/centralized-access-management",
+    cta: "View access management",
+  },
+  {
+    eyebrow: "Sales",
+    title: "Lead Centralization",
+    text: "All your prospects in a single place, tracked automatically in your CRM.",
+    href: "/lead-centralization",
+    cta: "View lead centralization",
+  },
+  {
+    eyebrow: "Marketing",
+    title: "Conversion Landing Pages",
+    text: "Pages focused on a single goal to turn your campaign traffic into contacts.",
+    href: "/conversion-landing-pages",
+    cta: "View landing pages",
+  },
+  {
+    eyebrow: "Internal AI",
+    title: "Internal Oracle",
+    text: "Your company's knowledge available in seconds, answered by AI over your own documentation.",
+    href: "/internal-oracle",
+    cta: "View Internal Oracle",
+  },
+  {
+    eyebrow: "External AI",
+    title: "External Oracle",
+    text: "Support your customers 24/7 and capture new leads with an AI assistant over your information.",
+    href: "/external-oracle",
+    cta: "View External Oracle",
+  },
+  {
+    eyebrow: "Integrations",
+    title: "Systems Integration",
+    text: "We connect your CRM, ERP, invoicing and other tools to eliminate manual tasks and errors.",
+    href: "/systems-integration",
+    cta: "View systems integration",
+  },
+  {
+    eyebrow: "Custom-built",
+    title: "Custom Internal Tools",
+    text: "Custom dashboards, portals and automations to simplify your team's daily work.",
+    href: "/custom-internal-tools",
+    cta: "View custom tools",
+  },
+  {
+    eyebrow: "Website",
+    title: "Free Website Report",
+    text: "Enter your URL and get a free report in minutes on speed, basic SEO, security and lead capture.",
+    href: "/free-website-report",
+    cta: "Get my free report",
+  },
+  {
+    eyebrow: "Website speed",
+    title: "Website Speed Optimization",
+    text: "For slow websites losing visits, rankings and leads before customers see the offer.",
+    href: "/website-speed-optimization",
+    cta: "View speed optimization",
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/en"
+  showHeaderBooking={false}
+  headerNavItems={[["Products", "#products"], ["Español", "/"]]}
+  lang="en"
+  showWhatsAppButton={false}
+  showChatbase={false}
+  schemaDescription="Technical services catalog: digitalization, Google Workspace, access management, leads, AI oracles, systems integration and custom tools."
+  schemaAreaServed={["United States", "Remote"]}
+>
+  <section class="hero home-hero">
+    <div class="hero-content">
+      <span class="eyebrow">Taller de Digitalización</span>
+      <h1>Technical solutions for concrete business problems.</h1>
+      <p class="hero-subtitle">Choose the problem you want to solve. Each service has its own page, its own context and a single objective.</p>
+    </div>
+  </section>
+
+  <section id="products" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Services</span>
+      <h2>A catalog of pain points, one path each.</h2>
+      <p>This page only organizes the entrance. Product pages work as independent funnels, with no distractions or cross-navigation.</p>
+    </div>
+    <div class="product-grid">
+      {products.map((product) => (
+        <article class="product-card">
+          <span class="eyebrow">{product.eyebrow}</span>
+          <h3>{product.title}</h3>
+          <p>{product.text}</p>
+          <a class="btn btn-primary" href={product.href}>{product.cta}</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
