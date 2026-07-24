@@ -1,0 +1,47 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "que-puede-hacer",
+    eyebrow: "¿Qué puede hacer?",
+    heading: "Atención inteligente, disponible siempre.",
+    variant: "tag" as const,
+    items: [
+      "Responder preguntas frecuentes",
+      "Recomendar productos o servicios",
+      "Captar nuevos clientes",
+      "Generar solicitudes de contacto",
+      "Reducir la carga del equipo de atención",
+    ],
+  },
+  {
+    id: "beneficios",
+    eyebrow: "Beneficios",
+    heading: "Más atención, menos carga para su equipo.",
+    variant: "check" as const,
+    items: [
+      "Atención 24/7",
+      "Menor volumen de consultas repetitivas",
+      "Más oportunidades comerciales",
+      "Mejor experiencia para el cliente",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  title="Oráculo Externo | Taller de Digitalización"
+  description="El Oráculo Externo atiende a sus clientes automáticamente usando la información de su empresa y deriva al equipo comercial cuando es necesario."
+  slug="/oraculo-externo"
+  schemaDescription="Oráculo Externo: asistente de inteligencia artificial que atiende clientes, responde preguntas frecuentes y capta leads."
+  eyebrow="Oráculo Externo"
+  h1="Atienda a sus clientes incluso fuera del horario laboral."
+  subtitleParagraphs={[
+    "Los clientes esperan respuestas rápidas. Muchas consultas son repetitivas y consumen tiempo del equipo.",
+    "El Oráculo Externo responde automáticamente utilizando la información de su empresa y deriva al equipo comercial cuando es necesario.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Convierta su web en un canal de atención inteligente."
+  whatsappMessage="Hola, quiero un Oráculo Externo para atender a mis clientes"
+/>

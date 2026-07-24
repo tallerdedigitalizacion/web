@@ -1,0 +1,48 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "what-it-can-do",
+    eyebrow: "What it can do",
+    heading: "Smart support, available around the clock.",
+    variant: "tag" as const,
+    items: [
+      "Answer frequently asked questions",
+      "Recommend products or services",
+      "Capture new customers",
+      "Generate contact requests",
+      "Reduce the load on your support team",
+    ],
+  },
+  {
+    id: "benefits",
+    eyebrow: "Benefits",
+    heading: "More coverage, less load on your team.",
+    variant: "check" as const,
+    items: [
+      "24/7 support",
+      "Fewer repetitive inquiries",
+      "More sales opportunities",
+      "Better customer experience",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  lang="en"
+  title="External Oracle | Taller de Digitalización"
+  description="The External Oracle handles customer questions automatically using your company's information and hands off to your sales team when needed."
+  slug="/external-oracle"
+  schemaDescription="External Oracle: an AI assistant that supports customers, answers FAQs and captures leads."
+  schemaAreaServed={["United States", "Remote"]}
+  eyebrow="External Oracle"
+  h1="Support your customers even outside business hours."
+  subtitleParagraphs={[
+    "Customers expect fast answers. Many inquiries are repetitive and eat up your team's time.",
+    "The External Oracle answers automatically using your company's information and hands off to your sales team when needed.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Turn your website into a smart support channel."
+/>

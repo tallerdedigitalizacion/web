@@ -1,0 +1,49 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "what-it-includes",
+    eyebrow: "What it includes",
+    heading: "Everything connected, nothing lost.",
+    variant: "tag" as const,
+    items: [
+      "Form integration",
+      "CRM automation",
+      "Automatic classification",
+      "Assignment by team",
+      "Notifications",
+      "Status tracking for every opportunity",
+    ],
+  },
+  {
+    id: "benefits",
+    eyebrow: "Benefits",
+    heading: "What your sales team gains.",
+    variant: "check" as const,
+    items: [
+      "No lead gets lost",
+      "Faster response times",
+      "Better sales organization",
+      "Centralized information",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  lang="en"
+  title="Lead Centralization | Taller de Digitalización"
+  description="We centralize incoming leads from every channel so information reaches your CRM automatically and your team can act fast."
+  slug="/lead-centralization"
+  schemaDescription="Lead centralization: form integration, CRM automation, automatic classification and team assignment."
+  schemaAreaServed={["United States", "Remote"]}
+  eyebrow="Lead Centralization"
+  h1="All your prospects in a single place."
+  subtitleParagraphs={[
+    "Contacts come in from your website, social media, forms, campaigns or WhatsApp. When each channel works on its own, opportunities get lost.",
+    "We centralize incoming leads so all the information reaches your CRM automatically and your team can act fast.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Turn every contact into a business opportunity."
+/>

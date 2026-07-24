@@ -1,0 +1,48 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "que-incluye",
+    eyebrow: "¿Qué incluye?",
+    heading: "Una estructura pensada para durar.",
+    variant: "tag" as const,
+    items: [
+      "Organización de carpetas",
+      "Unidades compartidas",
+      "Permisos",
+      "Eliminación de duplicados",
+      "Estructura por departamentos",
+      "Buenas prácticas de colaboración",
+    ],
+  },
+  {
+    id: "beneficios",
+    eyebrow: "Beneficios",
+    heading: "Lo que cambia con una estructura clara.",
+    variant: "check" as const,
+    items: [
+      "Menos tiempo buscando documentos",
+      "Mejor colaboración",
+      "Menor riesgo de pérdida de información",
+      "Mayor control sobre los accesos",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  title="Reestructuración de Google Drive Corporativo | Taller de Digitalización"
+  description="Diseñamos una estructura clara, escalable y fácil de mantener en Google Drive para que toda la empresa trabaje sobre una única organización."
+  slug="/reestructuracion-google-drive"
+  schemaDescription="Reestructuración de Google Drive corporativo: carpetas, unidades compartidas, permisos y eliminación de duplicados."
+  eyebrow="Reestructuración de Google Drive Corporativo"
+  h1="Encuentre cualquier documento en segundos."
+  subtitleParagraphs={[
+    "Cuando los archivos están repartidos entre carpetas personales, unidades compartidas y documentos duplicados, encontrar información se convierte en una pérdida constante de tiempo.",
+    "Diseñamos una estructura clara, escalable y fácil de mantener para que toda la empresa trabaje sobre una única organización.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Convierta Google Drive en una herramienta de trabajo, no en un almacén de archivos."
+  whatsappMessage="Hola, quiero reestructurar nuestro Google Drive corporativo"
+/>

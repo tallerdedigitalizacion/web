@@ -1,0 +1,48 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "what-it-includes",
+    eyebrow: "What it includes",
+    heading: "Everything under one system.",
+    variant: "tag" as const,
+    items: [
+      "Account inventory",
+      "Access organization",
+      "Password manager",
+      "Roles and permissions",
+      "Onboarding and offboarding procedures",
+    ],
+  },
+  {
+    id: "benefits",
+    eyebrow: "Benefits",
+    heading: "Less risk, more control.",
+    variant: "check" as const,
+    items: [
+      "Stronger security",
+      "Fewer incidents",
+      "Faster onboarding for new employees",
+      "Full control over access",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  lang="en"
+  title="Centralized Access Management | Taller de Digitalización"
+  description="We centralize access management for your business so information stays protected and permissions are easy to administer."
+  slug="/centralized-access-management"
+  schemaDescription="Centralized access management: account inventory, password manager, roles and permissions, onboarding and offboarding."
+  schemaAreaServed={["United States", "Remote"]}
+  eyebrow="Centralized Access Management"
+  h1="Know who can access what."
+  subtitleParagraphs={[
+    "Passwords shared over email, accounts with no clear owner, or employees who keep access after leaving the company are common risks.",
+    "We centralize access management so information stays protected and permissions are easy to administer.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Protect your business's information without complicating daily work."
+/>

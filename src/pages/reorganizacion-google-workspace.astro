@@ -1,0 +1,48 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "que-incluye",
+    eyebrow: "¿Qué incluye?",
+    heading: "Todo lo necesario para poner orden.",
+    variant: "tag" as const,
+    items: [
+      "Revisión de usuarios y licencias",
+      "Organización de grupos",
+      "Revisión de permisos",
+      "Políticas de seguridad",
+      "Organización de cuentas compartidas",
+      "Buenas prácticas de administración",
+    ],
+  },
+  {
+    id: "ideal-para",
+    eyebrow: "Ideal para empresas que…",
+    heading: "¿Le suena alguna de estas situaciones?",
+    variant: "check" as const,
+    items: [
+      "Han crecido rápidamente",
+      "Han cambiado de personal varias veces",
+      "No saben quién tiene acceso a qué",
+      "Quieren mejorar la seguridad sin complicar el trabajo diario",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  title="Reorganización de Google Workspace | Taller de Digitalización"
+  description="Organizamos su Google Workspace para que cada persona tenga acceso únicamente a lo que necesita y la empresa gane en seguridad, orden y eficiencia."
+  slug="/reorganizacion-google-workspace"
+  schemaDescription="Reorganización de Google Workspace: usuarios, licencias, grupos, permisos y políticas de seguridad para empresas."
+  eyebrow="Reorganización de Google Workspace"
+  h1="Una empresa ordenada trabaja más rápido."
+  subtitleParagraphs={[
+    "Con el tiempo, Google Workspace suele llenarse de usuarios sin uso, permisos incorrectos, grupos duplicados y configuraciones que nadie recuerda por qué existen.",
+    "Organizamos su entorno para que cada persona tenga acceso únicamente a lo que necesita y la empresa gane en seguridad, orden y eficiencia.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Recupere el control de su Google Workspace."
+  whatsappMessage="Hola, quiero reorganizar nuestro Google Workspace"
+/>

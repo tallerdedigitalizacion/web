@@ -1,0 +1,47 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "que-puede-hacer",
+    eyebrow: "¿Qué puede hacer?",
+    heading: "Una respuesta clara para cada consulta interna.",
+    variant: "tag" as const,
+    items: [
+      "Consultar procedimientos",
+      "Buscar documentación",
+      "Resolver dudas internas",
+      "Facilitar la incorporación de nuevos empleados",
+      "Reducir interrupciones entre equipos",
+    ],
+  },
+  {
+    id: "beneficios",
+    eyebrow: "Beneficios",
+    heading: "Lo que gana su equipo.",
+    variant: "check" as const,
+    items: [
+      "Menos tiempo buscando información",
+      "Respuestas consistentes",
+      "Mayor productividad",
+      "Conservación del conocimiento de la empresa",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  title="Oráculo Interno | Taller de Digitalización"
+  description="El Oráculo Interno usa inteligencia artificial para responder preguntas de su equipo basándose únicamente en la información de su empresa."
+  slug="/oraculo-interno"
+  schemaDescription="Oráculo Interno: asistente de inteligencia artificial que responde preguntas internas usando la documentación de la empresa."
+  eyebrow="Oráculo Interno"
+  h1="El conocimiento de su empresa disponible en segundos."
+  subtitleParagraphs={[
+    "Procedimientos, manuales, documentación y preguntas frecuentes suelen estar repartidos entre carpetas, correos y documentos.",
+    "El Oráculo Interno utiliza inteligencia artificial para responder preguntas basándose únicamente en la información de su empresa.",
+  ]}
+  sections={sections}
+  finalCtaHeading="La información correcta, en el momento adecuado."
+  whatsappMessage="Hola, quiero un Oráculo Interno para mi empresa"
+/>

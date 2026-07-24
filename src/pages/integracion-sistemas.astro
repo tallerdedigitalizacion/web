@@ -1,0 +1,46 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "que-incluye",
+    eyebrow: "¿Qué incluye?",
+    heading: "De la idea a la integración funcionando.",
+    variant: "tag" as const,
+    items: [
+      "Estudio de viabilidad",
+      "Diseño de la integración",
+      "Automatización del intercambio de datos",
+      "Pruebas",
+      "Puesta en marcha",
+    ],
+  },
+  {
+    id: "ideal-para",
+    eyebrow: "Ideal para empresas que…",
+    heading: "¿Le suena alguna de estas situaciones?",
+    variant: "check" as const,
+    items: [
+      "Introducen los mismos datos varias veces",
+      "Trabajan con varias plataformas",
+      "Quieren automatizar procesos sin cambiar de software",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  title="Integración de Sistemas | Taller de Digitalización"
+  description="Analizamos cómo conectar sus sistemas (CRM, ERP, facturación, correo) para eliminar tareas manuales y reducir errores."
+  slug="/integracion-sistemas"
+  schemaDescription="Integración de sistemas: estudio de viabilidad, diseño de la integración, automatización del intercambio de datos y puesta en marcha."
+  eyebrow="Integración de Sistemas"
+  h1="Haga que sus herramientas trabajen juntas."
+  subtitleParagraphs={[
+    "CRM, ERP, facturación, correo electrónico y otras aplicaciones suelen funcionar de forma aislada.",
+    "Analizamos cómo conectar sus sistemas para eliminar tareas manuales y reducir errores.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Si sus herramientas ya funcionan, hagamos que colaboren entre ellas."
+  whatsappMessage="Hola, quiero integrar los sistemas de mi empresa"
+/>

@@ -1,0 +1,48 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "what-it-includes",
+    eyebrow: "What it includes",
+    heading: "Everything needed to turn traffic into contacts.",
+    variant: "tag" as const,
+    items: [
+      "Conversion-focused design",
+      "Optimized forms",
+      "CRM integration",
+      "Results tracking",
+      "Mobile optimization",
+    ],
+  },
+  {
+    id: "ideal-for",
+    eyebrow: "Ideal for",
+    heading: "Perfect for boosting your campaigns.",
+    variant: "check" as const,
+    items: [
+      "Google Ads campaigns",
+      "Social media",
+      "Email marketing",
+      "New service launches",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  lang="en"
+  title="Conversion Landing Pages | Taller de Digitalización"
+  description="We build landing pages focused on a single goal: getting the visitor to request information, book a meeting, or leave their details."
+  slug="/conversion-landing-pages"
+  schemaDescription="Conversion landing pages for marketing campaigns: conversion-focused design, optimized forms and CRM integration."
+  schemaAreaServed={["United States", "Remote"]}
+  eyebrow="Conversion Landing Pages"
+  h1="Every campaign deserves a page designed to convert."
+  subtitleParagraphs={[
+    "Sending traffic to your homepage usually lowers conversions.",
+    "We build landing pages focused on a single goal: getting the visitor to request information, book a meeting, or leave their details.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Turn visits into prospects."
+/>

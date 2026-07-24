@@ -1,0 +1,47 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "que-incluye",
+    eyebrow: "¿Qué incluye?",
+    heading: "Todo lo necesario para convertir tráfico en contactos.",
+    variant: "tag" as const,
+    items: [
+      "Diseño orientado a conversión",
+      "Formularios optimizados",
+      "Integración con CRM",
+      "Medición de resultados",
+      "Optimización para móviles",
+    ],
+  },
+  {
+    id: "ideal-para",
+    eyebrow: "Ideal para",
+    heading: "Perfecto para impulsar sus campañas.",
+    variant: "check" as const,
+    items: [
+      "Campañas de Google Ads",
+      "Redes sociales",
+      "Email marketing",
+      "Lanzamiento de nuevos servicios",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  title="Landing Pages de Conversión | Taller de Digitalización"
+  description="Creamos landing pages enfocadas en un único objetivo: conseguir que el visitante solicite información, reserve una reunión o deje sus datos."
+  slug="/landing-pages-conversion"
+  schemaDescription="Landing pages de conversión para campañas de marketing: diseño orientado a conversión, formularios optimizados e integración con CRM."
+  eyebrow="Landing Pages de Conversión"
+  h1="Cada campaña merece una página diseñada para convertir."
+  subtitleParagraphs={[
+    "Enviar tráfico a la página principal suele reducir las conversiones.",
+    "Creamos landing pages enfocadas en un único objetivo: conseguir que el visitante solicite información, reserve una reunión o deje sus datos.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Transforme las visitas en clientes potenciales."
+  whatsappMessage="Hola, quiero crear una landing page de conversión"
+/>

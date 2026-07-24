@@ -1,0 +1,47 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "que-incluye",
+    eyebrow: "¿Qué incluye?",
+    heading: "Todo bajo un mismo sistema.",
+    variant: "tag" as const,
+    items: [
+      "Inventario de cuentas",
+      "Organización de accesos",
+      "Gestor de contraseñas",
+      "Roles y permisos",
+      "Procedimientos de alta y baja de usuarios",
+    ],
+  },
+  {
+    id: "beneficios",
+    eyebrow: "Beneficios",
+    heading: "Menos riesgo, más control.",
+    variant: "check" as const,
+    items: [
+      "Mayor seguridad",
+      "Menos incidencias",
+      "Incorporación más rápida de nuevos empleados",
+      "Control completo de los accesos",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  title="Gestión Centralizada de Accesos | Taller de Digitalización"
+  description="Centralizamos la gestión de accesos de su empresa para que la información esté protegida y sea fácil administrar los permisos."
+  slug="/gestion-centralizada-accesos"
+  schemaDescription="Gestión centralizada de accesos: inventario de cuentas, gestor de contraseñas, roles y permisos, alta y baja de usuarios."
+  eyebrow="Gestión Centralizada de Accesos"
+  h1="Sepa quién puede acceder a qué."
+  subtitleParagraphs={[
+    "Contraseñas compartidas por correo, cuentas sin propietario o empleados que conservan accesos tras abandonar la empresa son riesgos frecuentes.",
+    "Centralizamos la gestión de accesos para que la información esté protegida y sea fácil administrar los permisos.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Proteja la información de su empresa sin complicar el trabajo diario."
+  whatsappMessage="Hola, quiero centralizar la gestión de accesos de mi empresa"
+/>

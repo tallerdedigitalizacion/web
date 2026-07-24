@@ -1,0 +1,48 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "que-incluye",
+    eyebrow: "¿Qué incluye?",
+    heading: "Todo conectado, nada perdido.",
+    variant: "tag" as const,
+    items: [
+      "Integración de formularios",
+      "Automatización con CRM",
+      "Clasificación automática",
+      "Asignación por equipos",
+      "Notificaciones",
+      "Seguimiento del estado de cada oportunidad",
+    ],
+  },
+  {
+    id: "beneficios",
+    eyebrow: "Beneficios",
+    heading: "Lo que gana su equipo comercial.",
+    variant: "check" as const,
+    items: [
+      "Ningún lead se pierde",
+      "Menor tiempo de respuesta",
+      "Mejor organización comercial",
+      "Información centralizada",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  title="Centralización de Leads | Taller de Digitalización"
+  description="Centralizamos la entrada de leads de todos sus canales para que la información llegue automáticamente a su CRM y su equipo actúe con rapidez."
+  slug="/centralizacion-leads"
+  schemaDescription="Centralización de leads: integración de formularios, automatización con CRM, clasificación y asignación automática."
+  eyebrow="Centralización de Leads"
+  h1="Todos sus clientes potenciales en un único lugar."
+  subtitleParagraphs={[
+    "Los contactos llegan desde la web, redes sociales, formularios, campañas o WhatsApp. Cuando cada canal funciona por separado, se pierden oportunidades.",
+    "Centralizamos la entrada de leads para que toda la información llegue automáticamente a su CRM y su equipo pueda actuar con rapidez.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Convierta cada contacto en una oportunidad de negocio."
+  whatsappMessage="Hola, quiero centralizar la captación de leads de mi empresa"
+/>

@@ -1,0 +1,49 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "what-it-includes",
+    eyebrow: "What it includes",
+    heading: "A structure built to last.",
+    variant: "tag" as const,
+    items: [
+      "Folder organization",
+      "Shared drives",
+      "Permissions",
+      "Duplicate removal",
+      "Structure by department",
+      "Collaboration best practices",
+    ],
+  },
+  {
+    id: "benefits",
+    eyebrow: "Benefits",
+    heading: "What changes with a clear structure.",
+    variant: "check" as const,
+    items: [
+      "Less time spent searching for documents",
+      "Better collaboration",
+      "Lower risk of information loss",
+      "More control over access",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  lang="en"
+  title="Corporate Google Drive Restructuring | Taller de Digitalización"
+  description="We design a clear, scalable and easy-to-maintain structure for Google Drive so the whole business works on a single organization."
+  slug="/corporate-google-drive-restructuring"
+  schemaDescription="Corporate Google Drive restructuring: folders, shared drives, permissions and duplicate removal."
+  schemaAreaServed={["United States", "Remote"]}
+  eyebrow="Corporate Google Drive Restructuring"
+  h1="Find any document in seconds."
+  subtitleParagraphs={[
+    "When files are scattered across personal folders, shared drives and duplicate documents, finding information becomes a constant waste of time.",
+    "We design a clear, scalable and easy-to-maintain structure so the whole business works on a single organization.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Turn Google Drive into a working tool, not a file dump."
+/>

@@ -1,0 +1,47 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "ejemplos",
+    eyebrow: "Ejemplos",
+    heading: "Algunos tipos de herramientas que creamos.",
+    variant: "tag" as const,
+    items: [
+      "Paneles de gestión",
+      "Consultas de datos",
+      "Herramientas administrativas",
+      "Portales internos",
+      "Automatización de tareas repetitivas",
+    ],
+  },
+  {
+    id: "beneficios",
+    eyebrow: "Beneficios",
+    heading: "Lo que cambia con software a medida.",
+    variant: "check" as const,
+    items: [
+      "Menos trabajo manual",
+      "Procesos más rápidos",
+      "Información centralizada",
+      "Software adaptado a su negocio",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  title="Herramientas Internas a Medida | Taller de Digitalización"
+  description="Diseñamos aplicaciones internas a medida para simplificar tareas, consultar información y mejorar la productividad de su empresa."
+  slug="/herramientas-internas-medida"
+  schemaDescription="Herramientas internas a medida: paneles de gestión, portales internos y automatización de tareas repetitivas."
+  eyebrow="Herramientas Internas a Medida"
+  h1="Desarrollamos el software que su empresa realmente necesita."
+  subtitleParagraphs={[
+    "No todos los problemas se resuelven con un programa estándar. En ocasiones es más eficiente crear una herramienta adaptada a la forma de trabajar de la empresa.",
+    "Diseñamos aplicaciones internas para simplificar tareas, consultar información y mejorar la productividad.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Porque la mejor herramienta es la que se adapta a su empresa, y no al revés."
+  whatsappMessage="Hola, quiero una herramienta interna a medida para mi empresa"
+/>
