@@ -1,0 +1,607 @@
+<!DOCTYPE html><html lang="es"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script>(function(){const languageRedirectMap = {"/":"/en","/diagnostico-digitalizacion":"/digitalization-assessment","/reorganizacion-google-workspace":"/google-workspace-reorganization","/reestructuracion-google-drive":"/corporate-google-drive-restructuring","/gestion-centralizada-accesos":"/centralized-access-management","/centralizacion-leads":"/lead-centralization","/landing-pages-conversion":"/conversion-landing-pages","/oraculo-interno":"/internal-oracle","/oraculo-externo":"/external-oracle","/integracion-sistemas":"/systems-integration","/herramientas-internas-medida":"/custom-internal-tools","/informe-gratuito-web":"/free-website-report","/optimizacion-velocidad-web":"/website-speed-optimization"};
+const languageRedirectIgnoredPaths = ["/aviso-legal","/politica-privacidad","/politica-cookies"];
+
+      (() => {
+        const rawPath = window.location.pathname;
+        const pathname = rawPath.length > 1 && rawPath.endsWith("/") ? rawPath.slice(0, -1) : rawPath;
+        const normalizedPathname = pathname === "" ? "/" : pathname;
+        const englishTargets = Object.values(languageRedirectMap);
+        const isEnglishPath = normalizedPathname === "/en" || englishTargets.includes(normalizedPathname);
+        if (isEnglishPath) return;
+        if (languageRedirectIgnoredPaths.includes(normalizedPathname)) return;
+
+        const primaryLanguage = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+        if (!primaryLanguage || primaryLanguage.toLowerCase().startsWith("es")) return;
+
+        const targetPath = languageRedirectMap[normalizedPathname];
+        if (!targetPath) return;
+
+        window.location.replace(`${targetPath}${window.location.search}${window.location.hash}`);
+      })();
+    })();</script><title>Auditoría Web Técnica para empresas | Taller de Digitalización</title><meta name="description" content="Detecta si tu web está perdiendo leads por velocidad, SEO técnico, formularios, seguridad o infraestructura. Auditoría web desde 399 USD."><link rel="canonical" href="https://tallerdedigitalizacion.com/informe-gratuito-web"><meta property="og:title" content="Auditoría Web Técnica para empresas | Taller de Digitalización"><meta property="og:description" content="Detecta si tu web está perdiendo leads por velocidad, SEO técnico, formularios, seguridad o infraestructura. Auditoría web desde 399 USD."><meta property="og:type" content="website"><meta property="og:url" content="https://tallerdedigitalizacion.com/informe-gratuito-web"><meta property="og:image" content="https://tallerdedigitalizacion.com/og-image.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Auditoría Web Técnica para empresas | Taller de Digitalización"><meta name="twitter:description" content="Detecta si tu web está perdiendo leads por velocidad, SEO técnico, formularios, seguridad o infraestructura. Auditoría web desde 399 USD."><meta name="twitter:image" content="https://tallerdedigitalizacion.com/og-image.jpg"><meta name="msapplication-TileColor" content="#ffffff"><meta name="msapplication-TileImage" content="/ms-icon-144x144.png"><meta name="theme-color" content="#ffffff"><link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png"><link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"><link rel="manifest" href="/favicon/manifest.json"><script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Taller de Digitalización","description":"Detecta si tu web está perdiendo leads por velocidad, SEO técnico, formularios, seguridad o infraestructura. Auditoría web desde 399 USD.","areaServed":["España","Latinoamérica","Remoto"],"url":"https://tallerdedigitalizacion.com","logo":"https://tallerdedigitalizacion.com/logo.png","sameAs":["https://linktr.ee/tallerdedigitalizacion"]}</script><link rel="stylesheet" href="/_astro/aviso-legal.BWku9knJ.css"><script type="module" src="/_astro/hoisted.BmCOBgSu.js"></script></head> <body> <header class="site-header"> <a class="brand" href="/informe-gratuito-web" aria-label="Inicio"> <img src="/logo.png" alt="Taller de Digitalización" width="48" height="48"> </a> <nav class="desktop-nav" aria-label="Navegación principal"> <a href="#problema">Problema</a><a href="#autoevaluacion">Autoauditoría</a><a href="#auditoria">Auditoría</a><a href="#descarga">Qué incluye</a><a href="#faq">FAQ</a> </nav> <div class="header-actions"> <a class="btn btn-small btn-primary" data-event="click_calendly_web_audit" href="https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call" target="_blank" rel="noreferrer">Reservar llamada</a> <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" data-label-open="Abrir menú" data-label-close="Cerrar menú"> <span></span> <span></span> <span></span> </button> </div> <nav id="mobile-menu" class="mobile-nav" aria-label="Navegación móvil" hidden> <a href="#problema">Problema</a><a href="#autoevaluacion">Autoauditoría</a><a href="#auditoria">Auditoría</a><a href="#descarga">Qué incluye</a><a href="#faq">FAQ</a> </nav> </header>  <main>  <section class="hero"> <div class="hero-content"> <span class="eyebrow">Auditoría Web Técnica</span> <h1>¿Tu web está preparada para convertir visitas en leads?</h1> <p class="hero-subtitle">Audito la parte técnica, comercial y operativa de tu sitio web para detectar dónde estás perdiendo oportunidades: velocidad, SEO técnico, formularios, seguridad, infraestructura y trazabilidad.</p> <div class="hero-actions"> <a class="btn btn-primary" href="#autoevaluacion">Hacer autoauditoría gratuita</a> <a class="btn btn-secondary" data-event="click_calendly_web_audit" href="https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call" target="_blank" rel="noreferrer">Reservar llamada de 15 minutos</a> </div> <p class="microcopy">Si no veo margen claro de mejora, te lo diré.</p> </div> </section> <section id="problema" class="section"> <div class="section-head"> <span class="eyebrow">Lo que se dice en una reunión</span> <h2>Lo que dices vs. lo que revela</h2> <p>Haz click en cada tarjeta para ver qué suele esconder cada síntoma y qué conviene revisar.</p> </div> <div class="problem-card-grid" aria-label="Lo que dices vs. lo que revela"> <article class="problem-card" data-problem-card data-state="front" tabindex="0" aria-label="Tenemos visitas, pero pocos contactos.. La web recibe tráfico, pero el sistema de captación puede estar fallando en móvil, formularios, oferta, confianza o medición."> <div class="problem-card-slider"> <div class="problem-card-face problem-card-front"> <span class="problem-card-label">Lo que dices</span> <strong>“Tenemos visitas, pero pocos contactos.”</strong> <button class="problem-card-action" type="button" data-card-meaning> <span>Significa</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> <div class="problem-card-face problem-card-meaning"> <span class="problem-card-label">Lo que revela</span> <p>La web recibe tráfico, pero el sistema de captación puede estar fallando en móvil, formularios, oferta, confianza o medición.</p> <button class="problem-card-action" type="button" data-card-solution> <span>Solución</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> </div> <div class="problem-card-solution"> <button class="problem-card-close" type="button" data-card-reset aria-label="Volver al estado inicial"> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path> </svg> </button> <span class="problem-card-label">Lo que hacemos</span> <p>Revisar el recorrido real del usuario, la trazabilidad del lead y los puntos donde se pierde intención.</p> </div> </article><article class="problem-card" data-problem-card data-state="front" tabindex="0" aria-label="Estamos pagando anuncios, pero no vemos retorno.. Puede haber fricción técnica entre el anuncio y el lead: velocidad, landing, tracking, formulario o atribución."> <div class="problem-card-slider"> <div class="problem-card-face problem-card-front"> <span class="problem-card-label">Lo que dices</span> <strong>“Estamos pagando anuncios, pero no vemos retorno.”</strong> <button class="problem-card-action" type="button" data-card-meaning> <span>Significa</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> <div class="problem-card-face problem-card-meaning"> <span class="problem-card-label">Lo que revela</span> <p>Puede haber fricción técnica entre el anuncio y el lead: velocidad, landing, tracking, formulario o atribución.</p> <button class="problem-card-action" type="button" data-card-solution> <span>Solución</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> </div> <div class="problem-card-solution"> <button class="problem-card-close" type="button" data-card-reset aria-label="Volver al estado inicial"> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path> </svg> </button> <span class="problem-card-label">Lo que hacemos</span> <p>Cruzar inversión, velocidad móvil, formularios, eventos y destino de leads para detectar fugas antes de tocar campañas.</p> </div> </article><article class="problem-card" data-problem-card data-state="front" tabindex="0" aria-label="La web va lenta.. La lentitud suele ser un síntoma de arquitectura, hosting, tema, scripts, imágenes o mantenimiento acumulado."> <div class="problem-card-slider"> <div class="problem-card-face problem-card-front"> <span class="problem-card-label">Lo que dices</span> <strong>“La web va lenta.”</strong> <button class="problem-card-action" type="button" data-card-meaning> <span>Significa</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> <div class="problem-card-face problem-card-meaning"> <span class="problem-card-label">Lo que revela</span> <p>La lentitud suele ser un síntoma de arquitectura, hosting, tema, scripts, imágenes o mantenimiento acumulado.</p> <button class="problem-card-action" type="button" data-card-solution> <span>Solución</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> </div> <div class="problem-card-solution"> <button class="problem-card-close" type="button" data-card-reset aria-label="Volver al estado inicial"> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path> </svg> </button> <span class="problem-card-label">Lo que hacemos</span> <p>Separar lo que se puede optimizar rápido de lo que exige simplificar, migrar o cambiar infraestructura.</p> </div> </article><article class="problem-card" data-problem-card data-state="front" tabindex="0" aria-label="El proveedor dice que está todo bien.. Sin métricas, pruebas y trazabilidad, 'todo bien' puede significar solo que no hay una incidencia visible."> <div class="problem-card-slider"> <div class="problem-card-face problem-card-front"> <span class="problem-card-label">Lo que dices</span> <strong>“El proveedor dice que está todo bien.”</strong> <button class="problem-card-action" type="button" data-card-meaning> <span>Significa</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> <div class="problem-card-face problem-card-meaning"> <span class="problem-card-label">Lo que revela</span> <p>Sin métricas, pruebas y trazabilidad, &#39;todo bien&#39; puede significar solo que no hay una incidencia visible.</p> <button class="problem-card-action" type="button" data-card-solution> <span>Solución</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> </div> <div class="problem-card-solution"> <button class="problem-card-close" type="button" data-card-reset aria-label="Volver al estado inicial"> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path> </svg> </button> <span class="problem-card-label">Lo que hacemos</span> <p>Contrastar estado técnico con evidencias: rendimiento, seguridad, backups, formularios, staging y proceso de cambios.</p> </div> </article><article class="problem-card" data-problem-card data-state="front" tabindex="0" aria-label="No sabemos si los formularios funcionan.. El negocio no controla el punto exacto donde una visita se convierte en oportunidad comercial."> <div class="problem-card-slider"> <div class="problem-card-face problem-card-front"> <span class="problem-card-label">Lo que dices</span> <strong>“No sabemos si los formularios funcionan.”</strong> <button class="problem-card-action" type="button" data-card-meaning> <span>Significa</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> <div class="problem-card-face problem-card-meaning"> <span class="problem-card-label">Lo que revela</span> <p>El negocio no controla el punto exacto donde una visita se convierte en oportunidad comercial.</p> <button class="problem-card-action" type="button" data-card-solution> <span>Solución</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> </div> <div class="problem-card-solution"> <button class="problem-card-close" type="button" data-card-reset aria-label="Volver al estado inicial"> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path> </svg> </button> <span class="problem-card-label">Lo que hacemos</span> <p>Probar formularios, destino de emails, notificaciones, CRM, spam, eventos y recuperación de leads fallidos.</p> </div> </article><article class="problem-card" data-problem-card data-state="front" tabindex="0" aria-label="Tenemos WordPress, pero cada cambio da miedo.. Puede faltar gobierno técnico: backups fiables, staging, control de plugins, permisos, actualizaciones y rollback."> <div class="problem-card-slider"> <div class="problem-card-face problem-card-front"> <span class="problem-card-label">Lo que dices</span> <strong>“Tenemos WordPress, pero cada cambio da miedo.”</strong> <button class="problem-card-action" type="button" data-card-meaning> <span>Significa</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> <div class="problem-card-face problem-card-meaning"> <span class="problem-card-label">Lo que revela</span> <p>Puede faltar gobierno técnico: backups fiables, staging, control de plugins, permisos, actualizaciones y rollback.</p> <button class="problem-card-action" type="button" data-card-solution> <span>Solución</span> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div> </div> <div class="problem-card-solution"> <button class="problem-card-close" type="button" data-card-reset aria-label="Volver al estado inicial"> <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"> <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path> </svg> </button> <span class="problem-card-label">Lo que hacemos</span> <p>Mapear riesgos antes de cambiar nada y definir una forma segura de intervenir sin tocar producción a ciegas.</p> </div> </article> </div> </section> <section class="section section-split"> <div> <span class="eyebrow">Criterio antes que herramientas</span> <h2>Una web no es una tarjeta de visita. Es un sistema de captación.</h2> <p>Una web puede verse bien y aun así perder leads por velocidad, móvil, formularios, seguridad, infraestructura, falta de medición o mala arquitectura. La auditoría mira la web como sistema: cómo entra una visita, qué fricciones encuentra, dónde se registra el lead y qué riesgos técnicos pueden cortar el flujo comercial.</p> </div> <ul class="check-list"> <li>Velocidad real en móvil antes que sensación visual.</li><li>Formularios probados antes que suposiciones.</li><li>SEO técnico básico antes que promesas de posicionamiento.</li><li>Backups, staging y accesos antes que tocar producción.</li><li>Trazabilidad comercial antes que informes bonitos.</li> </ul> </section> <section id="autoevaluacion" class="section section-accent"> <div class="section-head"> <span class="eyebrow">Autoevaluación gratuita</span> <h2>Autoaudita tu web como sistema de captación</h2> <p>Responde las preguntas, pega tus resultados de PageSpeed y recibirás un score básico. El reporte detallado se generará desde el backend y llegará por email.</p> </div> <form class="assessment web-audit-assessment" data-web-audit-assessment> <fieldset class="area-block" data-step="0"> <legend class="sr-only">Contexto de la web</legend> <div class="wizard-head" aria-live="polite"> <div> <span class="eyebrow">1 / 9</span> <h3>Contexto de la web</h3> </div> <div class="wizard-progress" aria-hidden="true"> <i data-progress-bar style="width: 0%"></i> </div> </div> <div class="form-grid"> <label>URL de la web<input required type="url" name="site_url" inputmode="url" placeholder="https://..." autocomplete="url"></label> <label>PageSpeed móvil<input type="number" name="pagespeed_mobile" min="0" max="100" inputmode="numeric"></label> <label>PageSpeed escritorio<input type="number" name="pagespeed_desktop" min="0" max="100" inputmode="numeric"></label> </div> <div class="pagespeed-actions"> <p class="form-help">Abre PageSpeed Insights, analiza la URL y pega aquí las puntuaciones manualmente.</p> <a class="btn btn-secondary btn-small" data-pagespeed-mobile data-event="click_pagespeed_mobile" href="https://pagespeed.web.dev/" target="_blank" rel="noreferrer">Abrir PageSpeed móvil</a> <a class="btn btn-secondary btn-small" data-pagespeed-desktop data-event="click_pagespeed_desktop" href="https://pagespeed.web.dev/" target="_blank" rel="noreferrer">Abrir PageSpeed escritorio</a> </div> <div class="radio-group"> <p>Tipo de web</p> <div class="choice-grid"> <label class="choice-card"><input required type="radio" name="website_type" value="Negocio local"> <span>Negocio local</span></label><label class="choice-card"><input required type="radio" name="website_type" value="Tienda física"> <span>Tienda física</span></label><label class="choice-card"><input required type="radio" name="website_type" value="Ecommerce"> <span>Ecommerce</span></label><label class="choice-card"><input required type="radio" name="website_type" value="SaaS/producto digital"> <span>SaaS/producto digital</span></label><label class="choice-card"><input required type="radio" name="website_type" value="Servicios profesionales"> <span>Servicios profesionales</span></label><label class="choice-card"><input required type="radio" name="website_type" value="Otro"> <span>Otro</span></label> </div> </div> <div class="radio-group"> <p>¿Pagas anuncios?</p> <div class="choice-grid"> <label class="choice-card"><input required type="radio" name="paid_ads" value="Google Ads"> <span>Google Ads</span></label><label class="choice-card"><input required type="radio" name="paid_ads" value="Meta Ads"> <span>Meta Ads</span></label><label class="choice-card"><input required type="radio" name="paid_ads" value="Varias plataformas"> <span>Varias plataformas</span></label><label class="choice-card"><input required type="radio" name="paid_ads" value="No"> <span>No</span></label><label class="choice-card"><input required type="radio" name="paid_ads" value="No lo sé"> <span>No lo sé</span></label> </div> </div> <div class="radio-group"> <p>Canal principal conocido</p> <div class="choice-grid"> <label class="choice-card"><input required type="radio" name="primary_channel" value="Móvil"> <span>Móvil</span></label><label class="choice-card"><input required type="radio" name="primary_channel" value="Escritorio"> <span>Escritorio</span></label><label class="choice-card"><input required type="radio" name="primary_channel" value="Mixto"> <span>Mixto</span></label><label class="choice-card"><input required type="radio" name="primary_channel" value="No lo sé"> <span>No lo sé</span></label> </div> </div> </fieldset> <fieldset class="area-block" data-step="1" hidden> <legend class="sr-only">Captación y negocio</legend> <div class="wizard-head" aria-live="polite"> <div> <span class="eyebrow">2 / 9</span> <h3>Captación y negocio</h3> </div> <div class="wizard-progress" aria-hidden="true"> <i data-progress-bar style="width: 0%"></i> </div> </div> <div class="question web-audit-question"> <p>¿Sabes de qué canales vienen los leads?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-0-q-0" value="0" data-area="0" data-question="0"> <span>No se mide</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-0" value="1" data-area="0" data-question="0"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-0" value="2" data-area="0" data-question="0"> <span>Se mira a veces</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-0" value="3" data-area="0" data-question="0"> <span>Está medido por canal</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-0" value="4" data-area="0" data-question="0"> <span>Está medido y se revisa para decidir</span> </label> </div> </div><div class="question web-audit-question"> <p>¿La web tiene una acción principal clara?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-0-q-1" value="0" data-area="0" data-question="1"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-1" value="1" data-area="0" data-question="1"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-1" value="2" data-area="0" data-question="1"> <span>Hay varias acciones confusas</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-1" value="3" data-area="0" data-question="1"> <span>Hay una acción clara en páginas clave</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-1" value="4" data-area="0" data-question="1"> <span>Hay una acción clara y coherente en todo el recorrido</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Revisas la relación entre tráfico, leads y oportunidades reales?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-0-q-2" value="0" data-area="0" data-question="2"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-2" value="1" data-area="0" data-question="2"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-2" value="2" data-area="0" data-question="2"> <span>Solo de forma manual</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-2" value="3" data-area="0" data-question="2"> <span>Se revisa periódicamente</span> </label><label class="choice-card"> <input required type="radio" name="area-0-q-2" value="4" data-area="0" data-question="2"> <span>Se revisa con métricas y decisiones</span> </label> </div> </div> </fieldset><fieldset class="area-block" data-step="2" hidden> <legend class="sr-only">Rendimiento y experiencia</legend> <div class="wizard-head" aria-live="polite"> <div> <span class="eyebrow">3 / 9</span> <h3>Rendimiento y experiencia</h3> </div> <div class="wizard-progress" aria-hidden="true"> <i data-progress-bar style="width: 0%"></i> </div> </div> <div class="question web-audit-question"> <p>¿Las páginas importantes son fáciles de usar en móvil?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-1-q-0" value="0" data-area="1" data-question="0"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-1-q-0" value="1" data-area="1" data-question="0"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-1-q-0" value="2" data-area="1" data-question="0"> <span>Algunas</span> </label><label class="choice-card"> <input required type="radio" name="area-1-q-0" value="3" data-area="1" data-question="0"> <span>La mayoría</span> </label><label class="choice-card"> <input required type="radio" name="area-1-q-0" value="4" data-area="1" data-question="0"> <span>Todas las páginas críticas están revisadas</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Controlas scripts, plugins o recursos que ralentizan la web?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-1-q-1" value="0" data-area="1" data-question="1"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-1-q-1" value="1" data-area="1" data-question="1"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-1-q-1" value="2" data-area="1" data-question="1"> <span>Solo cuando hay problemas</span> </label><label class="choice-card"> <input required type="radio" name="area-1-q-1" value="3" data-area="1" data-question="1"> <span>Se revisan periódicamente</span> </label><label class="choice-card"> <input required type="radio" name="area-1-q-1" value="4" data-area="1" data-question="1"> <span>Hay criterio claro antes de añadir cualquier recurso</span> </label> </div> </div> </fieldset><fieldset class="area-block" data-step="3" hidden> <legend class="sr-only">SEO técnico básico</legend> <div class="wizard-head" aria-live="polite"> <div> <span class="eyebrow">4 / 9</span> <h3>SEO técnico básico</h3> </div> <div class="wizard-progress" aria-hidden="true"> <i data-progress-bar style="width: 0%"></i> </div> </div> <div class="question web-audit-question"> <p>¿Las páginas importantes tienen títulos, descripciones y encabezados correctos?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-2-q-0" value="0" data-area="2" data-question="0"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-0" value="1" data-area="2" data-question="0"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-0" value="2" data-area="2" data-question="0"> <span>Solo algunas</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-0" value="3" data-area="2" data-question="0"> <span>La mayoría</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-0" value="4" data-area="2" data-question="0"> <span>Está revisado y documentado</span> </label> </div> </div><div class="question web-audit-question"> <p>¿La web está indexando lo que debe y evitando lo que no debe?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-2-q-1" value="0" data-area="2" data-question="1"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-1" value="1" data-area="2" data-question="1"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-1" value="2" data-area="2" data-question="1"> <span>Se revisó una vez</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-1" value="3" data-area="2" data-question="1"> <span>Se revisa periódicamente</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-1" value="4" data-area="2" data-question="1"> <span>Está controlado con Search Console y criterio técnico</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Hay errores técnicos visibles como 404, redirecciones rotas o contenido duplicado?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-2-q-2" value="0" data-area="2" data-question="2"> <span>Sí, muchos</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-2" value="1" data-area="2" data-question="2"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-2" value="2" data-area="2" data-question="2"> <span>Algunos</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-2" value="3" data-area="2" data-question="2"> <span>Pocos y controlados</span> </label><label class="choice-card"> <input required type="radio" name="area-2-q-2" value="4" data-area="2" data-question="2"> <span>Se monitorizan y corrigen</span> </label> </div> </div> </fieldset><fieldset class="area-block" data-step="4" hidden> <legend class="sr-only">Conversión y formularios</legend> <div class="wizard-head" aria-live="polite"> <div> <span class="eyebrow">5 / 9</span> <h3>Conversión y formularios</h3> </div> <div class="wizard-progress" aria-hidden="true"> <i data-progress-bar style="width: 0%"></i> </div> </div> <div class="question web-audit-question"> <p>¿Has probado los formularios recientemente?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-3-q-0" value="0" data-area="3" data-question="0"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-0" value="1" data-area="3" data-question="0"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-0" value="2" data-area="3" data-question="0"> <span>Hace tiempo</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-0" value="3" data-area="3" data-question="0"> <span>Sí, de forma manual</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-0" value="4" data-area="3" data-question="0"> <span>Sí, con pruebas y seguimiento</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Sabes exactamente dónde llegan los leads?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-3-q-1" value="0" data-area="3" data-question="1"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-1" value="1" data-area="3" data-question="1"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-1" value="2" data-area="3" data-question="1"> <span>A una bandeja compartida</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-1" value="3" data-area="3" data-question="1"> <span>A una persona o CRM definido</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-1" value="4" data-area="3" data-question="1"> <span>A un flujo trazable con responsable</span> </label> </div> </div><div class="question web-audit-question"> <p>¿La web confirma, registra o alerta cuando entra una solicitud?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-3-q-2" value="0" data-area="3" data-question="2"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-2" value="1" data-area="3" data-question="2"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-2" value="2" data-area="3" data-question="2"> <span>Solo email simple</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-2" value="3" data-area="3" data-question="2"> <span>Email o CRM con notificación</span> </label><label class="choice-card"> <input required type="radio" name="area-3-q-2" value="4" data-area="3" data-question="2"> <span>Confirmación, registro y seguimiento claro</span> </label> </div> </div> </fieldset><fieldset class="area-block" data-step="5" hidden> <legend class="sr-only">Seguridad</legend> <div class="wizard-head" aria-live="polite"> <div> <span class="eyebrow">6 / 9</span> <h3>Seguridad</h3> </div> <div class="wizard-progress" aria-hidden="true"> <i data-progress-bar style="width: 0%"></i> </div> </div> <div class="question web-audit-question"> <p>¿La web tiene HTTPS correcto en todas las páginas?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-4-q-0" value="0" data-area="4" data-question="0"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-0" value="1" data-area="4" data-question="0"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-0" value="2" data-area="4" data-question="0"> <span>Hay dudas o avisos</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-0" value="3" data-area="4" data-question="0"> <span>Sí</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-0" value="4" data-area="4" data-question="0"> <span>Sí y se monitoriza</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Los accesos de administración usan 2FA?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-4-q-1" value="0" data-area="4" data-question="1"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-1" value="1" data-area="4" data-question="1"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-1" value="2" data-area="4" data-question="1"> <span>Solo algunos</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-1" value="3" data-area="4" data-question="1"> <span>Sí en cuentas principales</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-1" value="4" data-area="4" data-question="1"> <span>Sí en todas las cuentas críticas</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Los permisos están limitados según rol?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-4-q-2" value="0" data-area="4" data-question="2"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-2" value="1" data-area="4" data-question="2"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-2" value="2" data-area="4" data-question="2"> <span>Más o menos</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-2" value="3" data-area="4" data-question="2"> <span>Sí en cuentas principales</span> </label><label class="choice-card"> <input required type="radio" name="area-4-q-2" value="4" data-area="4" data-question="2"> <span>Sí y se revisan altas/bajas</span> </label> </div> </div> </fieldset><fieldset class="area-block" data-step="6" hidden> <legend class="sr-only">Infraestructura y continuidad</legend> <div class="wizard-head" aria-live="polite"> <div> <span class="eyebrow">7 / 9</span> <h3>Infraestructura y continuidad</h3> </div> <div class="wizard-progress" aria-hidden="true"> <i data-progress-bar style="width: 0%"></i> </div> </div> <div class="question web-audit-question"> <p>¿Existen backups automáticos y recuperables?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-5-q-0" value="0" data-area="5" data-question="0"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-0" value="1" data-area="5" data-question="0"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-0" value="2" data-area="5" data-question="0"> <span>Hay copias, pero no se probaron</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-0" value="3" data-area="5" data-question="0"> <span>Sí, con frecuencia definida</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-0" value="4" data-area="5" data-question="0"> <span>Sí, probados y con proceso de recuperación</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Tienes staging o entorno de pruebas para cambios?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-5-q-1" value="0" data-area="5" data-question="1"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-1" value="1" data-area="5" data-question="1"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-1" value="2" data-area="5" data-question="1"> <span>Solo a veces</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-1" value="3" data-area="5" data-question="1"> <span>Sí para cambios relevantes</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-1" value="4" data-area="5" data-question="1"> <span>Sí, con flujo claro antes de producción</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Sabes quién controla dominio, hosting, DNS y base de datos?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-5-q-2" value="0" data-area="5" data-question="2"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-2" value="1" data-area="5" data-question="2"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-2" value="2" data-area="5" data-question="2"> <span>Está repartido y poco claro</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-2" value="3" data-area="5" data-question="2"> <span>Sí, está identificado</span> </label><label class="choice-card"> <input required type="radio" name="area-5-q-2" value="4" data-area="5" data-question="2"> <span>Sí, está documentado y bajo control</span> </label> </div> </div> </fieldset><fieldset class="area-block" data-step="7" hidden> <legend class="sr-only">Gobernanza técnica</legend> <div class="wizard-head" aria-live="polite"> <div> <span class="eyebrow">8 / 9</span> <h3>Gobernanza técnica</h3> </div> <div class="wizard-progress" aria-hidden="true"> <i data-progress-bar style="width: 0%"></i> </div> </div> <div class="question web-audit-question"> <p>¿Hay criterio antes de instalar plugins, scripts o integraciones?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-6-q-0" value="0" data-area="6" data-question="0"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-0" value="1" data-area="6" data-question="0"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-0" value="2" data-area="6" data-question="0"> <span>Depende del proveedor</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-0" value="3" data-area="6" data-question="0"> <span>Sí, se revisa impacto</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-0" value="4" data-area="6" data-question="0"> <span>Sí, hay proceso y responsable</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Los cambios quedan registrados o documentados?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-6-q-1" value="0" data-area="6" data-question="1"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-1" value="1" data-area="6" data-question="1"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-1" value="2" data-area="6" data-question="1"> <span>Solo cambios grandes</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-1" value="3" data-area="6" data-question="1"> <span>Sí, en algún sistema</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-1" value="4" data-area="6" data-question="1"> <span>Sí, con responsable, fecha y motivo</span> </label> </div> </div><div class="question web-audit-question"> <p>¿Está claro quién decide, aprueba y valida cambios en la web?</p> <div class="choice-grid choice-grid-answers"> <label class="choice-card"> <input required type="radio" name="area-6-q-2" value="0" data-area="6" data-question="2"> <span>No</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-2" value="1" data-area="6" data-question="2"> <span>No lo sé</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-2" value="2" data-area="6" data-question="2"> <span>Más o menos</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-2" value="3" data-area="6" data-question="2"> <span>Sí</span> </label><label class="choice-card"> <input required type="radio" name="area-6-q-2" value="4" data-area="6" data-question="2"> <span>Sí, con flujo definido</span> </label> </div> </div> </fieldset> <div class="lead-capture assessment-contact" data-step="8" data-web-audit-lead hidden> <div class="wizard-head" aria-live="polite"> <div> <span class="eyebrow">9 / 9</span> <h3>Datos para recibir tu reporte</h3> </div> <div class="wizard-progress" aria-hidden="true"> <i data-progress-bar style="width: 0%"></i> </div> </div> <div class="form-grid"> <label>Nombre<input required name="nombre" autocomplete="name"></label> <label>Email<input required type="email" name="email" autocomplete="email"></label> <label>Empresa<input name="empresa" autocomplete="organization"><small>Opcional.</small></label> </div> <label class="check"><input required type="checkbox" name="privacidad"> <span>Acepto la <a href="/politica-privacidad" target="_blank" rel="noreferrer">política de privacidad</a>.</span></label> <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website_extra_info"></label> <input type="hidden" name="started_at" data-started-at> <p class="form-help" data-web-audit-status aria-live="polite"></p> </div> <p class="wizard-error" data-wizard-error hidden>Completa las respuestas de este paso para continuar.</p> <div class="form-actions"> <button class="btn btn-secondary" type="button" data-prev-step>Anterior</button> <button class="btn btn-primary" type="button" data-next-step>Siguiente área</button> <button class="btn btn-primary" type="submit" data-submit-web-audit hidden>Calcular mi score web</button> </div> </form> <section class="result-panel" data-web-audit-result hidden aria-live="polite"> <div class="result-summary"> <div> <span class="eyebrow">Score básico</span> <h3 data-result-title></h3> <p data-result-text>Tu reporte detallado está en camino.</p> <p class="muted">Esta lectura no sustituye una auditoría técnica completa. Sirve para detectar señales de fuga y ordenar la conversación.</p> </div> <div class="score-card"> <strong><span data-result-score>0</span>/100</strong> </div> </div> <div class="bars" data-result-bars></div> <div class="penalty-list" data-result-penalties hidden></div> <div class="result-actions"> <a class="btn btn-primary" data-event="click_calendly_web_audit" href="https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call" target="_blank" rel="noreferrer">Reservar llamada para revisar mi web</a> <button class="btn btn-secondary" type="button" data-reset-web-audit>Reiniciar autoauditoría</button> </div> </section> </section> <script>(function(){const copy = {"id":"autoevaluacion","labels":{"sectionEyebrow":"Autoevaluación gratuita","title":"Autoaudita tu web como sistema de captación","intro":"Responde las preguntas, pega tus resultados de PageSpeed y recibirás un score básico. El reporte detallado se generará desde el backend y llegará por email.","initialStep":"Contexto de la web","finalStep":"Datos para recibir tu reporte","next":"Siguiente área","previous":"Anterior","continue":"Continuar","submit":"Calcular mi score web","reset":"Reiniciar autoauditoría","requiredError":"Completa las respuestas de este paso para continuar.","processing":"Procesando autoauditoría...","resultEyebrow":"Score básico","reportComing":"Tu reporte detallado está en camino.","resultNote":"Esta lectura no sustituye una auditoría técnica completa. Sirve para detectar señales de fuga y ordenar la conversación.","bookResult":"Reservar llamada para revisar mi web","pagespeedMobile":"Abrir PageSpeed móvil","pagespeedDesktop":"Abrir PageSpeed escritorio","pagespeedHelp":"Abre PageSpeed Insights, analiza la URL y pega aquí las puntuaciones manualmente.","unknownOption":"No lo sé","name":"Nombre","email":"Email","company":"Empresa","optional":"Opcional.","privacy":"Acepto la política de privacidad.","websiteUrl":"URL de la web","websiteType":"Tipo de web","paidAds":"¿Pagas anuncios?","primaryChannel":"Canal principal conocido","mobileScore":"PageSpeed móvil","desktopScore":"PageSpeed escritorio"},"options":{"websiteTypes":["Negocio local","Tienda física","Ecommerce","SaaS/producto digital","Servicios profesionales","Otro"],"paidAds":["Google Ads","Meta Ads","Varias plataformas","No","No lo sé"],"primaryChannels":["Móvil","Escritorio","Mixto","No lo sé"]},"areas":[{"key":"business","name":"Captación y negocio","questions":[["¿Sabes de qué canales vienen los leads?",["No se mide","No lo sé","Se mira a veces","Está medido por canal","Está medido y se revisa para decidir"]],["¿La web tiene una acción principal clara?",["No","No lo sé","Hay varias acciones confusas","Hay una acción clara en páginas clave","Hay una acción clara y coherente en todo el recorrido"]],["¿Revisas la relación entre tráfico, leads y oportunidades reales?",["No","No lo sé","Solo de forma manual","Se revisa periódicamente","Se revisa con métricas y decisiones"]]]},{"key":"performance","name":"Rendimiento y experiencia","questions":[["¿Las páginas importantes son fáciles de usar en móvil?",["No","No lo sé","Algunas","La mayoría","Todas las páginas críticas están revisadas"]],["¿Controlas scripts, plugins o recursos que ralentizan la web?",["No","No lo sé","Solo cuando hay problemas","Se revisan periódicamente","Hay criterio claro antes de añadir cualquier recurso"]]]},{"key":"seo","name":"SEO técnico básico","questions":[["¿Las páginas importantes tienen títulos, descripciones y encabezados correctos?",["No","No lo sé","Solo algunas","La mayoría","Está revisado y documentado"]],["¿La web está indexando lo que debe y evitando lo que no debe?",["No","No lo sé","Se revisó una vez","Se revisa periódicamente","Está controlado con Search Console y criterio técnico"]],["¿Hay errores técnicos visibles como 404, redirecciones rotas o contenido duplicado?",["Sí, muchos","No lo sé","Algunos","Pocos y controlados","Se monitorizan y corrigen"]]]},{"key":"conversion","name":"Conversión y formularios","questions":[["¿Has probado los formularios recientemente?",["No","No lo sé","Hace tiempo","Sí, de forma manual","Sí, con pruebas y seguimiento"]],["¿Sabes exactamente dónde llegan los leads?",["No","No lo sé","A una bandeja compartida","A una persona o CRM definido","A un flujo trazable con responsable"]],["¿La web confirma, registra o alerta cuando entra una solicitud?",["No","No lo sé","Solo email simple","Email o CRM con notificación","Confirmación, registro y seguimiento claro"]]]},{"key":"security","name":"Seguridad","questions":[["¿La web tiene HTTPS correcto en todas las páginas?",["No","No lo sé","Hay dudas o avisos","Sí","Sí y se monitoriza"]],["¿Los accesos de administración usan 2FA?",["No","No lo sé","Solo algunos","Sí en cuentas principales","Sí en todas las cuentas críticas"]],["¿Los permisos están limitados según rol?",["No","No lo sé","Más o menos","Sí en cuentas principales","Sí y se revisan altas/bajas"]]]},{"key":"infrastructure","name":"Infraestructura y continuidad","questions":[["¿Existen backups automáticos y recuperables?",["No","No lo sé","Hay copias, pero no se probaron","Sí, con frecuencia definida","Sí, probados y con proceso de recuperación"]],["¿Tienes staging o entorno de pruebas para cambios?",["No","No lo sé","Solo a veces","Sí para cambios relevantes","Sí, con flujo claro antes de producción"]],["¿Sabes quién controla dominio, hosting, DNS y base de datos?",["No","No lo sé","Está repartido y poco claro","Sí, está identificado","Sí, está documentado y bajo control"]]]},{"key":"governance","name":"Gobernanza técnica","questions":[["¿Hay criterio antes de instalar plugins, scripts o integraciones?",["No","No lo sé","Depende del proveedor","Sí, se revisa impacto","Sí, hay proceso y responsable"]],["¿Los cambios quedan registrados o documentados?",["No","No lo sé","Solo cambios grandes","Sí, en algún sistema","Sí, con responsable, fecha y motivo"]],["¿Está claro quién decide, aprueba y valida cambios en la web?",["No","No lo sé","Más o menos","Sí","Sí, con flujo definido"]]]}]};
+const weights = [{"key":"business","weight":15},{"key":"performance","weight":20},{"key":"seo","weight":15},{"key":"conversion","weight":15},{"key":"security","weight":15},{"key":"infrastructure","weight":15},{"key":"governance","weight":5}];
+const webAuditApiUrl = "https://5trpum3subgh2wpqpg7beh724a0tdbrr.lambda-url.eu-west-1.on.aws/";
+const webAuditClientToken = "";
+const lang = "es";
+
+  const assessment = document.querySelector("[data-web-audit-assessment]");
+  const result = document.querySelector("[data-web-audit-result]");
+  const leadStep = copy.areas.length + 1;
+  let currentStep = 0;
+  let startedTracked = false;
+
+  async function postWebAudit(payload) {
+    if (!webAuditApiUrl) throw new Error("PUBLIC_WEB_AUDIT_API_URL no está configurada.");
+    const headers = { "content-type": "application/json" };
+    if (webAuditClientToken) headers["X-Audit-Client"] = webAuditClientToken;
+    const response = await fetch(webAuditApiUrl, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) throw new Error(data.message || "web_audit_api_error");
+    return data;
+  }
+
+  function valueOf(name) {
+    if (!(assessment instanceof HTMLFormElement)) return "";
+    const data = new FormData(assessment);
+    return String(data.get(name) || "");
+  }
+
+  function selectedScore(areaIndex, questionIndex) {
+    if (!(assessment instanceof HTMLFormElement)) return 0;
+    const input = assessment.querySelector(`input[data-area="${areaIndex}"][data-question="${questionIndex}"]:checked`);
+    return input instanceof HTMLInputElement ? Number(input.value) : 0;
+  }
+
+  function answerValue(areaIndex, questionIndex) {
+    const score = selectedScore(areaIndex, questionIndex);
+    if (score <= 0) return "no";
+    if (score === 1) return "unknown";
+    if (score === 2) return "partial";
+    return "yes";
+  }
+
+  function numericOrNull(name) {
+    const raw = valueOf(name);
+    if (raw === "") return null;
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function collectAnswers() {
+    return copy.areas.flatMap((area, areaIndex) =>
+      area.questions.map((question, questionIndex) => ({
+        areaKey: area.key,
+        areaName: area.name,
+        question: question[0],
+        questionIndex,
+        value: selectedScore(areaIndex, questionIndex),
+      })),
+    );
+  }
+
+  function normalizeArea(score, questionCount, weight) {
+    return (score / (questionCount * 4)) * weight;
+  }
+
+  function isUnknown(value) {
+    return value.toLowerCase().includes("no lo") || value.toLowerCase().includes("do not know");
+  }
+
+  function calculateScore() {
+    const answers = collectAnswers();
+    const areaScores = copy.areas.map((area, areaIndex) => {
+      const raw = area.questions.reduce((sum, _, questionIndex) => sum + selectedScore(areaIndex, questionIndex), 0);
+      const weight = weights.find((item) => item.key === area.key)?.weight || 0;
+      return {
+        key: area.key,
+        name: area.name,
+        raw,
+        maxRaw: area.questions.length * 4,
+        weight,
+        normalized: normalizeArea(raw, area.questions.length, weight),
+      };
+    });
+
+    const paidAds = valueOf("paid_ads");
+    const mobileScoreRaw = valueOf("pagespeed_mobile");
+    const mobileScore = mobileScoreRaw === "" ? null : Number(mobileScoreRaw);
+    const penalties = [];
+    const paysAds = paidAds && !["no", "no lo sé", "i do not know"].includes(paidAds.toLowerCase());
+    if (paysAds && typeof mobileScore === "number" && mobileScore < 50) penalties.push({ key: "ads_mobile_speed", value: -8 });
+    if (paysAds && selectedScore(0, 0) <= 1) penalties.push({ key: "ads_lead_source_unknown", value: -6 });
+    if (selectedScore(3, 0) <= 1) penalties.push({ key: "forms_not_tested", value: -8 });
+    if (selectedScore(5, 0) <= 1) penalties.push({ key: "backups_missing_unknown", value: -6 });
+    if (selectedScore(4, 1) <= 1) penalties.push({ key: "admin_2fa_missing", value: -5 });
+    if (selectedScore(3, 1) <= 1) penalties.push({ key: "lead_destination_unknown", value: -5 });
+    if (selectedScore(4, 0) === 0) penalties.push({ key: "https_missing", value: -10 });
+
+    const base = areaScores.reduce((sum, area) => sum + area.normalized, 0);
+    const penaltyTotal = penalties.reduce((sum, penalty) => sum + penalty.value, 0);
+    const total = Math.max(0, Math.min(100, Math.round(base + penaltyTotal)));
+    return { answers, areaScores, penalties, total, range: scoreRange(total) };
+  }
+
+  function scoreRange(total) {
+    if (total <= 39) return "Web en riesgo";
+    if (total <= 59) return "Web frágil";
+    if (total <= 74) return "Base aceptable, con fugas";
+    if (total <= 89) return "Buena base técnica";
+    return "Web bien preparada para captación";
+  }
+
+  function stepIsComplete(step) {
+    if (!(assessment instanceof HTMLFormElement)) return false;
+    if (step === 0) {
+      return ["site_url", "website_type", "paid_ads", "primary_channel"].every((name) => {
+        const field = assessment.elements.namedItem(name);
+        if (field instanceof RadioNodeList) return Boolean(field.value);
+        return field instanceof HTMLInputElement && field.checkValidity();
+      });
+    }
+    if (step === leadStep) return assessment.reportValidity();
+    const areaIndex = step - 1;
+    return copy.areas[areaIndex].questions.every((_, questionIndex) => {
+      return Boolean(assessment.querySelector(`input[data-area="${areaIndex}"][data-question="${questionIndex}"]:checked`));
+    });
+  }
+
+  function setWizardError(message = "") {
+    const error = document.querySelector("[data-wizard-error]");
+    if (!(error instanceof HTMLElement)) return;
+    error.textContent = message || copy.labels.requiredError;
+    error.hidden = !message;
+  }
+
+  function updateProgress(completed = false) {
+    const width = completed ? 100 : Math.min(96, Math.round((currentStep / (leadStep + 1)) * 100));
+    document.querySelectorAll("[data-progress-bar]").forEach((bar) => {
+      if (bar instanceof HTMLElement) bar.style.width = `${width}%`;
+    });
+  }
+
+  function showStep(step) {
+    currentStep = Math.max(0, Math.min(step, leadStep));
+    document.querySelectorAll("[data-step]").forEach((panel) => {
+      if (panel instanceof HTMLElement) panel.hidden = panel.dataset.step !== String(currentStep);
+    });
+    const prev = document.querySelector("[data-prev-step]");
+    const next = document.querySelector("[data-next-step]");
+    const submit = document.querySelector("[data-submit-web-audit]");
+    if (prev instanceof HTMLButtonElement) prev.disabled = currentStep === 0;
+    if (next instanceof HTMLButtonElement) {
+      next.hidden = currentStep === leadStep;
+      next.textContent = currentStep === leadStep - 1 ? copy.labels.continue : copy.labels.next;
+    }
+    if (submit instanceof HTMLButtonElement) submit.hidden = currentStep !== leadStep;
+    setWizardError("");
+    updateProgress(false);
+  }
+
+  function updatePageSpeedLinks() {
+    const url = valueOf("site_url");
+    const encoded = encodeURIComponent(url || window.location.origin);
+    const target = `https://pagespeed.web.dev/analysis?url=${encoded}`;
+    const mobile = document.querySelector("[data-pagespeed-mobile]");
+    const desktop = document.querySelector("[data-pagespeed-desktop]");
+    if (mobile instanceof HTMLAnchorElement) mobile.href = target;
+    if (desktop instanceof HTMLAnchorElement) desktop.href = target;
+  }
+
+  function renderResult(score) {
+    const scoreNode = document.querySelector("[data-result-score]");
+    const title = document.querySelector("[data-result-title]");
+    const text = document.querySelector("[data-result-text]");
+    const bars = document.querySelector("[data-result-bars]");
+    const penalties = document.querySelector("[data-result-penalties]");
+    if (scoreNode) scoreNode.textContent = String(score.total);
+    if (title) title.textContent = score.range;
+    if (text) text.textContent = copy.labels.reportComing;
+    if (bars instanceof HTMLElement) {
+      bars.innerHTML = score.areaScores
+        .map((area) => {
+          const percent = Math.round((area.raw / area.maxRaw) * 100);
+          return `<div class="bar-row"><span>${area.name}</span><span class="bar-track"><i style="width:${percent}%"></i></span><strong>${percent}%</strong></div>`;
+        })
+        .join("");
+    }
+    if (penalties instanceof HTMLElement) {
+      penalties.hidden = score.penalties.length === 0;
+      penalties.innerHTML = score.penalties.length
+        ? `<p class="muted">Penalizaciones aplicadas: ${score.penalties.map((penalty) => penalty.value).join(", ")}.</p>`
+        : "";
+    }
+  }
+
+  function rawPayloadFromForm(formData) {
+    const company = String(formData.get("empresa") || "").trim();
+    return {
+      name: String(formData.get("nombre") || ""),
+      email: String(formData.get("email") || ""),
+      company: company || null,
+      websiteUrl: String(formData.get("site_url") || ""),
+      language: lang,
+      answers: {
+        businessType: String(formData.get("website_type") || ""),
+        paidAds: String(formData.get("paid_ads") || ""),
+        mainDevice: String(formData.get("primary_channel") || ""),
+        leadSourceKnown: answerValue(0, 0),
+        pagespeedMobile: numericOrNull("pagespeed_mobile"),
+        pagespeedDesktop: numericOrNull("pagespeed_desktop"),
+        searchConsoleConfigured: answerValue(2, 1),
+        httpsCorrect: answerValue(4, 0),
+        formsRecentlyTested: answerValue(3, 0),
+        formDestinationKnown: answerValue(3, 1),
+        admin2fa: answerValue(4, 1),
+        adminDefaultUrl: "unknown",
+        adminCaptchaOrProtection: "unknown",
+        cloudflareOrWaf: answerValue(1, 1),
+        hostingProvider: answerValue(5, 2),
+        databaseLocation: answerValue(5, 2),
+        backupsExist: answerValue(5, 0),
+        backupsRestoreTested: selectedScore(5, 0) >= 4 ? "yes" : answerValue(5, 0),
+        stagingExists: answerValue(5, 1),
+        cacheOrCdnConfigured: answerValue(1, 1),
+        codeVersioned: answerValue(6, 1),
+        technicalOwner: answerValue(6, 2),
+      },
+      antiSpam: {
+        honeypot: String(formData.get("website_extra_info") || ""),
+        formStartedAt: String(formData.get("started_at") || Date.now()),
+        turnstileToken: null,
+        recaptchaToken: null,
+      },
+    };
+  }
+
+  if (assessment instanceof HTMLFormElement) {
+    showStep(0);
+    document.querySelectorAll("[data-started-at]").forEach((input) => {
+      if (input instanceof HTMLInputElement) input.value = String(Date.now());
+    });
+
+    assessment.addEventListener("input", () => {
+      if (!startedTracked) {
+        startedTracked = true;
+        window.tdTrackEvent?.("start_web_audit_self_assessment");
+      }
+      updatePageSpeedLinks();
+    });
+
+    document.querySelector("[data-prev-step]")?.addEventListener("click", () => {
+      showStep(currentStep - 1);
+      assessment.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.querySelector("[data-next-step]")?.addEventListener("click", () => {
+      if (!stepIsComplete(currentStep)) {
+        setWizardError(copy.labels.requiredError);
+        return;
+      }
+      showStep(currentStep + 1);
+      assessment.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    assessment.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!stepIsComplete(currentStep)) {
+        setWizardError(copy.labels.requiredError);
+        return;
+      }
+      const submit = document.querySelector("[data-submit-web-audit]");
+      const status = document.querySelector("[data-web-audit-status]");
+      if (submit instanceof HTMLButtonElement) submit.disabled = true;
+      if (status instanceof HTMLElement) status.textContent = copy.labels.processing;
+      try {
+        const response = await postWebAudit(rawPayloadFromForm(new FormData(assessment)));
+        const serverAreas = Array.isArray(response.areas)
+          ? response.areas.map((area) => ({
+              name: String(area.label || area.key || ""),
+              raw: Number(area.score || 0),
+              maxRaw: 100,
+            }))
+          : [];
+        const serverPenalties = Array.isArray(response.penalties) ? response.penalties : [];
+        const serverScore = {
+          total: Number(response.score || 0),
+          range: String(response.scoreLabel || ""),
+          areaScores: serverAreas,
+          penalties: serverPenalties,
+        };
+        renderResult(serverScore);
+        if (status instanceof HTMLElement) {
+          status.textContent =
+            lang === "en"
+              ? "Your result is on its way. We have sent the initial diagnosis by email. If you do not see it in a few minutes, check spam or promotions."
+              : "Tu resultado está en camino. Te hemos enviado el diagnóstico inicial por email. Si no lo ves en unos minutos, revisa spam o promociones.";
+        }
+        updateProgress(true);
+        assessment.hidden = true;
+        if (result instanceof HTMLElement) result.hidden = false;
+        result?.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.tdTrackEvent?.("submit_web_audit_self_assessment", { score: serverScore.total });
+        window.tdTrackEvent?.("generate_lead", { lead_type: "web_audit", score: serverScore.total });
+        window.tdTrackEvent?.("web_audit_api_success", { score: serverScore.total });
+      } catch (error) {
+        if (status instanceof HTMLElement) {
+          status.textContent =
+            lang === "en"
+              ? "We could not send the result right now. You can try again in a few minutes."
+              : "No pudimos enviar el resultado ahora. Puedes intentarlo de nuevo en unos minutos.";
+        }
+        window.tdTrackEvent?.("web_audit_api_error", { message: error instanceof Error ? error.message : "unknown" });
+        if (submit instanceof HTMLButtonElement) submit.disabled = false;
+      }
+    });
+  }
+
+  document.querySelector("[data-reset-web-audit]")?.addEventListener("click", () => {
+    if (!(assessment instanceof HTMLFormElement)) return;
+    assessment.reset();
+    assessment.hidden = false;
+    if (result instanceof HTMLElement) result.hidden = true;
+    const submit = document.querySelector("[data-submit-web-audit]");
+    const status = document.querySelector("[data-web-audit-status]");
+    if (submit instanceof HTMLButtonElement) submit.disabled = false;
+    if (status instanceof HTMLElement) status.textContent = "";
+    document.querySelectorAll("[data-started-at]").forEach((input) => {
+      if (input instanceof HTMLInputElement) input.value = String(Date.now());
+    });
+    startedTracked = false;
+    showStep(0);
+    assessment.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+})();</script> <section id="auditoria" class="section"> <div class="section-head"> <span class="eyebrow">Producto</span> <h2>Auditoría Web Técnica</h2> <p>Es un producto de diagnóstico, no de implementación. Recibes claridad técnica y una hoja de ruta priorizada. Después puedes ejecutar con tu equipo, con mi guía o contratándome para hacerlo.</p> </div> <div class="ai-pricing-panel"> <div> <strong>Desde 399 USD</strong> <p><b>Tiempo:</b> 3 días</p> </div> <ul class="check-list"> <li>Diagnóstico técnico</li><li>Score por áreas</li><li>Roadmap priorizado</li><li>Riesgos detectados</li><li>Recomendaciones de reparación, migración o simplificación</li><li>Opcional: presupuesto de implementación</li> </ul> <a class="btn btn-primary" data-event="click_calendly_web_audit" href="https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call" target="_blank" rel="noreferrer">Reservar llamada de 15 minutos</a> </div> </section> <section class="section section-split dark-band"> <div> <span class="eyebrow">Límites claros</span> <h2>No es una auditoría SEO genérica.</h2> <p>El foco es técnico, comercial y operativo. Primero entender. Después decidir.</p> </div> <ul class="plain-list"> <li>No es una auditoría SEO genérica.</li><li>No es una revisión estética.</li><li>No es instalar plugins sin criterio.</li><li>No es prometer más ventas.</li><li>No es tocar producción sin entender el sistema.</li><li>No es llenar un PDF con obviedades.</li> </ul> </section> <section id="descarga" class="section"> <div class="method-download"> <div class="method-copy"> <span class="eyebrow">Documento ejecutivo</span> <h2>Descarga qué incluye una Auditoría Web Técnica</h2> <p>Una hoja ejecutiva para compartir internamente con socios: qué se revisa, qué no se revisa, qué entregables recibe la empresa, cómo se priorizan problemas y qué modalidades existen después.</p> </div> <form class="compact-form" data-web-audit-guide-form> <label>Nombre<input required name="nombre" autocomplete="name"></label> <label>Email<input required type="email" name="email" autocomplete="email"></label> <label>Empresa<input name="empresa" autocomplete="organization"><small>Opcional.</small></label> <label class="check"><input required type="checkbox" name="privacidad"> <span>Acepto la <a href="/politica-privacidad" target="_blank" rel="noreferrer">política de privacidad</a>.</span></label> <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website"></label> <input type="hidden" name="started_at" data-started-at> <button class="btn btn-primary" type="submit">Descargar documento</button> <p class="form-help" data-web-audit-guide-status aria-live="polite">Te enviaremos el documento por email.</p> </form> </div> </section> <section id="faq" class="section"> <div class="section-head"> <span class="eyebrow">FAQ</span> <h2>Preguntas frecuentes</h2> </div> <div class="faq-list"> <details> <summary>¿Esto es SEO o marketing?</summary> <p>No exactamente. La auditoría revisa SEO técnico básico y conversión, pero no vende campañas ni contenido. Mira la web como sistema de captación.</p> </details><details> <summary>¿Revisas WordPress?</summary> <p>Sí. WordPress es uno de los casos habituales: plugins, tema, hosting, actualizaciones, formularios, backups, permisos y riesgo de cambios.</p> </details><details> <summary>¿Sirve si mi web está hecha a medida?</summary> <p>Sí. La lógica es la misma: rendimiento, arquitectura, formularios, seguridad, despliegues, trazabilidad y continuidad.</p> </details><details> <summary>¿La auditoría cubre seguridad?</summary> <p>Cubre seguridad básica y riesgos técnicos visibles: HTTPS, 2FA, permisos, superficie de plugins, backups, accesos y exposición innecesaria.</p> </details><details> <summary>¿Revisas servidor, base de datos e infraestructura?</summary> <p>Sí, hasta el nivel que permitan los accesos y el contexto. Si no hace falta entrar, se revisa desde evidencias externas y documentación.</p> </details><details> <summary>¿Incluye implementación?</summary> <p>No. La auditoría diagnostica y prioriza. La implementación puede hacerla tu equipo, hacerla con mi guía o contratarme para ejecutarla.</p> </details><details> <summary>¿Cuánto tarda?</summary> <p>La entrega estándar tarda 3 días desde que tengo el contexto y los accesos mínimos necesarios.</p> </details><details> <summary>¿Necesito dar accesos?</summary> <p>Para la primera lectura no siempre. Para revisar backups, servidor, analítica, formularios o staging puede hacer falta acceso temporal y limitado.</p> </details><details> <summary>¿Y si mi web está bien?</summary> <p>Te lo diré. Si no veo margen claro de mejora, no tiene sentido inventar problemas.</p> </details><details> <summary>¿Qué pasa después de la auditoría?</summary> <p>Recibes un roadmap priorizado. Puedes ejecutarlo internamente, pedir guía puntual o solicitar un presupuesto de implementación.</p> </details> </div> </section> <section class="section final-cta"> <h2>Empecemos por entender dónde está perdiendo oportunidades tu web.</h2> <div class="hero-actions"> <a class="btn btn-primary" data-event="click_calendly_web_audit" href="https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call" target="_blank" rel="noreferrer">Reservar llamada de 15 minutos</a> <a class="btn btn-secondary" href="#autoevaluacion">Hacer autoauditoría gratuita</a> </div> <p>Si no veo margen claro de mejora, te lo diré.</p> </section>  </main> <footer class="site-footer"> <div class="footer-brand"> <img src="/logo.png" alt="Taller de Digitalización" width="48" height="48" loading="lazy"> <div> <strong>Taller de Digitalización</strong> <p>Diagnóstico y reducción de caos operativo para PyMEs.</p> </div> </div> <nav aria-label="Enlaces de pie de página"> <a data-event="click_linktree" href="https://linktr.ee/tallerdedigitalizacion" target="_blank" rel="noreferrer">Ver hub de enlaces</a> <a href="/aviso-legal">Aviso legal</a> <a href="/politica-privacidad">Política de privacidad</a> <a href="/politica-cookies">Política de cookies</a> </nav> </footer> <div class="cookie-banner" data-cookie-banner hidden> <div> <strong>Cookies</strong> <p>Usamos cookies necesarias para que la web funcione. Las analíticas solo se cargan si las aceptas.</p> </div> <div class="cookie-actions"> <button class="btn btn-small btn-secondary" type="button" data-cookie-choice="reject">Rechazar</button> <button class="btn btn-small btn-secondary" type="button" data-cookie-choice="necessary">Aceptar necesarias</button> <button class="btn btn-small btn-primary" type="button" data-cookie-choice="all">Aceptar todas</button> </div> </div> <script>(function(){const gaId = "G-4GY58K423T";
+
+  const consentKey = "td_cookie_consent";
+  const banner = document.querySelector("[data-cookie-banner]");
+  const eventAliases = {
+    click_reservar_llamada: "reservar_click",
+    click_telefono: "telefono_click",
+  };
+
+  function normalizeEventName(name) {
+    return eventAliases[name] || name;
+  }
+
+  function getClickEventName(target) {
+    const explicitEvent = target.dataset.event;
+    if (explicitEvent) return normalizeEventName(explicitEvent);
+
+    const href = target instanceof HTMLAnchorElement ? target.href : "";
+    if (href.startsWith("tel:")) return "telefono_click";
+    if (href.includes("calendly.com/tallerdedigitalizacion") || href.includes("cal.com/taller-de-digitalizacion")) return "reservar_click";
+    return "";
+  }
+
+  function getClickEventParams(target) {
+    const href = target instanceof HTMLAnchorElement ? target.href : "";
+    return {
+      link_url: href || undefined,
+      link_text: target.textContent?.trim().replace(/\s+/g, " ").slice(0, 120) || undefined,
+      page_path: window.location.pathname,
+      page_location: window.location.href,
+    };
+  }
+
+  function trackEvent(name, params = {}) {
+    const eventName = normalizeEventName(name);
+    window.dataLayer = window.dataLayer || [];
+    if (typeof window.gtag === "function") {
+      window.gtag("event", eventName, params);
+    }
+  }
+
+  window.tdTrackEvent = trackEvent;
+
+  function preserveAttributionParams() {
+    const params = new URLSearchParams(window.location.search);
+    const attributionEntries = [...params.entries()].filter(([key]) => {
+      const normalizedKey = key.toLowerCase();
+      return normalizedKey.startsWith("utm_") || ["gclid", "gbraid", "wbraid"].includes(normalizedKey);
+    });
+
+    if (attributionEntries.length === 0) return;
+
+    document.querySelectorAll('a[href*="calendly.com/tallerdedigitalizacion"], a[href*="cal.com/taller-de-digitalizacion"]').forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const url = new URL(link.href);
+      attributionEntries.forEach(([key, value]) => {
+        if (!url.searchParams.has(key)) url.searchParams.set(key, value);
+      });
+      link.href = url.toString();
+    });
+  }
+
+  function loadAnalytics() {
+    if (!gaId || gaId.includes("INSERTAR")) return;
+    if (document.querySelector(`script[src*="${gaId}"]`)) return;
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+    document.head.appendChild(script);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag("js", new Date());
+    window.gtag("config", gaId, { anonymize_ip: true });
+  }
+
+  const currentConsent = localStorage.getItem(consentKey);
+  preserveAttributionParams();
+  if (currentConsent === "all") loadAnalytics();
+  if (!currentConsent && banner instanceof HTMLElement) banner.hidden = false;
+
+  document.querySelectorAll("[data-cookie-choice]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const choice = button.getAttribute("data-cookie-choice");
+      localStorage.setItem(consentKey, choice || "necessary");
+      if (banner instanceof HTMLElement) banner.hidden = true;
+      if (choice === "all") loadAnalytics();
+      trackEvent(choice === "all" ? "aceptacion_cookies" : "rechazo_cookies", { choice });
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target.closest("a, button") : null;
+    if (target instanceof HTMLElement) {
+      const eventName = getClickEventName(target);
+      if (eventName) trackEvent(eventName, getClickEventParams(target));
+    }
+  });
+
+  window.addEventListener("message", (event) => {
+    if (typeof event.origin !== "string" || !event.origin.includes("calendly.com")) return;
+    const eventName = event.data?.event;
+    if (eventName === "calendly.event_scheduled") {
+      trackEvent("reserva_completada", {
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+      });
+    }
+  });
+})();</script> <!-- Chatbase embed. Se carga diferido cuando hay un ID real configurado en src/config/site.ts. --><script>(function(){const chatbaseId = "V8ryUqCVZxb4N8Hnym06s";
+
+  if (chatbaseId && !chatbaseId.includes("INSERTAR")) {
+    (function () {
+      if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+        window.chatbase = (...arguments) => {
+          if (!window.chatbase.q) {
+            window.chatbase.q = [];
+          }
+          window.chatbase.q.push(arguments);
+        };
+        window.chatbase = new Proxy(window.chatbase, {
+          get(target, prop) {
+            if (prop === "q") {
+              return target.q;
+            }
+            return (...args) => target(prop, ...args);
+          },
+        });
+      }
+
+      const onLoad = function () {
+        const script = document.createElement("script");
+        script.src = "https://www.chatbase.co/embed.min.js";
+        script.id = chatbaseId;
+        script.domain = "www.chatbase.co";
+        document.body.appendChild(script);
+      };
+
+      if (document.readyState === "complete") {
+        onLoad();
+      } else {
+        window.addEventListener("load", onLoad);
+      }
+    })();
+  }
+})();</script> </body></html> <script>(function(){const formEndpoint = "https://mbce6dz2wf.execute-api.eu-west-1.amazonaws.com/prod/";
+const chatbasePageContext = "Auditoría Web";
+const webAuditGuideLanguage = "es";
+const webAuditGuideSendingLabel = "Enviando...";
+const webAuditGuideSuccessLabel = "Solicitud recibida. Revisa tu email.";
+const webAuditGuideErrorLabel = "No se pudo enviar la solicitud.";
+
+  window.tdTrackEvent?.("view_web_audit_page");
+  window.tdChatbasePageContext = chatbasePageContext;
+  if (typeof window.chatbase === "function") {
+    window.chatbase("setMetadata", { page_context: chatbasePageContext });
+  }
+
+  window.addEventListener("message", (event) => {
+    if (typeof event.origin !== "string" || !event.origin.includes("chatbase")) return;
+    const message = typeof event.data === "string" ? event.data : JSON.stringify(event.data || {});
+    if (message.toLowerCase().includes("open")) window.tdTrackEvent?.("chatbase_open_web_audit");
+    if (message.toLowerCase().includes("lead")) window.tdTrackEvent?.("chatbase_lead_web_audit");
+  });
+
+  document.querySelectorAll("[data-problem-card]").forEach((card) => {
+    const meaningButton = card.querySelector("[data-card-meaning]");
+    const solutionButton = card.querySelector("[data-card-solution]");
+    const resetButton = card.querySelector("[data-card-reset]");
+    meaningButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      card.setAttribute("data-state", "meaning");
+    });
+    solutionButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      card.setAttribute("data-state", "solution");
+    });
+    resetButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      card.setAttribute("data-state", "front");
+    });
+  });
+
+  document.querySelectorAll(".faq-list details").forEach((item) => {
+    item.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("summary")) return;
+      item.open = !item.open;
+    });
+  });
+
+  function apiBaseUrl() {
+    if (!formEndpoint || formEndpoint.includes("INSERTAR")) return "";
+    return String(formEndpoint).replace(/\/$/, "");
+  }
+
+  async function postLead(path, payload) {
+    const baseUrl = apiBaseUrl();
+    if (!baseUrl) throw new Error("Endpoint de formularios no configurado.");
+    const response = await fetch(`${baseUrl}/lead/${path}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) throw new Error(data.error || "No se pudo procesar la solicitud.");
+    return data;
+  }
+
+  document.querySelectorAll("[data-started-at]").forEach((input) => {
+    if (input instanceof HTMLInputElement) input.value = String(Date.now());
+  });
+
+  document.querySelector("[data-web-audit-guide-form]")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!(form instanceof HTMLFormElement)) return;
+    const button = form.querySelector("button[type='submit']");
+    const status = document.querySelector("[data-web-audit-guide-status]");
+    const formData = new FormData(form);
+    if (button instanceof HTMLButtonElement) button.disabled = true;
+    if (status instanceof HTMLElement) status.textContent = webAuditGuideSendingLabel;
+    try {
+      const response = await postLead("web-audit-guide", {
+        name: String(formData.get("nombre") || ""),
+        email: String(formData.get("email") || ""),
+        company: String(formData.get("empresa") || ""),
+        privacyAccepted: formData.get("privacidad") === "on",
+        marketingAccepted: false,
+        language: webAuditGuideLanguage,
+        website: String(formData.get("website") || ""),
+        startedAt: Number(formData.get("started_at") || Date.now()),
+        pageUrl: window.location.href,
+        userAgent: navigator.userAgent,
+      });
+      if (status instanceof HTMLElement) status.textContent = response.message || webAuditGuideSuccessLabel;
+      form.reset();
+      form.querySelectorAll("[data-started-at]").forEach((input) => {
+        if (input instanceof HTMLInputElement) input.value = String(Date.now());
+      });
+      window.tdTrackEvent?.("download_web_audit_pdf");
+      window.tdTrackEvent?.("generate_lead", { lead_type: "web_audit_guide" });
+    } catch (error) {
+      if (status instanceof HTMLElement) status.textContent = error instanceof Error ? error.message : webAuditGuideErrorLabel;
+    } finally {
+      if (button instanceof HTMLButtonElement) button.disabled = false;
+    }
+  });
+})();</script>
