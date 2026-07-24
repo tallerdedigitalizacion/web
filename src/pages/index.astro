@@ -2,9 +2,23 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const title = "Taller de Digitalización | Soluciones técnicas para negocios";
-const description = "Taller de Digitalización reúne servicios técnicos para resolver problemas concretos de negocio: caos operativo y velocidad web.";
+const description = "Taller de Digitalización reúne servicios técnicos para resolver problemas concretos de negocio: presencia online, captación web, caos operativo, IA interna y velocidad web.";
 
 const products = [
+  {
+    eyebrow: "Soporte IA",
+    title: "Agente de soporte al cliente IA",
+    text: "Para pequeñas empresas que reciben muchas preguntas repetidas y quieren responder mejor sin contratar más personal.",
+    href: "/agente-soporte-cliente-ia",
+    cta: "Ver agente de soporte IA",
+  },
+  {
+    eyebrow: "Arranque digital",
+    title: "Arranque digital para negocios",
+    text: "Para autónomos, comercios y pequeños negocios que necesitan empezar a recibir clientes online con lo esencial bien configurado.",
+    href: "/arranque-digital-negocios",
+    cta: "Ver arranque digital",
+  },
   {
     eyebrow: "Operaciones",
     title: "Diagnóstico de Caos Operativo",
@@ -13,16 +27,41 @@ const products = [
     cta: "Ver diagnóstico operativo",
   },
   {
+    eyebrow: "IA interna",
+    title: "Agente Oráculo IA Interno",
+    text: "Para negocios con información dispersa que quieren convertir procesos, FAQs y documentación en un asistente interno consultable.",
+    href: "/agente-oraculo-ia-interno",
+    cta: "Ver oráculo IA",
+  },
+  {
     eyebrow: "Velocidad web",
     title: "Optimización de velocidad web",
     text: "Para webs lentas que pierden visitas, posicionamiento y contactos antes de que el cliente vea la oferta.",
     href: "/optimizacion-velocidad-web",
     cta: "Ver optimización de velocidad",
   },
+  {
+    eyebrow: "Auditoría web",
+    title: "Auditoría Web Técnica",
+    text: "Para negocios que reciben visitas pero quieren saber si la web está perdiendo leads por velocidad, formularios, seguridad o infraestructura.",
+    href: "/auditoria-web",
+    cta: "Ver auditoría web",
+  },
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/" showHeaderBooking={false} headerNavItems={[["Productos", "#productos"]]}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/"
+  showHeaderBooking={false}
+  headerNavItems={[["Productos", "#productos"]]}
+  alternateLinks={[
+    { lang: "es", path: "/" },
+    { lang: "en", path: "/en/" },
+    { lang: "x-default", path: "/" },
+  ]}
+>
   <section class="hero home-hero">
     <div class="hero-content">
       <span class="eyebrow">Taller de Digitalización</span>
@@ -34,7 +73,7 @@ const products = [
   <section id="productos" class="section">
     <div class="section-head">
       <span class="eyebrow">Servicios</span>
-      <h2>Dos dolores, dos caminos.</h2>
+      <h2>Seis dolores, seis caminos.</h2>
       <p>Esta página solo ordena la entrada. Las páginas de producto funcionan como funnels independientes, sin distracciones ni navegación cruzada.</p>
     </div>
     <div class="product-grid">

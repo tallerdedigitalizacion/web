@@ -7,8 +7,8 @@ import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { z } from "zod";
 import { scoreAssessment } from "./assessment";
 import { config } from "./config";
-import { diagnosticLeadSchema, methodLeadSchema } from "./schemas";
-import { diagnosticEmail, methodEmail, notificationEmail } from "./email/templates";
+import { diagnosticLeadSchema, methodLeadSchema, webAuditGuideLeadSchema, webAuditLeadSchema } from "./schemas";
+import { diagnosticEmail, methodEmail, notificationEmail, webAuditEmail, webAuditGuideEmail } from "./email/templates";
 import { sendEmail } from "./email/sender";
 import { assertAllowedOrigin, assertHoneypot, assertHumanTiming, assertPayloadSize, assertRateLimit, getClientIp, SecurityError } from "./security";
 import { hashValue, saveLead } from "./store";
@@ -28,8 +28,12 @@ app.use(
 app.get("/health", (c) => c.json({ ok: true }));
 app.post("/lead/diagnostic", async (c) => handleLead(c, "diagnostic"));
 app.post("/lead/method", async (c) => handleLead(c, "method"));
+app.post("/lead/web-audit", async (c) => handleLead(c, "web-audit"));
+app.post("/lead/web-audit-guide", async (c) => handleLead(c, "web-audit-guide"));
 
-async function handleLead(c: Context, action: "diagnostic" | "method") {
+type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide";
+
+async function handleLead(c: Context, action: LeadAction) {
   try {
     assertAllowedOrigin(c);
     const rawBody = await c.req.text();
@@ -40,7 +44,7 @@ async function handleLead(c: Context, action: "diagnostic" | "method") {
     } catch {
       return c.json({ ok: false, error: "JSON inválido" }, 400);
     }
-    const input = action === "diagnostic" ? diagnosticLeadSchema.parse(parsedJson) : methodLeadSchema.parse(parsedJson);
+    const input = parseLead(action, parsedJson);
     const ip = getClientIp(c);
 
     assertHoneypot(input.website);
@@ -78,18 +82,76 @@ async function handleLead(c: Context, action: "diagnostic" | "method") {
       });
     }
 
-    const methodInput = methodLeadSchema.parse(input);
-    const saved = await saveLead("method", {
-      ...cleanLead(methodInput),
+    if (action === "method") {
+      const methodInput = methodLeadSchema.parse(input);
+      const saved = await saveLead("method", {
+        ...cleanLead(methodInput),
+        ipHash: hashValue(ip),
+      });
+      const methodPdfPath = resolve(config.methodPdfFile);
+      const leadDelivery = await trySendEmail(methodInput.email, methodEmail(methodInput, config.siteUrl), existsSync(methodPdfPath) ? methodPdfPath : undefined);
+      if (config.notifyEmail) {
+        const deliveryNote = leadDelivery.ok
+          ? "Email al lead: enviado."
+          : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+        await trySendEmail(config.notifyEmail, notificationEmail("method", methodInput, `Lead id: ${saved.id}\n${deliveryNote}`));
+      }
+
+      return c.json({
+        ok: true,
+        leadId: saved.id,
+        emailDelivered: leadDelivery.ok,
+        message: leadDelivery.ok
+          ? "Método enviado por email."
+          : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+      });
+    }
+
+    if (action === "web-audit") {
+      const webAuditInput = webAuditLeadSchema.parse(input);
+      const saved = await saveLead("web-audit", {
+        ...cleanLead(webAuditInput),
+        ipHash: hashValue(ip),
+      });
+      const leadDelivery = await trySendEmail(webAuditInput.email, webAuditEmail(webAuditInput, config.webAuditBookingUrl));
+      if (config.notifyEmail) {
+        const deliveryNote = leadDelivery.ok
+          ? "Email al lead: enviado."
+          : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+        await trySendEmail(
+          config.notifyEmail,
+          notificationEmail("web-audit", webAuditInput, `Score: ${webAuditInput.score.total}/100. Lead id: ${saved.id}\n${deliveryNote}`),
+        );
+      }
+
+      return c.json({
+        ok: true,
+        leadId: saved.id,
+        emailDelivered: leadDelivery.ok,
+        message: leadDelivery.ok
+          ? "Autoauditoría recibida. Te enviamos el resultado por email."
+          : "Recibimos tu autoauditoría. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+      });
+    }
+
+    const webAuditGuideInput = webAuditGuideLeadSchema.parse(input);
+    const saved = await saveLead("web-audit-guide", {
+      ...cleanLead(webAuditGuideInput),
       ipHash: hashValue(ip),
     });
-    const methodPdfPath = resolve(config.methodPdfFile);
-    const leadDelivery = await trySendEmail(methodInput.email, methodEmail(methodInput, config.siteUrl), existsSync(methodPdfPath) ? methodPdfPath : undefined);
+    const webAuditGuidePdfPath = resolve(
+      webAuditGuideInput.language === "en" ? config.webAuditGuidePdfFileEn : config.webAuditGuidePdfFileEs,
+    );
+    const leadDelivery = await trySendEmail(
+      webAuditGuideInput.email,
+      webAuditGuideEmail(webAuditGuideInput, config.siteUrl, config.webAuditBookingUrl),
+      existsSync(webAuditGuidePdfPath) ? webAuditGuidePdfPath : undefined,
+    );
     if (config.notifyEmail) {
       const deliveryNote = leadDelivery.ok
         ? "Email al lead: enviado."
         : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
-      await trySendEmail(config.notifyEmail, notificationEmail("method", methodInput, `Lead id: ${saved.id}\n${deliveryNote}`));
+      await trySendEmail(config.notifyEmail, notificationEmail("web-audit-guide", webAuditGuideInput, `Lead id: ${saved.id}\n${deliveryNote}`));
     }
 
     return c.json({
@@ -97,7 +159,7 @@ async function handleLead(c: Context, action: "diagnostic" | "method") {
       leadId: saved.id,
       emailDelivered: leadDelivery.ok,
       message: leadDelivery.ok
-        ? "Método enviado por email."
+        ? "Documento enviado por email."
         : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
     });
   } catch (error) {
@@ -111,6 +173,13 @@ async function handleLead(c: Context, action: "diagnostic" | "method") {
     console.error(error);
     return c.json({ ok: false, error: "Error interno" }, 500);
   }
+}
+
+function parseLead(action: LeadAction, parsedJson: unknown) {
+  if (action === "diagnostic") return diagnosticLeadSchema.parse(parsedJson);
+  if (action === "method") return methodLeadSchema.parse(parsedJson);
+  if (action === "web-audit") return webAuditLeadSchema.parse(parsedJson);
+  return webAuditGuideLeadSchema.parse(parsedJson);
 }
 
 async function trySendEmail(to: string, content: Parameters<typeof sendEmail>[1], attachmentPath?: string) {

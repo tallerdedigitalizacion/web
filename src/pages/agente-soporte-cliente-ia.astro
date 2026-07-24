@@ -1,0 +1,267 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+
+const title = "Agente de soporte al cliente IA desde 199 € | Taller de Digitalización";
+const description = "Creamos agentes IA de soporte al cliente entrenados con la información real de tu empresa. Responde preguntas frecuentes, reduce trabajo repetitivo y empieza desde 199 €.";
+
+const navItems = [
+  ["Problema", "#problema"],
+  ["Solución", "#solucion"],
+  ["Incluye", "#incluye"],
+  ["Canales", "#canales"],
+  ["Precio", "#precio"],
+  ["FAQ", "#faq"],
+];
+
+const problemItems = [
+  "Clientes preguntando siempre lo mismo.",
+  "WhatsApps, emails y formularios dispersos.",
+  "Respuestas lentas cuando nadie puede atender.",
+  "Información interna que solo conoce una o dos personas.",
+  "Oportunidades perdidas por falta de seguimiento.",
+];
+
+const benefitItems = [
+  "Respuestas inmediatas a preguntas frecuentes.",
+  "Menos interrupciones para el equipo.",
+  "Atención más consistente.",
+  "Captura de datos básicos del cliente.",
+  "Escalado a una persona cuando hace falta.",
+  "Base de conocimiento organizada y reutilizable.",
+];
+
+const includedItems = [
+  "Revisión de la información existente.",
+  "Organización de preguntas frecuentes.",
+  "Creación de una base de conocimiento inicial.",
+  "Configuración del agente IA.",
+  "Personalización del tono de respuesta.",
+  "Pruebas con preguntas reales.",
+  "Ajustes iniciales.",
+  "Entrega listo para usar.",
+];
+
+const channelItems = ["Web", "WhatsApp", "Email", "Formularios", "Chat interno", "Página de ayuda"];
+
+const pricingItems = [
+  "Configuración inicial.",
+  "Base de conocimiento inicial.",
+  "Pruebas básicas.",
+  "Ajustes de arranque.",
+];
+
+const fitItems = [
+  "Tienes muchas preguntas repetidas.",
+  "Tu equipo pierde tiempo respondiendo lo mismo.",
+  "La información de tu negocio está dispersa.",
+  "Quieres probar IA con un caso concreto y útil.",
+  "Prefieres empezar pequeño y mejorar después.",
+];
+
+const notFitItems = [
+  "Buscas una IA que sustituya completamente a tu equipo.",
+  "No tienes información mínima sobre tus servicios.",
+  "Quieres automatizar todo sin revisar procesos.",
+  "Esperas una solución mágica sin pruebas ni ajustes.",
+];
+
+const processItems = [
+  "Revisamos tu caso.",
+  "Recopilamos la información clave.",
+  "Creamos la base de conocimiento.",
+  "Configuramos el agente.",
+  "Probamos con preguntas reales.",
+  "Ajustamos y entregamos.",
+];
+
+const faqs = [
+  ["¿El agente responde solo con la información de mi empresa?", "Sí. La idea es entrenarlo con información concreta de tu negocio para que responda de forma útil y coherente."],
+  ["¿Puede equivocarse?", "Sí. Por eso se configura con límites, pruebas y criterios de escalado. El objetivo no es eliminar el criterio humano, sino reducir trabajo repetitivo."],
+  ["¿Se puede conectar a WhatsApp?", "Depende de las herramientas que uses y del nivel de integración que necesites. Se puede estudiar como parte del proyecto."],
+  ["¿Necesito tener toda la documentación preparada?", "No necesariamente. Parte del servicio consiste en ordenar la información inicial y convertirla en una base de conocimiento útil."],
+  ["¿El precio de 199 € incluye todo?", "Incluye una puesta en marcha básica. Integraciones avanzadas, automatizaciones complejas o mantenimiento se presupuestan aparte."],
+  ["¿Puedo empezar con algo pequeño?", "Sí. De hecho, es lo recomendable: empezar con preguntas frecuentes reales, validar utilidad y luego ampliar."],
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/agente-soporte-cliente-ia"
+  headerNavItems={navItems}
+  headerBookingEvent="agente_soporte_reservar_click"
+  schemaDescription="Agentes IA de soporte al cliente para pequeñas empresas que quieren responder preguntas frecuentes y reducir trabajo repetitivo."
+>
+  <section class="hero ai-support-hero">
+    <div class="hero-content">
+      <span class="eyebrow">Agente de soporte IA desde 199 €</span>
+      <h1>Agente de soporte al cliente IA para tu empresa</h1>
+      <p class="hero-subtitle">Responde preguntas frecuentes, orienta a tus clientes y reduce trabajo repetitivo sin contratar más personal.</p>
+      <p>Creamos un asistente entrenado con la información real de tu negocio: servicios, horarios, precios, procesos, zonas de cobertura, preguntas frecuentes y criterios de escalado.</p>
+      <div class="ai-price-highlight">Desde 199 €</div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" data-event="agente_soporte_reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Quiero mi agente IA</a>
+        <a class="btn btn-secondary" href="#como-funciona">Ver cómo funciona</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="problema" class="section">
+    <div class="section-head">
+      <span class="eyebrow">El problema</span>
+      <h2>Tu equipo no debería responder lo mismo veinte veces al día</h2>
+    </div>
+    <ul class="compact-status-list ai-support-list">
+      {problemItems.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="solucion" class="section section-accent section-split">
+    <div>
+      <span class="eyebrow">La solución</span>
+      <h2>Un agente IA entrenado con tu negocio</h2>
+      <p>No es un chatbot genérico. Es un agente configurado con la información de tu empresa para responder con criterio, mantener coherencia y derivar cuando la consulta necesita atención humana.</p>
+    </div>
+    <ul class="check-list">
+      {benefitItems.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="incluye" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Qué incluye</span>
+      <h2>Qué incluye el servicio</h2>
+    </div>
+    <div class="impact-grid">
+      {includedItems.map((item, index) => (
+        <article class="mini-card ai-numbered-card">
+          <span>{index + 1}</span>
+          <h3>{item}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="canales" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Canales</span>
+      <h2>Puede integrarse en tus canales habituales</h2>
+      <p>La integración exacta depende de las herramientas que ya uses. Primero revisamos tu caso y proponemos la forma más simple de ponerlo en marcha.</p>
+    </div>
+    <div class="tag-grid ai-channel-grid">
+      {channelItems.map((item) => <span>{item}</span>)}
+    </div>
+  </section>
+
+  <section class="section section-split">
+    <div>
+      <span class="eyebrow">Ejemplo de uso</span>
+      <h2>De preguntas dispersas a respuestas consistentes</h2>
+    </div>
+    <div class="callout">
+      <p>Una empresa recibe consultas recurrentes sobre servicios, cobertura, incidencias, horarios y procedimientos. El agente IA consulta la información preparada, responde al cliente y, si detecta una incidencia o una consulta sensible, deriva el caso al equipo correspondiente.</p>
+    </div>
+  </section>
+
+  <section id="precio" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Precio</span>
+      <h2>Precio simple para empezar</h2>
+      <p>Ideal para crear una primera versión funcional del agente con la información básica de tu negocio.</p>
+    </div>
+    <div class="ai-pricing-panel">
+      <div>
+        <span class="eyebrow">Puesta en marcha básica</span>
+        <strong>Desde 199 €</strong>
+        <p>Integraciones avanzadas, automatizaciones o mantenimiento mensual se presupuestan aparte según el caso.</p>
+      </div>
+      <ul class="compact-status-list">
+        {pricingItems.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      <a class="btn btn-primary" data-event="agente_soporte_diagnostico_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Solicitar diagnóstico</a>
+    </div>
+  </section>
+
+  <section class="section two-columns" id="para-quien">
+    <div>
+      <span class="eyebrow">Para quién es</span>
+      <h2>Esto encaja si...</h2>
+      <ul class="compact-status-list">
+        {fitItems.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <span class="eyebrow">Para quién no es</span>
+      <h2>No es para ti si...</h2>
+      <ul class="compact-status-list negative-list">
+        {notFitItems.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Proceso</span>
+      <h2>Cómo lo ponemos en marcha</h2>
+    </div>
+    <div class="steps ai-process-steps">
+      {processItems.map((item, index) => (
+        <article>
+          <span class="step-number">{index + 1}</span>
+          <h3>{item}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2>Dudas habituales antes de empezar</h2>
+    </div>
+    <div class="faq-list">
+      {faqs.map(([question, answer]) => (
+        <details>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <span class="eyebrow">Siguiente paso</span>
+    <h2>Empieza con una versión útil, no con una promesa gigante</h2>
+    <p>Creamos una primera versión de tu agente de soporte IA para reducir preguntas repetidas y ordenar la información clave de tu negocio.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" data-event="agente_soporte_reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Quiero mi agente IA</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const utmEntries = [...params.entries()].filter(([key]) => key.toLowerCase().startsWith("utm_"));
+
+  if (utmEntries.length > 0) {
+    document.querySelectorAll("[data-preserve-utm]").forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const url = new URL(link.href);
+      utmEntries.forEach(([key, value]) => {
+        if (!url.searchParams.has(key)) url.searchParams.set(key, value);
+      });
+      link.href = url.toString();
+    });
+  }
+</script>

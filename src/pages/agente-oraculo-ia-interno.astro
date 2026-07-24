@@ -1,0 +1,227 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+
+const title = "Agente Oráculo IA Interno para empresas | Taller de Digitalización";
+const description = "Creamos un agente de IA interno conectado a tu documentación y procesos para que tu equipo pueda consultar información operativa de forma rápida. Desde 199 €.";
+const keywords = "agente IA interno, chatbot interno empresa, oráculo IA, documentación interna, inteligencia artificial para empresas, base de conocimiento IA, automatización de procesos";
+
+const navItems = [
+  ["Qué es", "#que-es"],
+  ["Responde", "#que-responde"],
+  ["Usos", "#casos-uso"],
+  ["Proceso", "#como-funciona"],
+  ["Incluye", "#incluye"],
+];
+
+const answerExamples = [
+  "¿Cómo se gestiona una incidencia?",
+  "¿Dónde está el documento correcto?",
+  "¿Qué pasos sigue este proceso?",
+  "¿Qué hace esta automatización?",
+  "¿A quién se deriva este caso?",
+  "¿Qué información necesita el cliente?",
+  "¿Cómo se usa esta herramienta interna?",
+  "¿Qué correos o respuestas tipo usamos?",
+];
+
+const useCases = [
+  ["Soporte interno", "Responder dudas operativas sin interrumpir siempre a la misma persona."],
+  ["Onboarding de empleados", "Dar a nuevas incorporaciones un punto de consulta sobre procesos y herramientas."],
+  ["Documentación de procesos", "Convertir procedimientos dispersos en conocimiento consultable."],
+  ["Atención con base de conocimiento", "Ayudar a equipos que responden dudas repetidas de clientes o usuarios internos."],
+  ["Automatizaciones y Make.com", "Explicar qué hace cada escenario, cuándo se activa y cómo actuar ante incidencias."],
+  ["Manual operativo de empresa", "Reunir instrucciones, contactos, FAQs y criterios de trabajo en una interfaz simple."],
+  ["Preguntas frecuentes internas", "Resolver dudas habituales sobre accesos, plantillas, pasos y derivaciones."],
+  ["Menos dependencia del responsable", "Reducir el cuello de botella de quien tiene todo en la cabeza."],
+];
+
+const processItems = [
+  "Revisamos dónde está hoy tu información.",
+  "Ordenamos lo mínimo necesario.",
+  "Creamos una base de conocimiento.",
+  "Configuramos el agente IA.",
+  "Probamos preguntas reales.",
+  "Ajustamos respuestas y límites.",
+];
+
+const includedItems = [
+  "Revisión inicial del caso",
+  "Estructura básica de conocimiento",
+  "Carga de documentación inicial limitada",
+  "Configuración de un agente IA básico",
+  "Pruebas con preguntas reales",
+  "Recomendaciones para mejorar la documentación",
+];
+
+const notIncludedItems = [
+  "No sustituye una auditoría completa de procesos.",
+  "No arregla documentación inexistente por arte de magia.",
+  "No debe usarse para decisiones legales, médicas o financieras sin revisión humana.",
+  "No es una IA libre respondiendo cualquier cosa, sino una interfaz sobre conocimiento definido.",
+];
+
+const audienceItems = [
+  "Empresas pequeñas con mucho conocimiento informal",
+  "Autónomos que quieren dejar instrucciones claras",
+  "Equipos donde todo pasa por una persona",
+  "Negocios con procesos repetitivos",
+  "Empresas que usan Notion, Google Drive, Make, Gmail, CRMs o documentación dispersa",
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonicalPath="/agente-oraculo-ia-interno"
+  headerNavItems={navItems}
+  headerBookingEvent="oraculo_ia_reservar_click"
+  schemaDescription="Creación de agentes de IA internos conectados a documentación, procesos y bases de conocimiento para empresas."
+>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">Agente Oráculo IA Interno · Desde 199 €</span>
+      <h1>Un oráculo interno para que tu empresa deje de depender de la memoria de unos pocos</h1>
+      <p class="hero-subtitle">Creamos un agente de IA conectado a tu documentación, procesos y preguntas frecuentes para que tu equipo pueda consultar cómo funcionan las cosas sin perseguir a nadie.</p>
+      <p>Convierte la información dispersa de tu empresa en un asistente interno que responde preguntas.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" data-event="oraculo_ia_reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Quiero mi oráculo interno</a>
+        <a class="btn btn-secondary" href="#que-responde">Ver qué puede responder</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="que-es" class="section section-split">
+    <div>
+      <span class="eyebrow">Qué es</span>
+      <h2>No es un chatbot genérico.</h2>
+      <p>Es un asistente de IA preparado para responder sobre tu operativa interna usando la información que le das. No inventa tu empresa ni sustituye el criterio humano: funciona como una interfaz de consulta sobre conocimiento definido.</p>
+    </div>
+    <ul class="check-list">
+      <li>Puede partir de Notion, Google Drive, PDFs, FAQs y procedimientos.</li>
+      <li>Puede usar emails tipo, instrucciones internas y documentación de herramientas.</li>
+      <li>Puede explicar escenarios de Make, automatizaciones e incidencias frecuentes.</li>
+      <li>Responde mejor cuanto más clara y actualizada esté la base de conocimiento.</li>
+    </ul>
+  </section>
+
+  <section id="que-responde" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Qué puede responder</span>
+      <h2>Preguntas reales de la operativa diaria.</h2>
+      <p>El objetivo no es tener una IA llamativa. Es que alguien pueda preguntar lo que hoy acaba en WhatsApp, correo o en la cabeza de una persona concreta.</p>
+    </div>
+    <div class="tag-grid">
+      {answerExamples.map((item) => <span>{item}</span>)}
+    </div>
+  </section>
+
+  <section id="casos-uso" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Casos de uso</span>
+      <h2>Conocimiento operativo, consultable cuando hace falta.</h2>
+      <p>Encaja especialmente bien cuando la información ya existe, pero está repartida entre documentos, herramientas, conversaciones y memoria informal.</p>
+    </div>
+    <div class="impact-grid">
+      {useCases.map(([caseTitle, text]) => (
+        <article class="mini-card">
+          <h3>{caseTitle}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="como-funciona" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Cómo funciona</span>
+      <h2>Empezamos por lo útil, no por documentarlo todo.</h2>
+    </div>
+    <div class="steps">
+      {processItems.map((item, index) => (
+        <article>
+          <span class="step-number">{index + 1}</span>
+          <h3>{item}</h3>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="incluye" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Qué incluye desde 199 €</span>
+      <h2>Una primera versión simple para validar el valor.</h2>
+      <p>El precio base está pensado como entrada para montar un primer oráculo acotado: un área, unas preguntas frecuentes o un proceso concreto.</p>
+    </div>
+    <div class="two-columns">
+      <div>
+        <span class="eyebrow">Incluye</span>
+        <ul class="compact-status-list">
+          {includedItems.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <div class="honest-note">
+        <span class="eyebrow">Nota de alcance</span>
+        <p>El precio puede variar según volumen de documentación, fuentes, integraciones y nivel de precisión requerido.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Qué no es</span>
+      <h2>Expectativas claras desde el principio.</h2>
+    </div>
+    <ul class="compact-status-list negative-list">
+      {notIncludedItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="section section-split">
+    <div>
+      <span class="eyebrow">Ejemplo práctico</span>
+      <h2>De documentos dispersos a una respuesta clara.</h2>
+      <p>Una empresa tiene procesos repartidos entre Gmail, Notion y Make.com. Cada vez que alguien pregunta cómo se gestiona una incidencia, depende de que una persona lo recuerde.</p>
+    </div>
+    <div class="honest-note">
+      <p>Con el Oráculo IA Interno, esa persona puede preguntar: “¿Qué pasa cuando llega una incidencia de Girona Sud?” y obtener una respuesta basada en la documentación real.</p>
+    </div>
+  </section>
+
+  <section class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Para quién es</span>
+      <h2>Para equipos que pierden tiempo preguntando siempre lo mismo.</h2>
+    </div>
+    <ul class="compact-status-list">
+      {audienceItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="section final-cta">
+    <span class="eyebrow">Empieza con una versión simple</span>
+    <h2>Crear tu oráculo interno no exige ordenar toda la empresa de golpe.</h2>
+    <p>No hace falta documentar toda la empresa de golpe. Podemos empezar con un área concreta, unas preguntas frecuentes o un proceso que hoy te interrumpe demasiado.</p>
+    <div class="price-block">
+      <strong>Desde 199 €</strong>
+      <a class="btn btn-primary" data-event="oraculo_ia_reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Crear mi oráculo interno</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const utmEntries = [...params.entries()].filter(([key]) => key.toLowerCase().startsWith("utm_"));
+
+  if (utmEntries.length > 0) {
+    document.querySelectorAll("[data-preserve-utm]").forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const url = new URL(link.href);
+      utmEntries.forEach(([key, value]) => {
+        if (!url.searchParams.has(key)) url.searchParams.set(key, value);
+      });
+      link.href = url.toString();
+    });
+  }
+</script>

@@ -1,0 +1,94 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const title = "Taller de Digitalización | Technical solutions for business problems";
+const description =
+  "Taller de Digitalización brings together technical services to solve concrete business problems: online presence, web lead generation, operational chaos, internal AI and website speed.";
+
+const products = [
+  {
+    eyebrow: "AI support",
+    title: "AI Customer Support Agent",
+    text: "For small businesses that receive many repeated questions and want to answer better without hiring more staff.",
+    href: "/agente-soporte-cliente-ia",
+    cta: "View AI support agent",
+  },
+  {
+    eyebrow: "Digital start",
+    title: "Digital Start for Businesses",
+    text: "For freelancers, shops and small businesses that need to start receiving customers online with the essentials configured properly.",
+    href: "/arranque-digital-negocios",
+    cta: "View digital start",
+  },
+  {
+    eyebrow: "Operations",
+    title: "Operational Chaos Diagnosis",
+    text: "For businesses that work, but with too much owner dependency, internal friction and unclear processes.",
+    href: "/diagnostico-caos-operativo",
+    cta: "View operational diagnosis",
+  },
+  {
+    eyebrow: "Internal AI",
+    title: "Internal AI Oracle Agent",
+    text: "For businesses with scattered information that want to turn processes, FAQs and documentation into a consultable internal assistant.",
+    href: "/agente-oraculo-ia-interno",
+    cta: "View AI oracle",
+  },
+  {
+    eyebrow: "Website speed",
+    title: "Website Speed Optimization",
+    text: "For slow websites that lose visitors, search visibility and leads before customers even see the offer.",
+    href: "/website-speed-optimization",
+    cta: "View speed optimization",
+  },
+  {
+    eyebrow: "Web audit",
+    title: "Technical Web Audit",
+    text: "For businesses that get visits but need to know whether the website is losing leads through speed, forms, security or infrastructure.",
+    href: "/en/web-audit",
+    cta: "View web audit",
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/en/"
+  showHeaderBooking={false}
+  headerNavItems={[["Products", "#products"]]}
+  lang="en"
+  schemaDescription="Technical diagnosis and fixes for websites and business operations."
+  schemaAreaServed={["United States", "Remote"]}
+  alternateLinks={[
+    { lang: "es", path: "/" },
+    { lang: "en", path: "/en/" },
+    { lang: "x-default", path: "/" },
+  ]}
+>
+  <section class="hero home-hero">
+    <div class="hero-content">
+      <span class="eyebrow">Taller de Digitalización</span>
+      <h1>Technical solutions for concrete business problems.</h1>
+      <p class="hero-subtitle">Choose the problem you want to solve. Each service has its own page, its own context and one clear objective.</p>
+    </div>
+  </section>
+
+  <section id="products" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Services</span>
+      <h2>Six pains, six paths.</h2>
+      <p>This page only organizes the entry point. Product pages work as independent funnels, without distractions or cross-navigation.</p>
+    </div>
+    <div class="product-grid">
+      {products.map((product) => (
+        <article class="product-card">
+          <span class="eyebrow">{product.eyebrow}</span>
+          <h3>{product.title}</h3>
+          <p>{product.text}</p>
+          <a class="btn btn-primary" href={product.href}>{product.cta}</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

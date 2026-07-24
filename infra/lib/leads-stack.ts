@@ -51,7 +51,7 @@ export class LeadsStack extends Stack {
         SMTP_USER: process.env.SMTP_USER || "",
         SMTP_PASSWORD: process.env.SMTP_PASSWORD || "",
         SITE_URL: process.env.PUBLIC_SITE_URL || "https://tallerdedigitalizacion.com",
-        BOOKING_URL: process.env.BOOKING_URL || "https://calendly.com/tallerdedigitalizacion-info/30min",
+        BOOKING_URL: process.env.BOOKING_URL || "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
         ALLOWED_ORIGINS:
           process.env.ALLOWED_ORIGINS || "https://tallerdedigitalizacion.com,http://localhost:4322,http://localhost:4323",
         IP_HASH_SALT: process.env.IP_HASH_SALT || "b91e4c6cfe32f2309c14f9edecc3490abf3a259bede1c27da7b160814d19febe",
@@ -81,6 +81,8 @@ export class LeadsStack extends Stack {
     const lead = api.root.addResource("lead");
     lead.addResource("diagnostic").addMethod("POST", integration);
     lead.addResource("method").addMethod("POST", integration);
+    lead.addResource("web-audit").addMethod("POST", integration);
+    lead.addResource("web-audit-guide").addMethod("POST", integration);
     api.root.addResource("health").addMethod("GET", integration);
 
     new CfnOutput(this, "LeadsApiUrl", {

@@ -4,31 +4,44 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import CookieBanner from "@/components/CookieBanner.astro";
 import Chatbase from "@/components/Chatbase.astro";
-import WhatsAppButton from "@/components/WhatsAppButton.astro";
 import { withBase } from "@/utils/paths";
 import "@/styles/global.css";
 
 const {
   title = siteConfig.seoTitle,
   description = siteConfig.seoDescription,
+  keywords = "",
   canonicalPath = "/",
   showChatbase = true,
   headerBookingEvent = "reservar_click",
-  headerBrandHref = "/",
   headerNavItems = [],
   showHeaderBooking = true,
-  showWhatsAppButton = true,
   lang = "es",
   bookingHref = siteConfig.bookingUrl,
-  whatsappHref,
   schemaDescription = "Consultoría para reducir caos operativo, dependencia del CEO y fricción en PyMEs.",
   schemaAreaServed = ["España", "Remoto"],
+  alternateLinks = [],
 } = Astro.props;
 
 const origin = Astro.site ?? new URL(siteConfig.publicUrl).origin;
 const absoluteUrl = (path: string) => new URL(withBase(path), origin).toString();
 const canonical = absoluteUrl(canonicalPath);
 const ogImage = absoluteUrl(siteConfig.ogImage);
+const languageRedirectMap = {
+  "/": "/en/",
+  "/auditoria-web": "/en/web-audit/",
+  "/auditoria-web/": "/en/web-audit/",
+  "/optimizacion-velocidad-web": "/website-speed-optimization/",
+  "/optimizacion-velocidad-web/": "/website-speed-optimization/",
+};
+const languageRedirectIgnoredPaths = [
+  "/aviso-legal",
+  "/aviso-legal/",
+  "/politica-privacidad",
+  "/politica-privacidad/",
+  "/politica-cookies",
+  "/politica-cookies/",
+];
 const schema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -49,8 +62,12 @@ const schema = {
     
     <title>{title}</title>
     <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
     
     <link rel="canonical" href={canonical} />
+    {alternateLinks.map((alternate: { lang: string; path: string }) => (
+      <link rel="alternate" hreflang={alternate.lang} href={absoluteUrl(alternate.path)} />
+    ))}
     
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -80,15 +97,31 @@ const schema = {
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
     <link rel="manifest" href="/favicon/manifest.json">
 
+    <script is:inline define:vars={{ languageRedirectMap, languageRedirectIgnoredPaths }}>
+      (() => {
+        const pathname = window.location.pathname;
+        const isEnglishPath = pathname === "/en" || pathname.startsWith("/en/") || pathname === "/website-speed-optimization" || pathname === "/website-speed-optimization/";
+        if (isEnglishPath) return;
+        if (languageRedirectIgnoredPaths.includes(pathname)) return;
+
+        const primaryLanguage = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+        if (!primaryLanguage || primaryLanguage.toLowerCase().startsWith("es")) return;
+
+        const targetPath = languageRedirectMap[pathname];
+        if (!targetPath) return;
+        if (targetPath === pathname) return;
+
+        window.location.replace(`${targetPath}${window.location.search}${window.location.hash}`);
+      })();
+    </script>
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
-    <Header bookingEvent={headerBookingEvent} brandHref={headerBrandHref} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} />
+    <Header bookingEvent={headerBookingEvent} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} />
     <main>
       <slot />
     </main>
     <Footer lang={lang} />
-    {showWhatsAppButton && <WhatsAppButton lang={lang} href={whatsappHref} />}
     <CookieBanner lang={lang} />
     {showChatbase && <Chatbase />}
   </body>

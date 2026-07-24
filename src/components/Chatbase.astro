@@ -4,8 +4,8 @@ import { siteConfig } from "@/config/site";
 
 <!-- Chatbase embed. Se carga diferido cuando hay un ID real configurado en src/config/site.ts. -->
 <script define:vars={{ chatbaseId: siteConfig.chatbaseId }}>
-  if (chatbaseId && !chatbaseId.includes("INSERTAR")) {
-    (function () {
+      if (chatbaseId && !chatbaseId.includes("INSERTAR")) {
+        (function () {
       if (!window.chatbase || window.chatbase("getState") !== "initialized") {
         window.chatbase = (...arguments) => {
           if (!window.chatbase.q) {
@@ -21,6 +21,10 @@ import { siteConfig } from "@/config/site";
             return (...args) => target(prop, ...args);
           },
         });
+      }
+
+      if (window.tdChatbasePageContext) {
+        window.chatbase("setMetadata", { page_context: window.tdChatbasePageContext });
       }
 
       const onLoad = function () {

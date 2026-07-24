@@ -4,14 +4,13 @@ import { withBase } from "@/utils/paths";
 
 const {
   bookingEvent = "reservar_click",
-  brandHref = "/",
   navItems = [],
   showBooking = true,
   lang = "es",
   bookingHref = siteConfig.bookingUrl,
 } = Astro.props;
 const resolveHref = (href: string) => (href.startsWith("/") ? (import.meta.env.DEV ? href : withBase(href)) : href);
-const brandTarget = resolveHref(brandHref);
+const brandTarget = siteConfig.publicUrl;
 const resolvedNavItems = navItems.map(([label, href]: [string, string]) => [label, resolveHref(href)]);
 const isEnglish = lang === "en";
 const labels = {

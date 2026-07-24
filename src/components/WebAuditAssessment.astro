@@ -1,0 +1,482 @@
+---
+import { withBase } from "@/utils/paths";
+import { webAuditAssessment, webAuditShared, webAuditWeights, type WebAuditLang } from "@/data/webAudit";
+
+const { lang = "es" } = Astro.props as { lang?: WebAuditLang };
+const copy = webAuditAssessment[lang];
+const privacyPath = lang === "en" ? "/politica-privacidad" : "/politica-privacidad";
+const totalSteps = copy.areas.length + 2;
+const webAuditApiUrl = import.meta.env.PUBLIC_WEB_AUDIT_API_URL || "";
+const webAuditClientToken = import.meta.env.PUBLIC_WEB_AUDIT_CLIENT_TOKEN || "";
+---
+
+<section id={copy.id} class="section section-accent">
+  <div class="section-head">
+    <span class="eyebrow">{copy.labels.sectionEyebrow}</span>
+    <h2>{copy.labels.title}</h2>
+    <p>{copy.labels.intro}</p>
+  </div>
+
+  <form class="assessment web-audit-assessment" data-web-audit-assessment>
+    <fieldset class="area-block" data-step="0">
+      <legend class="sr-only">{copy.labels.initialStep}</legend>
+      <div class="wizard-head" aria-live="polite">
+        <div>
+          <span class="eyebrow">1 / {totalSteps}</span>
+          <h3>{copy.labels.initialStep}</h3>
+        </div>
+        <div class="wizard-progress" aria-hidden="true">
+          <i data-progress-bar style="width: 0%"></i>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <label>{copy.labels.websiteUrl}<input required type="url" name="site_url" inputmode="url" placeholder="https://..." autocomplete="url" /></label>
+        <label>{copy.labels.mobileScore}<input type="number" name="pagespeed_mobile" min="0" max="100" inputmode="numeric" /></label>
+        <label>{copy.labels.desktopScore}<input type="number" name="pagespeed_desktop" min="0" max="100" inputmode="numeric" /></label>
+      </div>
+      <div class="pagespeed-actions">
+        <p class="form-help">{copy.labels.pagespeedHelp}</p>
+        <a class="btn btn-secondary btn-small" data-pagespeed-mobile data-event="click_pagespeed_mobile" href="https://pagespeed.web.dev/" target="_blank" rel="noreferrer">{copy.labels.pagespeedMobile}</a>
+        <a class="btn btn-secondary btn-small" data-pagespeed-desktop data-event="click_pagespeed_desktop" href="https://pagespeed.web.dev/" target="_blank" rel="noreferrer">{copy.labels.pagespeedDesktop}</a>
+      </div>
+
+      <div class="radio-group">
+        <p>{copy.labels.websiteType}</p>
+        <div class="choice-grid">
+          {copy.options.websiteTypes.map((option) => (
+            <label class="choice-card"><input required type="radio" name="website_type" value={option} /> <span>{option}</span></label>
+          ))}
+        </div>
+      </div>
+      <div class="radio-group">
+        <p>{copy.labels.paidAds}</p>
+        <div class="choice-grid">
+          {copy.options.paidAds.map((option) => (
+            <label class="choice-card"><input required type="radio" name="paid_ads" value={option} /> <span>{option}</span></label>
+          ))}
+        </div>
+      </div>
+      <div class="radio-group">
+        <p>{copy.labels.primaryChannel}</p>
+        <div class="choice-grid">
+          {copy.options.primaryChannels.map((option) => (
+            <label class="choice-card"><input required type="radio" name="primary_channel" value={option} /> <span>{option}</span></label>
+          ))}
+        </div>
+      </div>
+    </fieldset>
+
+    {copy.areas.map((area, areaIndex) => (
+      <fieldset class="area-block" data-step={areaIndex + 1} hidden>
+        <legend class="sr-only">{area.name}</legend>
+        <div class="wizard-head" aria-live="polite">
+          <div>
+            <span class="eyebrow">{areaIndex + 2} / {totalSteps}</span>
+            <h3>{area.name}</h3>
+          </div>
+          <div class="wizard-progress" aria-hidden="true">
+            <i data-progress-bar style="width: 0%"></i>
+          </div>
+        </div>
+        {area.questions.map(([question, options], questionIndex) => {
+          const name = `area-${areaIndex}-q-${questionIndex}`;
+          return (
+            <div class="question web-audit-question">
+              <p>{question}</p>
+              <div class="choice-grid choice-grid-answers">
+                {options.map((option, score) => (
+                  <label class="choice-card">
+                    <input required type="radio" name={name} value={score} data-area={areaIndex} data-question={questionIndex} />
+                    <span>{option}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </fieldset>
+    ))}
+
+    <div class="lead-capture assessment-contact" data-step={copy.areas.length + 1} data-web-audit-lead hidden>
+      <div class="wizard-head" aria-live="polite">
+        <div>
+          <span class="eyebrow">{totalSteps} / {totalSteps}</span>
+          <h3>{copy.labels.finalStep}</h3>
+        </div>
+        <div class="wizard-progress" aria-hidden="true">
+          <i data-progress-bar style="width: 0%"></i>
+        </div>
+      </div>
+      <div class="form-grid">
+        <label>{copy.labels.name}<input required name="nombre" autocomplete="name" /></label>
+        <label>{copy.labels.email}<input required type="email" name="email" autocomplete="email" /></label>
+        <label>{copy.labels.company}<input name="empresa" autocomplete="organization" /><small>{copy.labels.optional}</small></label>
+      </div>
+      <label class="check"><input required type="checkbox" name="privacidad" /> <span>{lang === "en" ? "I accept the " : "Acepto la "}<a href={withBase(privacyPath)} target="_blank" rel="noreferrer">{lang === "en" ? "privacy policy" : "política de privacidad"}</a>.</span></label>
+      <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website_extra_info" /></label>
+      <input type="hidden" name="started_at" data-started-at />
+      <p class="form-help" data-web-audit-status aria-live="polite"></p>
+    </div>
+
+    <p class="wizard-error" data-wizard-error hidden>{copy.labels.requiredError}</p>
+    <div class="form-actions">
+      <button class="btn btn-secondary" type="button" data-prev-step>{copy.labels.previous}</button>
+      <button class="btn btn-primary" type="button" data-next-step>{copy.labels.next}</button>
+      <button class="btn btn-primary" type="submit" data-submit-web-audit hidden>{copy.labels.submit}</button>
+    </div>
+  </form>
+
+  <section class="result-panel" data-web-audit-result hidden aria-live="polite">
+    <div class="result-summary">
+      <div>
+        <span class="eyebrow">{copy.labels.resultEyebrow}</span>
+        <h3 data-result-title></h3>
+        <p data-result-text>{copy.labels.reportComing}</p>
+        <p class="muted">{copy.labels.resultNote}</p>
+      </div>
+      <div class="score-card">
+        <strong><span data-result-score>0</span>/100</strong>
+      </div>
+    </div>
+    <div class="bars" data-result-bars></div>
+    <div class="penalty-list" data-result-penalties hidden></div>
+    <div class="result-actions">
+      <a class="btn btn-primary" data-event="click_calendly_web_audit" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.labels.bookResult}</a>
+      <button class="btn btn-secondary" type="button" data-reset-web-audit>{copy.labels.reset}</button>
+    </div>
+  </section>
+</section>
+
+<script define:vars={{ copy, weights: webAuditWeights, webAuditApiUrl, webAuditClientToken, lang }}>
+  const assessment = document.querySelector("[data-web-audit-assessment]");
+  const result = document.querySelector("[data-web-audit-result]");
+  const leadStep = copy.areas.length + 1;
+  let currentStep = 0;
+  let startedTracked = false;
+
+  async function postWebAudit(payload) {
+    if (!webAuditApiUrl) throw new Error("PUBLIC_WEB_AUDIT_API_URL no está configurada.");
+    const headers = { "content-type": "application/json" };
+    if (webAuditClientToken) headers["X-Audit-Client"] = webAuditClientToken;
+    const response = await fetch(webAuditApiUrl, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) throw new Error(data.message || "web_audit_api_error");
+    return data;
+  }
+
+  function valueOf(name) {
+    if (!(assessment instanceof HTMLFormElement)) return "";
+    const data = new FormData(assessment);
+    return String(data.get(name) || "");
+  }
+
+  function selectedScore(areaIndex, questionIndex) {
+    if (!(assessment instanceof HTMLFormElement)) return 0;
+    const input = assessment.querySelector(`input[data-area="${areaIndex}"][data-question="${questionIndex}"]:checked`);
+    return input instanceof HTMLInputElement ? Number(input.value) : 0;
+  }
+
+  function answerValue(areaIndex, questionIndex) {
+    const score = selectedScore(areaIndex, questionIndex);
+    if (score <= 0) return "no";
+    if (score === 1) return "unknown";
+    if (score === 2) return "partial";
+    return "yes";
+  }
+
+  function numericOrNull(name) {
+    const raw = valueOf(name);
+    if (raw === "") return null;
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function collectAnswers() {
+    return copy.areas.flatMap((area, areaIndex) =>
+      area.questions.map((question, questionIndex) => ({
+        areaKey: area.key,
+        areaName: area.name,
+        question: question[0],
+        questionIndex,
+        value: selectedScore(areaIndex, questionIndex),
+      })),
+    );
+  }
+
+  function normalizeArea(score, questionCount, weight) {
+    return (score / (questionCount * 4)) * weight;
+  }
+
+  function isUnknown(value) {
+    return value.toLowerCase().includes("no lo") || value.toLowerCase().includes("do not know");
+  }
+
+  function calculateScore() {
+    const answers = collectAnswers();
+    const areaScores = copy.areas.map((area, areaIndex) => {
+      const raw = area.questions.reduce((sum, _, questionIndex) => sum + selectedScore(areaIndex, questionIndex), 0);
+      const weight = weights.find((item) => item.key === area.key)?.weight || 0;
+      return {
+        key: area.key,
+        name: area.name,
+        raw,
+        maxRaw: area.questions.length * 4,
+        weight,
+        normalized: normalizeArea(raw, area.questions.length, weight),
+      };
+    });
+
+    const paidAds = valueOf("paid_ads");
+    const mobileScoreRaw = valueOf("pagespeed_mobile");
+    const mobileScore = mobileScoreRaw === "" ? null : Number(mobileScoreRaw);
+    const penalties = [];
+    const paysAds = paidAds && !["no", "no lo sé", "i do not know"].includes(paidAds.toLowerCase());
+    if (paysAds && typeof mobileScore === "number" && mobileScore < 50) penalties.push({ key: "ads_mobile_speed", value: -8 });
+    if (paysAds && selectedScore(0, 0) <= 1) penalties.push({ key: "ads_lead_source_unknown", value: -6 });
+    if (selectedScore(3, 0) <= 1) penalties.push({ key: "forms_not_tested", value: -8 });
+    if (selectedScore(5, 0) <= 1) penalties.push({ key: "backups_missing_unknown", value: -6 });
+    if (selectedScore(4, 1) <= 1) penalties.push({ key: "admin_2fa_missing", value: -5 });
+    if (selectedScore(3, 1) <= 1) penalties.push({ key: "lead_destination_unknown", value: -5 });
+    if (selectedScore(4, 0) === 0) penalties.push({ key: "https_missing", value: -10 });
+
+    const base = areaScores.reduce((sum, area) => sum + area.normalized, 0);
+    const penaltyTotal = penalties.reduce((sum, penalty) => sum + penalty.value, 0);
+    const total = Math.max(0, Math.min(100, Math.round(base + penaltyTotal)));
+    return { answers, areaScores, penalties, total, range: scoreRange(total) };
+  }
+
+  function scoreRange(total) {
+    if (total <= 39) return "Web en riesgo";
+    if (total <= 59) return "Web frágil";
+    if (total <= 74) return "Base aceptable, con fugas";
+    if (total <= 89) return "Buena base técnica";
+    return "Web bien preparada para captación";
+  }
+
+  function stepIsComplete(step) {
+    if (!(assessment instanceof HTMLFormElement)) return false;
+    if (step === 0) {
+      return ["site_url", "website_type", "paid_ads", "primary_channel"].every((name) => {
+        const field = assessment.elements.namedItem(name);
+        if (field instanceof RadioNodeList) return Boolean(field.value);
+        return field instanceof HTMLInputElement && field.checkValidity();
+      });
+    }
+    if (step === leadStep) return assessment.reportValidity();
+    const areaIndex = step - 1;
+    return copy.areas[areaIndex].questions.every((_, questionIndex) => {
+      return Boolean(assessment.querySelector(`input[data-area="${areaIndex}"][data-question="${questionIndex}"]:checked`));
+    });
+  }
+
+  function setWizardError(message = "") {
+    const error = document.querySelector("[data-wizard-error]");
+    if (!(error instanceof HTMLElement)) return;
+    error.textContent = message || copy.labels.requiredError;
+    error.hidden = !message;
+  }
+
+  function updateProgress(completed = false) {
+    const width = completed ? 100 : Math.min(96, Math.round((currentStep / (leadStep + 1)) * 100));
+    document.querySelectorAll("[data-progress-bar]").forEach((bar) => {
+      if (bar instanceof HTMLElement) bar.style.width = `${width}%`;
+    });
+  }
+
+  function showStep(step) {
+    currentStep = Math.max(0, Math.min(step, leadStep));
+    document.querySelectorAll("[data-step]").forEach((panel) => {
+      if (panel instanceof HTMLElement) panel.hidden = panel.dataset.step !== String(currentStep);
+    });
+    const prev = document.querySelector("[data-prev-step]");
+    const next = document.querySelector("[data-next-step]");
+    const submit = document.querySelector("[data-submit-web-audit]");
+    if (prev instanceof HTMLButtonElement) prev.disabled = currentStep === 0;
+    if (next instanceof HTMLButtonElement) {
+      next.hidden = currentStep === leadStep;
+      next.textContent = currentStep === leadStep - 1 ? copy.labels.continue : copy.labels.next;
+    }
+    if (submit instanceof HTMLButtonElement) submit.hidden = currentStep !== leadStep;
+    setWizardError("");
+    updateProgress(false);
+  }
+
+  function updatePageSpeedLinks() {
+    const url = valueOf("site_url");
+    const encoded = encodeURIComponent(url || window.location.origin);
+    const target = `https://pagespeed.web.dev/analysis?url=${encoded}`;
+    const mobile = document.querySelector("[data-pagespeed-mobile]");
+    const desktop = document.querySelector("[data-pagespeed-desktop]");
+    if (mobile instanceof HTMLAnchorElement) mobile.href = target;
+    if (desktop instanceof HTMLAnchorElement) desktop.href = target;
+  }
+
+  function renderResult(score) {
+    const scoreNode = document.querySelector("[data-result-score]");
+    const title = document.querySelector("[data-result-title]");
+    const text = document.querySelector("[data-result-text]");
+    const bars = document.querySelector("[data-result-bars]");
+    const penalties = document.querySelector("[data-result-penalties]");
+    if (scoreNode) scoreNode.textContent = String(score.total);
+    if (title) title.textContent = score.range;
+    if (text) text.textContent = copy.labels.reportComing;
+    if (bars instanceof HTMLElement) {
+      bars.innerHTML = score.areaScores
+        .map((area) => {
+          const percent = Math.round((area.raw / area.maxRaw) * 100);
+          return `<div class="bar-row"><span>${area.name}</span><span class="bar-track"><i style="width:${percent}%"></i></span><strong>${percent}%</strong></div>`;
+        })
+        .join("");
+    }
+    if (penalties instanceof HTMLElement) {
+      penalties.hidden = score.penalties.length === 0;
+      penalties.innerHTML = score.penalties.length
+        ? `<p class="muted">Penalizaciones aplicadas: ${score.penalties.map((penalty) => penalty.value).join(", ")}.</p>`
+        : "";
+    }
+  }
+
+  function rawPayloadFromForm(formData) {
+    const company = String(formData.get("empresa") || "").trim();
+    return {
+      name: String(formData.get("nombre") || ""),
+      email: String(formData.get("email") || ""),
+      company: company || null,
+      websiteUrl: String(formData.get("site_url") || ""),
+      language: lang,
+      answers: {
+        businessType: String(formData.get("website_type") || ""),
+        paidAds: String(formData.get("paid_ads") || ""),
+        mainDevice: String(formData.get("primary_channel") || ""),
+        leadSourceKnown: answerValue(0, 0),
+        pagespeedMobile: numericOrNull("pagespeed_mobile"),
+        pagespeedDesktop: numericOrNull("pagespeed_desktop"),
+        searchConsoleConfigured: answerValue(2, 1),
+        httpsCorrect: answerValue(4, 0),
+        formsRecentlyTested: answerValue(3, 0),
+        formDestinationKnown: answerValue(3, 1),
+        admin2fa: answerValue(4, 1),
+        adminDefaultUrl: "unknown",
+        adminCaptchaOrProtection: "unknown",
+        cloudflareOrWaf: answerValue(1, 1),
+        hostingProvider: answerValue(5, 2),
+        databaseLocation: answerValue(5, 2),
+        backupsExist: answerValue(5, 0),
+        backupsRestoreTested: selectedScore(5, 0) >= 4 ? "yes" : answerValue(5, 0),
+        stagingExists: answerValue(5, 1),
+        cacheOrCdnConfigured: answerValue(1, 1),
+        codeVersioned: answerValue(6, 1),
+        technicalOwner: answerValue(6, 2),
+      },
+      antiSpam: {
+        honeypot: String(formData.get("website_extra_info") || ""),
+        formStartedAt: String(formData.get("started_at") || Date.now()),
+        turnstileToken: null,
+        recaptchaToken: null,
+      },
+    };
+  }
+
+  if (assessment instanceof HTMLFormElement) {
+    showStep(0);
+    document.querySelectorAll("[data-started-at]").forEach((input) => {
+      if (input instanceof HTMLInputElement) input.value = String(Date.now());
+    });
+
+    assessment.addEventListener("input", () => {
+      if (!startedTracked) {
+        startedTracked = true;
+        window.tdTrackEvent?.("start_web_audit_self_assessment");
+      }
+      updatePageSpeedLinks();
+    });
+
+    document.querySelector("[data-prev-step]")?.addEventListener("click", () => {
+      showStep(currentStep - 1);
+      assessment.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.querySelector("[data-next-step]")?.addEventListener("click", () => {
+      if (!stepIsComplete(currentStep)) {
+        setWizardError(copy.labels.requiredError);
+        return;
+      }
+      showStep(currentStep + 1);
+      assessment.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    assessment.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!stepIsComplete(currentStep)) {
+        setWizardError(copy.labels.requiredError);
+        return;
+      }
+      const submit = document.querySelector("[data-submit-web-audit]");
+      const status = document.querySelector("[data-web-audit-status]");
+      if (submit instanceof HTMLButtonElement) submit.disabled = true;
+      if (status instanceof HTMLElement) status.textContent = copy.labels.processing;
+      try {
+        const response = await postWebAudit(rawPayloadFromForm(new FormData(assessment)));
+        const serverAreas = Array.isArray(response.areas)
+          ? response.areas.map((area) => ({
+              name: String(area.label || area.key || ""),
+              raw: Number(area.score || 0),
+              maxRaw: 100,
+            }))
+          : [];
+        const serverPenalties = Array.isArray(response.penalties) ? response.penalties : [];
+        const serverScore = {
+          total: Number(response.score || 0),
+          range: String(response.scoreLabel || ""),
+          areaScores: serverAreas,
+          penalties: serverPenalties,
+        };
+        renderResult(serverScore);
+        if (status instanceof HTMLElement) {
+          status.textContent =
+            lang === "en"
+              ? "Your result is on its way. We have sent the initial diagnosis by email. If you do not see it in a few minutes, check spam or promotions."
+              : "Tu resultado está en camino. Te hemos enviado el diagnóstico inicial por email. Si no lo ves en unos minutos, revisa spam o promociones.";
+        }
+        updateProgress(true);
+        assessment.hidden = true;
+        if (result instanceof HTMLElement) result.hidden = false;
+        result?.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.tdTrackEvent?.("submit_web_audit_self_assessment", { score: serverScore.total });
+        window.tdTrackEvent?.("generate_lead", { lead_type: "web_audit", score: serverScore.total });
+        window.tdTrackEvent?.("web_audit_api_success", { score: serverScore.total });
+      } catch (error) {
+        if (status instanceof HTMLElement) {
+          status.textContent =
+            lang === "en"
+              ? "We could not send the result right now. You can try again in a few minutes."
+              : "No pudimos enviar el resultado ahora. Puedes intentarlo de nuevo en unos minutos.";
+        }
+        window.tdTrackEvent?.("web_audit_api_error", { message: error instanceof Error ? error.message : "unknown" });
+        if (submit instanceof HTMLButtonElement) submit.disabled = false;
+      }
+    });
+  }
+
+  document.querySelector("[data-reset-web-audit]")?.addEventListener("click", () => {
+    if (!(assessment instanceof HTMLFormElement)) return;
+    assessment.reset();
+    assessment.hidden = false;
+    if (result instanceof HTMLElement) result.hidden = true;
+    const submit = document.querySelector("[data-submit-web-audit]");
+    const status = document.querySelector("[data-web-audit-status]");
+    if (submit instanceof HTMLButtonElement) submit.disabled = false;
+    if (status instanceof HTMLElement) status.textContent = "";
+    document.querySelectorAll("[data-started-at]").forEach((input) => {
+      if (input instanceof HTMLInputElement) input.value = String(Date.now());
+    });
+    startedTracked = false;
+    showStep(0);
+    assessment.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+</script>

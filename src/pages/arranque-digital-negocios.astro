@@ -1,0 +1,184 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+
+const title = "Arranque digital para negocios | Taller de Digitalización";
+const description = "Google, WhatsApp, web y redes configurados para que un negocio pueda empezar a recibir clientes online. Pago único, sin mensualidad obligatoria.";
+
+const navItems = [
+  ["Problema", "#problema"],
+  ["Solución", "#solucion"],
+  ["Proceso", "#proceso"],
+  ["Para quién", "#para-quien"],
+];
+
+const heroBullets = [
+  "Presencia online profesional",
+  "Contacto directo por WhatsApp",
+  "Sin mensualidades obligatorias",
+];
+
+const problemItems = [
+  "No tienen Google bien configurado",
+  "Usan emails personales",
+  "No tienen web",
+  "WhatsApp es un caos",
+  "Redes vacías o inexistentes",
+];
+
+const includedItems = [
+  "Landing page profesional",
+  "Dominio + SSL configurado",
+  "Correo profesional",
+  "Google My Business completo",
+  "WhatsApp Business configurado",
+  "Página de Facebook",
+  "Perfil de Instagram",
+  "Todo interconectado",
+  "2-3 publicaciones iniciales visibles",
+];
+
+const excludedItems = [
+  "Gestión mensual",
+  "Publicidad incluida",
+  "Soporte continuo",
+  "Cambios ilimitados",
+];
+
+const processItems = [
+  "Reservas una llamada inicial",
+  "Te enviamos un formulario simple",
+  "Configuramos todo",
+  "Te mostramos el resultado",
+  "Ajustamos y entregamos",
+];
+
+const audienceItems = [
+  ["yes", "Autónomos"],
+  ["yes", "Comercios"],
+  ["yes", "Profesionales"],
+  ["yes", "Pequeños negocios"],
+  ["no", "No es para grandes empresas"],
+  ["no", "No es para proyectos complejos"],
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/arranque-digital-negocios"
+  headerNavItems={navItems}
+  headerBookingEvent="arranque_digital_reservar_click"
+>
+  <section class="hero digital-start-hero">
+    <div class="hero-content">
+      <span class="eyebrow">Arranque digital para negocios</span>
+      <div class="digital-start-logo" aria-label="Producto CookieConsent">
+        <svg aria-hidden="true" viewBox="0 0 48 48">
+          <path d="M19 15 10 24l9 9" />
+          <path d="M29 15 38 24l-9 9" />
+          <path d="m27 11-6 26" />
+        </svg>
+        <span>CookieConsent</span>
+      </div>
+      <h1>Todo lo que necesitás para empezar a recibir clientes online</h1>
+      <p class="hero-subtitle">Google, WhatsApp, web y redes, todo configurado y conectado.</p>
+      <ul class="inline-proof-list">
+        {heroBullets.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      <div class="price-block">
+        <strong>199 € · Pago único</strong>
+        <a class="btn btn-primary" data-event="arranque_digital_reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">¿Hablamos?</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="problema" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">El problema</span>
+      <h2>Muchos negocios <span class="accent-text">arrancan así</span></h2>
+    </div>
+    <ul class="compact-status-list">
+      {problemItems.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+    <div class="result-note">
+      <h3>Resultado:</h3>
+      <p>La gente <span class="accent-text">no los encuentra</span> o <span class="accent-text">no confía</span>.</p>
+    </div>
+  </section>
+
+  <section id="solucion" class="section">
+    <div class="section-head">
+      <span class="eyebrow">La solución</span>
+      <h2>Nosotros te dejamos <span class="accent-text">todo listo</span>, en pocos días, <span class="accent-text">sin líos</span></h2>
+      <p>Un único setup inicial que incluye lo esencial para empezar.</p>
+    </div>
+    <div class="two-columns digital-start-columns">
+      <div>
+        <span class="eyebrow">Qué incluye</span>
+        <ul class="compact-status-list">
+          {includedItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <p class="microcopy centered-note">Si no tienes textos o imágenes, se generan automáticamente.</p>
+      </div>
+      <div>
+        <span class="eyebrow">Qué no incluye</span>
+        <ul class="compact-status-list negative-list">
+          {excludedItems.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <p class="microcopy centered-note">Esto es un arranque, no una suscripción obligatoria.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="proceso" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Cómo es el proceso</span>
+      <h2>Comunicación <span class="accent-text">directa</span> con expectativas <span class="accent-text">claras</span></h2>
+    </div>
+    <ol class="compact-status-list plus-list">
+      {processItems.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ol>
+    <p class="microcopy centered-note">Entrega en 3 días desde la aprobación.</p>
+  </section>
+
+  <section id="para-quien" class="section final-cta">
+    <span class="eyebrow">Para quién es</span>
+    <h2>Arranca con el <span class="accent-text">pie derecho</span>, a tu medida</h2>
+    <ul class="compact-status-list audience-list">
+      {audienceItems.map(([type, item]) => (
+        <li class:list={[type === "no" && "is-negative"]}>{item}</li>
+      ))}
+    </ul>
+    <div class="price-block">
+      <strong>199 € · Pago único</strong>
+      <a class="btn btn-primary" data-event="arranque_digital_reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">¿Empezamos?</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const utmEntries = [...params.entries()].filter(([key]) => key.toLowerCase().startsWith("utm_"));
+
+  if (utmEntries.length > 0) {
+    document.querySelectorAll("[data-preserve-utm]").forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const url = new URL(link.href);
+      utmEntries.forEach(([key, value]) => {
+        if (!url.searchParams.has(key)) url.searchParams.set(key, value);
+      });
+      link.href = url.toString();
+    });
+  }
+</script>
