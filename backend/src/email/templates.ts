@@ -1,5 +1,5 @@
 import { assessmentAreas } from "../assessment";
-import type { DiagnosticLeadInput, MethodLeadInput, WebAuditGuideLeadInput, WebAuditLeadInput } from "../schemas";
+import type { DiagnosticLeadInput, MethodLeadInput, ResourceLeadInput, WebAuditGuideLeadInput, WebAuditLeadInput } from "../schemas";
 import type { scoreAssessment } from "../assessment";
 
 type DiagnosticScore = ReturnType<typeof scoreAssessment>;
@@ -285,7 +285,135 @@ function buildWebAuditGuideHtml(copy: ReturnType<typeof webAuditGuideCopy>) {
 </html>`;
 }
 
-export function notificationEmail(action: "diagnostic" | "method" | "web-audit" | "web-audit-guide", input: DiagnosticLeadInput | MethodLeadInput | WebAuditLeadInput | WebAuditGuideLeadInput, extra = "") {
+export function resourceEmail(input: ResourceLeadInput, bookingUrl: string) {
+  const isEnglish = input.language === "en";
+  const firstNameValue = firstName(input.name);
+
+  if (input.resourceType === "drive-template") {
+    return isEnglish
+      ? {
+          subject: "Your Google Drive folder structure template",
+          text: [
+            `Hi ${firstNameValue},`,
+            "",
+            "Attached is the corporate Google Drive folder structure template: a ready-to-copy layout by department, with suggested permission tiers and a few quick best practices.",
+            "",
+            `If you want help implementing it in your real Drive, you can book a call here: ${bookingUrl}`,
+            "",
+            "Best,",
+            "Pablo Leone",
+          ].join("\n"),
+          html: `
+            <h1>Your Google Drive folder structure template</h1>
+            <p>Hi ${escapeHtml(firstNameValue)},</p>
+            <p>Attached is the corporate Google Drive folder structure template: a ready-to-copy layout by department, with suggested permission tiers and a few quick best practices.</p>
+            <p>If you want help implementing it in your real Drive, <a href="${escapeAttribute(bookingUrl)}">you can book a call here</a>.</p>
+          `,
+        }
+      : {
+          subject: "Tu plantilla de estructura de carpetas para Google Drive",
+          text: [
+            `Hola ${firstNameValue},`,
+            "",
+            "Adjunta encontrarás la plantilla de estructura de carpetas para Google Drive corporativo: una organización lista para copiar por departamento, con niveles de permiso sugeridos y buenas prácticas rápidas.",
+            "",
+            `Si quieres ayuda para implementarla en tu Drive real, puedes reservar una llamada aquí: ${bookingUrl}`,
+            "",
+            "Un saludo,",
+            "Pablo Leone",
+          ].join("\n"),
+          html: `
+            <h1>Tu plantilla de estructura de carpetas para Google Drive</h1>
+            <p>Hola ${escapeHtml(firstNameValue)},</p>
+            <p>Adjunta encontrarás la plantilla de estructura de carpetas para Google Drive corporativo: una organización lista para copiar por departamento, con niveles de permiso sugeridos y buenas prácticas rápidas.</p>
+            <p>Si quieres ayuda para implementarla en tu Drive real, <a href="${escapeAttribute(bookingUrl)}">puedes reservar una llamada aquí</a>.</p>
+          `,
+        };
+  }
+
+  const inputs = input.calculatorInputs || {};
+  const results = input.calculatorResults || {};
+
+  if (isEnglish) {
+    const rows = [
+      ["Leads per month", inputs.leadsPerMonth],
+      ["Estimated % lost or contacted late", `${inputs.lostPercentage}%`],
+      ["Usual close rate", `${inputs.closeRate}%`],
+      ["Average customer value", `$${inputs.avgDealValue}`],
+    ]
+      .map(([label, value]) => `<tr><td>${escapeHtml(String(label))}</td><td>${escapeHtml(String(value))}</td></tr>`)
+      .join("");
+
+    return {
+      subject: "Your lead loss estimate",
+      text: [
+        `Hi ${firstNameValue},`,
+        "",
+        `Based on the numbers you entered, you may be losing approximately ${results.lostLeadsPerMonth} leads per month, worth an estimated $${results.lostRevenuePerMonth}/month ($${results.lostRevenuePerYear}/year) in opportunities that are not captured or followed up in time.`,
+        "",
+        "This is a rough estimate based on your own inputs, not an industry benchmark — it is meant to help you decide whether centralizing lead intake is worth prioritizing.",
+        "",
+        `If you want to talk about your specific case, you can book a call here: ${bookingUrl}`,
+        "",
+        "Best,",
+        "Pablo Leone",
+      ].join("\n"),
+      html: `
+        <h1>Your lead loss estimate</h1>
+        <p>Hi ${escapeHtml(firstNameValue)},</p>
+        <p>Based on the numbers you entered:</p>
+        <table cellpadding="8" cellspacing="0" border="1" style="border-collapse:collapse;border-color:#d8ddd9;">
+          <thead><tr><th align="left">Input</th><th align="left">Value</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <p><strong>Estimated lost leads:</strong> ${results.lostLeadsPerMonth}/month</p>
+        <p><strong>Estimated lost revenue:</strong> $${results.lostRevenuePerMonth}/month ($${results.lostRevenuePerYear}/year)</p>
+        <p>This is a rough estimate based on your own inputs, not an industry benchmark — it is meant to help you decide whether centralizing lead intake is worth prioritizing.</p>
+        <p>If you want to talk about your specific case, <a href="${escapeAttribute(bookingUrl)}">you can book a call here</a>.</p>
+      `,
+    };
+  }
+
+  const rows = [
+    ["Leads por mes", inputs.leadsPerMonth],
+    ["% estimado que se pierde o se contacta tarde", `${inputs.lostPercentage}%`],
+    ["Tasa de cierre habitual", `${inputs.closeRate}%`],
+    ["Valor medio de un cliente", `${inputs.avgDealValue}€`],
+  ]
+    .map(([label, value]) => `<tr><td>${escapeHtml(String(label))}</td><td>${escapeHtml(String(value))}</td></tr>`)
+    .join("");
+
+  return {
+    subject: "Tu estimación de leads perdidos",
+    text: [
+      `Hola ${firstNameValue},`,
+      "",
+      `Con los números que introdujiste, podrías estar perdiendo aproximadamente ${results.lostLeadsPerMonth} leads al mes, unos ${results.lostRevenuePerMonth}€/mes (${results.lostRevenuePerYear}€/año) en oportunidades que no se capturan o no se contactan a tiempo.`,
+      "",
+      "Es una estimación a partir de tus propios datos, no un benchmark de la industria — sirve para decidir si centralizar la captación de leads merece prioridad.",
+      "",
+      `Si quieres hablar de tu caso concreto, puedes reservar una llamada aquí: ${bookingUrl}`,
+      "",
+      "Un saludo,",
+      "Pablo Leone",
+    ].join("\n"),
+    html: `
+      <h1>Tu estimación de leads perdidos</h1>
+      <p>Hola ${escapeHtml(firstNameValue)},</p>
+      <p>Con los números que introdujiste:</p>
+      <table cellpadding="8" cellspacing="0" border="1" style="border-collapse:collapse;border-color:#d8ddd9;">
+        <thead><tr><th align="left">Dato</th><th align="left">Valor</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <p><strong>Leads perdidos estimados:</strong> ${results.lostLeadsPerMonth}/mes</p>
+      <p><strong>Ingresos perdidos estimados:</strong> ${results.lostRevenuePerMonth}€/mes (${results.lostRevenuePerYear}€/año)</p>
+      <p>Es una estimación a partir de tus propios datos, no un benchmark de la industria — sirve para decidir si centralizar la captación de leads merece prioridad.</p>
+      <p>Si quieres hablar de tu caso concreto, <a href="${escapeAttribute(bookingUrl)}">puedes reservar una llamada aquí</a>.</p>
+    `,
+  };
+}
+
+export function notificationEmail(action: "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource", input: DiagnosticLeadInput | MethodLeadInput | WebAuditLeadInput | WebAuditGuideLeadInput | ResourceLeadInput, extra = "") {
   return {
     subject: `Nuevo lead: ${action} - ${input.email}`,
     text: [

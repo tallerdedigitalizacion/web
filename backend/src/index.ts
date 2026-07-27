@@ -7,8 +7,8 @@ import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { z } from "zod";
 import { scoreAssessment } from "./assessment";
 import { config } from "./config";
-import { diagnosticLeadSchema, methodLeadSchema, webAuditGuideLeadSchema, webAuditLeadSchema } from "./schemas";
-import { diagnosticEmail, methodEmail, notificationEmail, webAuditEmail, webAuditGuideEmail } from "./email/templates";
+import { diagnosticLeadSchema, methodLeadSchema, resourceLeadSchema, webAuditGuideLeadSchema, webAuditLeadSchema } from "./schemas";
+import { diagnosticEmail, methodEmail, notificationEmail, resourceEmail, webAuditEmail, webAuditGuideEmail } from "./email/templates";
 import { sendEmail } from "./email/sender";
 import { assertAllowedOrigin, assertHoneypot, assertHumanTiming, assertPayloadSize, assertRateLimit, getClientIp, SecurityError } from "./security";
 import { hashValue, saveLead } from "./store";
@@ -30,8 +30,9 @@ app.post("/lead/diagnostic", async (c) => handleLead(c, "diagnostic"));
 app.post("/lead/method", async (c) => handleLead(c, "method"));
 app.post("/lead/web-audit", async (c) => handleLead(c, "web-audit"));
 app.post("/lead/web-audit-guide", async (c) => handleLead(c, "web-audit-guide"));
+app.post("/lead/resource", async (c) => handleLead(c, "resource"));
 
-type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide";
+type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource";
 
 async function handleLead(c: Context, action: LeadAction) {
   try {
@@ -134,24 +135,59 @@ async function handleLead(c: Context, action: LeadAction) {
       });
     }
 
-    const webAuditGuideInput = webAuditGuideLeadSchema.parse(input);
-    const saved = await saveLead("web-audit-guide", {
-      ...cleanLead(webAuditGuideInput),
+    if (action === "web-audit-guide") {
+      const webAuditGuideInput = webAuditGuideLeadSchema.parse(input);
+      const saved = await saveLead("web-audit-guide", {
+        ...cleanLead(webAuditGuideInput),
+        ipHash: hashValue(ip),
+      });
+      const webAuditGuidePdfPath = resolve(
+        webAuditGuideInput.language === "en" ? config.webAuditGuidePdfFileEn : config.webAuditGuidePdfFileEs,
+      );
+      const leadDelivery = await trySendEmail(
+        webAuditGuideInput.email,
+        webAuditGuideEmail(webAuditGuideInput, config.siteUrl, config.webAuditBookingUrl),
+        existsSync(webAuditGuidePdfPath) ? webAuditGuidePdfPath : undefined,
+      );
+      if (config.notifyEmail) {
+        const deliveryNote = leadDelivery.ok
+          ? "Email al lead: enviado."
+          : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+        await trySendEmail(config.notifyEmail, notificationEmail("web-audit-guide", webAuditGuideInput, `Lead id: ${saved.id}\n${deliveryNote}`));
+      }
+
+      return c.json({
+        ok: true,
+        leadId: saved.id,
+        emailDelivered: leadDelivery.ok,
+        message: leadDelivery.ok
+          ? "Documento enviado por email."
+          : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+      });
+    }
+
+    const resourceInput = resourceLeadSchema.parse(input);
+    const saved = await saveLead("resource", {
+      ...cleanLead(resourceInput),
       ipHash: hashValue(ip),
     });
-    const webAuditGuidePdfPath = resolve(
-      webAuditGuideInput.language === "en" ? config.webAuditGuidePdfFileEn : config.webAuditGuidePdfFileEs,
-    );
+    const resourceAttachmentPath =
+      resourceInput.resourceType === "drive-template"
+        ? resolve(resourceInput.language === "en" ? config.driveTemplateFileEn : config.driveTemplateFileEs)
+        : undefined;
     const leadDelivery = await trySendEmail(
-      webAuditGuideInput.email,
-      webAuditGuideEmail(webAuditGuideInput, config.siteUrl, config.webAuditBookingUrl),
-      existsSync(webAuditGuidePdfPath) ? webAuditGuidePdfPath : undefined,
+      resourceInput.email,
+      resourceEmail(resourceInput, config.webAuditBookingUrl),
+      resourceAttachmentPath && existsSync(resourceAttachmentPath) ? resourceAttachmentPath : undefined,
     );
     if (config.notifyEmail) {
       const deliveryNote = leadDelivery.ok
         ? "Email al lead: enviado."
         : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
-      await trySendEmail(config.notifyEmail, notificationEmail("web-audit-guide", webAuditGuideInput, `Lead id: ${saved.id}\n${deliveryNote}`));
+      await trySendEmail(
+        config.notifyEmail,
+        notificationEmail("resource", resourceInput, `Recurso: ${resourceInput.resourceType}. Lead id: ${saved.id}\n${deliveryNote}`),
+      );
     }
 
     return c.json({
@@ -159,7 +195,7 @@ async function handleLead(c: Context, action: LeadAction) {
       leadId: saved.id,
       emailDelivered: leadDelivery.ok,
       message: leadDelivery.ok
-        ? "Documento enviado por email."
+        ? "Te enviamos el resultado por email."
         : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
     });
   } catch (error) {
@@ -179,7 +215,8 @@ function parseLead(action: LeadAction, parsedJson: unknown) {
   if (action === "diagnostic") return diagnosticLeadSchema.parse(parsedJson);
   if (action === "method") return methodLeadSchema.parse(parsedJson);
   if (action === "web-audit") return webAuditLeadSchema.parse(parsedJson);
-  return webAuditGuideLeadSchema.parse(parsedJson);
+  if (action === "web-audit-guide") return webAuditGuideLeadSchema.parse(parsedJson);
+  return resourceLeadSchema.parse(parsedJson);
 }
 
 async function trySendEmail(to: string, content: Parameters<typeof sendEmail>[1], attachmentPath?: string) {

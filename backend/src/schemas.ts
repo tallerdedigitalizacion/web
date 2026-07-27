@@ -86,7 +86,15 @@ export const webAuditGuideLeadSchema = baseLeadSchema.extend({
   language: z.enum(["es", "en"]).optional().default("es"),
 });
 
+export const resourceLeadSchema = baseLeadSchema.extend({
+  language: z.enum(["es", "en"]).optional().default("es"),
+  resourceType: z.enum(["lead-calculator", "drive-template"]),
+  calculatorInputs: z.record(z.string(), z.number()).optional(),
+  calculatorResults: z.record(z.string(), z.number()).optional(),
+});
+
 export type DiagnosticLeadInput = z.infer<typeof diagnosticLeadSchema>;
 export type MethodLeadInput = z.infer<typeof methodLeadSchema>;
 export type WebAuditLeadInput = z.infer<typeof webAuditLeadSchema>;
 export type WebAuditGuideLeadInput = z.infer<typeof webAuditGuideLeadSchema>;
+export type ResourceLeadInput = z.infer<typeof resourceLeadSchema>;

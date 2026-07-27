@@ -1,5 +1,7 @@
 ---
 import ServiceLanding from "@/components/ServiceLanding.astro";
+import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
 
 const sections = [
   {
@@ -44,4 +46,85 @@ const sections = [
   ]}
   sections={sections}
   finalCtaHeading="Convierta Google Drive en una herramienta de trabajo, no en un almacén de archivos."
-/>
+  leadMagnetNav={["Plantilla gratis", "#plantilla"]}
+>
+  <section slot="lead-magnet" id="plantilla" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Plantilla gratuita</span>
+      <h2>Empiece con la estructura ya lista, sin partir de cero.</h2>
+      <p>Una plantilla de carpetas por departamento, con niveles de permiso sugeridos y buenas prácticas, lista para copiar en su Google Drive.</p>
+    </div>
+    <div class="lead-capture">
+      <form class="compact-form" data-resource-form data-resource-type="drive-template" data-language="es">
+        <label>Nombre<input required name="nombre" autocomplete="name" /></label>
+        <label>Email<input required type="email" name="email" autocomplete="email" /></label>
+        <label>Empresa<input name="empresa" autocomplete="organization" /><small>Opcional.</small></label>
+        <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")} target="_blank" rel="noreferrer">política de privacidad</a>.</span></label>
+        <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
+        <input type="hidden" name="started_at" data-started-at />
+        <button class="btn btn-primary" type="submit" data-event="plantilla_drive_click">Descargar plantilla gratis</button>
+        <p class="form-help" data-resource-status aria-live="polite">Te la enviamos por email.</p>
+      </form>
+    </div>
+  </section>
+</ServiceLanding>
+
+<script define:vars={{ formEndpoint: siteConfig.formEndpoint }}>
+  function apiBaseUrl() {
+    if (!formEndpoint || formEndpoint.includes("INSERTAR")) return "";
+    return String(formEndpoint).replace(/\/$/, "");
+  }
+
+  async function postLead(path, payload) {
+    const baseUrl = apiBaseUrl();
+    if (!baseUrl) throw new Error("Endpoint de formularios no configurado.");
+    const response = await fetch(`${baseUrl}/lead/${path}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) throw new Error(data.error || "No se pudo procesar la solicitud.");
+    return data;
+  }
+
+  document.querySelectorAll("[data-started-at]").forEach((input) => {
+    if (input instanceof HTMLInputElement) input.value = String(Date.now());
+  });
+
+  document.querySelector("[data-resource-form]")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!(form instanceof HTMLFormElement)) return;
+    const button = form.querySelector("button[type='submit']");
+    const status = document.querySelector("[data-resource-status]");
+    const formData = new FormData(form);
+    if (button instanceof HTMLButtonElement) button.disabled = true;
+    if (status instanceof HTMLElement) status.textContent = "Enviando...";
+    try {
+      const response = await postLead("resource", {
+        name: String(formData.get("nombre") || ""),
+        email: String(formData.get("email") || ""),
+        company: String(formData.get("empresa") || ""),
+        privacyAccepted: formData.get("privacidad") === "on",
+        marketingAccepted: false,
+        resourceType: form.dataset.resourceType,
+        language: form.dataset.language,
+        website: String(formData.get("website") || ""),
+        startedAt: Number(formData.get("started_at") || Date.now()),
+        pageUrl: window.location.href,
+        userAgent: navigator.userAgent,
+      });
+      if (status instanceof HTMLElement) status.textContent = response.message || "Te la enviamos por email.";
+      form.reset();
+      form.querySelectorAll("[data-started-at]").forEach((input) => {
+        if (input instanceof HTMLInputElement) input.value = String(Date.now());
+      });
+      window.tdTrackEvent?.("generate_lead", { lead_type: form.dataset.resourceType });
+    } catch (error) {
+      if (status instanceof HTMLElement) status.textContent = error instanceof Error ? error.message : "No se pudo enviar la solicitud.";
+    } finally {
+      if (button instanceof HTMLButtonElement) button.disabled = false;
+    }
+  });
+</script>

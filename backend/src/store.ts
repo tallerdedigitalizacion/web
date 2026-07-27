@@ -9,7 +9,7 @@ export function hashValue(value: string) {
   return createHash("sha256").update(`${config.ipHashSalt}:${value}`).digest("hex");
 }
 
-export type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide";
+export type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource";
 
 export async function saveLead(action: LeadAction, item: Record<string, unknown>) {
   const now = new Date().toISOString();

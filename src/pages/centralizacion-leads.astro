@@ -1,5 +1,7 @@
 ---
 import ServiceLanding from "@/components/ServiceLanding.astro";
+import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
 
 const sections = [
   {
@@ -44,4 +46,164 @@ const sections = [
   ]}
   sections={sections}
   finalCtaHeading="Convierta cada contacto en una oportunidad de negocio."
-/>
+  leadMagnetNav={["Calculadora", "#calculadora"]}
+>
+  <section slot="lead-magnet" id="calculadora" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Calculadora gratuita</span>
+      <h2>¿Cuánto le están costando los leads que se pierden?</h2>
+      <p>Una estimación rápida a partir de sus propios números, no de promedios de la industria. Mueva los controles y vea el resultado al instante.</p>
+    </div>
+    <div class="lead-capture">
+      <div class="form-grid">
+        <label>Leads que recibe al mes<input type="number" min="0" step="1" value="50" data-calc-input="leadsPerMonth" /></label>
+        <label>Valor medio de un cliente (€)<input type="number" min="0" step="10" value="500" data-calc-input="avgDealValue" /></label>
+      </div>
+      <div class="question">
+        <p>% que cree que se pierde o se contacta demasiado tarde</p>
+        <div class="range-answer">
+          <strong data-calc-label="lostPercentage">30%</strong>
+          <input type="range" min="0" max="80" step="5" value="30" data-calc-input="lostPercentage" />
+        </div>
+      </div>
+      <div class="question">
+        <p>Tasa de cierre habitual sobre los leads que sí contacta a tiempo</p>
+        <div class="range-answer">
+          <strong data-calc-label="closeRate">20%</strong>
+          <input type="range" min="0" max="50" step="5" value="20" data-calc-input="closeRate" />
+        </div>
+      </div>
+
+      <div class="result-panel" data-calc-result>
+        <div class="result-summary">
+          <div>
+            <span class="eyebrow">Estimación</span>
+            <h3><span data-calc-out="lostLeadsPerMonth">7.5</span> leads perdidos al mes</h3>
+            <p class="muted">Unos <strong><span data-calc-out="lostRevenuePerMonth">750</span>€/mes</strong> (<span data-calc-out="lostRevenuePerYear">9.000</span>€/año) en oportunidades que no se capturan o no se contactan a tiempo.</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="compact-form" data-calc-form>
+        <label>Nombre<input required name="nombre" autocomplete="name" /></label>
+        <label>Email<input required type="email" name="email" autocomplete="email" /></label>
+        <label>Empresa<input name="empresa" autocomplete="organization" /><small>Opcional.</small></label>
+        <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")} target="_blank" rel="noreferrer">política de privacidad</a>.</span></label>
+        <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
+        <input type="hidden" name="started_at" data-started-at />
+        <button class="btn btn-primary" type="submit" data-event="calculadora_leads_click">Enviarme este resumen por email</button>
+        <p class="form-help" data-calc-status aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</ServiceLanding>
+
+<script define:vars={{ formEndpoint: siteConfig.formEndpoint }}>
+  function apiBaseUrl() {
+    if (!formEndpoint || formEndpoint.includes("INSERTAR")) return "";
+    return String(formEndpoint).replace(/\/$/, "");
+  }
+
+  async function postLead(path, payload) {
+    const baseUrl = apiBaseUrl();
+    if (!baseUrl) throw new Error("Endpoint de formularios no configurado.");
+    const response = await fetch(`${baseUrl}/lead/${path}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) throw new Error(data.error || "No se pudo procesar la solicitud.");
+    return data;
+  }
+
+  const numberFormatter = new Intl.NumberFormat("es-ES", { maximumFractionDigits: 0 });
+  const calcInputs = [...document.querySelectorAll("[data-calc-input]")];
+
+  function currentValues() {
+    const values = {};
+    calcInputs.forEach((input) => {
+      values[input.dataset.calcInput] = Number(input.value) || 0;
+    });
+    return values;
+  }
+
+  function calculate() {
+    const { leadsPerMonth, avgDealValue, lostPercentage, closeRate } = currentValues();
+    const lostLeadsPerMonth = leadsPerMonth * (lostPercentage / 100);
+    const lostRevenuePerMonth = lostLeadsPerMonth * (closeRate / 100) * avgDealValue;
+    const lostRevenuePerYear = lostRevenuePerMonth * 12;
+    return { leadsPerMonth, avgDealValue, lostPercentage, closeRate, lostLeadsPerMonth, lostRevenuePerMonth, lostRevenuePerYear };
+  }
+
+  function render() {
+    const results = calculate();
+    document.querySelectorAll("[data-calc-label]").forEach((el) => {
+      const key = el.dataset.calcLabel;
+      if (key in results) el.textContent = `${numberFormatter.format(results[key])}%`;
+    });
+    const out = document.querySelectorAll("[data-calc-out]");
+    out.forEach((el) => {
+      const key = el.dataset.calcOut;
+      if (key === "lostLeadsPerMonth") el.textContent = numberFormatter.format(results.lostLeadsPerMonth);
+      if (key === "lostRevenuePerMonth") el.textContent = numberFormatter.format(results.lostRevenuePerMonth);
+      if (key === "lostRevenuePerYear") el.textContent = numberFormatter.format(results.lostRevenuePerYear);
+    });
+    return results;
+  }
+
+  calcInputs.forEach((input) => input.addEventListener("input", render));
+  render();
+
+  document.querySelectorAll("[data-started-at]").forEach((input) => {
+    if (input instanceof HTMLInputElement) input.value = String(Date.now());
+  });
+
+  document.querySelector("[data-calc-form]")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!(form instanceof HTMLFormElement)) return;
+    const button = form.querySelector("button[type='submit']");
+    const status = document.querySelector("[data-calc-status]");
+    const formData = new FormData(form);
+    const results = calculate();
+    if (button instanceof HTMLButtonElement) button.disabled = true;
+    if (status instanceof HTMLElement) status.textContent = "Enviando...";
+    try {
+      const response = await postLead("resource", {
+        name: String(formData.get("nombre") || ""),
+        email: String(formData.get("email") || ""),
+        company: String(formData.get("empresa") || ""),
+        privacyAccepted: formData.get("privacidad") === "on",
+        marketingAccepted: false,
+        resourceType: "lead-calculator",
+        language: "es",
+        calculatorInputs: {
+          leadsPerMonth: results.leadsPerMonth,
+          lostPercentage: results.lostPercentage,
+          closeRate: results.closeRate,
+          avgDealValue: results.avgDealValue,
+        },
+        calculatorResults: {
+          lostLeadsPerMonth: Math.round(results.lostLeadsPerMonth * 10) / 10,
+          lostRevenuePerMonth: Math.round(results.lostRevenuePerMonth),
+          lostRevenuePerYear: Math.round(results.lostRevenuePerYear),
+        },
+        website: String(formData.get("website") || ""),
+        startedAt: Number(formData.get("started_at") || Date.now()),
+        pageUrl: window.location.href,
+        userAgent: navigator.userAgent,
+      });
+      if (status instanceof HTMLElement) status.textContent = response.message || "Te enviamos el resumen por email.";
+      form.reset();
+      form.querySelectorAll("[data-started-at]").forEach((input) => {
+        if (input instanceof HTMLInputElement) input.value = String(Date.now());
+      });
+      window.tdTrackEvent?.("generate_lead", { lead_type: "lead-calculator" });
+    } catch (error) {
+      if (status instanceof HTMLElement) status.textContent = error instanceof Error ? error.message : "No se pudo enviar la solicitud.";
+    } finally {
+      if (button instanceof HTMLButtonElement) button.disabled = false;
+    }
+  });
+</script>

@@ -24,6 +24,7 @@ interface Props {
   sections: ServiceSection[];
   finalCtaHeading: string;
   faqs?: [string, string][];
+  leadMagnetNav?: [string, string];
 }
 
 const {
@@ -39,6 +40,7 @@ const {
   sections,
   finalCtaHeading,
   faqs,
+  leadMagnetNav,
 } = Astro.props as Props;
 
 const isEnglish = lang === "en";
@@ -65,6 +67,7 @@ const faqLabel = "FAQ";
 
 const navItems = [
   ...sections.map((section) => [section.eyebrow, `#${section.id}`]),
+  ...(leadMagnetNav ? [leadMagnetNav] : []),
   [whyMeLabel, "#por-que-yo"],
   [faqLabel, "#faq"],
 ];
@@ -114,6 +117,8 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
       )}
     </section>
   ))}
+
+  <slot name="lead-magnet" />
 
   <section id="por-que-yo" class="section">
     <div class="section-head">

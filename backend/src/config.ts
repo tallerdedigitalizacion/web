@@ -23,6 +23,8 @@ export const config = {
   maxPayloadBytes: Number(process.env.MAX_PAYLOAD_BYTES || "65536"),
   webAuditGuidePdfFileEs: process.env.WEB_AUDIT_GUIDE_PDF_FILE_ES || "downloads/auditoria-web-tecnica-reporte-ejecutivo-es.pdf",
   webAuditGuidePdfFileEn: process.env.WEB_AUDIT_GUIDE_PDF_FILE_EN || "downloads/technical-web-audit-executive-report-en.pdf",
+  driveTemplateFileEs: process.env.DRIVE_TEMPLATE_FILE_ES || "downloads/plantilla-estructura-google-drive-es.txt",
+  driveTemplateFileEn: process.env.DRIVE_TEMPLATE_FILE_EN || "downloads/google-drive-folder-structure-template-en.txt",
 };
 
 function requireEnv(name: string) {

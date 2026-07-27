@@ -58,6 +58,8 @@ export class LeadsStack extends Stack {
         METHOD_PDF_FILE: "downloads/metodo-auditoria-caos-operativo.pdf",
         WEB_AUDIT_GUIDE_PDF_FILE_ES: "downloads/auditoria-web-tecnica-reporte-ejecutivo-es.pdf",
         WEB_AUDIT_GUIDE_PDF_FILE_EN: "downloads/technical-web-audit-executive-report-en.pdf",
+        DRIVE_TEMPLATE_FILE_ES: "downloads/plantilla-estructura-google-drive-es.txt",
+        DRIVE_TEMPLATE_FILE_EN: "downloads/google-drive-folder-structure-template-en.txt",
       },
     });
 
@@ -85,6 +87,7 @@ export class LeadsStack extends Stack {
     lead.addResource("method").addMethod("POST", integration);
     lead.addResource("web-audit").addMethod("POST", integration);
     lead.addResource("web-audit-guide").addMethod("POST", integration);
+    lead.addResource("resource").addMethod("POST", integration);
     api.root.addResource("health").addMethod("GET", integration);
 
     new CfnOutput(this, "LeadsApiUrl", {
