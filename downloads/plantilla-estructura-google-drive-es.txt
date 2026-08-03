@@ -1,0 +1,87 @@
+PLANTILLA DE ESTRUCTURA DE CARPETAS PARA GOOGLE DRIVE CORPORATIVO
+Taller de Digitalización — tallerdedigitalizacion.com
+
+Cómo usar esta plantilla
+-------------------------
+1. Créala dentro de una Unidad Compartida, no en "Mi unidad" de una persona.
+   Si la unidad depende de una persona, se pierde el acceso el día que esa
+   persona se va de la empresa.
+2. Copia esta estructura tal cual como primer nivel. No la conviertas en un
+   árbol de 6 niveles: cuanto más profunda, menos la usa la gente.
+3. Un mismo documento vive en un solo sitio. Si necesita verse desde otro
+   departamento, se enlaza (botón derecho > Organizar > Añadir acceso
+   directo), nunca se duplica.
+4. Revisa los permisos por carpeta, no por archivo. Es la única forma de
+   mantenerlo sostenible con el tiempo.
+
+Estructura recomendada
+-------------------------
+00_Empresa
+    Fundacional (estatutos, actas, pólizas, contratos marco)
+    Marca (logo, guía de estilo, plantillas de marca)
+
+01_Direccion
+    Planes_Estrategicos
+    Reuniones_Directivas
+
+02_Recursos_Humanos
+    Contratos
+    Nominas
+    Onboarding
+    Politicas_Internas
+
+03_Finanzas
+    Facturas_Emitidas
+    Facturas_Recibidas
+    Presupuestos
+    Cierres_Contables
+
+04_Comercial_Ventas
+    Propuestas
+    Contratos_Clientes
+    Exports_CRM
+
+05_Marketing
+    Campanas
+    Contenido
+    Assets_Graficos
+
+06_Operaciones
+    Procedimientos
+    Proveedores
+
+07_IT_Sistemas
+    Documentacion_Tecnica
+    Accesos (enlace al gestor de contraseñas — nunca contraseñas en texto)
+
+08_Legal
+    Contratos
+    Cumplimiento_RGPD
+
+09_Proyectos
+    Activos (una subcarpeta por proyecto, con fecha de inicio en el nombre)
+    Archivados
+
+10_Archivo
+    (todo lo cerrado o histórico se mueve aquí, no se borra ni se deja
+    mezclado con lo activo)
+
+Niveles de permiso sugeridos
+-------------------------
+- Todos_Empresa: lectura en 00, 01 (parcial), 05
+- Equipo: edición en su propia carpeta de departamento
+- Confidencial: 02 (Nóminas), 03 (Finanzas), 08 (Legal) — acceso restringido
+  por persona, no por "todo el equipo"
+
+Buenas prácticas rápidas
+-------------------------
+- Nombra los archivos con fecha en formato AAAA-MM-DD al principio si el
+  orden cronológico importa.
+- Antes de crear una carpeta nueva, comprueba que no exista ya una
+  equivalente en otro departamento.
+- Una vez al trimestre, revisa "Compartido conmigo" y mueve lo que
+  debería vivir en la unidad compartida.
+
+¿Quieres que te ayude a implementar esto en tu Google Drive real, con
+los permisos y las unidades compartidas ya configuradas?
+Reserva una llamada: https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call
