@@ -25,6 +25,7 @@ const {
   schemaAreaServed = siteConfig.serviceAreas,
   alternates = [],
   faq = [],
+  extraSchema = [],
 } = Astro.props;
 
 const origin = Astro.site ?? new URL(siteConfig.publicUrl).origin;
@@ -95,6 +96,7 @@ if (faq.length > 0) {
     })),
   });
 }
+schemaGraph.push(...extraSchema);
 const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
 ---
 
