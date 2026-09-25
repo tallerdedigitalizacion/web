@@ -45,6 +45,7 @@ export const siteConfig = {
   ],
   googleBusinessUrl: "https://maps.app.goo.gl/iJYaupqoL8usLB6X7",
   githubUrl: "https://github.com/tallerdedigitalizacion",
+  linkedinUrl: "https://www.linkedin.com/in/pabloleone/",
   googleAnalyticsId: "G-4GY58K423T",
   chatbaseId: "V8ryUqCVZxb4N8Hnym06s",
   ogImage: "/og-image.jpg",
