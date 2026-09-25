@@ -4,6 +4,11 @@ import { withBase } from "@/utils/paths";
 
 const { lang = "es" } = Astro.props;
 const isEnglish = lang === "en";
+const serviceLinks = [
+  ["Informático para empresas en Toledo", "/"],
+  ["Diagnóstico de caos operativo", "/diagnostico-caos-operativo/"],
+  ["Optimización de velocidad web", "/optimizacion-velocidad-web/"],
+];
 ---
 
 <footer class="site-footer">
@@ -11,9 +16,20 @@ const isEnglish = lang === "en";
     <img src={withBase(siteConfig.logo)} alt="Taller de Digitalización" width="48" height="48" loading="lazy" />
     <div>
       <strong>{siteConfig.name}</strong>
-      <p>{isEnglish ? "Technical diagnosis and fixes for websites and business operations." : "Diagnóstico y reducción de caos operativo para PyMEs."}</p>
+      <p>{isEnglish ? "Technical diagnosis and fixes for websites and business operations." : "Soporte informático y digitalización para empresas en Toledo."}</p>
+      {!isEnglish && (
+        <address>
+          {siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} ({siteConfig.address.addressRegion})<br />
+          <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+        </address>
+      )}
     </div>
   </div>
+  {!isEnglish && (
+    <nav aria-label="Servicios">
+      {serviceLinks.map(([label, href]) => <a href={withBase(href)}>{label}</a>)}
+    </nav>
+  )}
   <nav aria-label={isEnglish ? "Footer links" : "Enlaces de pie de página"}>
     <a data-event="click_linktree" href={siteConfig.linktreeUrl} target="_blank" rel="noreferrer">{isEnglish ? "Link hub" : "Ver hub de enlaces"}</a>
     <a href={withBase("/aviso-legal")}>{isEnglish ? "Legal notice" : "Aviso legal"}</a>

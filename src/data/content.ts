@@ -96,7 +96,7 @@ export const faqItems = [
   ["¿Esto sirve para empresas muy pequeñas?", "Depende. Tiene más sentido cuando ya hay cierta complejidad: varias personas, varias herramientas, procesos repetidos, dependencia del dueño o fricción operativa visible."],
   ["¿Garantizas resultados?", "No garantizo resultados mágicos. Sí garantizo un diagnóstico estructurado, claridad, priorización y acompañamiento serio. El avance depende también de la participación del dueño y de la capacidad real de implementar cambios."],
   ["¿Por qué las reuniones son obligatorias?", "Porque este trabajo necesita contexto y decisiones. Si la persona con capacidad de decisión no participa, el diagnóstico se convierte en un documento sin fuerza."],
-  ["¿Trabajas presencial o remoto?", "Principalmente remoto. Si hiciera falta presencialidad, se valora según el caso."],
+  ["¿Trabajas presencial o remoto?", "Las dos cosas. Trabajo en remoto con empresas de toda España y de forma presencial en un radio de 50 km alrededor de Fuensalida (Toledo, Torrijos, Illescas, La Sagra y el sur de Madrid)."],
   ["¿Qué es la Autoevaluación de Caos Operativo?", "Es una versión reducida del método de diagnóstico. Sirve para que detectes áreas débiles y obtener una primera lectura del estado operativo de la empresa. Pero recuerda ¡contestas las preguntas según tu sesgo!"],
   ["¿La autoevaluación sustituye el diagnóstico?", "No. La autoevaluación es una primera aproximación. El diagnóstico completo incluye contexto, entrevistas, revisión de herramientas, interpretación y hoja de ruta."],
 ];
