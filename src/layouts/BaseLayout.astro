@@ -21,24 +21,81 @@ const {
   lang = "es",
   bookingHref = siteConfig.bookingUrl,
   whatsappHref,
-  schemaDescription = "Consultoría para reducir caos operativo, dependencia del CEO y fricción en PyMEs.",
-  schemaAreaServed = ["España", "Remoto"],
+  schemaDescription = "Soporte informático, webs y digitalización para PyMEs en Toledo y alrededores de Fuensalida, presencial o en remoto.",
+  schemaAreaServed = siteConfig.serviceAreas,
+  alternates = [],
+  faq = [],
 } = Astro.props;
 
 const origin = Astro.site ?? new URL(siteConfig.publicUrl).origin;
 const absoluteUrl = (path: string) => new URL(withBase(path), origin).toString();
-const canonical = absoluteUrl(canonicalPath);
+// GitHub Pages sirve cada página como carpeta y redirige (301) las URLs sin barra final.
+const pageUrl = (path: string) => absoluteUrl(/\/$|\.[a-z0-9]+$/i.test(path) ? path : `${path}/`);
+const canonical = pageUrl(canonicalPath);
 const ogImage = absoluteUrl(siteConfig.ogImage);
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: siteConfig.name,
-  description: schemaDescription,
-  areaServed: schemaAreaServed,
-  url: siteConfig.publicUrl,
-  logo: absoluteUrl(siteConfig.logo),
-  sameAs: [siteConfig.linktreeUrl],
-};
+const businessId = `${siteConfig.publicUrl}/#business`;
+const founderId = `${siteConfig.publicUrl}/#founder`;
+const schemaGraph: Record<string, unknown>[] = [
+  {
+    "@type": "ProfessionalService",
+    "@id": businessId,
+    name: siteConfig.name,
+    description: schemaDescription,
+    url: siteConfig.publicUrl,
+    logo: absoluteUrl(siteConfig.logo),
+    image: ogImage,
+    telephone: siteConfig.phone,
+    email: siteConfig.contactEmail,
+    address: { "@type": "PostalAddress", ...siteConfig.address },
+    geo: { "@type": "GeoCoordinates", ...siteConfig.geo },
+    areaServed: [
+      ...schemaAreaServed.map((name: string) => ({ "@type": "Place", name })),
+      {
+        "@type": "GeoCircle",
+        geoMidpoint: { "@type": "GeoCoordinates", ...siteConfig.geo },
+        geoRadius: siteConfig.serviceRadiusKm * 1000,
+      },
+    ],
+    founder: { "@id": founderId },
+    sameAs: [siteConfig.googleBusinessUrl, siteConfig.linktreeUrl, siteConfig.githubUrl],
+    knowsAbout: [
+      "Soporte informático para empresas",
+      "Mantenimiento informático",
+      "Digitalización de PyMEs",
+      "Google Workspace",
+      "Optimización de velocidad web",
+      "Automatización de procesos",
+      "Agentes de IA para atención al cliente",
+    ],
+  },
+  {
+    "@type": "Person",
+    "@id": founderId,
+    name: siteConfig.founder,
+    jobTitle: "Consultor de digitalización y soporte IT",
+    worksFor: { "@id": businessId },
+    url: siteConfig.publicUrl,
+  },
+  {
+    "@type": "WebSite",
+    "@id": `${siteConfig.publicUrl}/#website`,
+    name: siteConfig.name,
+    url: siteConfig.publicUrl,
+    inLanguage: "es-ES",
+    publisher: { "@id": businessId },
+  },
+];
+if (faq.length > 0) {
+  schemaGraph.push({
+    "@type": "FAQPage",
+    mainEntity: faq.map(([question, answer]: [string, string]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  });
+}
+const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
 ---
 
 <!doctype html>
@@ -51,10 +108,13 @@ const schema = {
     <meta name="description" content={description} />
     
     <link rel="canonical" href={canonical} />
+    {alternates.map(([hreflang, path]: [string, string]) => <link rel="alternate" hreflang={hreflang} href={pageUrl(path)} />)}
     
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === "en" ? "en_US" : "es_ES"} />
+    <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />

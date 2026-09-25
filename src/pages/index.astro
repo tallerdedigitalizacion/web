@@ -1,41 +1,79 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+import { reviews } from "@/data/reviews";
 
-const title = "Taller de Digitalización | Soluciones técnicas para negocios";
-const description = "Taller de Digitalización reúne servicios técnicos para resolver problemas concretos de negocio: caos operativo y velocidad web.";
+const title = "Informático para empresas y digitalización en Toledo | Taller de Digitalización";
+const description = "Soporte informático, webs y digitalización para PyMEs en Toledo, Torrijos, Illescas y a 50 km de Fuensalida. Presencial o en remoto. Primera llamada gratis.";
 
 const products = [
   {
     eyebrow: "Operaciones",
     title: "Diagnóstico de Caos Operativo",
-    text: "Para PyMEs que funcionan, pero con demasiada dependencia del dueño, fricción interna y procesos poco claros.",
-    href: "/diagnostico-caos-operativo",
+    text: "Para PyMEs que funcionan, pero con demasiada dependencia del dueño, fricción interna y procesos poco claros. Mapa de cuellos de botella, prioridades y hoja de ruta.",
+    href: "/diagnostico-caos-operativo/",
     cta: "Ver diagnóstico operativo",
   },
   {
     eyebrow: "Velocidad web",
     title: "Optimización de velocidad web",
-    text: "Para webs lentas que pierden visitas, posicionamiento y contactos antes de que el cliente vea la oferta.",
-    href: "/optimizacion-velocidad-web",
+    text: "Para webs lentas que pierden visitas, posicionamiento en Google y contactos antes de que el cliente vea la oferta. Sin rehacer la web.",
+    href: "/optimizacion-velocidad-web/",
     cta: "Ver optimización de velocidad",
   },
 ];
+
+const services = [
+  ["Soporte informático para empresas", "Ordenadores, correo, impresoras, red y copias de seguridad. Resolución en remoto en el día y visita presencial cuando hace falta."],
+  ["Mantenimiento informático", "Revisión periódica de equipos, actualizaciones, antivirus y copias para que los problemas no aparezcan el peor día."],
+  ["Google Workspace y correo profesional", "Lo pagas pero no lo aprovechas: configuración de correo, Drive compartido, calendarios, permisos y migraciones."],
+  ["Contraseñas y seguridad", "Salir del documento de contraseñas y del WhatsApp: gestor de contraseñas, doble factor y accesos por persona."],
+  ["Webs que generan contactos", "Webs rápidas y pensadas para captar clientes, no solo para \"estar\". También revisión y rescate de WordPress."],
+  ["Automatización e IA", "Tareas repetidas, atención al cliente y seguimiento de leads con automatizaciones y agentes de IA bien acotados."],
+];
+
+const steps = [
+  ["Llamada gratuita de 30 minutos", "Me cuentas qué pasa. Si no veo cómo ayudarte, te lo digo."],
+  ["Propuesta cerrada", "Qué hay que hacer, en qué orden y cuánto cuesta. Sin letra pequeña."],
+  ["Trabajo y seguimiento", "En remoto o en tu empresa. Te explico lo que he hecho en lenguaje normal."],
+];
+
+const faqs: [string, string][] = [
+  ["¿Dónde trabajas?", `Tengo base en Fuensalida (Toledo) y trabajo de forma presencial en un radio de ${siteConfig.serviceRadiusKm} km: Toledo, Torrijos, Illescas, Yuncos, Seseña, Méntrida, Escalona, Navalcarnero, Móstoles, Fuenlabrada y alrededores. En remoto, con empresas de toda España.`],
+  ["¿Atiendes a particulares o solo a empresas?", "Mi trabajo está pensado para empresas, autónomos y PyMEs: equipos, correo, web, herramientas y procesos del negocio."],
+  ["¿Cuánto cuesta un informático para mi empresa?", "Depende de lo que haya que resolver. La primera llamada es gratuita y después te paso un presupuesto cerrado antes de empezar, sin sorpresas."],
+  ["¿Puedes resolver problemas en remoto?", "Sí. La mayoría de incidencias de software, correo, cuentas y web se resuelven en remoto el mismo día. Si hace falta tocar hardware o red, voy a tu empresa."],
+  ["¿Qué diferencia hay entre soporte informático y el diagnóstico de caos operativo?", "El soporte resuelve incidencias técnicas concretas. El diagnóstico mira cómo funciona la empresa entera: procesos, herramientas y dependencia del dueño, para decidir qué ordenar, automatizar o cambiar."],
+  ["¿Trabajas con WordPress y Google Workspace?", "Sí. Configuro y rescato WordPress, optimizo su velocidad y pongo en orden Google Workspace: correo, Drive, permisos y seguridad."],
+];
+
+const featuredReviews = reviews.slice(0, 3);
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/" showHeaderBooking={false} headerNavItems={[["Productos", "#productos"]]}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/"
+  faq={faqs}
+  headerNavItems={[["Servicios", "#servicios"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"]]}
+>
   <section class="hero home-hero">
     <div class="hero-content">
-      <span class="eyebrow">Taller de Digitalización</span>
-      <h1>Soluciones técnicas para problemas concretos de negocio.</h1>
-      <p class="hero-subtitle">Elige el problema que quieres resolver. Cada servicio tiene su propia página, su propio contexto y un único objetivo.</p>
+      <span class="eyebrow">Informático y digitalización · Toledo</span>
+      <h1>Informático para empresas y digitalización de PyMEs en Toledo.</h1>
+      <p class="hero-subtitle">Soporte informático, webs y orden digital para empresas de Fuensalida, Torrijos, Toledo, La Sagra y el sur de Madrid. Presencial en {siteConfig.serviceRadiusKm} km o en remoto. Sin tecnicismos y sin venderte lo que no necesitas.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
+        <a class="btn btn-secondary" data-event="telefono_click" href={`tel:${siteConfig.phone}`}>Llamar al {siteConfig.phoneDisplay}</a>
+      </div>
     </div>
   </section>
 
-  <section id="productos" class="section">
+  <section id="servicios" class="section">
     <div class="section-head">
       <span class="eyebrow">Servicios</span>
-      <h2>Dos dolores, dos caminos.</h2>
-      <p>Esta página solo ordena la entrada. Las páginas de producto funcionan como funnels independientes, sin distracciones ni navegación cruzada.</p>
+      <h2>Qué resuelvo para tu empresa.</h2>
+      <p>Una persona técnica que entiende el negocio. Desde que el correo vuelva a funcionar hasta que la empresa deje de depender de la memoria del dueño.</p>
     </div>
     <div class="product-grid">
       {products.map((product) => (
@@ -47,5 +85,80 @@ const products = [
         </article>
       ))}
     </div>
+  </section>
+
+  <section class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Soporte y digitalización</span>
+      <h2>Informática del día a día, bien hecha.</h2>
+    </div>
+    <div class="steps">
+      {services.map(([name, text]) => (
+        <article>
+          <h3>{name}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="zona" class="section section-split">
+    <div>
+      <span class="eyebrow">Zona de trabajo</span>
+      <h2>Informático en Fuensalida, Torrijos, Toledo y alrededores.</h2>
+      <p>Trabajo de forma presencial en un radio de {siteConfig.serviceRadiusKm} km alrededor de Fuensalida y en remoto con cualquier empresa de España. Si tu empresa está en la zona, puedo ir a veros; si no, casi todo se puede resolver a distancia.</p>
+      <p><strong>{siteConfig.name}</strong><br />{siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} ({siteConfig.address.addressRegion})<br /><a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></p>
+    </div>
+    <div class="tag-grid area-grid">
+      {siteConfig.serviceAreas.map((area) => <span>{area}</span>)}
+    </div>
+  </section>
+
+  <section id="como-trabajo" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Cómo trabajo</span>
+      <h2>Tres pasos, sin vueltas.</h2>
+      <p>Más de 15 años desarrollando software y resolviendo problemas técnicos para empresas. Te atiende una persona real, no una agencia que te deriva.</p>
+    </div>
+    <div class="steps">
+      {steps.map(([name, text], index) => (
+        <article>
+          <span class="step-number">{index + 1}</span>
+          <h3>{name}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Reseñas</span>
+      <h2>Lo que dicen los clientes.</h2>
+      <p>Reseñas reales de <a href={siteConfig.googleBusinessUrl} target="_blank" rel="noreferrer">nuestra ficha de Google</a>.</p>
+    </div>
+    <div class="steps">
+      {featuredReviews.map((review) => (
+        <article>
+          <strong>{review.name}</strong>
+          <span class="microcopy">{review.source} · {review.rating}/5</span>
+          <p>{review.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>Dudas habituales antes de llamar.</h2></div>
+    <div class="faq-list">{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+  </section>
+
+  <section class="section final-cta">
+    <h2>¿Tienes un problema informático o la empresa se te hace cuesta arriba? Hablemos 30 minutos.</h2>
+    <div class="hero-actions">
+      <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
+      <a class="btn btn-secondary" data-event="telefono_click" href={`tel:${siteConfig.phone}`}>Llamar al {siteConfig.phoneDisplay}</a>
+    </div>
+    <p>Sin compromiso. Si no veo cómo ayudarte, te lo diré.</p>
   </section>
 </BaseLayout>
