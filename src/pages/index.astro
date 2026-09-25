@@ -47,6 +47,13 @@ const faqs: [string, string][] = [
   ["¿Trabajas con WordPress y Google Workspace?", "Sí. Configuro y rescato WordPress, optimizo su velocidad y pongo en orden Google Workspace: correo, Drive, permisos y seguridad."],
 ];
 
+const localLinks = [
+  ["Informático para empresas en Toledo", "/informatico-empresas-toledo/"],
+  ["Mantenimiento informático en Toledo", "/mantenimiento-informatico-toledo/"],
+  ["Informático en Fuensalida y Torrijos", "/informatico-fuensalida-torrijos/"],
+  ["Consultor de digitalización en Toledo", "/consultor-digitalizacion-toledo/"],
+];
+
 const featuredReviews = reviews.slice(0, 3);
 ---
 
@@ -111,6 +118,13 @@ const featuredReviews = reviews.slice(0, 3);
     </div>
     <div class="tag-grid area-grid">
       {siteConfig.serviceAreas.map((area) => <span>{area}</span>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><span class="eyebrow">Servicios por zona</span><h2>Encuentra el servicio que buscas.</h2></div>
+    <div class="tag-grid">
+      {localLinks.map(([label, href]) => <a class="btn btn-secondary" href={href}>{label}</a>)}
     </div>
   </section>
 
