@@ -49,6 +49,13 @@ const schemaGraph: Record<string, unknown>[] = [
     email: siteConfig.contactEmail,
     address: { "@type": "PostalAddress", ...siteConfig.address },
     geo: { "@type": "GeoCoordinates", ...siteConfig.geo },
+    hasMap: siteConfig.googleBusinessUrl,
+    openingHoursSpecification: siteConfig.openingHours.map(({ days, opens, closes }) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: days,
+      opens,
+      closes,
+    })),
     areaServed: [
       ...schemaAreaServed.map((name: string) => ({ "@type": "Place", name })),
       {

@@ -114,7 +114,7 @@ const featuredReviews = reviews.slice(0, 3);
       <span class="eyebrow">Zona de trabajo</span>
       <h2>Informático en Fuensalida, Torrijos, Toledo y alrededores.</h2>
       <p>Trabajo de forma presencial en un radio de {siteConfig.serviceRadiusKm} km alrededor de Fuensalida y en remoto con cualquier empresa de España. Si tu empresa está en la zona, puedo ir a veros; si no, casi todo se puede resolver a distancia.</p>
-      <p><strong>{siteConfig.name}</strong><br />{siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} ({siteConfig.address.addressRegion})<br /><a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></p>
+      <p><strong>{siteConfig.name}</strong><br />{siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} ({siteConfig.address.addressRegion})<br /><a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a><br />{siteConfig.openingHours.map((h) => h.label).join(" · ")}</p>
     </div>
     <div class="tag-grid area-grid">
       {siteConfig.serviceAreas.map((area) => <span>{area}</span>)}

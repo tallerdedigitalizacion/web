@@ -12,13 +12,18 @@ export const siteConfig = {
   phoneDisplay: "632 99 01 33",
   founder: "Pablo Leone",
   address: {
-    streetAddress: "Numancia 4",
+    streetAddress: "Calle Numancia, 4",
     postalCode: "45510",
     addressLocality: "Fuensalida",
     addressRegion: "Toledo",
     addressCountry: "ES",
   },
-  geo: { latitude: 40.0497, longitude: -4.2038 },
+  geo: { latitude: 40.056756, longitude: -4.2000738 },
+  // Debe coincidir con el horario de la ficha de Google Business Profile.
+  openingHours: [
+    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "10:00", closes: "16:00", label: "Lunes a viernes, 10:00–16:00" },
+    { days: ["Saturday"], opens: "10:00", closes: "14:00", label: "Sábados, 10:00–14:00" },
+  ],
   serviceRadiusKm: 50,
   serviceAreas: [
     "Fuensalida",
