@@ -1,14 +1,14 @@
 import type { APIRoute } from "astro";
-import { getCollection } from "astro:content";
 import { siteConfig } from "@/config/site";
 import { localPages } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
 import { serviceCatalog } from "@/data/services";
+import { getPublishedPosts } from "@/utils/blog";
 
 // Se genera en cada build para que los asistentes de IA vean siempre las páginas y datos actuales.
 export const GET: APIRoute = async () => {
   const url = (path: string) => new URL(path, siteConfig.publicUrl).toString();
-  const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const posts = await getPublishedPosts();
   const { address } = siteConfig;
   const catalogHrefs = new Set(serviceCatalog.map((service) => service.href));
   const extraPages = [...localPages, ...productPages].filter((page) => !catalogHrefs.has(`/${page.slug}/`));
