@@ -1,0 +1,48 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "examples",
+    eyebrow: "Examples",
+    heading: "Some of the tools we build.",
+    variant: "tag" as const,
+    items: [
+      "Management dashboards",
+      "Data lookup tools",
+      "Administrative tools",
+      "Internal portals",
+      "Automation of repetitive tasks",
+    ],
+  },
+  {
+    id: "benefits",
+    eyebrow: "Benefits",
+    heading: "What changes with custom software.",
+    variant: "check" as const,
+    items: [
+      "Less manual work",
+      "Faster processes",
+      "Centralized information",
+      "Software that fits your business",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  lang="en"
+  title="Custom Internal Tools | Taller de Digitalización"
+  description="We design custom internal applications to simplify tasks, look up information and improve your business's productivity."
+  slug="/custom-internal-tools"
+  schemaDescription="Custom internal tools: management dashboards, internal portals and automation of repetitive tasks."
+  schemaAreaServed={["United States", "Remote"]}
+  eyebrow="Custom Internal Tools"
+  h1="We build the software your business actually needs."
+  subtitleParagraphs={[
+    "Not every problem is solved by an off-the-shelf program. Sometimes it's more efficient to build a tool tailored to how your business actually works.",
+    "We design internal applications to simplify tasks, look up information and improve productivity.",
+  ]}
+  sections={sections}
+  finalCtaHeading="Because the best tool is the one that adapts to your business, not the other way around."
+/>

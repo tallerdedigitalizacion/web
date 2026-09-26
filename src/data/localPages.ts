@@ -52,12 +52,12 @@ export const localPages: LocalPage[] = [
     ],
     zoneTitle: "Soporte informático en Toledo capital y alrededores",
     zoneText: [
-      "Trabajo con empresas de Toledo capital, el Polígono Industrial, Bargas, Olías del Rey y el resto de la comarca. Mi base está en Fuensalida, a unos 30 minutos, así que las visitas presenciales se organizan con facilidad.",
+      "Trabajo con empresas de Toledo capital, el Polígono Industrial, Bargas, Olías del Rey y el resto de la comarca. Mi base está en Fuensalida, a unos 30 minutos en coche, así que las visitas presenciales se organizan con facilidad.",
       "Aun así, la mayoría de incidencias se resuelven en remoto el mismo día: no hace falta esperar a que alguien venga para que el correo vuelva a funcionar.",
     ],
     approachTitle: "Cómo trabajo",
     approach: [
-      ["Me cuentas el problema", "Por teléfono, WhatsApp o en una llamada de 30 minutos. Si es urgente, lo miramos en el momento."],
+      ["Me cuentas el problema", "Por teléfono, email o en una llamada de 15 minutos. Si es urgente, lo miramos en el momento."],
       ["Presupuesto antes de tocar nada", "Te digo qué pasa, cuánto cuesta arreglarlo y si merece la pena. Sin sorpresas en la factura."],
       ["Lo resuelvo y te lo explico", "En lenguaje normal y dejando por escrito lo que he hecho, para que la próxima vez sea más rápido."],
       ["Mantenimiento", "Si los problemas se repiten, te propongo un mantenimiento con revisiones periódicas para prevenirlos."],
@@ -161,7 +161,7 @@ export const localPages: LocalPage[] = [
     ],
     approachTitle: "Cómo trabajo con negocios de la zona",
     approach: [
-      ["Llamada o WhatsApp", "Me cuentas qué pasa. Si puedo resolverlo en remoto, lo hacemos en el momento."],
+      ["Llamada o email", "Me cuentas qué pasa. Si puedo resolverlo en remoto, lo hacemos en el momento."],
       ["Visita si hace falta", "Para hardware, red o instalaciones, quedamos en tu empresa o local."],
       ["Precio claro", "Te digo cuánto cuesta antes de empezar y te explico lo que he hecho."],
       ["Mantenimiento", "Revisiones periódicas en remoto y visitas cuando hacen falta, para que no se repitan los sustos."],
@@ -214,7 +214,7 @@ export const localPages: LocalPage[] = [
     ],
     approachTitle: "El proceso",
     approach: [
-      ["Llamada gratuita", "30 minutos para entender la situación y ver si tiene sentido trabajar juntos."],
+      ["Llamada gratuita", "15 minutos para entender la situación y ver si tiene sentido trabajar juntos."],
       ["Diagnóstico", "Entrevistas, revisión de herramientas y procesos. Resultado: mapa de problemas, prioridades y hoja de ruta."],
       ["Implementación", "Cambios por fases, empezando por los de más impacto y menos esfuerzo."],
       ["Mantenimiento y seguimiento", "Acompañamiento mensual para que los cambios se queden y las herramientas sigan bien configuradas."],
@@ -331,9 +331,9 @@ export const localPages: LocalPage[] = [
       ["¿Cuánto tarda la puesta en marcha?", "Para una PyME pequeña suele ser cuestión de días. Te doy el plazo exacto en la propuesta."],
     ],
     related: [
+      ["Reestructuración de Google Drive (plantilla gratis)", "/reestructuracion-google-drive/"],
       ["Gestión de contraseñas", "/gestor-contrasenas-empresas/"],
       ["Ciberseguridad y NIS2", "/ciberseguridad-empresas-toledo/"],
-      ["Soporte informático en Toledo", "/informatico-empresas-toledo/"],
     ],
     finalCta: "¿Pagas Google Workspace y no lo aprovechas? Cuéntame cómo lo usáis.",
     formService: "Google Workspace y correo",
@@ -383,9 +383,9 @@ export const localPages: LocalPage[] = [
       ["¿La web aparecerá en Google?", "La preparo para que Google la entienda y la asocie a tu zona. El posicionamiento lleva tiempo y depende también de la competencia y de las reseñas."],
     ],
     related: [
+      ["Informe gratuito de tu web", "/informe-gratuito-web/"],
       ["Optimización de velocidad web", "/optimizacion-velocidad-web/"],
       ["Rescate de WordPress", "/mantenimiento-wordpress/"],
-      ["Funnel web para un producto", "/funnel-web/"],
     ],
     finalCta: "¿Tu web no te trae clientes? Veamos por qué y qué haría falta.",
     formService: "Diseño web que genera clientes",

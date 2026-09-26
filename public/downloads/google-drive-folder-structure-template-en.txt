@@ -1,0 +1,85 @@
+CORPORATE GOOGLE DRIVE FOLDER STRUCTURE TEMPLATE
+Taller de Digitalización — tallerdedigitalizacion.com
+
+How to use this template
+-------------------------
+1. Create it inside a Shared Drive, not in a person's "My Drive". If the
+   drive depends on one person, access is lost the day that person leaves.
+2. Copy this structure as-is for the top level. Do not turn it into a
+   6-level tree: the deeper it goes, the less people actually use it.
+3. A document lives in one place only. If another department needs to see
+   it, link it (right click > Organize > Add shortcut), never duplicate it.
+4. Review permissions per folder, not per file. It is the only way to keep
+   this sustainable over time.
+
+Recommended structure
+-------------------------
+00_Company
+    Foundational (bylaws, minutes, policies, master contracts)
+    Brand (logo, style guide, brand templates)
+
+01_Leadership
+    Strategic_Plans
+    Leadership_Meetings
+
+02_HR_People
+    Contracts
+    Payroll
+    Onboarding
+    Internal_Policies
+
+03_Finance
+    Invoices_Issued
+    Invoices_Received
+    Budgets
+    Accounting_Close
+
+04_Sales
+    Proposals
+    Client_Contracts
+    CRM_Exports
+
+05_Marketing
+    Campaigns
+    Content
+    Brand_Assets
+
+06_Operations
+    Procedures
+    Vendors
+
+07_IT_Systems
+    Technical_Documentation
+    Access (link to the password manager — never plain-text passwords)
+
+08_Legal
+    Contracts
+    GDPR_Compliance
+
+09_Projects
+    Active (one subfolder per project, with a start date in the name)
+    Archived
+
+10_Archive
+    (everything closed or historical moves here — never deleted, never
+    left mixed in with active work)
+
+Suggested permission tiers
+-------------------------
+- Everyone: read access to 00, 01 (partial), 05
+- Team: edit access to their own department folder
+- Confidential: 02 (Payroll), 03 (Finance), 08 (Legal) — restricted per
+  person, not "the whole team"
+
+Quick best practices
+-------------------------
+- Name files starting with a date (YYYY-MM-DD) when chronological order
+  matters.
+- Before creating a new folder, check that an equivalent doesn't already
+  exist in another department.
+- Once a quarter, review "Shared with me" and move anything that should
+  actually live in the shared drive.
+
+Want help implementing this in your actual Google Drive, with permissions
+and shared drives already configured?
+Book a call: https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call

@@ -1,0 +1,270 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import WebAuditAssessment from "@/components/WebAuditAssessment.astro";
+import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
+import { webAuditContent, webAuditShared, type WebAuditLang } from "@/data/webAudit";
+
+const { lang = "es" } = Astro.props as { lang?: WebAuditLang };
+const copy = webAuditContent[lang];
+const isEnglish = lang === "en";
+const canonicalPath = isEnglish ? webAuditShared.englishPath : webAuditShared.spanishPath;
+---
+
+<BaseLayout
+  title={copy.title}
+  description={copy.description}
+  canonicalPath={canonicalPath}
+  headerBrandHref={canonicalPath}
+  headerNavItems={copy.nav}
+  headerBookingEvent="click_calendly_web_audit"
+  lang={lang}
+  bookingHref={webAuditShared.bookingUrl}
+  showChatbase={!isEnglish}
+  schemaDescription={copy.description}
+  schemaAreaServed={isEnglish ? ["United States", "Remote"] : ["España", "Latinoamérica", "Remoto"]}
+>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">{copy.hero.eyebrow}</span>
+      <h1>{copy.hero.h1}</h1>
+      <p class="hero-subtitle">{copy.hero.subtitle}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={`#${isEnglish ? "self-assessment" : "autoevaluacion"}`}>{copy.hero.primaryCta}</a>
+        <a class="btn btn-secondary" data-event="click_calendly_web_audit" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
+      </div>
+      <p class="microcopy">{copy.hero.note}</p>
+    </div>
+  </section>
+
+  <section id={isEnglish ? "problem" : "problema"} class="section">
+    <div class="section-head">
+      <span class="eyebrow">{copy.reveal.eyebrow}</span>
+      <h2>{copy.reveal.h2}</h2>
+      <p>{copy.reveal.intro}</p>
+    </div>
+    <div class="problem-card-grid" aria-label={copy.reveal.h2}>
+      {copy.reveal.cards.map((row) => (
+        <article class="problem-card" data-problem-card data-state="front" tabindex="0" aria-label={`${row.says}. ${row.reveals}`}>
+          <div class="problem-card-slider">
+            <div class="problem-card-face problem-card-front">
+              <span class="problem-card-label">{isEnglish ? "What you say" : "Lo que dices"}</span>
+              <strong>“{row.says}”</strong>
+              <button class="problem-card-action" type="button" data-card-meaning>
+                <span>{isEnglish ? "Reveals" : "Significa"}</span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17">
+                  <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="problem-card-face problem-card-meaning">
+              <span class="problem-card-label">{isEnglish ? "What it reveals" : "Lo que revela"}</span>
+              <p>{row.reveals}</p>
+              <button class="problem-card-action" type="button" data-card-solution>
+                <span>{isEnglish ? "Action" : "Solución"}</span>
+                <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17">
+                  <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="problem-card-solution">
+            <button class="problem-card-close" type="button" data-card-reset aria-label={isEnglish ? "Back to initial state" : "Volver al estado inicial"}>
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17">
+                <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+              </svg>
+            </button>
+            <span class="problem-card-label">{isEnglish ? "What we do" : "Lo que hacemos"}</span>
+            <p>{row.action}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-split">
+    <div>
+      <span class="eyebrow">{copy.criterion.eyebrow}</span>
+      <h2>{copy.criterion.h2}</h2>
+      <p>{copy.criterion.text}</p>
+    </div>
+    <ul class="check-list">
+      {copy.criterion.bullets.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <WebAuditAssessment lang={lang} />
+
+  <section id={isEnglish ? "audit" : "auditoria"} class="section">
+    <div class="section-head">
+      <span class="eyebrow">{copy.offer.eyebrow}</span>
+      <h2>{copy.offer.h2}</h2>
+      <p>{copy.offer.intro}</p>
+    </div>
+    <div class="ai-pricing-panel">
+      <div>
+        <strong>{copy.offer.price}</strong>
+        <p><b>{isEnglish ? "Delivery:" : "Tiempo:"}</b> {copy.offer.time}</p>
+      </div>
+      <ul class="check-list">
+        {copy.offer.deliverables.map((item) => <li>{item}</li>)}
+      </ul>
+      <a class="btn btn-primary" data-event="click_calendly_web_audit" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
+    </div>
+  </section>
+
+  <section class="section section-split dark-band">
+    <div>
+      <span class="eyebrow">{copy.not.eyebrow}</span>
+      <h2>{copy.not.h2}</h2>
+      <p>{copy.not.intro}</p>
+    </div>
+    <ul class="plain-list">
+      {copy.not.items.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section id={isEnglish ? "download" : "descarga"} class="section">
+    <div class="method-download">
+      <div class="method-copy">
+        <span class="eyebrow">{copy.download.eyebrow}</span>
+        <h2>{copy.download.h2}</h2>
+        <p>{copy.download.text}</p>
+      </div>
+      <form class="compact-form" data-web-audit-guide-form>
+        <label>{isEnglish ? "Name" : "Nombre"}<input required name="nombre" autocomplete="name" /></label>
+        <label>Email<input required type="email" name="email" autocomplete="email" /></label>
+        <label>{isEnglish ? "Company" : "Empresa"}<input name="empresa" autocomplete="organization" /><small>{isEnglish ? "Optional." : "Opcional."}</small></label>
+        <label class="check"><input required type="checkbox" name="privacidad" /> <span>{isEnglish ? "I accept the " : "Acepto la "}<a href={withBase("/politica-privacidad")} target="_blank" rel="noreferrer">{isEnglish ? "privacy policy" : "política de privacidad"}</a>.</span></label>
+        <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
+        <input type="hidden" name="started_at" data-started-at />
+        <button class="btn btn-primary" type="submit">{copy.download.button}</button>
+        <p class="form-help" data-web-audit-guide-status aria-live="polite">{copy.download.status}</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="section-head">
+      <span class="eyebrow">{copy.faq.eyebrow}</span>
+      <h2>{copy.faq.h2}</h2>
+    </div>
+    <div class="faq-list">
+      {copy.faq.items.map(([question, answer]) => (
+        <details>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <h2>{isEnglish ? "Start by understanding where the website is leaking opportunities." : "Empecemos por entender dónde está perdiendo oportunidades tu web."}</h2>
+    <div class="hero-actions">
+      <a class="btn btn-primary" data-event="click_calendly_web_audit" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
+      <a class="btn btn-secondary" href={`#${isEnglish ? "self-assessment" : "autoevaluacion"}`}>{copy.hero.primaryCta}</a>
+    </div>
+    <p>{copy.hero.note}</p>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ formEndpoint: siteConfig.formEndpoint, chatbasePageContext: isEnglish ? "Technical Web Audit" : "Auditoría Web", webAuditGuideLanguage: lang, webAuditGuideSendingLabel: isEnglish ? "Sending..." : "Enviando...", webAuditGuideSuccessLabel: isEnglish ? "Request received. Check your email." : "Solicitud recibida. Revisa tu email.", webAuditGuideErrorLabel: isEnglish ? "We could not send the request." : "No se pudo enviar la solicitud." }}>
+  window.tdTrackEvent?.("view_web_audit_page");
+  window.tdChatbasePageContext = chatbasePageContext;
+  if (typeof window.chatbase === "function") {
+    window.chatbase("setMetadata", { page_context: chatbasePageContext });
+  }
+
+  window.addEventListener("message", (event) => {
+    if (typeof event.origin !== "string" || !event.origin.includes("chatbase")) return;
+    const message = typeof event.data === "string" ? event.data : JSON.stringify(event.data || {});
+    if (message.toLowerCase().includes("open")) window.tdTrackEvent?.("chatbase_open_web_audit");
+    if (message.toLowerCase().includes("lead")) window.tdTrackEvent?.("chatbase_lead_web_audit");
+  });
+
+  document.querySelectorAll("[data-problem-card]").forEach((card) => {
+    const meaningButton = card.querySelector("[data-card-meaning]");
+    const solutionButton = card.querySelector("[data-card-solution]");
+    const resetButton = card.querySelector("[data-card-reset]");
+    meaningButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      card.setAttribute("data-state", "meaning");
+    });
+    solutionButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      card.setAttribute("data-state", "solution");
+    });
+    resetButton?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      card.setAttribute("data-state", "front");
+    });
+  });
+
+  document.querySelectorAll(".faq-list details").forEach((item) => {
+    item.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("summary")) return;
+      item.open = !item.open;
+    });
+  });
+
+  function apiBaseUrl() {
+    if (!formEndpoint || formEndpoint.includes("INSERTAR")) return "";
+    return String(formEndpoint).replace(/\/$/, "");
+  }
+
+  async function postLead(path, payload) {
+    const baseUrl = apiBaseUrl();
+    if (!baseUrl) throw new Error("Endpoint de formularios no configurado.");
+    const response = await fetch(`${baseUrl}/lead/${path}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) throw new Error(data.error || "No se pudo procesar la solicitud.");
+    return data;
+  }
+
+  document.querySelectorAll("[data-started-at]").forEach((input) => {
+    if (input instanceof HTMLInputElement) input.value = String(Date.now());
+  });
+
+  document.querySelector("[data-web-audit-guide-form]")?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!(form instanceof HTMLFormElement)) return;
+    const button = form.querySelector("button[type='submit']");
+    const status = document.querySelector("[data-web-audit-guide-status]");
+    const formData = new FormData(form);
+    if (button instanceof HTMLButtonElement) button.disabled = true;
+    if (status instanceof HTMLElement) status.textContent = webAuditGuideSendingLabel;
+    try {
+      const response = await postLead("web-audit-guide", {
+        name: String(formData.get("nombre") || ""),
+        email: String(formData.get("email") || ""),
+        company: String(formData.get("empresa") || ""),
+        privacyAccepted: formData.get("privacidad") === "on",
+        marketingAccepted: false,
+        language: webAuditGuideLanguage,
+        website: String(formData.get("website") || ""),
+        startedAt: Number(formData.get("started_at") || Date.now()),
+        pageUrl: window.location.href,
+        userAgent: navigator.userAgent,
+      });
+      if (status instanceof HTMLElement) status.textContent = response.message || webAuditGuideSuccessLabel;
+      form.reset();
+      form.querySelectorAll("[data-started-at]").forEach((input) => {
+        if (input instanceof HTMLInputElement) input.value = String(Date.now());
+      });
+      window.tdTrackEvent?.("download_web_audit_pdf");
+      window.tdTrackEvent?.("generate_lead", { lead_type: "web_audit_guide" });
+    } catch (error) {
+      if (status instanceof HTMLElement) status.textContent = error instanceof Error ? error.message : webAuditGuideErrorLabel;
+    } finally {
+      if (button instanceof HTMLButtonElement) button.disabled = false;
+    }
+  });
+</script>

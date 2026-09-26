@@ -4,9 +4,8 @@ export const siteConfig = {
   seoDescription:
     "Soporte informático, webs y digitalización para PyMEs en Toledo y a 50 km de Fuensalida. Presencial o en remoto, sin tecnicismos ni ventas innecesarias.",
   publicUrl: "https://tallerdedigitalizacion.com",
-  bookingUrl: "https://calendly.com/tallerdedigitalizacion-info/30min",
+  bookingUrl: "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
   linktreeUrl: "https://linktr.ee/tallerdedigitalizacion",
-  whatsappNumber: "34684768974",
   contactEmail: "info@tallerdedigitalizacion.com",
   phone: "+34632990133",
   phoneDisplay: "632 99 01 33",
@@ -87,5 +86,3 @@ export const siteConfig = {
   formEndpoint: "https://mbce6dz2wf.execute-api.eu-west-1.amazonaws.com/prod/",
   methodPdfPath: "/downloads/metodo-auditoria-caos-operativo.pdf",
 };
-
-export const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=Hola,%20vengo%20de%20la%20web%20de%20Taller%20de%20Digitalizaci%C3%B3n.%20Quer%C3%ADa%20consultar%20por%20el%20diagn%C3%B3stico%20operativo.`;

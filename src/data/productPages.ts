@@ -247,9 +247,9 @@ export const productPages: LocalPage[] = [
       ["¿Y la IA?", "Un agente de IA puede responder las dudas frecuentes al momento y pasar el contacto a una persona cuando hace falta."],
     ],
     related: [
+      ["Calculadora de leads perdidos (gratis)", "/centralizacion-leads/#calculadora"],
       ["Agente de IA para atención al cliente", "/agente-ia-atencion-cliente/"],
       ["Funnel web para un producto", "/funnel-web/"],
-      ["Diseño web que genera clientes", "/diseno-web-toledo/"],
     ],
     finalCta: "¿Cuántos clientes se te escapan cada mes? Vamos a averiguarlo.",
     formService: "Captación y seguimiento de leads",
