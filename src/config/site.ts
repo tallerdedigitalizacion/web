@@ -11,15 +11,23 @@ export const siteConfig = {
   phone: "+34632990133",
   phoneDisplay: "632 99 01 33",
   founder: "Pablo Leone",
+  experienceYears: 18,
+  anydeskUrl: "https://anydesk.com/es/downloads",
   address: {
-    streetAddress: "Numancia 4",
+    streetAddress: "Calle Numancia, 4",
     postalCode: "45510",
     addressLocality: "Fuensalida",
     addressRegion: "Toledo",
     addressCountry: "ES",
   },
-  geo: { latitude: 40.0497, longitude: -4.2038 },
+  geo: { latitude: 40.056756, longitude: -4.2000738 },
+  // Debe coincidir con el horario de la ficha de Google Business Profile.
+  openingHours: [
+    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "10:00", closes: "16:00", label: "Lunes a viernes, 10:00–16:00" },
+    { days: ["Saturday"], opens: "10:00", closes: "14:00", label: "Sábados, 10:00–14:00" },
+  ],
   serviceRadiusKm: 50,
+  // Municipios principales para datos estructurados (areaServed). La lista completa por comarcas está en serviceRegions.
   serviceAreas: [
     "Fuensalida",
     "Torrijos",
@@ -32,19 +40,46 @@ export const siteConfig = {
     "Camarena",
     "Méntrida",
     "Escalona",
-    "Santa Olalla",
-    "Novés",
-    "Valmojado",
-    "Casarrubios del Monte",
+    "La Puebla de Montalbán",
     "Navalcarnero",
     "Móstoles",
     "Fuenlabrada",
-    "Arroyomolinos",
     "Alcorcón",
     "Parla",
+    "Getafe",
+    "Leganés",
+    "Arroyomolinos",
+  ],
+  // Municipios a menos de 50 km de Fuensalida (OpenStreetMap), agrupados por comarca.
+  serviceRegions: [
+    {
+      name: "Torrijos y comarca",
+      towns: ["Fuensalida", "Torrijos", "Portillo de Toledo", "Novés", "Camarena", "Santa Cruz del Retamar", "Huecas", "Arcicóllar", "Barcience", "Villamiel de Toledo", "Rielves", "Gerindote", "Val de Santo Domingo", "Quismondo", "Maqueda", "Alcabón", "Chozas de Canales", "Las Ventas de Retamosa", "Camarenilla", "Carmena"],
+    },
+    {
+      name: "Toledo y alrededores",
+      towns: ["Toledo", "Bargas", "Olías del Rey", "Mocejón", "Magán", "Argés", "Cobisa", "Burguillos de Toledo", "Nambroca", "Polán", "Guadamur", "Layos", "Albarreal de Tajo", "Sonseca"],
+    },
+    {
+      name: "La Sagra",
+      towns: ["Illescas", "Yuncos", "Seseña", "Esquivias", "Ugena", "Carranque", "El Viso de San Juan", "Cedillo del Condado", "Numancia de la Sagra", "Villaluenga de la Sagra", "Yuncler", "Recas", "Lominchar", "Cabañas de la Sagra", "Pantoja", "Cobeja", "Alameda de la Sagra", "Añover de Tajo", "Borox", "Yeles", "Villaseca de la Sagra"],
+    },
+    {
+      name: "Alberche y Escalona",
+      towns: ["Escalona", "Méntrida", "Santa Olalla", "Almorox", "Casarrubios del Monte", "Valmojado", "La Torre de Esteban Hambrán", "El Casar de Escalona", "Nombela", "Hormigos", "Paredes de Escalona"],
+    },
+    {
+      name: "Montalbán y Tajo",
+      towns: ["La Puebla de Montalbán", "El Carpio de Tajo", "Escalonilla", "Burujón", "Cebolla", "Malpica de Tajo", "Carriches", "La Mata", "Gálvez"],
+    },
+    {
+      name: "Sur y oeste de Madrid",
+      towns: ["Navalcarnero", "Móstoles", "Fuenlabrada", "Alcorcón", "Parla", "Getafe", "Leganés", "Arroyomolinos", "Griñón", "Humanes de Madrid", "Moraleja de Enmedio", "Torrejón de la Calzada", "Torrejón de Velasco", "Casarrubuelos", "Cubas de la Sagra", "Serranillos del Valle", "Batres", "El Álamo", "Villaviciosa de Odón", "Sevilla la Nueva", "Brunete", "Villanueva de la Cañada", "Boadilla del Monte", "Valdemoro", "Pinto", "Villa del Prado", "Villamanta", "Aldea del Fresno", "San Martín de Valdeiglesias"],
+    },
   ],
   googleBusinessUrl: "https://maps.app.goo.gl/iJYaupqoL8usLB6X7",
   githubUrl: "https://github.com/tallerdedigitalizacion",
+  linkedinUrl: "https://www.linkedin.com/in/pabloleone/",
   googleAnalyticsId: "G-4GY58K423T",
   chatbaseId: "V8ryUqCVZxb4N8Hnym06s",
   ogImage: "/og-image.jpg",

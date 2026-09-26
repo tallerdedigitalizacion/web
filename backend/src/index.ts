@@ -7,8 +7,8 @@ import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { z } from "zod";
 import { scoreAssessment } from "./assessment";
 import { config } from "./config";
-import { diagnosticLeadSchema, methodLeadSchema } from "./schemas";
-import { diagnosticEmail, methodEmail, notificationEmail } from "./email/templates";
+import { contactLeadSchema, diagnosticLeadSchema, methodLeadSchema } from "./schemas";
+import { contactEmail, diagnosticEmail, methodEmail, notificationEmail } from "./email/templates";
 import { sendEmail } from "./email/sender";
 import { assertAllowedOrigin, assertHoneypot, assertHumanTiming, assertPayloadSize, assertRateLimit, getClientIp, SecurityError } from "./security";
 import { hashValue, saveLead } from "./store";
@@ -28,8 +28,11 @@ app.use(
 app.get("/health", (c) => c.json({ ok: true }));
 app.post("/lead/diagnostic", async (c) => handleLead(c, "diagnostic"));
 app.post("/lead/method", async (c) => handleLead(c, "method"));
+app.post("/lead/contact", async (c) => handleLead(c, "contact"));
 
-async function handleLead(c: Context, action: "diagnostic" | "method") {
+const leadSchemas = { diagnostic: diagnosticLeadSchema, method: methodLeadSchema, contact: contactLeadSchema } as const;
+
+async function handleLead(c: Context, action: keyof typeof leadSchemas) {
   try {
     assertAllowedOrigin(c);
     const rawBody = await c.req.text();
@@ -40,7 +43,7 @@ async function handleLead(c: Context, action: "diagnostic" | "method") {
     } catch {
       return c.json({ ok: false, error: "JSON inválido" }, 400);
     }
-    const input = action === "diagnostic" ? diagnosticLeadSchema.parse(parsedJson) : methodLeadSchema.parse(parsedJson);
+    const input = leadSchemas[action].parse(parsedJson);
     const ip = getClientIp(c);
 
     assertHoneypot(input.website);
@@ -75,6 +78,28 @@ async function handleLead(c: Context, action: "diagnostic" | "method") {
         message: leadDelivery.ok
           ? "Diagnóstico enviado por email."
           : "Recibimos tu diagnóstico. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+      });
+    }
+
+    if (action === "contact") {
+      const contactInput = contactLeadSchema.parse(input);
+      const saved = await saveLead("contact", {
+        ...cleanLead(contactInput),
+        ipHash: hashValue(ip),
+      });
+      const leadDelivery = await trySendEmail(contactInput.email, contactEmail(contactInput, config.bookingUrl));
+      if (config.notifyEmail) {
+        const deliveryNote = leadDelivery.ok
+          ? "Email de confirmación al lead: enviado."
+          : `Email de confirmación al lead: no enviado. Motivo: ${leadDelivery.message}`;
+        await trySendEmail(config.notifyEmail, notificationEmail("contact", contactInput, `Lead id: ${saved.id}\n${deliveryNote}`));
+      }
+
+      return c.json({
+        ok: true,
+        leadId: saved.id,
+        emailDelivered: leadDelivery.ok,
+        message: "Mensaje recibido. Te responderé lo antes posible.",
       });
     }
 

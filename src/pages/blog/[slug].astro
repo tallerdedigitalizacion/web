@@ -1,0 +1,50 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContactForm from "@/components/ContactForm.astro";
+import { siteConfig } from "@/config/site";
+import { serviceLabelFor } from "@/data/services";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: CollectionEntry<"blog"> };
+const { Content } = await post.render();
+const path = `/blog/${post.slug}/`;
+const url = new URL(path, siteConfig.publicUrl).toString();
+const dateFormat = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+const extraSchema = [
+  {
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+    inLanguage: "es-ES",
+    mainEntityOfPage: url,
+    author: { "@id": `${siteConfig.publicUrl}/#founder` },
+    publisher: { "@id": `${siteConfig.publicUrl}/#business` },
+  },
+  {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${siteConfig.publicUrl}/` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.publicUrl}/blog/` },
+      { "@type": "ListItem", position: 3, name: post.data.title, item: url },
+    ],
+  },
+];
+---
+
+<BaseLayout title={`${post.data.title} | ${siteConfig.name}`} description={post.data.description} canonicalPath={path} extraSchema={extraSchema}>
+  <article class="legal-page blog-post">
+    <a class="microcopy" href="/blog/">← Blog</a>
+    <h1>{post.data.title}</h1>
+    <p class="microcopy">Por {siteConfig.founder} · {dateFormat.format(post.data.pubDate)}</p>
+    <Content />
+  </article>
+  <ContactForm selectedService={post.data.relatedService ? serviceLabelFor(post.data.relatedService) : ""} title="¿Quieres que lo veamos para tu empresa?" />
+</BaseLayout>

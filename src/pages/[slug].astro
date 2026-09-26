@@ -1,0 +1,124 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+import TrustBar from "@/components/TrustBar.astro";
+import ContactForm from "@/components/ContactForm.astro";
+import { localPages, type LocalPage } from "@/data/localPages";
+import { productPages } from "@/data/productPages";
+import { serviceLabelFor } from "@/data/services";
+
+export function getStaticPaths() {
+  return [...localPages, ...productPages].map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props as { page: LocalPage };
+const path = `/${page.slug}/`;
+const pageUrl = new URL(path, siteConfig.publicUrl).toString();
+const businessId = `${siteConfig.publicUrl}/#business`;
+const formService = page.formService ?? serviceLabelFor(path) ?? "";
+
+const extraSchema = [
+  {
+    "@type": "Service",
+    "@id": `${pageUrl}#service`,
+    name: page.h1.replace(/\.$/, ""),
+    serviceType: page.schemaService,
+    description: page.description,
+    url: pageUrl,
+    provider: { "@id": businessId },
+    areaServed: page.areas.map((name) => ({ "@type": "Place", name })),
+  },
+  {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${siteConfig.publicUrl}/` },
+      { "@type": "ListItem", position: 2, name: page.h1.replace(/\.$/, ""), item: pageUrl },
+    ],
+  },
+];
+
+const navItems = [
+  ["Servicios", "#servicios"],
+  ["Zona", "#zona"],
+  ["FAQ", "#faq"],
+  ["Contacto", "#contacto"],
+];
+---
+
+<BaseLayout title={page.title} description={page.description} canonicalPath={path} faq={page.faq} extraSchema={extraSchema} headerNavItems={navItems}>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">{page.eyebrow}</span>
+      <h1>{page.h1}</h1>
+      <p class="hero-subtitle">{page.intro}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
+        <a class="btn btn-secondary" href="#contacto">Escribirme</a>
+      </div>
+    </div>
+  </section>
+
+  <TrustBar />
+
+  <section class="section section-split">
+    <div>
+      <span class="eyebrow">¿Te suena?</span>
+      <h2>{page.problemsTitle}</h2>
+    </div>
+    <ul class="check-list">{page.problems.map((problem) => <li>{problem}</li>)}</ul>
+  </section>
+
+  <section id="servicios" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Servicios</span>
+      <h2>{page.servicesTitle}</h2>
+    </div>
+    <div class="steps">
+      {page.services.map(([name, text]) => (
+        <article>
+          <h3>{name}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="zona" class="section section-split">
+    <div>
+      <span class="eyebrow">Zona</span>
+      <h2>{page.zoneTitle}</h2>
+      {page.zoneText.map((text) => <p>{text}</p>)}
+    </div>
+    <div class="tag-grid area-grid">{page.areas.map((area) => <span>{area}</span>)}</div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Proceso</span>
+      <h2>{page.approachTitle}</h2>
+    </div>
+    <div class={page.approach.length === 4 ? "steps steps-4" : "steps"}>
+      {page.approach.map(([name, text], index) => (
+        <article>
+          <span class="step-number">{index + 1}</span>
+          <h3>{name}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>Dudas habituales</h2></div>
+    <div class="faq-list">{page.faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><span class="eyebrow">También te puede interesar</span><h2>Otros servicios</h2></div>
+    <div class="tag-grid">
+      {page.related.map(([label, href]) => <a class="btn btn-secondary" href={href}>{label}</a>)}
+    </div>
+  </section>
+
+  <ContactForm selectedService={formService} title={page.finalCta} />
+</BaseLayout>

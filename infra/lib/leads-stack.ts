@@ -81,6 +81,7 @@ export class LeadsStack extends Stack {
     const lead = api.root.addResource("lead");
     lead.addResource("diagnostic").addMethod("POST", integration);
     lead.addResource("method").addMethod("POST", integration);
+    lead.addResource("contact").addMethod("POST", integration);
     api.root.addResource("health").addMethod("GET", integration);
 
     new CfnOutput(this, "LeadsApiUrl", {

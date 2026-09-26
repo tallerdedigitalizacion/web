@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const dateFormat = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+---
+
+<BaseLayout
+  title="Blog de informática y digitalización para PyMEs | Taller de Digitalización"
+  description="Guías prácticas sobre informática, ciberseguridad, NIS2, webs y digitalización para PyMEs de Toledo y el sur de Madrid."
+  canonicalPath="/blog"
+>
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Blog</span>
+      <h1>Informática y digitalización para PyMEs, sin jerga.</h1>
+      <p>Respuestas a las preguntas que me hacen las empresas de Toledo, Torrijos, La Sagra y el sur de Madrid.</p>
+    </div>
+    <div class="link-grid">
+      {posts.map((post) => (
+        <a href={`/blog/${post.slug}/`}>
+          <strong>{post.data.title}</strong>
+          <span>{dateFormat.format(post.data.pubDate)} · {post.data.description}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

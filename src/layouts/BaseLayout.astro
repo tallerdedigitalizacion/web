@@ -25,6 +25,7 @@ const {
   schemaAreaServed = siteConfig.serviceAreas,
   alternates = [],
   faq = [],
+  extraSchema = [],
 } = Astro.props;
 
 const origin = Astro.site ?? new URL(siteConfig.publicUrl).origin;
@@ -48,6 +49,13 @@ const schemaGraph: Record<string, unknown>[] = [
     email: siteConfig.contactEmail,
     address: { "@type": "PostalAddress", ...siteConfig.address },
     geo: { "@type": "GeoCoordinates", ...siteConfig.geo },
+    hasMap: siteConfig.googleBusinessUrl,
+    openingHoursSpecification: siteConfig.openingHours.map(({ days, opens, closes }) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: days,
+      opens,
+      closes,
+    })),
     areaServed: [
       ...schemaAreaServed.map((name: string) => ({ "@type": "Place", name })),
       {
@@ -57,7 +65,7 @@ const schemaGraph: Record<string, unknown>[] = [
       },
     ],
     founder: { "@id": founderId },
-    sameAs: [siteConfig.googleBusinessUrl, siteConfig.linktreeUrl, siteConfig.githubUrl],
+    sameAs: [siteConfig.googleBusinessUrl, siteConfig.linktreeUrl, siteConfig.githubUrl, siteConfig.linkedinUrl],
     knowsAbout: [
       "Soporte informático para empresas",
       "Mantenimiento informático",
@@ -75,6 +83,7 @@ const schemaGraph: Record<string, unknown>[] = [
     jobTitle: "Consultor de digitalización y soporte IT",
     worksFor: { "@id": businessId },
     url: siteConfig.publicUrl,
+    sameAs: [siteConfig.linkedinUrl],
   },
   {
     "@type": "WebSite",
@@ -95,6 +104,7 @@ if (faq.length > 0) {
     })),
   });
 }
+schemaGraph.push(...extraSchema);
 const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
 ---
 

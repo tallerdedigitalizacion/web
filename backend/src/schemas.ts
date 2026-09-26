@@ -34,5 +34,19 @@ export const diagnosticLeadSchema = baseLeadSchema.extend({
 
 export const methodLeadSchema = baseLeadSchema;
 
+// El servicio es texto libre acotado para poder añadir servicios en la web sin redesplegar la API.
+export const contactLeadSchema = baseLeadSchema.extend({
+  service: z.string().trim().min(2).max(80),
+  phone: z
+    .string()
+    .trim()
+    .max(30)
+    .regex(/^[+\d\s().-]*$/)
+    .optional()
+    .transform((value) => value || undefined),
+  message: z.string().trim().min(5).max(2000),
+});
+
 export type DiagnosticLeadInput = z.infer<typeof diagnosticLeadSchema>;
 export type MethodLeadInput = z.infer<typeof methodLeadSchema>;
+export type ContactLeadInput = z.infer<typeof contactLeadSchema>;
