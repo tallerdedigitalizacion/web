@@ -1,32 +1,66 @@
 # Taller de Digitalización
 
-> Soporte informático, webs y digitalización para empresas, autónomos y PyMEs. Base en Fuensalida (Toledo, España). Trabajo presencial en un radio de 50 km (Toledo, Torrijos, Illescas, Yuncos, Seseña, Méntrida, Escalona, Navalcarnero, Móstoles, Fuenlabrada y alrededores) y en remoto con toda España. Lo dirige Pablo Leone, con más de 15 años desarrollando software y resolviendo problemas técnicos para empresas.
+> Soporte informático, ciberseguridad, webs y digitalización para empresas, autónomos y PyMEs. Base en Fuensalida (Toledo, España). Trabajo presencial en un radio de 50 km y en remoto con toda España. Lo dirige Pablo Leone, con 18 años de experiencia resolviendo problemas técnicos para empresas, cientos de clientes atendidos y certificado como desarrollador de software.
 
-Datos de contacto:
+## Datos de contacto
 
 - Nombre: Taller de Digitalización (titular: Pablo Leone)
-- Dirección: Numancia 4, 45510 Fuensalida, Toledo, España
+- Dirección: Calle Numancia, 4, 45510 Fuensalida, Toledo, España
 - Teléfono: +34 632 99 01 33
 - Email: info@tallerdedigitalizacion.com
-- Reservar llamada gratuita (30 min): https://calendly.com/tallerdedigitalizacion-info/30min
+- Horario: Lunes a viernes, 10:00–16:00; Sábados, 10:00–14:00
+- Reservar llamada gratuita (30 min): https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call
+- Soporte remoto: AnyDesk (https://tallerdedigitalizacion.com/soporte-remoto/)
 - Reseñas en Google: https://maps.app.goo.gl/iJYaupqoL8usLB6X7
+- LinkedIn de Pablo Leone: https://www.linkedin.com/in/pabloleone/
 
 ## Servicios
 
-- [Informático para empresas en Toledo](https://tallerdedigitalizacion.com/): soporte informático, mantenimiento, correo y Google Workspace, contraseñas y seguridad, webs que generan contactos, automatización e IA.
-- [Diagnóstico de Caos Operativo](https://tallerdedigitalizacion.com/diagnostico-caos-operativo/): auditoría para PyMEs que dependen demasiado del dueño o CEO. Analiza procesos, comunicación y herramientas y entrega mapa de cuellos de botella, prioridades y hoja de ruta. Incluye autoevaluación gratuita.
-- [Optimización de velocidad web](https://tallerdedigitalizacion.com/optimizacion-velocidad-web/): diagnóstico y arreglo técnico de webs lentas (WordPress y otros) sin rehacerlas, verificado con PageSpeed y Core Web Vitals.
-- [Informático para empresas en Toledo](https://tallerdedigitalizacion.com/informatico-empresas-toledo/): soporte informático en remoto y presencial para empresas y autónomos de Toledo capital y alrededores.
-- [Mantenimiento informático en Toledo](https://tallerdedigitalizacion.com/mantenimiento-informatico-toledo/): mantenimiento preventivo con cuota mensual cerrada: revisiones, copias comprobadas, seguridad, altas y bajas de personal.
-- [Informático en Fuensalida y Torrijos](https://tallerdedigitalizacion.com/informatico-fuensalida-torrijos/): soporte cercano para empresas y comercios de Fuensalida, Torrijos, Novés, Camarena, Méntrida, Escalona y comarca.
-- [Consultor de digitalización en Toledo](https://tallerdedigitalizacion.com/consultor-digitalizacion-toledo/): ordenar procesos y herramientas, automatizaciones e IA con criterio para PyMEs.
-- [Website speed optimization (English)](https://tallerdedigitalizacion.com/website-speed-optimization/): the same service for English-speaking clients.
+- [Soporte informático](https://tallerdedigitalizacion.com/informatico-empresas-toledo/): Incidencias de ordenadores, correo, red e impresoras, en remoto o presencial.
+- [Mantenimiento informático](https://tallerdedigitalizacion.com/mantenimiento-informatico-toledo/): Revisiones periódicas, copias comprobadas y soporte con cuota mensual cerrada.
+- [Ciberseguridad y NIS2](https://tallerdedigitalizacion.com/ciberseguridad-empresas-toledo/): Auditoría, copias, protección de equipos, RGPD y adaptación a NIS2.
+- [Google Workspace y correo](https://tallerdedigitalizacion.com/google-workspace-empresas-toledo/): Correo con dominio propio, Drive compartido, permisos y migraciones.
+- [Reestructuración de Google Drive](https://tallerdedigitalizacion.com/reestructuracion-google-drive/): Una estructura de carpetas y permisos clara para encontrar cualquier documento en segundos.
+- [Gestión de contraseñas](https://tallerdedigitalizacion.com/gestor-contrasenas-empresas/): Salir del Excel y del WhatsApp: gestor de contraseñas y doble factor.
+- [Diseño web que genera clientes](https://tallerdedigitalizacion.com/diseno-web-toledo/): Webs rápidas, pensadas para captar contactos y fáciles de mantener.
+- [Rescate y mantenimiento de WordPress](https://tallerdedigitalizacion.com/mantenimiento-wordpress/): WordPress lento, hackeado o sin actualizar: revisión, limpieza y mantenimiento.
+- [Optimización de velocidad web](https://tallerdedigitalizacion.com/optimizacion-velocidad-web/): Acelerar la web sin rehacerla, verificado con Core Web Vitals.
+- [Informe gratuito de tu web](https://tallerdedigitalizacion.com/informe-gratuito-web/): Autoauditoría gratuita de velocidad, SEO básico, seguridad y captación de contactos.
+- [Funnel web para un producto](https://tallerdedigitalizacion.com/funnel-web/): Página de venta, captación y seguimiento automático para un producto o servicio.
+- [Diagnóstico de caos operativo](https://tallerdedigitalizacion.com/diagnostico-caos-operativo/): Auditoría de procesos para PyMEs que dependen demasiado del dueño.
+- [Diagnóstico de digitalización](https://tallerdedigitalizacion.com/diagnostico-digitalizacion/): Auditoría técnica y funcional de procesos con informe priorizado y plan de acción.
+- [Consultoría de digitalización](https://tallerdedigitalizacion.com/consultor-digitalizacion-toledo/): Qué cambiar, en qué orden y con qué herramientas.
+- [ERP y software de gestión](https://tallerdedigitalizacion.com/consultoria-erp-pymes/): Entender, ordenar o elegir el ERP sin volver a equivocarse.
+- [Integración de sistemas](https://tallerdedigitalizacion.com/integracion-sistemas/): Conectar CRM, ERP, facturación y correo para eliminar tareas manuales.
+- [Herramientas internas a medida](https://tallerdedigitalizacion.com/herramientas-internas-medida/): Paneles, portales y automatizaciones hechos para cómo trabaja tu equipo.
+- [Captación y seguimiento de leads](https://tallerdedigitalizacion.com/gestion-leads-crm/): Que ningún contacto se quede sin respuesta: CRM y automatizaciones.
+- [Agente de IA para atención al cliente](https://tallerdedigitalizacion.com/agente-ia-atencion-cliente/): Respuestas rápidas a dudas frecuentes, con traspaso a una persona.
+- [Asistente de IA con el conocimiento de la empresa](https://tallerdedigitalizacion.com/asistente-ia-empresa/): Que el equipo consulte procedimientos sin preguntar siempre al dueño.
+- [Informático en Fuensalida y Torrijos para empresas y autónomos](https://tallerdedigitalizacion.com/informatico-fuensalida-torrijos/): Informático en Fuensalida para empresas y autónomos de Torrijos, Novés, Portillo, Camarena, Méntrida y alrededores. Soporte cercano, en remoto o presencial.
+- [Informático para empresas en Illescas y La Sagra](https://tallerdedigitalizacion.com/informatico-illescas-la-sagra/): Informático para empresas y naves de Illescas, Yuncos, Seseña, Esquivias, Ugena y toda La Sagra: soporte, redes, mantenimiento y ciberseguridad, en remoto o presencial.
+- [Informático para empresas en Navalcarnero, Móstoles y el sur de Madrid](https://tallerdedigitalizacion.com/informatico-navalcarnero-mostoles/): Soporte informático, mantenimiento y ciberseguridad para PyMEs de Navalcarnero, Móstoles, Fuenlabrada, Alcorcón, Arroyomolinos y el sur de Madrid. Remoto y presencial.
+- [Website speed optimization (English)](https://tallerdedigitalizacion.com/website-speed-optimization/): the website speed service for English-speaking clients.
+
+## Zona de servicio presencial (municipios a menos de 50 km de Fuensalida)
+
+- Torrijos y comarca: Fuensalida, Torrijos, Portillo de Toledo, Novés, Camarena, Santa Cruz del Retamar, Huecas, Arcicóllar, Barcience, Villamiel de Toledo, Rielves, Gerindote, Val de Santo Domingo, Quismondo, Maqueda, Alcabón, Chozas de Canales, Las Ventas de Retamosa, Camarenilla, Carmena
+- Toledo y alrededores: Toledo, Bargas, Olías del Rey, Mocejón, Magán, Argés, Cobisa, Burguillos de Toledo, Nambroca, Polán, Guadamur, Layos, Albarreal de Tajo, Sonseca
+- La Sagra: Illescas, Yuncos, Seseña, Esquivias, Ugena, Carranque, El Viso de San Juan, Cedillo del Condado, Numancia de la Sagra, Villaluenga de la Sagra, Yuncler, Recas, Lominchar, Cabañas de la Sagra, Pantoja, Cobeja, Alameda de la Sagra, Añover de Tajo, Borox, Yeles, Villaseca de la Sagra
+- Alberche y Escalona: Escalona, Méntrida, Santa Olalla, Almorox, Casarrubios del Monte, Valmojado, La Torre de Esteban Hambrán, El Casar de Escalona, Nombela, Hormigos, Paredes de Escalona
+- Montalbán y Tajo: La Puebla de Montalbán, El Carpio de Tajo, Escalonilla, Burujón, Cebolla, Malpica de Tajo, Carriches, La Mata, Gálvez
+- Sur y oeste de Madrid: Navalcarnero, Móstoles, Fuenlabrada, Alcorcón, Parla, Getafe, Leganés, Arroyomolinos, Griñón, Humanes de Madrid, Moraleja de Enmedio, Torrejón de la Calzada, Torrejón de Velasco, Casarrubuelos, Cubas de la Sagra, Serranillos del Valle, Batres, El Álamo, Villaviciosa de Odón, Sevilla la Nueva, Brunete, Villanueva de la Cañada, Boadilla del Monte, Valdemoro, Pinto, Villa del Prado, Villamanta, Aldea del Fresno, San Martín de Valdeiglesias
 
 ## Cómo trabaja
 
 - Primera llamada gratuita de 30 minutos; si no hay encaje, lo dice.
 - Presupuesto cerrado antes de empezar.
+- Proceso: llamada, propuesta cerrada, implementación y mantenimiento.
 - Explicaciones sin tecnicismos y sin vender servicios innecesarios.
+
+## Blog
+
+- [¿Cuánto cuesta un informático para una PyME? Soporte puntual o mantenimiento](https://tallerdedigitalizacion.com/blog/cuanto-cuesta-informatico-empresa/): Cómo se cobra el soporte informático para empresas, qué debería incluir un mantenimiento y cómo decidir qué modelo te conviene, sin letra pequeña.
+- [¿Te afecta la NIS2? Guía práctica para PyMEs de Toledo y el sur de Madrid](https://tallerdedigitalizacion.com/blog/nis2-pymes-que-hacer/): Qué es la directiva NIS2, a qué empresas afecta directa o indirectamente y qué medidas conviene aplicar ya, explicado sin jerga para PyMEs.
 
 ## Legal
 
