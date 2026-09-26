@@ -9,6 +9,14 @@ export default defineConfig({
   site,
   base,
   output: "static",
+  // URLs publicadas entre junio y julio de 2026 que se sustituyeron por páginas nuevas.
+  redirects: {
+    "/auditoria-web": "/informe-gratuito-web/",
+    "/en/web-audit": "/free-website-report/",
+    "/agente-oraculo-ia-interno": "/asistente-ia-empresa/",
+    "/agente-soporte-cliente-ia": "/agente-ia-atencion-cliente/",
+    "/arranque-digital-negocios": "/diseno-web-toledo/",
+  },
   integrations: [
     sitemap({
       filter: (page) => !page.includes("/404") && !(normalizePath(new URL(page).pathname) in canonicalOverrides),
