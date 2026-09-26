@@ -120,21 +120,21 @@ public/downloads/metodo-auditoria-caos-operativo.pdf
 
 CDK lo empaqueta dentro de la Lambda en cada deploy. Si el archivo no existe, el email del método se envía sin adjunto.
 
-## GitHub Pages
+## Despliegue (GitHub Pages)
 
-El frontend sigue siendo estático. Para publicar:
+La web se publica sola con la GitHub Action `.github/workflows/deploy.yml`:
 
-```bash
-npm run build
-```
+- en cada push o merge a `main`,
+- cada mañana a las 07:00 (hora de verano), para publicar los artículos del blog programados,
+- o a mano desde la pestaña **Actions** → *Desplegar web* → *Run workflow*.
 
-Publica la carpeta `dist` o usa el flujo de GitHub Pages ya configurado. El dominio esperado es:
+Siempre se publica `main`, así que no despliegues a mano desde otras ramas. `npm run deploy` sigue existiendo como alternativa manual, pero solo debe usarse desde `main` actualizado.
 
-```text
-https://tallerdedigitalizacion.com
-```
+Dominio: `https://tallerdedigitalizacion.com` (archivo `public/CNAME`).
 
-Si publicas en una ruta de repositorio tipo `https://usuario.github.io/repositorio/`, añade `base` en `astro.config.mjs` y ajusta `siteConfig.publicUrl`.
+## Blog programado
+
+Los artículos están en `src/content/blog/*.md`. Solo se publican los que tienen `pubDate` igual o anterior a hoy; para programar uno, pon una fecha futura y haz merge a `main`: aparecerá solo ese día con el despliegue de la mañana.
 
 ## Contenido SEO
 

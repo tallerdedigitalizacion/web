@@ -1,0 +1,44 @@
+name: Desplegar web
+
+# Publica main en GitHub Pages (rama gh-pages):
+# - en cada push a main,
+# - cada mañana, para que salgan los artículos del blog programados para ese día,
+# - o a mano desde la pestaña Actions.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 5 * * *" # 07:00 en España (horario de verano), 06:00 en invierno
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          cname: tallerdedigitalizacion.com
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+          commit_message: "Despliegue automático"
