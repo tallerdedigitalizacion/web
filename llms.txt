@@ -9,7 +9,7 @@
 - Teléfono: +34 632 99 01 33
 - Email: info@tallerdedigitalizacion.com
 - Horario: Lunes a viernes, 10:00–16:00; Sábados, 10:00–14:00
-- Reservar llamada gratuita (30 min): https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call
+- Reservar llamada gratuita (15 min): https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call
 - Soporte remoto: AnyDesk (https://tallerdedigitalizacion.com/soporte-remoto/)
 - Reseñas en Google: https://maps.app.goo.gl/iJYaupqoL8usLB6X7
 - LinkedIn de Pablo Leone: https://www.linkedin.com/in/pabloleone/
@@ -52,7 +52,7 @@
 
 ## Cómo trabaja
 
-- Primera llamada gratuita de 30 minutos; si no hay encaje, lo dice.
+- Primera llamada gratuita de 15 minutos; si no hay encaje, lo dice.
 - Presupuesto cerrado antes de empezar.
 - Proceso: llamada, propuesta cerrada, implementación y mantenimiento.
 - Explicaciones sin tecnicismos y sin vender servicios innecesarios.
