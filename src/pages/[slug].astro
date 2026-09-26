@@ -1,16 +1,21 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { siteConfig } from "@/config/site";
+import TrustBar from "@/components/TrustBar.astro";
+import ContactForm from "@/components/ContactForm.astro";
 import { localPages, type LocalPage } from "@/data/localPages";
+import { productPages } from "@/data/productPages";
+import { serviceLabelFor } from "@/data/services";
 
 export function getStaticPaths() {
-  return localPages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+  return [...localPages, ...productPages].map((page) => ({ params: { slug: page.slug }, props: { page } }));
 }
 
 const { page } = Astro.props as { page: LocalPage };
 const path = `/${page.slug}/`;
 const pageUrl = new URL(path, siteConfig.publicUrl).toString();
 const businessId = `${siteConfig.publicUrl}/#business`;
+const formService = page.formService ?? serviceLabelFor(path) ?? "";
 
 const extraSchema = [
   {
@@ -36,6 +41,7 @@ const navItems = [
   ["Servicios", "#servicios"],
   ["Zona", "#zona"],
   ["FAQ", "#faq"],
+  ["Contacto", "#contacto"],
 ];
 ---
 
@@ -47,10 +53,12 @@ const navItems = [
       <p class="hero-subtitle">{page.intro}</p>
       <div class="hero-actions">
         <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
-        <a class="btn btn-secondary" data-event="telefono_click" href={`tel:${siteConfig.phone}`}>Llamar al {siteConfig.phoneDisplay}</a>
+        <a class="btn btn-secondary" href="#contacto">Escribirme</a>
       </div>
     </div>
   </section>
+
+  <TrustBar />
 
   <section class="section section-split">
     <div>
@@ -89,7 +97,7 @@ const navItems = [
       <span class="eyebrow">Proceso</span>
       <h2>{page.approachTitle}</h2>
     </div>
-    <div class="steps">
+    <div class={page.approach.length === 4 ? "steps steps-4" : "steps"}>
       {page.approach.map(([name, text], index) => (
         <article>
           <span class="step-number">{index + 1}</span>
@@ -112,12 +120,5 @@ const navItems = [
     </div>
   </section>
 
-  <section class="section final-cta">
-    <h2>{page.finalCta}</h2>
-    <div class="hero-actions">
-      <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
-      <a class="btn btn-secondary" data-event="telefono_click" href={`tel:${siteConfig.phone}`}>Llamar al {siteConfig.phoneDisplay}</a>
-    </div>
-    <p>{siteConfig.name} · {siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} (Toledo)</p>
-  </section>
+  <ContactForm selectedService={formService} title={page.finalCta} />
 </BaseLayout>

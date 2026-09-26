@@ -1,17 +1,15 @@
 ---
 import { siteConfig } from "@/config/site";
+import { serviceCatalog } from "@/data/services";
 import { withBase } from "@/utils/paths";
 
 const { lang = "es" } = Astro.props;
 const isEnglish = lang === "en";
-const serviceLinks = [
-  ["Inicio", "/"],
-  ["Diagnóstico de caos operativo", "/diagnostico-caos-operativo/"],
-  ["Optimización de velocidad web", "/optimizacion-velocidad-web/"],
-  ["Informático en Toledo", "/informatico-empresas-toledo/"],
-  ["Mantenimiento informático", "/mantenimiento-informatico-toledo/"],
-  ["Informático en Fuensalida y Torrijos", "/informatico-fuensalida-torrijos/"],
-  ["Consultor de digitalización", "/consultor-digitalizacion-toledo/"],
+const zoneLinks = [
+  ["Fuensalida y Torrijos", "/informatico-fuensalida-torrijos/"],
+  ["Toledo", "/informatico-empresas-toledo/"],
+  ["Illescas y La Sagra", "/informatico-illescas-la-sagra/"],
+  ["Navalcarnero y sur de Madrid", "/informatico-navalcarnero-mostoles/"],
 ];
 ---
 
@@ -24,17 +22,28 @@ const serviceLinks = [
       {!isEnglish && (
         <address>
           {siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} ({siteConfig.address.addressRegion})<br />
-          <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+          <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a><br />
+          {siteConfig.openingHours.map((h) => h.label).join(" · ")}
         </address>
       )}
     </div>
   </div>
   {!isEnglish && (
-    <nav aria-label="Servicios">
-      {serviceLinks.map(([label, href]) => <a href={withBase(href)}>{label}</a>)}
-    </nav>
+    <div class="footer-columns">
+      <nav aria-label="Servicios">
+        <strong>Servicios</strong>
+        {serviceCatalog.map((service) => <a href={withBase(service.href)}>{service.label}</a>)}
+      </nav>
+      <nav aria-label="Zonas">
+        <strong>Zonas</strong>
+        {zoneLinks.map(([label, href]) => <a href={withBase(href)}>{label}</a>)}
+        <strong>Clientes</strong>
+        <a href={withBase("/soporte-remoto/")}>Soporte remoto (AnyDesk)</a>
+        <a href={withBase("/blog/")}>Blog</a>
+      </nav>
+    </div>
   )}
-  <nav aria-label={isEnglish ? "Footer links" : "Enlaces de pie de página"}>
+  <nav class="footer-legal" aria-label={isEnglish ? "Footer links" : "Enlaces de pie de página"}>
     <a data-event="click_linktree" href={siteConfig.linktreeUrl} target="_blank" rel="noreferrer">{isEnglish ? "Link hub" : "Ver hub de enlaces"}</a>
     <a href={withBase("/aviso-legal")}>{isEnglish ? "Legal notice" : "Aviso legal"}</a>
     <a href={withBase("/politica-privacidad")}>{isEnglish ? "Privacy policy" : "Política de privacidad"}</a>

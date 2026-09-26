@@ -1,10 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import TrustBar from "@/components/TrustBar.astro";
+import ContactForm from "@/components/ContactForm.astro";
 import { siteConfig } from "@/config/site";
 import { reviews } from "@/data/reviews";
+import { serviceCatalog } from "@/data/services";
 
 const title = "Informático para empresas y digitalización en Toledo | Taller de Digitalización";
-const description = "Soporte informático, webs y digitalización para PyMEs en Toledo, Torrijos, Illescas y a 50 km de Fuensalida. Presencial o en remoto. Primera llamada gratis.";
+const description = "Soporte informático, ciberseguridad, webs y digitalización para PyMEs en Toledo, Torrijos, Illescas y a 50 km de Fuensalida. Presencial o en remoto. Primera llamada gratis.";
 
 const products = [
   {
@@ -15,43 +18,30 @@ const products = [
     cta: "Ver diagnóstico operativo",
   },
   {
-    eyebrow: "Velocidad web",
-    title: "Optimización de velocidad web",
-    text: "Para webs lentas que pierden visitas, posicionamiento en Google y contactos antes de que el cliente vea la oferta. Sin rehacer la web.",
-    href: "/optimizacion-velocidad-web/",
-    cta: "Ver optimización de velocidad",
+    eyebrow: "Informática",
+    title: "Soporte y mantenimiento informático",
+    text: "Ordenadores, correo, red, copias de seguridad y ciberseguridad. En remoto el mismo día o en tu empresa cuando hace falta, con mantenimiento para que no se repitan los sustos.",
+    href: "/informatico-empresas-toledo/",
+    cta: "Ver soporte informático",
   },
 ];
 
-const services = [
-  ["Soporte informático para empresas", "Ordenadores, correo, impresoras, red y copias de seguridad. Resolución en remoto en el día y visita presencial cuando hace falta."],
-  ["Mantenimiento informático", "Revisión periódica de equipos, actualizaciones, antivirus y copias para que los problemas no aparezcan el peor día."],
-  ["Google Workspace y correo profesional", "Lo pagas pero no lo aprovechas: configuración de correo, Drive compartido, calendarios, permisos y migraciones."],
-  ["Contraseñas y seguridad", "Salir del documento de contraseñas y del WhatsApp: gestor de contraseñas, doble factor y accesos por persona."],
-  ["Webs que generan contactos", "Webs rápidas y pensadas para captar clientes, no solo para \"estar\". También revisión y rescate de WordPress."],
-  ["Automatización e IA", "Tareas repetidas, atención al cliente y seguimiento de leads con automatizaciones y agentes de IA bien acotados."],
-];
+const serviceGroups = ["Informática", "Web", "Procesos e IA"] as const;
 
 const steps = [
   ["Llamada gratuita de 30 minutos", "Me cuentas qué pasa. Si no veo cómo ayudarte, te lo digo."],
   ["Propuesta cerrada", "Qué hay que hacer, en qué orden y cuánto cuesta. Sin letra pequeña."],
-  ["Trabajo y seguimiento", "En remoto o en tu empresa. Te explico lo que he hecho en lenguaje normal."],
+  ["Implementación", "En remoto o en tu empresa. Te explico lo que he hecho en lenguaje normal."],
+  ["Mantenimiento", "Revisiones, actualizaciones y soporte continuo para que todo siga funcionando y no vuelvan los problemas."],
 ];
 
 const faqs: [string, string][] = [
-  ["¿Dónde trabajas?", `Tengo base en Fuensalida (Toledo) y trabajo de forma presencial en un radio de ${siteConfig.serviceRadiusKm} km: Toledo, Torrijos, Illescas, Yuncos, Seseña, Méntrida, Escalona, Navalcarnero, Móstoles, Fuenlabrada y alrededores. En remoto, con empresas de toda España.`],
+  ["¿Dónde trabajas?", `Tengo base en Fuensalida (Toledo) y trabajo de forma presencial en un radio de ${siteConfig.serviceRadiusKm} km: Torrijos y su comarca, Toledo, La Sagra (Illescas, Yuncos, Seseña), Escalona y el Alberche, La Puebla de Montalbán y el sur y oeste de Madrid (Navalcarnero, Móstoles, Fuenlabrada, Alcorcón, Parla, Getafe). En remoto, con empresas de toda España.`],
   ["¿Atiendes a particulares o solo a empresas?", "Mi trabajo está pensado para empresas, autónomos y PyMEs: equipos, correo, web, herramientas y procesos del negocio."],
   ["¿Cuánto cuesta un informático para mi empresa?", "Depende de lo que haya que resolver. La primera llamada es gratuita y después te paso un presupuesto cerrado antes de empezar, sin sorpresas."],
-  ["¿Puedes resolver problemas en remoto?", "Sí. La mayoría de incidencias de software, correo, cuentas y web se resuelven en remoto el mismo día. Si hace falta tocar hardware o red, voy a tu empresa."],
+  ["¿Puedes resolver problemas en remoto?", "Sí. Con AnyDesk me conecto a tu equipo con tu permiso y la mayoría de incidencias de software, correo, cuentas y web se resuelven en el momento. Si hace falta tocar hardware o red, voy a tu empresa."],
+  ["¿Me ayudas a cumplir la NIS2 y el RGPD?", "Sí. Reviso la situación de la empresa, priorizo las medidas técnicas y organizativas, y te acompaño en la documentación y la implantación. También si eres proveedor de una empresa que te exige cumplir NIS2."],
   ["¿Qué diferencia hay entre soporte informático y el diagnóstico de caos operativo?", "El soporte resuelve incidencias técnicas concretas. El diagnóstico mira cómo funciona la empresa entera: procesos, herramientas y dependencia del dueño, para decidir qué ordenar, automatizar o cambiar."],
-  ["¿Trabajas con WordPress y Google Workspace?", "Sí. Configuro y rescato WordPress, optimizo su velocidad y pongo en orden Google Workspace: correo, Drive, permisos y seguridad."],
-];
-
-const localLinks = [
-  ["Informático para empresas en Toledo", "/informatico-empresas-toledo/"],
-  ["Mantenimiento informático en Toledo", "/mantenimiento-informatico-toledo/"],
-  ["Informático en Fuensalida y Torrijos", "/informatico-fuensalida-torrijos/"],
-  ["Consultor de digitalización en Toledo", "/consultor-digitalizacion-toledo/"],
 ];
 
 const featuredReviews = reviews.slice(0, 3);
@@ -62,19 +52,21 @@ const featuredReviews = reviews.slice(0, 3);
   description={description}
   canonicalPath="/"
   faq={faqs}
-  headerNavItems={[["Servicios", "#servicios"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"]]}
+  headerNavItems={[["Servicios", "#servicios"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"], ["Contacto", "#contacto"]]}
 >
   <section class="hero home-hero">
     <div class="hero-content">
       <span class="eyebrow">Informático y digitalización · Toledo</span>
       <h1>Informático para empresas y digitalización de PyMEs en Toledo.</h1>
-      <p class="hero-subtitle">Soporte informático, webs y orden digital para empresas de Fuensalida, Torrijos, Toledo, La Sagra y el sur de Madrid. Presencial en {siteConfig.serviceRadiusKm} km o en remoto. Sin tecnicismos y sin venderte lo que no necesitas.</p>
+      <p class="hero-subtitle">Soporte informático, ciberseguridad, webs y orden digital para empresas de Fuensalida, Torrijos, Toledo, La Sagra y el sur de Madrid. {siteConfig.experienceYears} años resolviendo problemas técnicos, presencial en {siteConfig.serviceRadiusKm} km o en remoto. Sin tecnicismos y sin venderte lo que no necesitas.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
-        <a class="btn btn-secondary" data-event="telefono_click" href={`tel:${siteConfig.phone}`}>Llamar al {siteConfig.phoneDisplay}</a>
+        <a class="btn btn-secondary" href="#contacto">Escribirme</a>
       </div>
     </div>
   </section>
+
+  <TrustBar />
 
   <section id="servicios" class="section">
     <div class="section-head">
@@ -95,46 +87,48 @@ const featuredReviews = reviews.slice(0, 3);
   </section>
 
   <section class="section section-accent">
+    {serviceGroups.map((group) => (
+      <div class="service-group">
+        <div class="section-head"><span class="eyebrow">{group}</span></div>
+        <div class="link-grid">
+          {serviceCatalog.filter((service) => service.group === group).map((service) => (
+            <a href={service.href}><strong>{service.label}</strong><span>{service.summary}</span></a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section id="zona" class="section">
     <div class="section-head">
-      <span class="eyebrow">Soporte y digitalización</span>
-      <h2>Informática del día a día, bien hecha.</h2>
+      <span class="eyebrow">Zona de trabajo</span>
+      <h2>Informático en Fuensalida, Torrijos, Toledo y a {siteConfig.serviceRadiusKm} km a la redonda.</h2>
+      <p>Trabajo de forma presencial en los municipios a menos de {siteConfig.serviceRadiusKm} km de Fuensalida y en remoto con cualquier empresa de España. Si tu empresa está en la zona, puedo ir a veros; si no, casi todo se puede resolver a distancia.</p>
+      <p><strong>{siteConfig.name}</strong> · {siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} ({siteConfig.address.addressRegion}) · {siteConfig.openingHours.map((h) => h.label).join(" · ")}</p>
     </div>
-    <div class="steps">
-      {services.map(([name, text]) => (
+    <div class="region-grid">
+      {siteConfig.serviceRegions.map((region) => (
         <article>
-          <h3>{name}</h3>
-          <p>{text}</p>
+          <h3>{region.name}</h3>
+          <p>{region.towns.join(", ")}.</p>
         </article>
       ))}
     </div>
-  </section>
-
-  <section id="zona" class="section section-split">
-    <div>
-      <span class="eyebrow">Zona de trabajo</span>
-      <h2>Informático en Fuensalida, Torrijos, Toledo y alrededores.</h2>
-      <p>Trabajo de forma presencial en un radio de {siteConfig.serviceRadiusKm} km alrededor de Fuensalida y en remoto con cualquier empresa de España. Si tu empresa está en la zona, puedo ir a veros; si no, casi todo se puede resolver a distancia.</p>
-      <p><strong>{siteConfig.name}</strong><br />{siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} ({siteConfig.address.addressRegion})<br /><a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a><br />{siteConfig.openingHours.map((h) => h.label).join(" · ")}</p>
-    </div>
-    <div class="tag-grid area-grid">
-      {siteConfig.serviceAreas.map((area) => <span>{area}</span>)}
+    <div class="hero-actions">
+      <a class="btn btn-secondary btn-small" href="/informatico-fuensalida-torrijos/">Fuensalida y Torrijos</a>
+      <a class="btn btn-secondary btn-small" href="/informatico-empresas-toledo/">Toledo</a>
+      <a class="btn btn-secondary btn-small" href="/informatico-illescas-la-sagra/">Illescas y La Sagra</a>
+      <a class="btn btn-secondary btn-small" href="/informatico-navalcarnero-mostoles/">Navalcarnero y sur de Madrid</a>
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-head"><span class="eyebrow">Servicios por zona</span><h2>Encuentra el servicio que buscas.</h2></div>
-    <div class="tag-grid">
-      {localLinks.map(([label, href]) => <a class="btn btn-secondary" href={href}>{label}</a>)}
-    </div>
-  </section>
-
-  <section id="como-trabajo" class="section">
+  <section id="como-trabajo" class="section section-accent">
     <div class="section-head">
       <span class="eyebrow">Cómo trabajo</span>
-      <h2>Tres pasos, sin vueltas.</h2>
-      <p>Más de 15 años desarrollando software y resolviendo problemas técnicos para empresas. Te atiende una persona real, no una agencia que te deriva.</p>
+      <h2>Cuatro pasos, sin vueltas.</h2>
+      <p>{siteConfig.experienceYears} años desarrollando software y resolviendo problemas técnicos para empresas. Te atiende una persona real, no una agencia que te deriva.</p>
     </div>
-    <div class="steps">
+    <div class="steps steps-4">
       {steps.map(([name, text], index) => (
         <article>
           <span class="step-number">{index + 1}</span>
@@ -145,7 +139,7 @@ const featuredReviews = reviews.slice(0, 3);
     </div>
   </section>
 
-  <section class="section section-accent">
+  <section class="section">
     <div class="section-head">
       <span class="eyebrow">Reseñas</span>
       <h2>Lo que dicen los clientes.</h2>
@@ -167,12 +161,5 @@ const featuredReviews = reviews.slice(0, 3);
     <div class="faq-list">{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
   </section>
 
-  <section class="section final-cta">
-    <h2>¿Tienes un problema informático o la empresa se te hace cuesta arriba? Hablemos 30 minutos.</h2>
-    <div class="hero-actions">
-      <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
-      <a class="btn btn-secondary" data-event="telefono_click" href={`tel:${siteConfig.phone}`}>Llamar al {siteConfig.phoneDisplay}</a>
-    </div>
-    <p>Sin compromiso. Si no veo cómo ayudarte, te lo diré.</p>
-  </section>
+  <ContactForm />
 </BaseLayout>

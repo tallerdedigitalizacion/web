@@ -42,6 +42,7 @@ Endpoints:
 
 - `POST /lead/diagnostic`: guarda lead, respuestas del wizard, score e interpretación; envía el diagnóstico por email.
 - `POST /lead/method`: guarda lead y envía el método completo por email con adjunto si existe el PDF.
+- `POST /lead/contact`: guarda la consulta del formulario de contacto (con el servicio de interés), envía confirmación al lead y aviso a `NOTIFY_EMAIL`.
 - `GET /health`: comprobación simple de API.
 
 Código:
@@ -135,6 +136,13 @@ https://tallerdedigitalizacion.com
 
 Si publicas en una ruta de repositorio tipo `https://usuario.github.io/repositorio/`, añade `base` en `astro.config.mjs` y ajusta `siteConfig.publicUrl`.
 
+## Contenido SEO
+
+- Páginas de servicio y zona: `src/data/localPages.ts` y `src/data/productPages.ts` (una página por objeto, ruta `src/pages/[slug].astro`).
+- Catálogo de servicios (formulario, footer, llms.txt): `src/data/services.ts`.
+- Blog: `src/content/blog/*.md`.
+- `llms.txt` y el sitemap se generan en cada build.
+
 ## Analítica y cookies
 
 Google Analytics no se carga hasta que el usuario acepta cookies analíticas. Los eventos preparados incluyen:
@@ -146,6 +154,8 @@ Google Analytics no se carga hasta que el usuario acepta cookies analíticas. Lo
 - `finalizacion_autoevaluacion`
 - `descarga_diagnostico`
 - `descarga_metodo`
+- `formulario_contacto`
+- `descarga_anydesk`
 - `aceptacion_cookies`
 - `rechazo_cookies`
 

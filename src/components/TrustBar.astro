@@ -1,0 +1,29 @@
+---
+import { siteConfig } from "@/config/site";
+
+const items = [
+  [`${siteConfig.experienceYears} años`, "resolviendo problemas técnicos"],
+  ["Cientos", "de clientes atendidos"],
+  ["5,0 ★", "en reseñas de Google"],
+  ["Certificado", "como desarrollador de software"],
+];
+---
+
+<section class="section trust-bar" aria-label="Por qué confiar en Taller de Digitalización">
+  <div class="trust-grid">
+    {items.map(([value, label]) => (
+      <div>
+        <strong>{value}</strong>
+        <span>{label}</span>
+      </div>
+    ))}
+  </div>
+  <div class="trust-remote">
+    <div>
+      <strong>¿Ya eres cliente y necesitas soporte remoto?</strong>
+      <span>Descarga AnyDesk, ábrelo y dime el número que aparece en pantalla.</span>
+    </div>
+    <a class="btn btn-secondary btn-small" data-event="descarga_anydesk" href={siteConfig.anydeskUrl} target="_blank" rel="noreferrer">Descargar AnyDesk</a>
+    <a class="btn btn-secondary btn-small" href="/soporte-remoto/">Cómo funciona</a>
+  </div>
+</section>

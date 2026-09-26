@@ -1,0 +1,101 @@
+---
+import { siteConfig } from "@/config/site";
+import { serviceLabels } from "@/data/services";
+import { withBase } from "@/utils/paths";
+
+const {
+  selectedService = "",
+  title = "Cuéntame qué necesitas",
+  intro = "Elige el servicio, escribe dos líneas y te respondo en horario laboral. Si lo prefieres, reserva directamente una llamada gratuita.",
+} = Astro.props;
+---
+
+<section id="contacto" class="section section-split contact-section">
+  <div>
+    <span class="eyebrow">Contacto</span>
+    <h2>{title}</h2>
+    <p>{intro}</p>
+    <p class="microcopy">
+      {siteConfig.openingHours.map((h) => h.label).join(" · ")}<br />
+      <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> · <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a>
+    </p>
+    <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
+  </div>
+  <form class="compact-form contact-form" data-contact-form action={siteConfig.formEndpoint} method="post" novalidate>
+    <label>Servicio de interés
+      <select required name="servicio">
+        <option value="" disabled selected={!selectedService}>Selecciona un servicio…</option>
+        {serviceLabels.map((label) => <option value={label} selected={label === selectedService}>{label}</option>)}
+      </select>
+    </label>
+    <div class="form-grid">
+      <label>Nombre<input required name="nombre" autocomplete="name" /></label>
+      <label>Email<input required type="email" name="email" autocomplete="email" /></label>
+      <label>Empresa<input name="empresa" autocomplete="organization" /><small>Opcional.</small></label>
+      <label>Teléfono<input type="tel" name="telefono" autocomplete="tel" /><small>Opcional, si prefieres que te llame.</small></label>
+    </div>
+    <label>¿Qué pasa o qué necesitas?<textarea required name="mensaje" rows="4" minlength="5" maxlength="2000"></textarea></label>
+    <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")}>política de privacidad</a>.</span></label>
+    <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
+    <input type="hidden" name="started_at" data-started-at />
+    <button class="btn btn-primary" type="submit">Enviar consulta</button>
+    <p class="form-help" data-contact-status aria-live="polite"></p>
+  </form>
+</section>
+
+<script define:vars={{ formEndpoint: siteConfig.formEndpoint }}>
+  document.querySelectorAll("[data-contact-form]").forEach((form) => {
+    if (!(form instanceof HTMLFormElement)) return;
+    const status = form.querySelector("[data-contact-status]");
+    const startedAt = form.querySelector("[data-started-at]");
+    if (startedAt instanceof HTMLInputElement) startedAt.value = String(Date.now());
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const button = form.querySelector('button[type="submit"]');
+      const data = new FormData(form);
+      const service = String(data.get("servicio") || "");
+      const setStatus = (message) => {
+        if (status instanceof HTMLElement) status.textContent = message;
+      };
+
+      if (button instanceof HTMLButtonElement) button.disabled = true;
+      setStatus("Enviando…");
+      try {
+        const baseUrl = String(formEndpoint || "").replace(/\/$/, "");
+        const response = await fetch(`${baseUrl}/lead/contact`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            service,
+            name: String(data.get("nombre") || ""),
+            email: String(data.get("email") || ""),
+            company: String(data.get("empresa") || ""),
+            phone: String(data.get("telefono") || ""),
+            message: String(data.get("mensaje") || ""),
+            privacyAccepted: data.get("privacidad") === "on",
+            marketingAccepted: false,
+            website: String(data.get("website") || ""),
+            startedAt: Number(data.get("started_at") || Date.now()),
+            pageUrl: window.location.href,
+            userAgent: navigator.userAgent,
+          }),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || result.ok === false) throw new Error(result.error || "No se pudo enviar el mensaje.");
+        form.reset();
+        if (startedAt instanceof HTMLInputElement) startedAt.value = String(Date.now());
+        setStatus("¡Recibido! Te respondo lo antes posible. Revisa tu email: te he enviado una confirmación.");
+        window.tdTrackEvent?.("formulario_contacto", { servicio: service, page_path: window.location.pathname });
+      } catch (error) {
+        setStatus(`No se pudo enviar: ${error instanceof Error ? error.message : "error desconocido"}. Escríbeme a info@tallerdedigitalizacion.com.`);
+      } finally {
+        if (button instanceof HTMLButtonElement) button.disabled = false;
+      }
+    });
+  });
+</script>

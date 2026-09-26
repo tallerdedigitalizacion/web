@@ -1,0 +1,54 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+
+const title = "Soporte informático remoto con AnyDesk | Taller de Digitalización";
+const description = "Cómo conectarte al soporte remoto de Taller de Digitalización: descarga AnyDesk, ábrelo y dime tu número. Conexión segura, solo con tu permiso.";
+
+const steps = [
+  ["Descarga AnyDesk", "Desde la web oficial de AnyDesk. En Windows no hace falta instalarlo: basta con abrir el archivo descargado."],
+  ["Ábrelo y busca tu número", "En la pantalla principal aparece \"Tu dirección\", un número de 9 o 10 cifras."],
+  ["Dime ese número", "Por teléfono, email o WhatsApp. Te llegará una solicitud de conexión."],
+  ["Acepta la conexión", "Solo cuando aceptes podré ver tu pantalla. Puedes cortar la conexión en cualquier momento."],
+];
+
+const faqs: [string, string][] = [
+  ["¿Es seguro el soporte remoto?", "Sí. La conexión está cifrada y solo se establece cuando tú la aceptas. Ves en todo momento lo que hago y puedes cerrarla cuando quieras."],
+  ["¿Tengo que dejar AnyDesk instalado?", "No es necesario. Para un soporte puntual basta con abrirlo. Si tienes mantenimiento conmigo, podemos dejar un acceso configurado de forma segura."],
+  ["¿Funciona en Mac?", "Sí. En Mac tendrás que dar permisos de grabación de pantalla y accesibilidad la primera vez; te guío por teléfono."],
+  ["¿Qué problemas se pueden resolver en remoto?", "La mayoría de problemas de software, correo, cuentas, impresoras en red, programas y configuración. Para hardware o cableado hace falta visita."],
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/soporte-remoto" faq={faqs} headerNavItems={[["Pasos", "#pasos"], ["FAQ", "#faq"]]}>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">Soporte remoto</span>
+      <h1>Soporte informático remoto con AnyDesk.</h1>
+      <p class="hero-subtitle">La forma más rápida de resolver un problema: te conectas conmigo y lo vemos juntos en tu pantalla, sin esperar a una visita.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" data-event="descarga_anydesk" href={siteConfig.anydeskUrl} target="_blank" rel="noreferrer">Descargar AnyDesk</a>
+        <a class="btn btn-secondary" data-event="telefono_click" href={`tel:${siteConfig.phone}`}>Llamar al {siteConfig.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="pasos" class="section section-accent">
+    <div class="section-head"><span class="eyebrow">Cómo funciona</span><h2>Cuatro pasos y estamos conectados.</h2></div>
+    <div class="steps steps-4">
+      {steps.map(([name, text], index) => (
+        <article>
+          <span class="step-number">{index + 1}</span>
+          <h3>{name}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+    <p class="microcopy">Horario de soporte: {siteConfig.openingHours.map((h) => h.label).join(" · ")}.</p>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>Dudas sobre el soporte remoto</h2></div>
+    <div class="faq-list">{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+  </section>
+</BaseLayout>

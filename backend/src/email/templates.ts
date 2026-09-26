@@ -1,5 +1,5 @@
 import { assessmentAreas } from "../assessment";
-import type { DiagnosticLeadInput, MethodLeadInput } from "../schemas";
+import type { ContactLeadInput, DiagnosticLeadInput, MethodLeadInput } from "../schemas";
 import type { scoreAssessment } from "../assessment";
 
 type DiagnosticScore = ReturnType<typeof scoreAssessment>;
@@ -62,9 +62,42 @@ export function methodEmail(input: MethodLeadInput, siteUrl: string) {
   };
 }
 
-export function notificationEmail(action: "diagnostic" | "method", input: DiagnosticLeadInput | MethodLeadInput, extra = "") {
+export function contactEmail(input: ContactLeadInput, bookingUrl: string) {
   return {
-    subject: `Nuevo lead: ${action === "diagnostic" ? "diagnóstico" : "método"} - ${input.email}`,
+    subject: `Hemos recibido tu consulta: ${input.service}`,
+    text: [
+      `Hola ${input.name},`,
+      "",
+      `Gracias por escribir. He recibido tu consulta sobre "${input.service}" y te responderé lo antes posible en horario de lunes a viernes de 10:00 a 16:00.`,
+      "",
+      "Tu mensaje:",
+      input.message,
+      "",
+      `Si prefieres, puedes reservar directamente una llamada gratuita de 30 minutos: ${bookingUrl}`,
+      "",
+      "Pablo Leone · Taller de Digitalización",
+    ].join("\n"),
+    html: `
+      <p>Hola ${escapeHtml(input.name)},</p>
+      <p>Gracias por escribir. He recibido tu consulta sobre <strong>${escapeHtml(input.service)}</strong> y te responderé lo antes posible en horario de lunes a viernes de 10:00 a 16:00.</p>
+      <p><strong>Tu mensaje:</strong></p>
+      <blockquote>${escapeHtml(input.message).replace(/\n/g, "<br />")}</blockquote>
+      <p>Si prefieres, puedes <a href="${bookingUrl}">reservar directamente una llamada gratuita de 30 minutos</a>.</p>
+      <p>Pablo Leone · Taller de Digitalización</p>
+    `,
+  };
+}
+
+const actionLabels = { diagnostic: "diagnóstico", method: "método", contact: "contacto" } as const;
+
+export function notificationEmail(
+  action: keyof typeof actionLabels,
+  input: DiagnosticLeadInput | MethodLeadInput | ContactLeadInput,
+  extra = "",
+) {
+  const contact = "service" in input ? input : undefined;
+  return {
+    subject: `Nuevo lead: ${contact ? contact.service : actionLabels[action]} - ${input.email}`,
     text: [
       `Acción: ${action}`,
       `Nombre: ${input.name}`,
@@ -72,6 +105,7 @@ export function notificationEmail(action: "diagnostic" | "method", input: Diagno
       `Empresa: ${input.company || "-"}`,
       `Cargo: ${input.role || "-"}`,
       `Marketing: ${input.marketingAccepted ? "sí" : "no"}`,
+      ...(contact ? [`Servicio: ${contact.service}`, `Teléfono: ${contact.phone || "-"}`, `Página: ${contact.pageUrl || "-"}`, "", contact.message] : []),
       extra,
     ].join("\n"),
     html: `
@@ -83,7 +117,15 @@ export function notificationEmail(action: "diagnostic" | "method", input: Diagno
         <li><strong>Empresa:</strong> ${escapeHtml(input.company || "-")}</li>
         <li><strong>Cargo:</strong> ${escapeHtml(input.role || "-")}</li>
         <li><strong>Marketing:</strong> ${input.marketingAccepted ? "sí" : "no"}</li>
+        ${
+          contact
+            ? `<li><strong>Servicio:</strong> ${escapeHtml(contact.service)}</li>
+        <li><strong>Teléfono:</strong> ${escapeHtml(contact.phone || "-")}</li>
+        <li><strong>Página:</strong> ${escapeHtml(contact.pageUrl || "-")}</li>`
+            : ""
+        }
       </ul>
+      ${contact ? `<p>${escapeHtml(contact.message).replace(/\n/g, "<br />")}</p>` : ""}
       ${extra ? `<pre>${escapeHtml(extra)}</pre>` : ""}
     `,
   };
