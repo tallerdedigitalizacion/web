@@ -48,7 +48,7 @@ import LegalPage from "@/components/LegalPage.astro";
     <p>Entre estos servicios pueden estar:</p>
     <ul>
       <li>Google Analytics, para analítica web.</li>
-      <li>Calendly, para la reserva de llamadas.</li>
+      <li>Cal.com, para la reserva de llamadas.</li>
       <li>Chatbase, para el chatbot o asistente automatizado.</li>
       <li>WhatsApp, para facilitar el contacto directo.</li>
       <li>Linktree, como hub externo de enlaces.</li>
@@ -72,34 +72,28 @@ import LegalPage from "@/components/LegalPage.astro";
         </thead>
         <tbody>
           <tr>
-            <td>Taller de Digitalización</td>
-            <td>Técnica</td>
-            <td>Funcionamiento básico del sitio, preferencias o gestión de formularios</td>
-            <td>Variable</td>
+            <td>Taller de Digitalización (<code>td_cookie_consent</code>, almacenamiento local)</td>
+            <td>Técnica (necesaria)</td>
+            <td>Recordar tu elección sobre cookies</td>
+            <td>12 meses; después se vuelve a preguntar</td>
           </tr>
           <tr>
-            <td>Google Analytics</td>
-            <td>Analítica</td>
-            <td>Medición de visitas, eventos y comportamiento de navegación</td>
-            <td>Variable según configuración</td>
-          </tr>
-          <tr>
-            <td>Calendly</td>
-            <td>Terceros</td>
-            <td>Gestión de reservas de llamadas</td>
-            <td>Según política de Calendly</td>
+            <td>Google Analytics (<code>_ga</code>, <code>_ga_*</code>)</td>
+            <td>Analítica (requiere consentimiento)</td>
+            <td>Medición anónima de visitas, eventos y comportamiento de navegación</td>
+            <td>Hasta 2 años</td>
           </tr>
           <tr>
             <td>Chatbase</td>
-            <td>Terceros</td>
-            <td>Funcionamiento del chatbot y análisis de interacciones</td>
+            <td>Terceros (requiere consentimiento)</td>
+            <td>Funcionamiento del chat de ayuda y análisis de interacciones</td>
             <td>Según política de Chatbase</td>
           </tr>
           <tr>
-            <td>WhatsApp</td>
-            <td>Terceros</td>
-            <td>Contacto mediante mensajería externa</td>
-            <td>Según política de WhatsApp</td>
+            <td>Cal.com</td>
+            <td>Terceros (solo al abrir su página de reservas)</td>
+            <td>Gestión de reservas de llamadas</td>
+            <td>Según política de Cal.com</td>
           </tr>
           <tr>
             <td>Linktree</td>
@@ -122,17 +116,18 @@ import LegalPage from "@/components/LegalPage.astro";
   </section>
 
   <section>
-    <h2>6. Calendly</h2>
-    <p>Este sitio web puede enlazar o integrar Calendly para permitir la reserva de llamadas gratuitas de 30 minutos.</p>
-    <p>Cuando el usuario utiliza Calendly, puede introducir datos como nombre, email, empresa, cargo, disponibilidad, comentarios u otra información necesaria para gestionar la reunión.</p>
-    <p>Calendly puede utilizar cookies propias y de terceros para prestar su servicio, recordar preferencias, gestionar sesiones o analizar el uso de su plataforma.</p>
-    <p>El uso de Calendly se rige también por sus propias condiciones y política de privacidad.</p>
+    <h2>6. Cal.com</h2>
+    <p>Este sitio web enlaza a Cal.com para permitir la reserva de llamadas gratuitas de 15 minutos. Cal.com no se carga dentro de esta web: solo se abre su página cuando el usuario pulsa un botón de reserva.</p>
+    <p>Cuando el usuario utiliza Cal.com, puede introducir datos como nombre, email, empresa, disponibilidad, comentarios u otra información necesaria para gestionar la reunión.</p>
+    <p>Cal.com puede utilizar cookies propias y de terceros para prestar su servicio, recordar preferencias, gestionar sesiones o analizar el uso de su plataforma.</p>
+    <p>El uso de Cal.com se rige también por sus propias condiciones y política de privacidad.</p>
   </section>
 
   <section>
     <h2>7. Chatbase</h2>
     <p>Este sitio web utiliza Chatbase como chatbot o asistente automatizado.</p>
     <p>Chatbase puede utilizar cookies o tecnologías similares para permitir el funcionamiento del chatbot, mantener conversaciones, analizar interacciones o mejorar el servicio.</p>
+    <p>El chat solo se carga si el usuario acepta la categoría "Chat de ayuda" en el panel de cookies.</p>
     <p>El usuario debe evitar introducir en el chatbot información sensible, confidencial, credenciales, secretos empresariales, datos de terceros o información innecesaria.</p>
     <p>El uso de Chatbase se rige también por sus propias condiciones y política de privacidad.</p>
   </section>
@@ -148,8 +143,8 @@ import LegalPage from "@/components/LegalPage.astro";
     <h2>9. Consentimiento</h2>
     <p>Las cookies técnicas necesarias pueden utilizarse sin consentimiento previo, al ser necesarias para el funcionamiento básico del sitio web.</p>
     <p>Las cookies analíticas, publicitarias o de terceros que no sean estrictamente necesarias requieren, con carácter general, el consentimiento previo del usuario conforme a la normativa aplicable.</p>
-    <p>El sitio web podrá mostrar un banner o panel de configuración para que el usuario pueda aceptar, rechazar o configurar las cookies no necesarias.</p>
-    <p>Importante: si la configuración técnica actual de la web no permite bloquear cookies no necesarias antes del consentimiento, deberá adaptarse la implementación técnica para que el uso de cookies analíticas o de terceros se ajuste correctamente a la normativa aplicable.</p>
+    <p>Al entrar por primera vez, la web muestra un banner que permite <strong>rechazar</strong>, <strong>configurar</strong> por categorías (analíticas y chat de ayuda) o <strong>aceptar todas</strong> las cookies no necesarias. Rechazar es tan sencillo como aceptar.</p>
+    <p>Google Analytics y Chatbase no se cargan hasta que el usuario da su consentimiento para la categoría correspondiente. La elección se conserva durante 12 meses; pasado ese plazo, se vuelve a preguntar.</p>
   </section>
 
   <section>
@@ -167,13 +162,13 @@ import LegalPage from "@/components/LegalPage.astro";
 
   <section>
     <h2>11. Retirada del consentimiento</h2>
-    <p>Cuando las cookies se basen en el consentimiento del usuario, este podrá retirarlo en cualquier momento mediante el panel de configuración de cookies, si está disponible, o modificando la configuración de su navegador.</p>
+    <p>El usuario puede cambiar o retirar su consentimiento en cualquier momento desde el enlace <a href="#" data-cookie-settings-open>Configurar cookies</a>, disponible también al pie de todas las páginas, o modificando la configuración de su navegador. Al retirar el consentimiento de analítica se eliminan las cookies de Google Analytics de este dominio.</p>
     <p>La retirada del consentimiento no afectará a la licitud del tratamiento realizado con anterioridad.</p>
   </section>
 
   <section>
     <h2>12. Transferencias internacionales</h2>
-    <p>El uso de servicios de terceros como Google Analytics, Calendly, Chatbase, WhatsApp o Linktree puede implicar transferencias internacionales de datos o tratamientos realizados fuera del Espacio Económico Europeo.</p>
+    <p>El uso de servicios de terceros como Google Analytics, Cal.com, Chatbase, WhatsApp o Linktree puede implicar transferencias internacionales de datos o tratamientos realizados fuera del Espacio Económico Europeo.</p>
     <p>Dichos tratamientos se regirán por las garantías, condiciones y políticas de privacidad aplicables en cada proveedor.</p>
   </section>
 

@@ -2,7 +2,7 @@
 import { siteConfig } from "@/config/site";
 ---
 
-<!-- Chatbase embed. Se carga diferido cuando hay un ID real configurado en src/config/site.ts. -->
+<!-- Chatbase embed. Solo se carga si el usuario acepta la categoría "chat" en el banner de cookies (evento td:consent). -->
 <script define:vars={{ chatbaseId: siteConfig.chatbaseId }}>
   if (chatbaseId && !chatbaseId.includes("INSERTAR")) {
     (function () {
@@ -31,11 +31,21 @@ import { siteConfig } from "@/config/site";
         document.body.appendChild(script);
       };
 
-      if (document.readyState === "complete") {
-        onLoad();
-      } else {
-        window.addEventListener("load", onLoad);
-      }
+      let requested = false;
+      const loadWhenReady = () => {
+        if (requested) return;
+        requested = true;
+        if (document.readyState === "complete") {
+          onLoad();
+        } else {
+          window.addEventListener("load", onLoad);
+        }
+      };
+
+      if (window.tdConsent?.chat) loadWhenReady();
+      window.addEventListener("td:consent", (event) => {
+        if (event.detail?.chat) loadWhenReady();
+      });
     })();
   }
 </script>

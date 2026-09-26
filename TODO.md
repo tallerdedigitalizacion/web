@@ -21,7 +21,6 @@ crear pagina por cada producto/dolor empaquetado
     no doy abasto con la atencion al cliente, necesito un agente con IA de soporte
     pierdo muchos leads por falta de organizacion y rapidez en la atencion
 ---
-hacer que las cookies respeten gdpr y el usuario pueda seleccionar
 ---
 no cambiar los informes/PDFs de outreach a adjunto plano. Ojo, no es "solo cambia el formato" - cambia tres cosas de fondo, y dos son en contra:
 
