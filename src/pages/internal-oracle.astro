@@ -1,0 +1,48 @@
+---
+import ServiceLanding from "@/components/ServiceLanding.astro";
+
+const sections = [
+  {
+    id: "what-it-can-do",
+    eyebrow: "What it can do",
+    heading: "A clear answer for every internal question.",
+    variant: "tag" as const,
+    items: [
+      "Look up procedures",
+      "Search documentation",
+      "Resolve internal questions",
+      "Speed up onboarding for new employees",
+      "Reduce interruptions between teams",
+    ],
+  },
+  {
+    id: "benefits",
+    eyebrow: "Benefits",
+    heading: "What your team gains.",
+    variant: "check" as const,
+    items: [
+      "Less time spent searching for information",
+      "Consistent answers",
+      "Higher productivity",
+      "Company knowledge is preserved",
+    ],
+  },
+];
+---
+
+<ServiceLanding
+  lang="en"
+  title="Internal Oracle | Taller de Digitalización"
+  description="The Internal Oracle uses AI to answer your team's questions based solely on your company's own information."
+  slug="/internal-oracle"
+  schemaDescription="Internal Oracle: an AI assistant that answers internal questions using the company's documentation."
+  schemaAreaServed={["United States", "Remote"]}
+  eyebrow="Internal Oracle"
+  h1="Your company's knowledge, available in seconds."
+  subtitleParagraphs={[
+    "Procedures, manuals, documentation and FAQs are usually scattered across folders, emails and documents.",
+    "The Internal Oracle uses AI to answer questions based solely on your company's own information.",
+  ]}
+  sections={sections}
+  finalCtaHeading="The right information, at the right moment."
+/>

@@ -4,8 +4,8 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import CookieBanner from "@/components/CookieBanner.astro";
 import Chatbase from "@/components/Chatbase.astro";
-import WhatsAppButton from "@/components/WhatsAppButton.astro";
 import { withBase } from "@/utils/paths";
+import { canonicalOverrides, languagePairs, normalizePath } from "@/config/seoRoutes.mjs";
 import "@/styles/global.css";
 
 const {
@@ -17,22 +17,26 @@ const {
   headerBrandHref = "/",
   headerNavItems = [],
   showHeaderBooking = true,
-  showWhatsAppButton = true,
   lang = "es",
   bookingHref = siteConfig.bookingUrl,
-  whatsappHref,
   schemaDescription = "Soporte informático, webs y digitalización para PyMEs en Toledo y alrededores de Fuensalida, presencial o en remoto.",
   schemaAreaServed = siteConfig.serviceAreas,
-  alternates = [],
+  alternates: alternatesProp = [],
   faq = [],
   extraSchema = [],
 } = Astro.props;
+
+const overriddenCanonical = canonicalOverrides[normalizePath(canonicalPath)];
+const effectiveCanonicalPath = overriddenCanonical ?? canonicalPath;
+const pair = languagePairs.find(([es, en]) => [es, en].includes(normalizePath(effectiveCanonicalPath)));
+const alternates: [string, string][] =
+  overriddenCanonical ? [] : alternatesProp.length > 0 ? alternatesProp : pair ? [["es-ES", pair[0]], ["en", pair[1]], ["x-default", pair[0]]] : [];
 
 const origin = Astro.site ?? new URL(siteConfig.publicUrl).origin;
 const absoluteUrl = (path: string) => new URL(withBase(path), origin).toString();
 // GitHub Pages sirve cada página como carpeta y redirige (301) las URLs sin barra final.
 const pageUrl = (path: string) => absoluteUrl(/\/$|\.[a-z0-9]+$/i.test(path) ? path : `${path}/`);
-const canonical = pageUrl(canonicalPath);
+const canonical = pageUrl(effectiveCanonicalPath);
 const ogImage = absoluteUrl(siteConfig.ogImage);
 const businessId = `${siteConfig.publicUrl}/#business`;
 const founderId = `${siteConfig.publicUrl}/#founder`;
@@ -158,7 +162,6 @@ const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
       <slot />
     </main>
     <Footer lang={lang} />
-    {showWhatsAppButton && <WhatsAppButton lang={lang} href={whatsappHref} />}
     <CookieBanner lang={lang} />
     {showChatbase && <Chatbase />}
   </body>
