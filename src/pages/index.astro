@@ -4,7 +4,7 @@ import TrustBar from "@/components/TrustBar.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import { siteConfig } from "@/config/site";
 import { reviews } from "@/data/reviews";
-import { serviceCatalog } from "@/data/services";
+import { serviceCatalog, serviceGroups } from "@/data/services";
 
 const title = "Informático para empresas y digitalización en Toledo | Taller de Digitalización";
 const description = "Soporte informático, ciberseguridad, webs y digitalización para PyMEs en Toledo, Torrijos, Illescas y a 50 km de Fuensalida. Presencial o en remoto. Primera llamada gratis.";
@@ -25,8 +25,6 @@ const products = [
     cta: "Ver soporte informático",
   },
 ];
-
-const serviceGroups = ["Informática", "Web", "Procesos e IA"] as const;
 
 const steps = [
   ["Llamada gratuita de 15 minutos", "Me cuentas qué pasa. Si no veo cómo ayudarte, te lo digo."],
@@ -86,10 +84,15 @@ const featuredReviews = reviews.slice(0, 3);
     </div>
   </section>
 
-  <section class="section section-accent">
+  <section id="todos-los-servicios" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Catálogo completo</span>
+      <h2>Todos los servicios.</h2>
+      <p>Los dos de arriba son los más habituales. Aquí tienes el resto, por tipo de problema.</p>
+    </div>
     {serviceGroups.map((group) => (
       <div class="service-group">
-        <div class="section-head"><span class="eyebrow">{group}</span></div>
+        <h3 class="service-group-title">{group}</h3>
         <div class="link-grid">
           {serviceCatalog.filter((service) => service.group === group).map((service) => (
             <a href={service.href}><strong>{service.label}</strong><span>{service.summary}</span></a>

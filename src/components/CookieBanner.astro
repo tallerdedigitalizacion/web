@@ -78,6 +78,7 @@ const t = isEnglish
 
     const href = target instanceof HTMLAnchorElement ? target.href : "";
     if (href.startsWith("tel:")) return "telefono_click";
+    if (href.includes("wa.me/")) return "whatsapp_click";
     if (href.includes("calendly.com/tallerdedigitalizacion") || href.includes("cal.com/taller-de-digitalizacion")) return "reservar_click";
     return "";
   }

@@ -1,6 +1,6 @@
 ---
 import { siteConfig } from "@/config/site";
-import { serviceCatalog } from "@/data/services";
+import { serviceCatalog, serviceGroups } from "@/data/services";
 import { withBase } from "@/utils/paths";
 
 const { lang = "es" } = Astro.props;
@@ -30,11 +30,13 @@ const zoneLinks = [
   </div>
   {!isEnglish && (
     <div class="footer-columns">
-      <nav aria-label="Servicios">
-        <strong>Servicios</strong>
-        {serviceCatalog.map((service) => <a href={withBase(service.href)}>{service.label}</a>)}
-      </nav>
-      <nav aria-label="Zonas">
+      {serviceGroups.map((group) => (
+        <nav aria-label={group}>
+          <strong>{group}</strong>
+          {serviceCatalog.filter((service) => service.group === group).map((service) => <a href={withBase(service.href)}>{service.label}</a>)}
+        </nav>
+      ))}
+      <nav aria-label="Zonas y clientes">
         <strong>Zonas</strong>
         {zoneLinks.map(([label, href]) => <a href={withBase(href)}>{label}</a>)}
         <strong>Clientes</strong>

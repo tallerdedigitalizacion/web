@@ -1,6 +1,6 @@
 ---
-import { siteConfig } from "@/config/site";
-import { serviceLabels } from "@/data/services";
+import { siteConfig, whatsappUrl } from "@/config/site";
+import { serviceCatalog, serviceGroups } from "@/data/services";
 import { withBase } from "@/utils/paths";
 
 const {
@@ -17,7 +17,7 @@ const {
     <p>{intro}</p>
     <p class="microcopy">
       {siteConfig.openingHours.map((h) => h.label).join(" · ")}<br />
-      <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> · <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a>
+      <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> · <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a data-event="whatsapp_click" href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp</a>
     </p>
     <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
   </div>
@@ -25,7 +25,12 @@ const {
     <label>Servicio de interés
       <select required name="servicio">
         <option value="" disabled selected={!selectedService}>Selecciona un servicio…</option>
-        {serviceLabels.map((label) => <option value={label} selected={label === selectedService}>{label}</option>)}
+        {serviceGroups.map((group) => (
+          <optgroup label={group}>
+            {serviceCatalog.filter((service) => service.group === group).map(({ label }) => <option value={label} selected={label === selectedService}>{label}</option>)}
+          </optgroup>
+        ))}
+        <option value="Otro" selected={selectedService === "Otro"}>Otro</option>
       </select>
     </label>
     <div class="form-grid">

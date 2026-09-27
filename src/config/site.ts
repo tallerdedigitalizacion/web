@@ -9,6 +9,7 @@ export const siteConfig = {
   contactEmail: "info@tallerdedigitalizacion.com",
   phone: "+34632990133",
   phoneDisplay: "632 99 01 33",
+  whatsappNumber: "34632990133",
   founder: "Pablo Leone",
   experienceYears: 18,
   anydeskUrl: "https://anydesk.com/es/downloads",
@@ -86,3 +87,5 @@ export const siteConfig = {
   formEndpoint: "https://mbce6dz2wf.execute-api.eu-west-1.amazonaws.com/prod/",
   methodPdfPath: "/downloads/metodo-auditoria-caos-operativo.pdf",
 };
+
+export const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent("Hola, vengo de la web de Taller de Digitalización y quería hacer una consulta.")}`;
