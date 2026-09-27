@@ -96,6 +96,7 @@ const {
         if (startedAt instanceof HTMLInputElement) startedAt.value = String(Date.now());
         setStatus("¡Recibido! Te respondo lo antes posible. Revisa tu email: te he enviado una confirmación.");
         window.tdTrackEvent?.("formulario_contacto", { servicio: service, page_path: window.location.pathname });
+        window.tdTrackEvent?.("generate_lead", { lead_type: "contact", servicio: service });
       } catch (error) {
         setStatus(`No se pudo enviar: ${error instanceof Error ? error.message : "error desconocido"}. Escríbeme a info@tallerdedigitalizacion.com.`);
       } finally {
