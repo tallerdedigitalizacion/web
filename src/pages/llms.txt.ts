@@ -22,7 +22,7 @@ export const GET: APIRoute = async () => {
     "",
     `- Nombre: ${siteConfig.name} (titular: ${siteConfig.founder})`,
     `- Dirección: ${address.streetAddress}, ${address.postalCode} ${address.addressLocality}, ${address.addressRegion}, España`,
-    `- Teléfono: +34 ${siteConfig.phoneDisplay}`,
+    `- Teléfono y WhatsApp: +34 ${siteConfig.phoneDisplay}`,
     `- Email: ${siteConfig.contactEmail}`,
     `- Horario: ${siteConfig.openingHours.map((h) => h.label).join("; ")}`,
     `- Reservar llamada gratuita (15 min): ${siteConfig.bookingUrl}`,

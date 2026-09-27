@@ -5,8 +5,6 @@ hacer un video explicativo y poner en la web
 dar ejemplos reales de soluciones en la landing
 traducir la web al ingles pero no dinamicamente, sino que producir el doble de paginas sobre otra estructura
 ---
-crear pagina nicho para caos en telecoms
-crear pagina nicho para caos en startups de software usando mi libro
 ---
 crear pagina por cada producto/dolor empaquetado
     el google workspace lo pago pero no lo uso o no se como configurarlo
