@@ -5,7 +5,6 @@ export const siteConfig = {
     "Soporte informático, webs y digitalización para PyMEs en Toledo y a 50 km de Fuensalida. Presencial o en remoto, sin tecnicismos ni ventas innecesarias.",
   publicUrl: "https://tallerdedigitalizacion.com",
   bookingUrl: "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
-  linktreeUrl: "https://linktr.ee/tallerdedigitalizacion",
   contactEmail: "info@tallerdedigitalizacion.com",
   phone: "+34632990133",
   phoneDisplay: "632 99 01 33",
@@ -78,6 +77,8 @@ export const siteConfig = {
     },
   ],
   googleBusinessUrl: "https://maps.app.goo.gl/iJYaupqoL8usLB6X7",
+  // Abre directamente la ventana "Escribir una reseña" de la ficha de Google.
+  googleReviewUrl: "https://www.google.com/maps/place/data=!4m3!3m2!1s0xd41db85f0548759:0x24b149c2763646b0!12e1",
   githubUrl: "https://github.com/tallerdedigitalizacion",
   linkedinUrl: "https://www.linkedin.com/in/pabloleone/",
   googleAnalyticsId: "G-4GY58K423T",

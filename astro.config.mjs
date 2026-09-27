@@ -19,7 +19,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes("/404") && !(normalizePath(new URL(page).pathname) in canonicalOverrides),
+      filter: (page) => !page.includes("/404") && !page.endsWith("/hub/") && !(normalizePath(new URL(page).pathname) in canonicalOverrides),
       serialize: (item) => ({ ...item, lastmod: new Date().toISOString() }),
     }),
   ],

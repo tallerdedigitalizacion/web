@@ -14,6 +14,9 @@ const {
   description = siteConfig.seoDescription,
   canonicalPath = "/",
   showChatbase = true,
+  // Página sin cabecera, pie ni botones flotantes (por ejemplo, /hub).
+  minimal = false,
+  noindex = false,
   showWhatsAppButton,
   headerBookingEvent = "reservar_click",
   headerBrandHref = "/",
@@ -71,7 +74,7 @@ const schemaGraph: Record<string, unknown>[] = [
       },
     ],
     founder: { "@id": founderId },
-    sameAs: [siteConfig.googleBusinessUrl, siteConfig.linktreeUrl, siteConfig.githubUrl, siteConfig.linkedinUrl],
+    sameAs: [siteConfig.googleBusinessUrl, siteConfig.githubUrl, siteConfig.linkedinUrl],
     knowsAbout: [
       "Soporte informático para empresas",
       "Mantenimiento informático",
@@ -124,6 +127,7 @@ const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
     <meta name="description" content={description} />
     
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     {alternates.map(([hreflang, path]: [string, string]) => <link rel="alternate" hreflang={hreflang} href={pageUrl(path)} />)}
     
     <meta property="og:title" content={title} />
@@ -159,13 +163,13 @@ const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
-    <Header bookingEvent={headerBookingEvent} brandHref={headerBrandHref} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} />
+    {!minimal && <Header bookingEvent={headerBookingEvent} brandHref={headerBrandHref} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} />}
     <main>
       <slot />
     </main>
-    <Footer lang={lang} />
+    {!minimal && <Footer lang={lang} />}
     <CookieBanner lang={lang} />
-    {(showWhatsAppButton ?? lang !== "en") && <WhatsAppButton lang={lang} />}
-    {showChatbase && <Chatbase />}
+    {!minimal && (showWhatsAppButton ?? lang !== "en") && <WhatsAppButton lang={lang} />}
+    {!minimal && showChatbase && <Chatbase />}
   </body>
 </html>
