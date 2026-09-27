@@ -1,0 +1,213 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig, whatsappUrl } from "@/config/site";
+import { withBase } from "@/utils/paths";
+
+// Página "link in bio" propia (sustituye a Linktree). Enlazar desde LinkedIn, tarjetas, firmas, etc.
+// Para medir cada origen, compartirla con UTM: /hub?utm_source=linkedin&utm_medium=social
+type HubLink = { label: string; href: string; icon: keyof typeof icons; event?: string; external?: boolean; primary?: boolean };
+
+const icons = {
+  calendar: '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/>',
+  chat: '<path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12Z"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  gauge: '<path d="M12 14l4-4"/><path d="M3.3 17a9 9 0 1 1 17.4 0"/>',
+  check: '<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+  book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+  remote: '<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  star: '<path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3Z"/>',
+};
+
+const groups: { title?: string; links: HubLink[] }[] = [
+  {
+    links: [
+      { label: "Llamada gratuita de 15 min", href: siteConfig.bookingUrl, icon: "calendar", event: "reservar_click", external: true, primary: true },
+      { label: "Escríbeme por WhatsApp", href: whatsappUrl, icon: "chat", event: "whatsapp_click", external: true },
+      { label: "Servicios para empresas", href: "/#todos-los-servicios", icon: "grid" },
+    ],
+  },
+  {
+    title: "Gratis",
+    links: [
+      { label: "Informe gratuito de tu web", href: "/informe-gratuito-web/", icon: "gauge" },
+      { label: "Test: ¿cuánto caos operativo tiene tu empresa?", href: "/diagnostico-caos-operativo/#autoevaluacion", icon: "check" },
+      { label: "Blog: guías para PyMEs", href: "/blog/", icon: "book" },
+    ],
+  },
+  {
+    title: "Clientes",
+    links: [
+      { label: "Soporte remoto (AnyDesk)", href: "/soporte-remoto/", icon: "remote" },
+      { label: "Déjame una reseña en Google", href: siteConfig.googleReviewUrl, icon: "star", event: "resena_click", external: true },
+    ],
+  },
+];
+
+const socials = [
+  { label: "LinkedIn", href: siteConfig.linkedinUrl, path: '<path d="M4 9h4v11H4zM6 3.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM10 9h3.8v1.6h.1c.5-1 1.8-1.9 3.6-1.9 3.9 0 4.5 2.5 4.5 5.8V20h-4v-4.8c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6V20h-4z" fill="currentColor" stroke="none"/>' },
+  { label: "Google Maps", href: siteConfig.googleBusinessUrl, path: '<path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/>' },
+  { label: "Email", href: `mailto:${siteConfig.contactEmail}`, path: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>' },
+  { label: "Web", href: "/", path: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>' },
+];
+
+const resolve = (link: { href: string }) => (link.href.startsWith("/") ? withBase(link.href) : link.href);
+---
+
+<BaseLayout
+  title="Taller de Digitalización · Enlaces"
+  description="Reserva una llamada, escríbeme por WhatsApp o descubre los servicios de Taller de Digitalización: informática y digitalización para PyMEs."
+  canonicalPath="/hub"
+  minimal
+  noindex
+>
+  <div class="hub">
+    <header class="hub-profile">
+      <img src={withBase("/logo-96.png")} alt="" width="88" height="88" />
+      <h1>Taller de Digitalización</h1>
+      <p>Informático y digitalización para PyMEs<br />Toledo y remoto · {siteConfig.founder}</p>
+    </header>
+
+    {groups.map((group) => (
+      <section class="hub-group" aria-label={group.title ?? "Contacto"}>
+        {group.title && <h2>{group.title}</h2>}
+        {group.links.map((link) => (
+          <a
+            class:list={["hub-link", { "hub-link-primary": link.primary }]}
+            href={resolve(link)}
+            data-event={link.event ?? "hub_click"}
+            {...(link.external ? { target: "_blank", rel: "noreferrer" } : {})}
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={icons[link.icon]} />
+            <span>{link.label}</span>
+          </a>
+        ))}
+      </section>
+    ))}
+
+    <nav class="hub-socials" aria-label="Redes y contacto">
+      {socials.map((social) => (
+        <a href={resolve(social)} aria-label={social.label} title={social.label} data-event="hub_click" {...(social.href.startsWith("/") || social.href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noreferrer" })}>
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={social.path} />
+        </a>
+      ))}
+    </nav>
+
+    <footer class="hub-footer">
+      <a href={withBase("/en/")}>English</a>
+      <span aria-hidden="true">·</span>
+      <a href={withBase("/politica-privacidad/")}>Privacidad</a>
+      <span aria-hidden="true">·</span>
+      <a href="#" data-cookie-settings-open>Cookies</a>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  .hub {
+    display: grid;
+    gap: 22px;
+    width: min(480px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 48px 0 40px;
+  }
+
+  .hub-profile {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .hub-profile img {
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 10px;
+  }
+
+  .hub-profile h1 {
+    margin: 10px 0 0;
+    font-size: 1.6rem;
+  }
+
+  .hub-profile p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .hub-group {
+    display: grid;
+    gap: 10px;
+  }
+
+  .hub-group h2 {
+    margin: 6px 0 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .hub-link {
+    display: grid;
+    grid-template-columns: 22px 1fr 22px;
+    align-items: center;
+    gap: 12px;
+    min-height: 58px;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .hub-link:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .hub-link-primary {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #20242c;
+  }
+
+  .hub-socials {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 6px;
+  }
+
+  .hub-socials a {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--ink);
+  }
+
+  .hub-socials a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hub-footer {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .hub-footer a {
+    color: var(--muted);
+  }
+</style>
