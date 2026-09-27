@@ -48,6 +48,7 @@
         if (startedAt instanceof HTMLInputElement) startedAt.value = String(Date.now());
         setStatus("¡Recibido! Te respondo lo antes posible. Revisa tu email: te he enviado una confirmación.");
         window.tdTrackEvent?.("formulario_contacto", { servicio: service, page_path: window.location.pathname });
+        window.tdTrackEvent?.("generate_lead", { lead_type: "contact", servicio: service });
       } catch (error) {
         setStatus(`No se pudo enviar: ${error instanceof Error ? error.message : "error desconocido"}. Escríbeme a info@tallerdedigitalizacion.com.`);
       } finally {
@@ -66,6 +67,7 @@
   const eventAliases = {
     click_reservar_llamada: "reservar_click",
     click_telefono: "telefono_click",
+    click_calendly_web_audit: "reservar_click",
   };
 
   function normalizeEventName(name) {
@@ -78,6 +80,7 @@
 
     const href = target instanceof HTMLAnchorElement ? target.href : "";
     if (href.startsWith("tel:")) return "telefono_click";
+    if (href.startsWith("mailto:")) return "email_click";
     if (href.includes("wa.me/")) return "whatsapp_click";
     if (href.includes("calendly.com/tallerdedigitalizacion") || href.includes("cal.com/taller-de-digitalizacion")) return "reservar_click";
     return "";

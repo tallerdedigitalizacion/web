@@ -345,6 +345,7 @@ const lang = "es";
   const eventAliases = {
     click_reservar_llamada: "reservar_click",
     click_telefono: "telefono_click",
+    click_calendly_web_audit: "reservar_click",
   };
 
   function normalizeEventName(name) {
@@ -357,6 +358,7 @@ const lang = "es";
 
     const href = target instanceof HTMLAnchorElement ? target.href : "";
     if (href.startsWith("tel:")) return "telefono_click";
+    if (href.startsWith("mailto:")) return "email_click";
     if (href.includes("wa.me/")) return "whatsapp_click";
     if (href.includes("calendly.com/tallerdedigitalizacion") || href.includes("cal.com/taller-de-digitalizacion")) return "reservar_click";
     return "";
