@@ -1253,6 +1253,16 @@ details p {
 }
 
 .cookie-banner p { margin: 4px 0 0; color: var(--muted); }
+.cookie-banner { flex-wrap: wrap; }
+.cookie-banner > [data-cookie-summary] { flex: 1 1 auto; min-width: min(320px, 100%); }
+.cookie-banner a { color: var(--accent); }
+.cookie-settings { display: grid; gap: 10px; flex-basis: 100%; }
+.cookie-settings[hidden] { display: none; }
+.cookie-option { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
+.cookie-option input { width: auto; min-height: 0; margin-top: 4px; }
+.cookie-option span { color: var(--muted); }
+.cookie-option strong { color: var(--ink); }
+.cookie-actions [hidden] { display: none; }
 .cookie-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; }
 
 .legal-page {

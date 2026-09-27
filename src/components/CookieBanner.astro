@@ -1,25 +1,68 @@
 ---
 import { siteConfig } from "@/config/site";
 
+import { withBase } from "@/utils/paths";
+
 const { lang = "es" } = Astro.props;
 const isEnglish = lang === "en";
+const t = isEnglish
+  ? {
+      title: "Cookies",
+      text: "We use necessary cookies to keep the site working. Analytics and the help chat only load if you allow them.",
+      policy: "Cookie policy",
+      necessary: "Necessary.",
+      necessaryText: "Required for the site to work. Always active.",
+      analytics: "Analytics (Google Analytics).",
+      analyticsText: "Anonymous visit statistics to improve the site.",
+      chat: "Help chat (Chatbase).",
+      chatText: "Automated assistant provided by a third party.",
+      reject: "Reject",
+      configure: "Configure",
+      save: "Save choice",
+      acceptAll: "Accept all",
+    }
+  : {
+      title: "Cookies",
+      text: "Usamos cookies necesarias para que la web funcione. Las analíticas y el chat de ayuda solo se cargan si los permites.",
+      policy: "Política de cookies",
+      necessary: "Necesarias.",
+      necessaryText: "Imprescindibles para que la web funcione. Siempre activas.",
+      analytics: "Analíticas (Google Analytics).",
+      analyticsText: "Estadísticas anónimas de visitas para mejorar la web.",
+      chat: "Chat de ayuda (Chatbase).",
+      chatText: "Asistente automático prestado por un tercero.",
+      reject: "Rechazar",
+      configure: "Configurar",
+      save: "Guardar selección",
+      acceptAll: "Aceptar todas",
+    };
 ---
 
-<div class="cookie-banner" data-cookie-banner hidden>
-  <div>
-    <strong>Cookies</strong>
-    <p>{isEnglish ? "We use necessary cookies to keep the site working. Analytics only load if you accept them." : "Usamos cookies necesarias para que la web funcione. Las analíticas solo se cargan si las aceptas."}</p>
+<div class="cookie-banner" data-cookie-banner role="dialog" aria-live="polite" aria-label={t.title} hidden>
+  <div data-cookie-summary>
+    <strong>{t.title}</strong>
+    <p>{t.text} <a href={withBase(isEnglish ? "/politica-cookies" : "/politica-cookies")}>{t.policy}</a></p>
   </div>
+  <form class="cookie-settings" data-cookie-settings hidden>
+    <label class="cookie-option"><input type="checkbox" checked disabled /> <span><strong>{t.necessary}</strong> {t.necessaryText}</span></label>
+    <label class="cookie-option"><input type="checkbox" name="analytics" /> <span><strong>{t.analytics}</strong> {t.analyticsText}</span></label>
+    <label class="cookie-option"><input type="checkbox" name="chat" /> <span><strong>{t.chat}</strong> {t.chatText}</span></label>
+  </form>
   <div class="cookie-actions">
-    <button class="btn btn-small btn-secondary" type="button" data-cookie-choice="reject">{isEnglish ? "Reject" : "Rechazar"}</button>
-    <button class="btn btn-small btn-secondary" type="button" data-cookie-choice="necessary">{isEnglish ? "Necessary only" : "Aceptar necesarias"}</button>
-    <button class="btn btn-small btn-primary" type="button" data-cookie-choice="all">{isEnglish ? "Accept all" : "Aceptar todas"}</button>
+    <button class="btn btn-small btn-secondary" type="button" data-cookie-choice="reject">{t.reject}</button>
+    <button class="btn btn-small btn-secondary" type="button" data-cookie-open-settings>{t.configure}</button>
+    <button class="btn btn-small btn-secondary" type="button" data-cookie-choice="save" hidden>{t.save}</button>
+    <button class="btn btn-small btn-secondary" type="button" data-cookie-choice="all">{t.acceptAll}</button>
   </div>
 </div>
 
 <script define:vars={{ gaId: siteConfig.googleAnalyticsId }}>
   const consentKey = "td_cookie_consent";
+  const consentVersion = 2;
+  // La AEPD recomienda no conservar el consentimiento más de 24 meses; lo pedimos de nuevo a los 12.
+  const consentMaxAgeMs = 365 * 24 * 60 * 60 * 1000;
   const banner = document.querySelector("[data-cookie-banner]");
+  const settingsForm = document.querySelector("[data-cookie-settings]");
   const eventAliases = {
     click_reservar_llamada: "reservar_click",
     click_telefono: "telefono_click",
@@ -93,18 +136,108 @@ const isEnglish = lang === "en";
     window.gtag("config", gaId, { anonymize_ip: true });
   }
 
-  const currentConsent = localStorage.getItem(consentKey);
+  function readConsent() {
+    try {
+      const raw = localStorage.getItem(consentKey);
+      if (!raw) return null;
+      // Los valores de la primera versión ("all", "necessary", "reject") no incluían el chat: se vuelve a preguntar.
+      if (!raw.startsWith("{")) return null;
+      const consent = JSON.parse(raw);
+      if (!consent || consent.version !== consentVersion) return null;
+      if (Date.now() - Number(consent.date || 0) > consentMaxAgeMs) return null;
+      return consent;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveConsent(analytics, chat) {
+    const consent = { analytics, chat, date: Date.now(), version: consentVersion };
+    try {
+      localStorage.setItem(consentKey, JSON.stringify(consent));
+    } catch {
+      // Sin almacenamiento disponible: se aplica solo a esta visita.
+    }
+    return consent;
+  }
+
+  function disableAnalytics() {
+    if (gaId) window[`ga-disable-${gaId}`] = true;
+    // Borra las cookies de Google Analytics del dominio actual y del dominio raíz.
+    const domain = window.location.hostname.replace(/^www\./, "");
+    document.cookie.split(";").forEach((cookie) => {
+      const name = cookie.split("=")[0].trim();
+      if (name === "_ga" || name.startsWith("_ga_") || name === "_gid" || name === "_gat") {
+        ["", `; domain=${domain}`, `; domain=.${domain}`].forEach((scope) => {
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${scope}`;
+        });
+      }
+    });
+  }
+
+  function applyConsent(consent, previous) {
+    window.tdConsent = consent;
+    if (consent.analytics) {
+      if (gaId) window[`ga-disable-${gaId}`] = false;
+      loadAnalytics();
+    } else {
+      disableAnalytics();
+    }
+    window.dispatchEvent(new CustomEvent("td:consent", { detail: consent }));
+    // Retirar un consentimiento ya dado exige recargar para descargar los scripts de terceros.
+    if (previous && ((previous.analytics && !consent.analytics) || (previous.chat && !consent.chat))) {
+      window.location.reload();
+    }
+  }
+
+  function syncSettingsForm(consent) {
+    if (!(settingsForm instanceof HTMLFormElement)) return;
+    settingsForm.elements.namedItem("analytics").checked = Boolean(consent?.analytics);
+    settingsForm.elements.namedItem("chat").checked = Boolean(consent?.chat);
+  }
+
+  function openBanner(showSettings) {
+    if (!(banner instanceof HTMLElement)) return;
+    banner.hidden = false;
+    syncSettingsForm(readConsent());
+    if (settingsForm instanceof HTMLElement) settingsForm.hidden = !showSettings;
+    banner.querySelector("[data-cookie-open-settings]")?.toggleAttribute("hidden", showSettings);
+    banner.querySelector('[data-cookie-choice="save"]')?.toggleAttribute("hidden", !showSettings);
+  }
+
+  const currentConsent = readConsent();
   preserveAttributionParams();
-  if (currentConsent === "all") loadAnalytics();
-  if (!currentConsent && banner instanceof HTMLElement) banner.hidden = false;
+  if (currentConsent) {
+    applyConsent(currentConsent);
+  } else {
+    openBanner(false);
+  }
+
+  banner?.querySelector("[data-cookie-open-settings]")?.addEventListener("click", () => openBanner(true));
+  document.querySelectorAll("[data-cookie-settings-open]").forEach((trigger) => {
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      openBanner(true);
+    });
+  });
 
   document.querySelectorAll("[data-cookie-choice]").forEach((button) => {
     button.addEventListener("click", () => {
       const choice = button.getAttribute("data-cookie-choice");
-      localStorage.setItem(consentKey, choice || "necessary");
+      const previous = readConsent();
+      let analytics = false;
+      let chat = false;
+      if (choice === "all") {
+        analytics = true;
+        chat = true;
+      } else if (choice === "save" && settingsForm instanceof HTMLFormElement) {
+        analytics = settingsForm.elements.namedItem("analytics").checked;
+        chat = settingsForm.elements.namedItem("chat").checked;
+      }
+      const consent = saveConsent(analytics, chat);
       if (banner instanceof HTMLElement) banner.hidden = true;
-      if (choice === "all") loadAnalytics();
-      trackEvent(choice === "all" ? "aceptacion_cookies" : "rechazo_cookies", { choice });
+      applyConsent(consent, previous);
+      trackEvent(analytics ? "aceptacion_cookies" : "rechazo_cookies", { choice, analytics, chat });
     });
   });
 
