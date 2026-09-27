@@ -6,7 +6,7 @@
 
 - Nombre: Taller de Digitalización (titular: Pablo Leone)
 - Dirección: Calle Numancia, 4, 45510 Fuensalida, Toledo, España
-- Teléfono: +34 632 99 01 33
+- Teléfono y WhatsApp: +34 632 99 01 33
 - Email: info@tallerdedigitalizacion.com
 - Horario: Lunes a viernes, 10:00–16:00; Sábados, 10:00–14:00
 - Reservar llamada gratuita (15 min): https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call
@@ -28,6 +28,7 @@
 - [Informe gratuito de tu web](https://tallerdedigitalizacion.com/informe-gratuito-web/): Autoauditoría gratuita de velocidad, SEO básico, seguridad y captación de contactos.
 - [Funnel web para un producto](https://tallerdedigitalizacion.com/funnel-web/): Página de venta, captación y seguimiento automático para un producto o servicio.
 - [Diagnóstico de caos operativo](https://tallerdedigitalizacion.com/diagnostico-caos-operativo/): Auditoría de procesos para PyMEs que dependen demasiado del dueño.
+- [Caos operativo en telecomunicaciones](https://tallerdedigitalizacion.com/caos-operativo-telecomunicaciones/): Para operadores, ISPs e instaladores de hasta 50 personas: diseñar la operación como una cadena.
 - [Diagnóstico de digitalización](https://tallerdedigitalizacion.com/diagnostico-digitalizacion/): Auditoría técnica y funcional de procesos con informe priorizado y plan de acción.
 - [Consultoría de digitalización](https://tallerdedigitalizacion.com/consultor-digitalizacion-toledo/): Qué cambiar, en qué orden y con qué herramientas.
 - [ERP y software de gestión](https://tallerdedigitalizacion.com/consultoria-erp-pymes/): Entender, ordenar o elegir el ERP sin volver a equivocarse.
