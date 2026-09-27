@@ -109,7 +109,7 @@ import { withBase } from "@/utils/paths";
         <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")}>política de privacidad</a>.</span></label>
         <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
         <input type="hidden" name="started_at" data-started-at />
-        <button class="btn btn-primary" type="submit" data-event="descarga_metodo">Descargar método completo</button>
+        <button class="btn btn-primary" type="submit">Descargar método completo</button>
         <p class="form-help" data-method-status aria-live="polite">Te enviaremos el método por email.</p>
       </form>
     </div>
@@ -334,6 +334,7 @@ import { withBase } from "@/utils/paths";
         if (result instanceof HTMLElement) result.hidden = false;
         result?.scrollIntoView({ behavior: "smooth", block: "start" });
         window.tdTrackEvent?.("finalizacion_autoevaluacion", { score: state.total });
+        window.tdTrackEvent?.("generate_lead", { lead_type: "diagnostic", score: state.total });
       } catch (error) {
         if (status instanceof HTMLElement) status.textContent = error instanceof Error ? error.message : "No se pudo enviar el diagnóstico.";
         if (submit instanceof HTMLButtonElement) submit.disabled = false;
@@ -385,6 +386,7 @@ import { withBase } from "@/utils/paths";
         if (input instanceof HTMLInputElement) input.value = String(Date.now());
       });
       window.tdTrackEvent?.("descarga_metodo");
+      window.tdTrackEvent?.("generate_lead", { lead_type: "method" });
     } catch (error) {
       if (status instanceof HTMLElement) status.textContent = error instanceof Error ? error.message : "No se pudo enviar el método.";
     } finally {
