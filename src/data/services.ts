@@ -19,6 +19,7 @@ export const serviceCatalog: ServiceEntry[] = [
   { group: "Web", label: "Informe gratuito de tu web", href: "/informe-gratuito-web/", summary: "Autoauditoría gratuita de velocidad, SEO básico, seguridad y captación de contactos." },
   { group: "Web", label: "Funnel web para un producto", href: "/funnel-web/", summary: "Página de venta, captación y seguimiento automático para un producto o servicio." },
   { group: "Procesos e IA", label: "Diagnóstico de caos operativo", href: "/diagnostico-caos-operativo/", summary: "Auditoría de procesos para PyMEs que dependen demasiado del dueño." },
+  { group: "Procesos e IA", label: "Caos operativo en telecomunicaciones", href: "/caos-operativo-telecomunicaciones/", summary: "Para operadores, ISPs e instaladores de hasta 50 personas: diseñar la operación como una cadena." },
   { group: "Procesos e IA", label: "Diagnóstico de digitalización", href: "/diagnostico-digitalizacion/", summary: "Auditoría técnica y funcional de procesos con informe priorizado y plan de acción." },
   { group: "Procesos e IA", label: "Consultoría de digitalización", href: "/consultor-digitalizacion-toledo/", summary: "Qué cambiar, en qué orden y con qué herramientas." },
   { group: "Procesos e IA", label: "ERP y software de gestión", href: "/consultoria-erp-pymes/", summary: "Entender, ordenar o elegir el ERP sin volver a equivocarse." },

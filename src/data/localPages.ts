@@ -19,6 +19,10 @@ export type LocalPage = {
   related: [string, string][];
   finalCta: string;
   formService?: string;
+  // Bloques opcionales: una idea central explicada en varios párrafos y una reseña real destacada.
+  insightTitle?: string;
+  insight?: string[];
+  testimonial?: { text: string; author: string; source: string };
 };
 
 export const localPages: LocalPage[] = [

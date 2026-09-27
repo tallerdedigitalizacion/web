@@ -68,6 +68,16 @@ const navItems = [
     <ul class="check-list">{page.problems.map((problem) => <li>{problem}</li>)}</ul>
   </section>
 
+  {page.insight && (
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">El enfoque</span>
+        <h2>{page.insightTitle}</h2>
+        {page.insight.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
+  )}
+
   <section id="servicios" class="section section-accent">
     <div class="section-head">
       <span class="eyebrow">Servicios</span>
@@ -107,6 +117,15 @@ const navItems = [
       ))}
     </div>
   </section>
+
+  {page.testimonial && (
+    <section class="section">
+      <blockquote class="testimonial">
+        <p>“{page.testimonial.text}”</p>
+        <footer><strong>{page.testimonial.author}</strong> · <a href={siteConfig.googleBusinessUrl} target="_blank" rel="noreferrer">{page.testimonial.source}</a></footer>
+      </blockquote>
+    </section>
+  )}
 
   <section id="faq" class="section">
     <div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>Dudas habituales</h2></div>
