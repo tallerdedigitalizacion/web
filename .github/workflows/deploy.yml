@@ -10,6 +10,11 @@ on:
   schedule:
     - cron: "0 5 * * *" # 07:00 en España (horario de verano), 06:00 en invierno
   workflow_dispatch:
+    inputs:
+      indexnow_all:
+        description: "Avisar a IndexNow de todas las URLs del sitemap (no solo las cambiadas)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -23,6 +28,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Copia de lo publicado ahora, para avisar a IndexNow solo de lo que cambia.
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: published
 
       - uses: actions/setup-node@v4
         with:
@@ -42,3 +53,9 @@ jobs:
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
           commit_message: "Despliegue automático"
+
+      - name: Avisar a buscadores (IndexNow)
+        continue-on-error: true
+        env:
+          INDEXNOW_ALL: ${{ inputs.indexnow_all && '1' || '' }}
+        run: node scripts/indexnow.mjs published dist

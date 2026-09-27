@@ -132,6 +132,12 @@ Siempre se publica `main`, así que no despliegues a mano desde otras ramas. `np
 
 Dominio: `https://tallerdedigitalizacion.com` (archivo `public/CNAME`).
 
+## IndexNow (Bing y otros buscadores)
+
+Tras cada despliegue, la Action ejecuta `scripts/indexnow.mjs`, que compara la web nueva con la publicada y avisa a IndexNow (Bing, Yandex, Seznam…) solo de las URLs del sitemap nuevas o cambiadas. La clave pública es el archivo `public/<clave>.txt`.
+
+Para avisar de todas las URLs de una vez: **Actions → Desplegar web → Run workflow** marcando *indexnow_all*. Para probar en local sin enviar: `DRY_RUN=1 node scripts/indexnow.mjs <carpeta-publicada> dist`.
+
 ## Blog programado
 
 Los artículos están en `src/content/blog/*.md`. Solo se publican los que tienen `pubDate` igual o anterior a hoy; para programar uno, pon una fecha futura y haz merge a `main`: aparecerá solo ese día con el despliegue de la mañana.
