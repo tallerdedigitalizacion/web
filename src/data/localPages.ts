@@ -19,6 +19,8 @@ export type LocalPage = {
   related: [string, string][];
   finalCta: string;
   formService?: string;
+  // Planes mensuales: precio de entrada en €/mes sin IVA (se muestra en la cabecera y en el schema).
+  priceFrom?: number;
   // Bloques opcionales: una idea central explicada en varios párrafos y una reseña real destacada.
   insightTitle?: string;
   insight?: string[];
@@ -82,12 +84,13 @@ export const localPages: LocalPage[] = [
   },
   {
     slug: "mantenimiento-informatico-toledo",
-    title: "Mantenimiento informático para empresas en Toledo | Taller de Digitalización",
-    description: "Mantenimiento informático preventivo para PyMEs en Toledo: actualizaciones, copias de seguridad, antivirus, red y soporte cuando lo necesitas. Presupuesto cerrado.",
-    eyebrow: "Mantenimiento informático · Toledo",
+    title: "Mantenimiento informático para empresas en Toledo, desde 39 €/mes | Taller de Digitalización",
+    description: "Plan de informática gestionada para PyMEs en Toledo: mantenimiento, copias comprobadas, seguridad, cuentas y soporte en remoto. Desde 39 €/mes + IVA.",
+    eyebrow: "Plan Informática gestionada · Toledo",
     h1: "Mantenimiento informático para empresas en Toledo.",
-    intro: "La mayoría de problemas informáticos de una empresa se ven venir: un disco que empieza a fallar, una copia de seguridad que dejó de hacerse hace meses, un equipo sin actualizar. El mantenimiento informático sirve para detectarlos antes de que paren el negocio.",
+    intro: "La mayoría de problemas informáticos de una empresa se ven venir: un disco que empieza a fallar, una copia de seguridad que dejó de hacerse hace meses, un equipo sin actualizar. El plan de informática gestionada sirve para detectarlos antes de que paren el negocio, con una cuota mensual fija.",
     schemaService: "Mantenimiento informático para empresas",
+    priceFrom: 39,
     areas: ["Toledo", "Torrijos", "Fuensalida", "Illescas"],
     problemsTitle: "Señales de que tu empresa necesita mantenimiento",
     problems: [
@@ -98,14 +101,16 @@ export const localPages: LocalPage[] = [
       "Cuando alguien se va, sigue teniendo acceso al correo o a las carpetas.",
       "El router, la wifi o el servidor tienen la contraseña de fábrica.",
     ],
-    servicesTitle: "Qué incluye el mantenimiento",
+    servicesTitle: "Qué incluye el plan",
     services: [
       ["Revisión periódica", "Estado de discos, actualizaciones del sistema, antivirus y rendimiento de cada equipo."],
       ["Copias de seguridad comprobadas", "No basta con tener copia: se comprueba que se puede restaurar."],
       ["Inventario de equipos y accesos", "Qué equipos hay, quién usa qué, qué licencias pagáis y quién tiene acceso a cada cosa."],
       ["Altas y bajas de personal", "Ordenador preparado, correo y permisos listos el primer día, y accesos retirados el último."],
-      ["Red y seguridad", "Router, wifi para invitados separada, contraseñas cambiadas y dispositivos actualizados."],
-      ["Soporte incluido", "Las incidencias del día a día se atienden con prioridad dentro del mantenimiento."],
+      ["Red y seguridad", "Router, wifi para invitados separada, contraseñas cambiadas, antivirus gestionado y dispositivos actualizados."],
+      ["Google Workspace y contraseñas", "Cuentas de correo, permisos de Drive y gestor de contraseñas administrados, con doble factor activado."],
+      ["Soporte incluido", "Las incidencias del día a día se atienden en remoto y con prioridad dentro del plan."],
+      ["NIS2 como añadido", "Si tu empresa o tus clientes lo exigen: revisiones periódicas, formación contra el phishing y documentación de cumplimiento al día."],
     ],
     zoneTitle: "Mantenimiento presencial y en remoto",
     zoneText: [
@@ -115,12 +120,12 @@ export const localPages: LocalPage[] = [
     approachTitle: "Cómo empezamos",
     approach: [
       ["Revisión inicial", "Hago un inventario de equipos, copias, accesos y riesgos. Es la foto de partida."],
-      ["Plan y cuota cerrada", "Te propongo qué revisar y con qué frecuencia, con un precio mensual fijo según el número de equipos."],
+      ["Plan y cuota cerrada", "Te propongo qué revisar y con qué frecuencia, con un precio mensual fijo según el número de equipos. Desde 39 €/mes + IVA."],
       ["Informe claro", "Cada revisión termina con un resumen en lenguaje normal: qué estaba bien, qué he corregido y qué conviene decidir."],
     ],
     faq: [
       ["¿Qué diferencia hay entre mantenimiento y soporte puntual?", "El soporte puntual arregla lo que se ha roto. El mantenimiento revisa los equipos de forma periódica para que se rompan menos cosas y, cuando pase, esté todo documentado y con copia."],
-      ["¿Cuánto cuesta el mantenimiento informático de una PyME?", "Se calcula según el número de equipos, servidores y servicios que haya que cubrir. Tras la revisión inicial te doy una cuota mensual cerrada."],
+      ["¿Cuánto cuesta el mantenimiento informático de una PyME?", "El plan empieza en 39 €/mes + IVA. La cuota final depende del número de equipos, servidores y servicios que haya que cubrir; tras la revisión inicial te la doy cerrada."],
       ["¿Hay permanencia?", "No trabajo con permanencias largas. Si el servicio no te aporta, puedes dejarlo."],
       ["¿Tenéis que venir cada mes a la oficina?", "No necesariamente. La mayoría de tareas se hacen en remoto. Las visitas se programan cuando hace falta revisar hardware o red."],
     ],
@@ -389,7 +394,7 @@ export const localPages: LocalPage[] = [
     related: [
       ["Informe gratuito de tu web", "/informe-gratuito-web/"],
       ["Optimización de velocidad web", "/optimizacion-velocidad-web/"],
-      ["Rescate de WordPress", "/mantenimiento-wordpress/"],
+      ["Plan Web gestionada", "/mantenimiento-wordpress/"],
     ],
     finalCta: "¿Tu web no te trae clientes? Veamos por qué y qué haría falta.",
     formService: "Diseño web que genera clientes",

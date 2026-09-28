@@ -11,6 +11,8 @@ export const siteConfig = {
   whatsappNumber: "34632990133",
   founder: "Pablo Leone",
   experienceYears: 18,
+  // Precio de entrada de los planes mensuales (sin IVA).
+  planPriceFrom: 39,
   anydeskUrl: "https://anydesk.com/es/downloads",
   address: {
     streetAddress: "Calle Numancia, 4",

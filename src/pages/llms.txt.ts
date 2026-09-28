@@ -32,6 +32,8 @@ export const GET: APIRoute = async () => {
     "",
     "## Servicios",
     "",
+    `Dos formas de trabajar: planes mensuales (desde ${siteConfig.planPriceFrom} €/mes + IVA, sin permanencias largas) y proyectos con presupuesto cerrado.`,
+    "",
     ...serviceCatalog.map((service) => `- [${service.label}](${url(service.href)}): ${service.summary}`),
     ...extraPages.map((page) => `- [${page.h1.replace(/\.$/, "")}](${url(`/${page.slug}/`)}): ${page.description}`),
     `- [Website speed optimization (English)](${url("/website-speed-optimization/")}): the website speed service for English-speaking clients.`,
