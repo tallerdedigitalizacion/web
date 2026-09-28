@@ -37,6 +37,10 @@ const pair = languagePairs.find(([es, en]) => [es, en].includes(normalizePath(ef
 const alternates: [string, string][] =
   overriddenCanonical ? [] : alternatesProp.length > 0 ? alternatesProp : pair ? [["es-ES", pair[0]], ["en", pair[1]], ["x-default", pair[0]]] : [];
 
+// Enlace al otro idioma en la cabecera: la página equivalente si existe; si no, la portada del otro idioma.
+const langSwitchPath = pair ? (lang === "en" ? pair[0] : pair[1]) : lang === "en" ? "/" : "/en";
+const langSwitchHref = langSwitchPath.endsWith("/") ? langSwitchPath : `${langSwitchPath}/`;
+
 const origin = Astro.site ?? new URL(siteConfig.publicUrl).origin;
 const absoluteUrl = (path: string) => new URL(withBase(path), origin).toString();
 // GitHub Pages sirve cada página como carpeta y redirige (301) las URLs sin barra final.
@@ -163,7 +167,7 @@ const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
-    {!minimal && <Header bookingEvent={headerBookingEvent} brandHref={headerBrandHref} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} />}
+    {!minimal && <Header bookingEvent={headerBookingEvent} brandHref={headerBrandHref} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} langSwitchHref={langSwitchHref} />}
     <main>
       <slot />
     </main>

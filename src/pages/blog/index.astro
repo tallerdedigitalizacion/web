@@ -19,10 +19,11 @@ const dateFormat = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
     </div>
     <div class="link-grid">
       {posts.map((post) => (
-        <a href={`/blog/${post.slug}/`}>
+        <article>
           <strong>{post.data.title}</strong>
           <span>{dateFormat.format(post.data.pubDate)} · {post.data.description}</span>
-        </a>
+          <a class="btn btn-secondary btn-small" href={`/blog/${post.slug}/`}>Leer artículo</a>
+        </article>
       ))}
     </div>
   </section>

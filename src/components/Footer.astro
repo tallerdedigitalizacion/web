@@ -15,7 +15,6 @@ const zoneLinks = [
 
 <footer class="site-footer">
   <div class="footer-brand">
-    <img src={withBase("/logo-96.png")} alt="Taller de Digitalización" width="48" height="48" loading="lazy" />
     <div>
       <strong>{siteConfig.name}</strong>
       <p>{isEnglish ? "Technical diagnosis and fixes for websites and business operations." : "Soporte informático y digitalización para empresas en Toledo."}</p>
@@ -27,6 +26,7 @@ const zoneLinks = [
         </address>
       )}
     </div>
+    <img src={withBase("/logo-96.png")} alt="Taller de Digitalización" width="48" height="48" loading="lazy" />
   </div>
   {!isEnglish && (
     <div class="footer-columns">
