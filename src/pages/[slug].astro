@@ -27,6 +27,22 @@ const extraSchema = [
     url: pageUrl,
     provider: { "@id": businessId },
     areaServed: page.areas.map((name) => ({ "@type": "Place", name })),
+    ...(page.priceFrom && {
+      offers: {
+        "@type": "Offer",
+        url: pageUrl,
+        price: page.priceFrom,
+        priceCurrency: "EUR",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: page.priceFrom,
+          priceCurrency: "EUR",
+          unitCode: "MON",
+          referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" },
+          valueAddedTaxIncluded: false,
+        },
+      },
+    }),
   },
   {
     "@type": "BreadcrumbList",
@@ -51,6 +67,7 @@ const navItems = [
       <span class="eyebrow">{page.eyebrow}</span>
       <h1>{page.h1}</h1>
       <p class="hero-subtitle">{page.intro}</p>
+      {page.priceFrom && <p class="price-tag">Plan mensual desde <strong>{page.priceFrom} €/mes</strong> + IVA</p>}
       <div class="hero-actions">
         <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
         <a class="btn btn-secondary" href="#contacto">Escribirme</a>

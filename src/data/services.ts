@@ -1,5 +1,10 @@
-// Catálogo único de servicios: alimenta el desplegable del formulario, el footer y llms.txt.
-export const serviceGroups = ["Informática y seguridad", "Web", "Operaciones y procesos", "IA y captación"] as const;
+import { siteConfig } from "@/config/site";
+
+// Catálogo único de servicios: alimenta la portada, el desplegable del formulario, el footer y llms.txt.
+// "Planes mensuales" son los servicios recurrentes; el resto de grupos son proyectos con precio cerrado.
+export const planGroup = "Planes mensuales";
+export const serviceGroups = [planGroup, "Informática y seguridad", "Web", "Operaciones y procesos", "IA y captación"] as const;
+export const projectGroups = serviceGroups.filter((group) => group !== planGroup);
 export type ServiceGroup = (typeof serviceGroups)[number];
 
 export type ServiceEntry = {
@@ -10,14 +15,15 @@ export type ServiceEntry = {
 };
 
 export const serviceCatalog: ServiceEntry[] = [
-  { group: "Informática y seguridad", label: "Soporte informático", href: "/informatico-empresas-toledo/", summary: "Incidencias de ordenadores, correo, red e impresoras, en remoto o presencial." },
-  { group: "Informática y seguridad", label: "Mantenimiento informático", href: "/mantenimiento-informatico-toledo/", summary: "Revisiones periódicas, copias comprobadas y soporte con cuota mensual cerrada." },
+  { group: planGroup, label: "Informática gestionada", href: "/mantenimiento-informatico-toledo/", summary: `Mantenimiento de equipos, copias comprobadas, seguridad, cuentas y soporte en remoto.` },
+  { group: planGroup, label: "Web gestionada", href: "/mantenimiento-wordpress/", summary: `Hosting, actualizaciones, copias, seguridad, velocidad y pequeños cambios cada mes.` },
+  { group: planGroup, label: "Operaciones e IA", href: "/plan-operaciones-ia/", summary: `Automatizaciones, integraciones y agentes de IA mantenidos y mejorados cada mes.` },
+  { group: "Informática y seguridad", label: "Soporte informático", href: "/informatico-empresas-toledo/", summary: "Incidencias puntuales de ordenadores, correo, red e impresoras, en remoto o presencial." },
   { group: "Informática y seguridad", label: "Ciberseguridad y NIS2", href: "/ciberseguridad-empresas-toledo/", summary: "Auditoría, copias, protección de equipos, RGPD y adaptación a NIS2." },
   { group: "Informática y seguridad", label: "Google Workspace y correo", href: "/google-workspace-empresas-toledo/", summary: "Correo con dominio propio, Drive compartido, permisos y migraciones." },
   { group: "Informática y seguridad", label: "Reestructuración de Google Drive", href: "/reestructuracion-google-drive/", summary: "Una estructura de carpetas y permisos clara para encontrar cualquier documento en segundos." },
   { group: "Informática y seguridad", label: "Gestión de contraseñas", href: "/gestor-contrasenas-empresas/", summary: "Salir del Excel y del WhatsApp: gestor de contraseñas y doble factor." },
   { group: "Web", label: "Diseño web que genera clientes", href: "/diseno-web-toledo/", summary: "Webs rápidas, pensadas para captar contactos y fáciles de mantener." },
-  { group: "Web", label: "Rescate y mantenimiento de WordPress", href: "/mantenimiento-wordpress/", summary: "WordPress lento, hackeado o sin actualizar: revisión, limpieza y mantenimiento." },
   { group: "Web", label: "Optimización de velocidad web", href: "/optimizacion-velocidad-web/", summary: "Acelerar la web sin rehacerla, verificado con Core Web Vitals." },
   { group: "Web", label: "Informe gratuito de tu web", href: "/informe-gratuito-web/", summary: "Autoauditoría gratuita de velocidad, SEO básico, seguridad y captación de contactos." },
   { group: "Web", label: "Funnel web para un producto", href: "/funnel-web/", summary: "Página de venta, captación y seguimiento automático para un producto o servicio." },
