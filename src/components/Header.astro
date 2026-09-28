@@ -9,6 +9,7 @@ const {
   showBooking = true,
   lang = "es",
   bookingHref = siteConfig.bookingUrl,
+  langSwitchHref,
 } = Astro.props;
 const resolveHref = (href: string) => (href.startsWith("/") ? (import.meta.env.DEV ? href : withBase(href)) : href);
 const brandTarget = resolveHref(brandHref);
@@ -21,6 +22,8 @@ const labels = {
   openMenu: isEnglish ? "Open menu" : "Abrir menú",
   closeMenu: isEnglish ? "Close menu" : "Cerrar menú",
   mobileNav: isEnglish ? "Mobile navigation" : "Navegación móvil",
+  langSwitch: isEnglish ? "ES" : "EN",
+  langSwitchTitle: isEnglish ? "Ver en español" : "View in English",
 };
 ---
 
@@ -34,6 +37,7 @@ const labels = {
     </nav>
   )}
   <div class="header-actions">
+    {langSwitchHref && <a class="lang-switch" href={resolveHref(langSwitchHref)} hreflang={isEnglish ? "es" : "en"} lang={isEnglish ? "es" : "en"} title={labels.langSwitchTitle}>{labels.langSwitch}</a>}
     {showBooking && <a class="btn btn-small btn-primary" data-event={bookingEvent} href={bookingHref} target="_blank" rel="noreferrer">{labels.book}</a>}
     {resolvedNavItems.length > 0 && (
       <button class="menu-toggle" type="button" aria-label={labels.openMenu} aria-expanded="false" aria-controls="mobile-menu" data-label-open={labels.openMenu} data-label-close={labels.closeMenu}>

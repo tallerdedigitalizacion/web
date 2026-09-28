@@ -26,8 +26,8 @@ const products = [
   },
 ];
 
-const steps = [
-  ["Llamada gratuita de 15 minutos", "Me cuentas qué pasa. Si no veo cómo ayudarte, te lo digo."],
+const steps: [string, string, string?][] = [
+  ["Llamada gratuita de 15 minutos", "Me cuentas qué pasa. Si no veo cómo ayudarte, te lo digo.", siteConfig.bookingUrl],
   ["Propuesta cerrada", "Qué hay que hacer, en qué orden y cuánto cuesta. Sin letra pequeña."],
   ["Implementación", "En remoto o en tu empresa. Te explico lo que he hecho en lenguaje normal."],
   ["Mantenimiento", "Revisiones, actualizaciones y soporte continuo para que todo siga funcionando y no vuelvan los problemas."],
@@ -50,7 +50,7 @@ const featuredReviews = reviews.slice(0, 3);
   description={description}
   canonicalPath="/"
   faq={faqs}
-  headerNavItems={[["Servicios", "#servicios"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"], ["Contacto", "#contacto"], ["English", "/en"]]}
+  headerNavItems={[["Servicios", "#servicios"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"], ["Contacto", "#contacto"]]}
 >
   <section class="hero home-hero">
     <div class="hero-content">
@@ -95,7 +95,11 @@ const featuredReviews = reviews.slice(0, 3);
         <h3 class="service-group-title">{group}</h3>
         <div class="link-grid">
           {serviceCatalog.filter((service) => service.group === group).map((service) => (
-            <a href={service.href}><strong>{service.label}</strong><span>{service.summary}</span></a>
+            <article>
+              <strong>{service.label}</strong>
+              <span>{service.summary}</span>
+              <a class="btn btn-secondary btn-small" href={service.href}>Saber más</a>
+            </article>
           ))}
         </div>
       </div>
@@ -132,10 +136,10 @@ const featuredReviews = reviews.slice(0, 3);
       <p>{siteConfig.experienceYears} años desarrollando software y resolviendo problemas técnicos para empresas. Te atiende una persona real, no una agencia que te deriva.</p>
     </div>
     <div class="steps steps-4">
-      {steps.map(([name, text], index) => (
+      {steps.map(([name, text, href], index) => (
         <article>
           <span class="step-number">{index + 1}</span>
-          <h3>{name}</h3>
+          <h3>{href ? <a class="text-link" data-event="reservar_click" data-preserve-utm href={href} target="_blank" rel="noreferrer">{name}</a> : name}</h3>
           <p>{text}</p>
         </article>
       ))}

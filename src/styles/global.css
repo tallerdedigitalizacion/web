@@ -1201,7 +1201,9 @@ details p {
 
 .footer-brand {
   display: flex;
-  align-items: center;
+  flex-basis: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 14px;
 }
 
@@ -1351,6 +1353,7 @@ details p {
   .site-footer, .cookie-banner { flex-direction: column; }
   .site-footer, .footer-brand, .footer-brand div { text-align: center; align-items: center; }
   .footer-brand { flex-direction: column; }
+  .footer-brand img { order: -1; }
   .site-footer nav { justify-content: center; }
 }
 
@@ -1434,8 +1437,9 @@ textarea { resize: vertical; font: inherit; }
   gap: 12px;
 }
 
-.link-grid a {
+.link-grid article {
   display: grid;
+  grid-template-rows: auto 1fr auto;
   gap: 4px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1445,8 +1449,22 @@ textarea { resize: vertical; font: inherit; }
   text-decoration: none;
 }
 
-.link-grid a:hover { border-color: var(--accent); }
-.link-grid a span { color: var(--muted); font-size: 0.92rem; }
+.link-grid article span { color: var(--muted); font-size: 0.92rem; }
+.link-grid article .btn { justify-self: start; margin-top: 10px; }
+.text-link { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.lang-switch {
+  display: inline-grid;
+  place-items: center;
+  min-width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.lang-switch:hover { border-color: var(--accent); color: var(--ink); }
 
 @media (max-width: 900px) {
   .trust-grid, .steps.steps-4 { grid-template-columns: repeat(2, 1fr); }
