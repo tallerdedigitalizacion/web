@@ -16,14 +16,17 @@
 
 ## Servicios
 
-- [Soporte informático](https://tallerdedigitalizacion.com/informatico-empresas-toledo/): Incidencias de ordenadores, correo, red e impresoras, en remoto o presencial.
-- [Mantenimiento informático](https://tallerdedigitalizacion.com/mantenimiento-informatico-toledo/): Revisiones periódicas, copias comprobadas y soporte con cuota mensual cerrada.
+Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanencias largas) y proyectos con presupuesto cerrado.
+
+- [Informática gestionada](https://tallerdedigitalizacion.com/mantenimiento-informatico-toledo/): Mantenimiento de equipos, copias comprobadas, seguridad, cuentas y soporte en remoto.
+- [Web gestionada](https://tallerdedigitalizacion.com/mantenimiento-wordpress/): Hosting, actualizaciones, copias, seguridad, velocidad y pequeños cambios cada mes.
+- [Operaciones e IA](https://tallerdedigitalizacion.com/plan-operaciones-ia/): Automatizaciones, integraciones y agentes de IA mantenidos y mejorados cada mes.
+- [Soporte informático](https://tallerdedigitalizacion.com/informatico-empresas-toledo/): Incidencias puntuales de ordenadores, correo, red e impresoras, en remoto o presencial.
 - [Ciberseguridad y NIS2](https://tallerdedigitalizacion.com/ciberseguridad-empresas-toledo/): Auditoría, copias, protección de equipos, RGPD y adaptación a NIS2.
 - [Google Workspace y correo](https://tallerdedigitalizacion.com/google-workspace-empresas-toledo/): Correo con dominio propio, Drive compartido, permisos y migraciones.
 - [Reestructuración de Google Drive](https://tallerdedigitalizacion.com/reestructuracion-google-drive/): Una estructura de carpetas y permisos clara para encontrar cualquier documento en segundos.
 - [Gestión de contraseñas](https://tallerdedigitalizacion.com/gestor-contrasenas-empresas/): Salir del Excel y del WhatsApp: gestor de contraseñas y doble factor.
 - [Diseño web que genera clientes](https://tallerdedigitalizacion.com/diseno-web-toledo/): Webs rápidas, pensadas para captar contactos y fáciles de mantener.
-- [Rescate y mantenimiento de WordPress](https://tallerdedigitalizacion.com/mantenimiento-wordpress/): WordPress lento, hackeado o sin actualizar: revisión, limpieza y mantenimiento.
 - [Optimización de velocidad web](https://tallerdedigitalizacion.com/optimizacion-velocidad-web/): Acelerar la web sin rehacerla, verificado con Core Web Vitals.
 - [Informe gratuito de tu web](https://tallerdedigitalizacion.com/informe-gratuito-web/): Autoauditoría gratuita de velocidad, SEO básico, seguridad y captación de contactos.
 - [Funnel web para un producto](https://tallerdedigitalizacion.com/funnel-web/): Página de venta, captación y seguimiento automático para un producto o servicio.
