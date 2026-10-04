@@ -189,11 +189,13 @@ const diagnosticoReviews = reviews.slice(0, 8);
 </BaseLayout>
 
 <script>
+  import { BOOKING_URL } from "@/config/booking";
+
   const params = new URLSearchParams(window.location.search);
   const utmEntries = [...params.entries()].filter(([key]) => key.toLowerCase().startsWith("utm_"));
 
   if (utmEntries.length > 0) {
-    document.querySelectorAll('[data-preserve-utm], a[href*="calendly.com/tallerdedigitalizacion"]').forEach((link) => {
+    document.querySelectorAll(`[data-preserve-utm], a[href^="${BOOKING_URL}"]`).forEach((link) => {
       if (!(link instanceof HTMLAnchorElement)) return;
       const url = new URL(link.href);
       utmEntries.forEach(([key, value]) => {

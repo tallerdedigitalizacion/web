@@ -17,7 +17,7 @@ const canonicalPath = isEnglish ? webAuditShared.englishPath : webAuditShared.sp
   canonicalPath={canonicalPath}
   headerBrandHref={canonicalPath}
   headerNavItems={copy.nav}
-  headerBookingEvent="click_calendly_web_audit"
+  headerBookingEvent="click_reservar_llamada"
   lang={lang}
   bookingHref={webAuditShared.bookingUrl}
   showChatbase={!isEnglish}
@@ -31,7 +31,7 @@ const canonicalPath = isEnglish ? webAuditShared.englishPath : webAuditShared.sp
       <p class="hero-subtitle">{copy.hero.subtitle}</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href={`#${isEnglish ? "self-assessment" : "autoevaluacion"}`}>{copy.hero.primaryCta}</a>
-        <a class="btn btn-secondary" data-event="click_calendly_web_audit" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
+        <a class="btn btn-secondary" data-event="click_reservar_llamada" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
       </div>
       <p class="microcopy">{copy.hero.note}</p>
     </div>
@@ -109,7 +109,7 @@ const canonicalPath = isEnglish ? webAuditShared.englishPath : webAuditShared.sp
       <ul class="check-list">
         {copy.offer.deliverables.map((item) => <li>{item}</li>)}
       </ul>
-      <a class="btn btn-primary" data-event="click_calendly_web_audit" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
+      <a class="btn btn-primary" data-event="click_reservar_llamada" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
     </div>
   </section>
 
@@ -162,7 +162,7 @@ const canonicalPath = isEnglish ? webAuditShared.englishPath : webAuditShared.sp
   <section class="section final-cta">
     <h2>{isEnglish ? "Start by understanding where the website is leaking opportunities." : "Empecemos por entender dónde está perdiendo oportunidades tu web."}</h2>
     <div class="hero-actions">
-      <a class="btn btn-primary" data-event="click_calendly_web_audit" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
+      <a class="btn btn-primary" data-event="click_reservar_llamada" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
       <a class="btn btn-secondary" href={`#${isEnglish ? "self-assessment" : "autoevaluacion"}`}>{copy.hero.primaryCta}</a>
     </div>
     <p>{copy.hero.note}</p>

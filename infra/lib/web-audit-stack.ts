@@ -45,7 +45,6 @@ export class WebAuditStack extends Stack {
         EXECUTIVE_REPORT_FILE_ES: "downloads/auditoria-web-tecnica-reporte-ejecutivo-es.pdf",
         EXECUTIVE_REPORT_FILE_EN: "downloads/technical-web-audit-executive-report-en.pdf",
         SES_FROM_EMAIL: process.env.SES_FROM_EMAIL || "info@tallerdedigitalizacion.com",
-        CALENDLY_URL: process.env.WEB_AUDIT_CALENDLY_URL || "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
         ALLOWED_ORIGIN: allowedOrigin,
         AUDIT_CLIENT_TOKEN: process.env.AUDIT_CLIENT_TOKEN || "",
         TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY || "",

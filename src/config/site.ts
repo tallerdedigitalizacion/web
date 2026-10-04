@@ -1,10 +1,12 @@
+import { BOOKING_URL } from "./booking";
+
 export const siteConfig = {
   name: "Taller de Digitalización",
   seoTitle: "Informático para empresas y digitalización en Toledo | Taller de Digitalización",
   seoDescription:
     "Soporte informático, webs y digitalización para PyMEs en Toledo y a 50 km de Fuensalida. Presencial o en remoto, sin tecnicismos ni ventas innecesarias.",
   publicUrl: "https://tallerdedigitalizacion.com",
-  bookingUrl: "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
+  bookingUrl: BOOKING_URL,
   contactEmail: "info@tallerdedigitalizacion.com",
   phone: "+34632990133",
   phoneDisplay: "632 99 01 33",
