@@ -5,6 +5,8 @@ import ContactForm from "@/components/ContactForm.astro";
 import { siteConfig } from "@/config/site";
 import { reviews } from "@/data/reviews";
 import { planGroup, projectGroups, serviceCatalog } from "@/data/services";
+import { billarArrabal } from "@/data/portfolio";
+import { withBase } from "@/utils/paths";
 
 const title = "Informático para empresas y digitalización en Toledo | Taller de Digitalización";
 const description = "Soporte informático, ciberseguridad, webs y digitalización para PyMEs en Toledo, Torrijos, Illescas y a 50 km de Fuensalida. Presencial o en remoto. Primera llamada gratis.";
@@ -34,7 +36,7 @@ const featuredReviews = reviews.slice(0, 3);
   description={description}
   canonicalPath="/"
   faq={faqs}
-  headerNavItems={[["Planes", "#servicios"], ["Proyectos", "#proyectos"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"], ["Contacto", "#contacto"]]}
+  headerNavItems={[["Planes", "#servicios"], ["Proyectos", "#proyectos"], ["Portfolio", "#portfolio"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"], ["Contacto", "#contacto"]]}
 >
   <section class="hero home-hero">
     <div class="hero-content">
@@ -90,6 +92,22 @@ const featuredReviews = reviews.slice(0, 3);
         </div>
       </div>
     ))}
+  </section>
+
+  <section id="portfolio" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Portfolio</span>
+      <h2>Una app rescatada para un billar de Fuensalida.</h2>
+      <p>La aplicación del Billar El Arrabal se había quedado a medias. La retomé con IA, la simplifiqué y hoy la puede usar cualquier club. Te cuento la historia, qué hace y para qué sirve.</p>
+    </div>
+    <div class="portfolio-teaser">
+      <img src={withBase(billarArrabal.images.scoreboard.src)} alt={billarArrabal.images.scoreboard.alt} width={billarArrabal.images.scoreboard.width} height={billarArrabal.images.scoreboard.height} loading="lazy" />
+      <div>
+        <h3>{billarArrabal.name}</h3>
+        <p class="muted">Un marcador de carambola que graba la partida en vídeo con el marcador en pantalla.</p>
+        <a class="btn btn-secondary" href="/portfolio/">Ver el proyecto</a>
+      </div>
+    </div>
   </section>
 
   <section id="zona" class="section">
@@ -156,3 +174,32 @@ const featuredReviews = reviews.slice(0, 3);
 
   <ContactForm />
 </BaseLayout>
+
+<style>
+  .portfolio-teaser {
+    display: grid;
+    grid-template-columns: minmax(0, 420px) 1fr;
+    gap: clamp(20px, 4vw, 40px);
+    align-items: center;
+    max-width: 920px;
+  }
+
+  .portfolio-teaser img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .portfolio-teaser h3 {
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  }
+
+  @media (max-width: 720px) {
+    .portfolio-teaser {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,326 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContactForm from "@/components/ContactForm.astro";
+import { siteConfig } from "@/config/site";
+import { billarArrabal as app } from "@/data/portfolio";
+import { getPublishedPosts } from "@/utils/blog";
+import { withBase } from "@/utils/paths";
+
+const title = "Portfolio: la app del Billar El Arrabal | Taller de Digitalización";
+const description = "La historia de la app de marcador del Billar El Arrabal de Fuensalida: de dónde salió, qué hace y para qué sirve. Rescatada y simplificada con IA.";
+
+// El caso del blog está programado: solo se enlaza cuando ya está publicado.
+const posts = await getPublishedPosts();
+const caseStudy = posts.find((post) => post.slug === "caso-billar-arrabal-fuensalida");
+
+const extraSchema = [
+  {
+    "@type": "SoftwareApplication",
+    name: app.name,
+    description: "Marcador de carambola que graba la partida en vídeo con el marcador sobreimpreso. Pensada para cualquier billar.",
+    url: app.appUrl,
+    applicationCategory: "SportsApplication",
+    operatingSystem: "Web (Chrome)",
+    inLanguage: ["es", "en"],
+    image: new URL(app.images.og.src, siteConfig.publicUrl).toString(),
+    offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+    creator: { "@id": `${siteConfig.publicUrl}/#founder` },
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/portfolio"
+  ogImage={app.images.og.src}
+  ogImageAlt={app.images.og.alt}
+  extraSchema={extraSchema}
+>
+  <section class="hero portfolio-hero">
+    <div class="hero-content portfolio-hero-grid">
+      <div>
+        <span class="eyebrow">Portfolio</span>
+        <h1>Billar El Arrabal: una app rescatada.</h1>
+        <p class="hero-subtitle">La historia de una aplicación que se quedó a medias en el billar del centro de jubilados de Fuensalida, y de cómo la rescatamos y la simplificamos hasta que pudo usarla cualquiera.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" data-event="portfolio_app_click" href={app.appUrl} target="_blank" rel="noreferrer">Probar la app</a>
+        </div>
+      </div>
+      <figure class="app-shot">
+        <img src={withBase(app.images.scoreboard.src)} alt={app.images.scoreboard.alt} width={app.images.scoreboard.width} height={app.images.scoreboard.height} fetchpriority="high" />
+      </figure>
+    </div>
+  </section>
+
+  <section id="video" class="section">
+    <div class="section-head">
+      <span class="eyebrow">En vídeo</span>
+      <h2>La historia, contada por mí.</h2>
+      <p>De dónde salió la app, qué hace y para qué sirve.</p>
+    </div>
+    {app.videoId ? (
+      <div class="video-frame" data-video-id={app.videoId}>
+        <button class="video-play" type="button" aria-label="Reproducir el vídeo">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          <span>Reproducir vídeo</span>
+        </button>
+      </div>
+      <p class="microcopy video-note">Al reproducirlo se carga el reproductor de YouTube (youtube-nocookie.com).</p>
+    ) : (
+      <div class="video-frame video-empty"><p>Vídeo próximamente.</p></div>
+    )}
+  </section>
+
+  <section id="historia" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">De dónde salió</span>
+      <h2>Una app que hacía la mitad del trabajo.</h2>
+    </div>
+    <div class="story-grid">
+      <article>
+        <span class="step-number">1</span>
+        <h3>El punto de partida</h3>
+        <p>El Billar El Arrabal tenía una aplicación para llevar las partidas, hecha por otro desarrollador que ya no la mantenía. Grababa solo el vídeo, sin las puntuaciones ni la configuración de la partida, y se quedaba sin memoria antes de terminar.</p>
+        <p>Quien lleva el billar tenía que arreglar a mano lo que la app hacía mal, y además usaba tres o cuatro herramientas más y alguna hoja de papel.</p>
+      </article>
+      <article>
+        <span class="step-number">2</span>
+        <h3>Lo que hice</h3>
+        <p>Retomé el código con <strong>Claude Code</strong>, una herramienta de inteligencia artificial para programar: lo estructuré para que se pudiera mantener y quité todo lo que no se usaba.</p>
+        <p>Después la probé en persona con Pedro, en varias sesiones en el billar, hasta que quedó lo bastante simple para que cualquiera del centro pudiera usarla sin ayuda.</p>
+      </article>
+      <article>
+        <span class="step-number">3</span>
+        <h3>El resultado</h3>
+        <p>Donde antes había tres o cuatro herramientas y papel, ahora se abre una aplicación y está todo ahí.</p>
+        <p>Y la mejor señal: ahora piden funciones nuevas. Cuando un equipo pasa de sufrir una herramienta a pedirle cosas, es que forma parte de su día a día.</p>
+      </article>
+    </div>
+    <blockquote class="app-quote">
+      {app.quote.lines.map((line) => <p>«{line}»</p>)}
+      <footer>— {app.quote.author}</footer>
+    </blockquote>
+  </section>
+
+  <section id="que-hace" class="section">
+    <div class="section-split">
+      <div>
+        <span class="eyebrow">Qué hace</span>
+        <h2>Un marcador que graba la partida.</h2>
+        <p class="muted lead-text">Pensada para las partidas de carambola: llevar el marcador sin papel, grabar la partida con el marcador en pantalla y tener las estadísticas a mano.</p>
+        <ul class="check-list">
+          {app.features.map((feature) => <li>{feature}</li>)}
+        </ul>
+        <p class="microcopy requirements">Funciona en el navegador: un ordenador con Chrome y webcam.</p>
+      </div>
+      <figure class="app-shot">
+        <img src={withBase(app.images.menu.src)} alt={app.images.menu.alt} width={app.images.menu.width} height={app.images.menu.height} loading="lazy" />
+        <figcaption>El menú principal de la app.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="decision" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">La decisión más importante</span>
+      <h2>Que haga una cosa y la haga bien.</h2>
+      <p>Cuando la app funcionó, llegaron las peticiones. Una era que gestionara también a las personas: jugadores, ligas, torneos. Es lógico querer tenerlo todo en el mismo sitio, pero una cosa es una aplicación que gestiona una partida y otra muy distinta una que gestiona personas: la segunda se complica muchísimo, se vuelve muy específica y es mucho más difícil de mantener.</p>
+      <p>Así que acordamos que la app se centra en ayudar con las partidas. Y la mantengo lo bastante genérica para que le sirva a cualquier billar: Pedro me autorizó a ofrecerla a otros centros y clubes.</p>
+    </div>
+  </section>
+
+  <section id="probar" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Pruébala</span>
+      <h2>Ábrela y juega una partida.</h2>
+      <p>Es gratis y funciona en el navegador.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="btn btn-primary" data-event="portfolio_app_click" href={app.appUrl} target="_blank" rel="noreferrer">Probar la app</a>
+    </div>
+    <p class="muted business-note">
+      ¿Tienes en tu empresa un programa que «más o menos funciona»? Probablemente no haga falta tirarlo:
+      mira cómo trabajo las <a class="text-link" href="/herramientas-internas-medida/">herramientas internas a medida</a>{caseStudy && <>{" "}o lee <a class="text-link" href={`/blog/${caseStudy.slug}/`}>el caso completo en el blog</a></>}.
+    </p>
+  </section>
+
+  <ContactForm selectedService="Herramientas internas a medida" title="¿Tienes una herramienta que te está dando guerra?" />
+</BaseLayout>
+
+<script>
+  // El reproductor de YouTube solo se carga cuando la persona pulsa "Reproducir" (no hay peticiones a Google antes).
+  document.querySelectorAll<HTMLElement>(".video-frame[data-video-id]").forEach((frame) => {
+    frame.querySelector("button")?.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${frame.dataset.videoId}?autoplay=1&rel=0`;
+      iframe.title = "Vídeo: la historia de la app del Billar El Arrabal";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.replaceChildren(iframe);
+    });
+  });
+</script>
+
+<style>
+  .portfolio-hero {
+    min-height: 0;
+  }
+
+  .portfolio-hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+
+  .portfolio-hero h1 {
+    font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+  }
+
+  .app-shot {
+    margin: 0;
+  }
+
+  .app-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .app-shot figcaption {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .video-frame {
+    position: relative;
+    width: min(960px, 100%);
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--dark);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  /* El iframe se crea con JS, por eso necesita :global (los estilos de Astro son por componente). */
+  .video-frame :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .video-play {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .video-play svg {
+    display: block;
+    width: 72px;
+    height: 72px;
+    padding: 18px 14px 18px 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #20242c;
+    box-sizing: border-box;
+    transition: transform 0.15s ease;
+  }
+
+  .video-play:hover svg {
+    transform: scale(1.06);
+  }
+
+  .video-empty {
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+  }
+
+  .video-note {
+    margin-top: 10px;
+  }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .story-grid article {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    padding: 22px;
+  }
+
+  .story-grid .step-number {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #20242c;
+    font-weight: 900;
+  }
+
+  .story-grid p {
+    color: var(--muted);
+  }
+
+  .app-quote {
+    margin: 28px 0 0;
+    padding: 20px 24px;
+    border-left: 4px solid var(--accent);
+    background: rgba(78, 229, 141, 0.08);
+    font-size: 1.15rem;
+  }
+
+  .app-quote p {
+    margin-bottom: 6px;
+  }
+
+  .app-quote footer {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .requirements {
+    margin-top: 16px;
+  }
+
+  .lead-text {
+    margin-bottom: 22px;
+  }
+
+  .business-note {
+    max-width: 760px;
+    margin-top: 34px;
+  }
+
+  @media (max-width: 900px) {
+    .portfolio-hero-grid,
+    .story-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
