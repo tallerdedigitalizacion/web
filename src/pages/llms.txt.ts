@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { localPages } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
 import { serviceCatalog } from "@/data/services";
+import { billarArrabal } from "@/data/portfolio";
 import { getPublishedPosts } from "@/utils/blog";
 
 // Se genera en cada build para que los asistentes de IA vean siempre las páginas y datos actuales.
@@ -48,6 +49,10 @@ export const GET: APIRoute = async () => {
     "- Presupuesto cerrado antes de empezar.",
     "- Proceso: llamada, propuesta cerrada, implementación y mantenimiento.",
     "- Explicaciones sin tecnicismos y sin vender servicios innecesarios.",
+    "",
+    "## Portfolio",
+    "",
+    `- [${billarArrabal.name}](${url("/portfolio/")}): la app de marcador del Billar El Arrabal de Fuensalida, rescatada y simplificada con IA; qué hace y para qué sirve. App: ${billarArrabal.appUrl}`,
     "",
     "## Blog",
     "",
