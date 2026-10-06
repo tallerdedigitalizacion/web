@@ -61,8 +61,13 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 - Proceso: llamada, propuesta cerrada, implementación y mantenimiento.
 - Explicaciones sin tecnicismos y sin vender servicios innecesarios.
 
+## Portfolio
+
+- [Marcador Billar El Arrabal](https://tallerdedigitalizacion.com/portfolio/): la app de marcador del Billar El Arrabal de Fuensalida, rescatada y simplificada con IA; qué hace y para qué sirve. App: https://billararrabal.tallerdedigitalizacion.com/
+
 ## Blog
 
+- [Copias de seguridad en una PyME: cómo saber si de verdad te salvarían](https://tallerdedigitalizacion.com/blog/copias-de-seguridad-pyme/): Tener copia no es lo mismo que poder recuperarte. La regla 3-2-1, los errores más habituales y una comprobación de 15 minutos para tu empresa.
 - [¿Cuánto cuesta un informático para una PyME? Soporte puntual o mantenimiento](https://tallerdedigitalizacion.com/blog/cuanto-cuesta-informatico-empresa/): Cómo se cobra el soporte informático para empresas, qué debería incluir un mantenimiento y cómo decidir qué modelo te conviene, sin letra pequeña.
 - [¿Te afecta la NIS2? Guía práctica para PyMEs de Toledo y el sur de Madrid](https://tallerdedigitalizacion.com/blog/nis2-pymes-que-hacer/): Qué es la directiva NIS2, a qué empresas afecta directa o indirectamente y qué medidas conviene aplicar ya, explicado sin jerga para PyMEs.
 
