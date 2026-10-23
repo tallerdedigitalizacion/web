@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { localPages } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
 import { serviceCatalog } from "@/data/services";
+import { serviceCatalogEn } from "@/data/servicesEn";
 import { billarArrabal } from "@/data/portfolio";
 import { getPublishedPosts } from "@/utils/blog";
 
@@ -38,6 +39,11 @@ export const GET: APIRoute = async () => {
     ...serviceCatalog.map((service) => `- [${service.label}](${url(service.href)}): ${service.summary}`),
     ...extraPages.map((page) => `- [${page.h1.replace(/\.$/, "")}](${url(`/${page.slug}/`)}): ${page.description}`),
     `- [Website speed optimization (English)](${url("/website-speed-optimization/")}): the website speed service for English-speaking clients.`,
+    "",
+    "## English version (remote service, no fixed location)",
+    "",
+    `- [Home (English)](${url("/en/")}): remote IT support and digitalization for small businesses, with monthly plans from €${siteConfig.planPriceFrom}/month + VAT and fixed-price projects.`,
+    ...serviceCatalogEn.map((service) => `- [${service.label}](${url(service.href)}): ${service.summary}`),
     "",
     `## Zona de servicio presencial (municipios a menos de ${siteConfig.serviceRadiusKm} km de ${address.addressLocality})`,
     "",

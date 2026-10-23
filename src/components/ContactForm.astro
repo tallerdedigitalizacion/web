@@ -1,54 +1,116 @@
 ---
 import { siteConfig, whatsappUrl } from "@/config/site";
 import { serviceCatalog, serviceGroups } from "@/data/services";
+import { serviceCatalogEn, serviceGroupsEn } from "@/data/servicesEn";
 import { withBase } from "@/utils/paths";
 
 const {
+  lang = "es",
   selectedService = "",
-  title = "Cuéntame qué necesitas",
-  intro = "Elige el servicio, escribe dos líneas y te respondo en horario laboral. Si lo prefieres, reserva directamente una llamada gratuita.",
+  title: titleProp,
+  intro: introProp,
 } = Astro.props;
+const isEnglish = lang === "en";
+const t = isEnglish
+  ? {
+      eyebrow: "Contact",
+      title: "Tell me what you need",
+      intro: "Choose the service, write a couple of lines and I'll reply by email. If you prefer, book a free call straight away.",
+      book: "Book a free call",
+      service: "Service of interest",
+      select: "Select a service…",
+      other: "Other",
+      name: "Name",
+      email: "Email",
+      company: "Company",
+      optional: "Optional.",
+      phone: "Phone",
+      phoneHelp: "Optional, if you'd prefer a call.",
+      message: "What's happening or what do you need?",
+      privacyBefore: "I accept the",
+      privacyLink: "privacy policy",
+      send: "Send inquiry",
+      sending: "Sending…",
+      sent: "Received! I'll reply as soon as I can. Check your email: I've sent you a confirmation.",
+      failed: "Couldn't send",
+      unknown: "unknown error",
+      fallback: "Write to me at",
+    }
+  : {
+      eyebrow: "Contacto",
+      title: "Cuéntame qué necesitas",
+      intro: "Elige el servicio, escribe dos líneas y te respondo en horario laboral. Si lo prefieres, reserva directamente una llamada gratuita.",
+      book: "Reservar llamada gratuita",
+      service: "Servicio de interés",
+      select: "Selecciona un servicio…",
+      other: "Otro",
+      name: "Nombre",
+      email: "Email",
+      company: "Empresa",
+      optional: "Opcional.",
+      phone: "Teléfono",
+      phoneHelp: "Opcional, si prefieres que te llame.",
+      message: "¿Qué pasa o qué necesitas?",
+      privacyBefore: "Acepto la",
+      privacyLink: "política de privacidad",
+      send: "Enviar consulta",
+      sending: "Enviando…",
+      sent: "¡Recibido! Te respondo lo antes posible. Revisa tu email: te he enviado una confirmación.",
+      failed: "No se pudo enviar",
+      unknown: "error desconocido",
+      fallback: "Escríbeme a",
+    };
+const title = titleProp ?? t.title;
+const intro = introProp ?? t.intro;
+const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroupsEn : serviceGroups).map((group) => ({
+  group,
+  labels: (isEnglish ? serviceCatalogEn : serviceCatalog).filter((service) => service.group === group).map(({ label }) => label),
+}));
 ---
 
 <section id="contacto" class="section section-split contact-section">
   <div>
-    <span class="eyebrow">Contacto</span>
+    <span class="eyebrow">{t.eyebrow}</span>
     <h2>{title}</h2>
     <p>{intro}</p>
-    <p class="microcopy">
-      {siteConfig.openingHours.map((h) => h.label).join(" · ")}<br />
-      <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> · <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a data-event="whatsapp_click" href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp</a>
-    </p>
-    <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
+    {isEnglish ? (
+      <p class="microcopy"><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></p>
+    ) : (
+      <p class="microcopy">
+        {siteConfig.openingHours.map((h) => h.label).join(" · ")}<br />
+        <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> · <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a data-event="whatsapp_click" href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp</a>
+      </p>
+    )}
+    <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">{t.book}</a>
   </div>
   <form class="compact-form contact-form" data-contact-form action={siteConfig.formEndpoint} method="post" novalidate>
-    <label>Servicio de interés
+    <label>{t.service}
       <select required name="servicio">
-        <option value="" disabled selected={!selectedService}>Selecciona un servicio…</option>
-        {serviceGroups.map((group) => (
+        <option value="" disabled selected={!selectedService}>{t.select}</option>
+        {groups.map(({ group, labels }) => (
           <optgroup label={group}>
-            {serviceCatalog.filter((service) => service.group === group).map(({ label }) => <option value={label} selected={label === selectedService}>{label}</option>)}
+            {labels.map((label) => <option value={label} selected={label === selectedService}>{label}</option>)}
           </optgroup>
         ))}
-        <option value="Otro" selected={selectedService === "Otro"}>Otro</option>
+        <option value={t.other} selected={selectedService === t.other}>{t.other}</option>
       </select>
     </label>
     <div class="form-grid">
-      <label>Nombre<input required name="nombre" autocomplete="name" /></label>
-      <label>Email<input required type="email" name="email" autocomplete="email" /></label>
-      <label>Empresa<input name="empresa" autocomplete="organization" /><small>Opcional.</small></label>
-      <label>Teléfono<input type="tel" name="telefono" autocomplete="tel" /><small>Opcional, si prefieres que te llame.</small></label>
+      <label>{t.name}<input required name="nombre" autocomplete="name" /></label>
+      <label>{t.email}<input required type="email" name="email" autocomplete="email" /></label>
+      <label>{t.company}<input name="empresa" autocomplete="organization" /><small>{t.optional}</small></label>
+      <label>{t.phone}<input type="tel" name="telefono" autocomplete="tel" /><small>{t.phoneHelp}</small></label>
     </div>
-    <label>¿Qué pasa o qué necesitas?<textarea required name="mensaje" rows="4" minlength="5" maxlength="2000"></textarea></label>
-    <label class="check"><input required type="checkbox" name="privacidad" /> <span>Acepto la <a href={withBase("/politica-privacidad")}>política de privacidad</a>.</span></label>
+    <label>{t.message}<textarea required name="mensaje" rows="4" minlength="5" maxlength="2000"></textarea></label>
+    <label class="check"><input required type="checkbox" name="privacidad" /> <span>{t.privacyBefore} <a href={withBase("/politica-privacidad")}>{t.privacyLink}</a>.</span></label>
     <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
     <input type="hidden" name="started_at" data-started-at />
-    <button class="btn btn-primary" type="submit">Enviar consulta</button>
+    <button class="btn btn-primary" type="submit">{t.send}</button>
     <p class="form-help" data-contact-status aria-live="polite"></p>
   </form>
 </section>
 
-<script define:vars={{ formEndpoint: siteConfig.formEndpoint }}>
+<script define:vars={{ formEndpoint: siteConfig.formEndpoint, contactEmail: siteConfig.contactEmail, msg: { sending: t.sending, sent: t.sent, failed: t.failed, unknown: t.unknown, fallback: t.fallback } }}>
   document.querySelectorAll("[data-contact-form]").forEach((form) => {
     if (!(form instanceof HTMLFormElement)) return;
     const status = form.querySelector("[data-contact-status]");
@@ -69,7 +131,7 @@ const {
       };
 
       if (button instanceof HTMLButtonElement) button.disabled = true;
-      setStatus("Enviando…");
+      setStatus(msg.sending);
       try {
         const baseUrl = String(formEndpoint || "").replace(/\/$/, "");
         const response = await fetch(`${baseUrl}/lead/contact`, {
@@ -91,14 +153,14 @@ const {
           }),
         });
         const result = await response.json().catch(() => ({}));
-        if (!response.ok || result.ok === false) throw new Error(result.error || "No se pudo enviar el mensaje.");
+        if (!response.ok || result.ok === false) throw new Error(result.error || msg.failed);
         form.reset();
         if (startedAt instanceof HTMLInputElement) startedAt.value = String(Date.now());
-        setStatus("¡Recibido! Te respondo lo antes posible. Revisa tu email: te he enviado una confirmación.");
+        setStatus(msg.sent);
         window.tdTrackEvent?.("formulario_contacto", { servicio: service, page_path: window.location.pathname });
         window.tdTrackEvent?.("generate_lead", { lead_type: "contact", servicio: service });
       } catch (error) {
-        setStatus(`No se pudo enviar: ${error instanceof Error ? error.message : "error desconocido"}. Escríbeme a info@tallerdedigitalizacion.com.`);
+        setStatus(`${msg.failed}: ${error instanceof Error ? error.message : msg.unknown}. ${msg.fallback} ${contactEmail}.`);
       } finally {
         if (button instanceof HTMLButtonElement) button.disabled = false;
       }

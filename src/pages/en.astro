@@ -1,131 +1,185 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import TrustBar from "@/components/TrustBar.astro";
+import ContactForm from "@/components/ContactForm.astro";
+import { siteConfig } from "@/config/site";
+import { reviews } from "@/data/reviews";
+import { planGroupEn, projectGroupsEn, serviceCatalogEn } from "@/data/servicesEn";
+import { billarArrabal } from "@/data/portfolio";
+import { withBase } from "@/utils/paths";
 
-const title = "Taller de Digitalización | Technical solutions for businesses";
-const description = "Taller de Digitalización brings together technical services to solve concrete business problems: digitalization, Google Workspace, leads, AI oracles, integrations and more.";
+const title = "IT support and digitalization for small businesses, fully remote | Taller de Digitalización";
+const description = "Remote IT support, cybersecurity, websites and digitalization for small businesses. Monthly plans from €39/month + VAT or fixed-price projects. First call is free.";
 
-const products = [
-  {
-    eyebrow: "Digitalization",
-    title: "Digitalization Assessment",
-    text: "Discover where you are losing time, money and opportunities: a technical and functional audit of your processes, with a prioritized report and action plan.",
-    href: "/digitalization-assessment",
-    cta: "View digitalization assessment",
-  },
-  {
-    eyebrow: "Google Workspace",
-    title: "Google Workspace Reorganization",
-    text: "We organize users, licenses, groups and permissions so each person only has access to what they need.",
-    href: "/google-workspace-reorganization",
-    cta: "View Workspace reorganization",
-  },
-  {
-    eyebrow: "Google Drive",
-    title: "Corporate Google Drive Restructuring",
-    text: "A clear, scalable structure to find any document in seconds.",
-    href: "/corporate-google-drive-restructuring",
-    cta: "View Drive restructuring",
-  },
-  {
-    eyebrow: "Security",
-    title: "Centralized Access Management",
-    text: "Know who can access what, with a password manager and onboarding/offboarding procedures.",
-    href: "/centralized-access-management",
-    cta: "View access management",
-  },
-  {
-    eyebrow: "Sales",
-    title: "Lead Centralization",
-    text: "All your prospects in a single place, tracked automatically in your CRM.",
-    href: "/lead-centralization",
-    cta: "View lead centralization",
-  },
-  {
-    eyebrow: "Marketing",
-    title: "Conversion Landing Pages",
-    text: "Pages focused on a single goal to turn your campaign traffic into contacts.",
-    href: "/conversion-landing-pages",
-    cta: "View landing pages",
-  },
-  {
-    eyebrow: "Internal AI",
-    title: "Internal Oracle",
-    text: "Your company's knowledge available in seconds, answered by AI over your own documentation.",
-    href: "/internal-oracle",
-    cta: "View Internal Oracle",
-  },
-  {
-    eyebrow: "External AI",
-    title: "External Oracle",
-    text: "Support your customers 24/7 and capture new leads with an AI assistant over your information.",
-    href: "/external-oracle",
-    cta: "View External Oracle",
-  },
-  {
-    eyebrow: "Integrations",
-    title: "Systems Integration",
-    text: "We connect your CRM, ERP, invoicing and other tools to eliminate manual tasks and errors.",
-    href: "/systems-integration",
-    cta: "View systems integration",
-  },
-  {
-    eyebrow: "Custom-built",
-    title: "Custom Internal Tools",
-    text: "Custom dashboards, portals and automations to simplify your team's daily work.",
-    href: "/custom-internal-tools",
-    cta: "View custom tools",
-  },
-  {
-    eyebrow: "Website",
-    title: "Free Website Report",
-    text: "Enter your URL and get a free report in minutes on speed, basic SEO, security and lead capture.",
-    href: "/free-website-report",
-    cta: "Get my free report",
-  },
-  {
-    eyebrow: "Website speed",
-    title: "Website Speed Optimization",
-    text: "For slow websites losing visits, rankings and leads before customers see the offer.",
-    href: "/website-speed-optimization",
-    cta: "View speed optimization",
-  },
+const steps: [string, string, string?][] = [
+  ["Free 15-minute call", "You tell me what's going on. If I don't see how I can help, I'll say so.", siteConfig.bookingUrl],
+  ["Fixed-price proposal", "What needs doing, in what order and how much it costs. No small print."],
+  ["Implementation", "Done remotely. I explain what I've done in plain language."],
+  ["Monthly plan", `Reviews, updates and ongoing support from €${siteConfig.planPriceFrom}/month + VAT, so everything keeps working and the problems don't come back.`],
 ];
+
+const faqs: [string, string][] = [
+  ["Where do you work?", "Everything is delivered remotely, so I work with businesses wherever they are. Calls, support and documentation are in English."],
+  ["Do you help individuals or only businesses?", "My work is designed for businesses, freelancers and small companies: equipment, email, website, tools and business processes."],
+  ["How much does it cost to have an IT person for my business?", `There are two ways of working: monthly plans from €${siteConfig.planPriceFrom}/month + VAT (IT, website or operations & AI) or projects with a fixed quote before we start. The first call is free.`],
+  ["Can you fix problems remotely?", "Yes. With AnyDesk I connect to your computer with your permission, and most software, email, account and website issues are solved on the spot. If something turns out to be physical, such as hardware or cabling, I'll tell you exactly what is needed."],
+  ["Can you help with GDPR and NIS2 compliance?", "Yes. I review the company's situation, prioritize the technical and organizational measures, and support you with the documentation and implementation. This also applies if you are a supplier to a company that requires you to comply with NIS2."],
+  ["What's the difference between IT support and the digitalization assessment?", "Support fixes specific technical issues. The assessment looks at how the whole company works (processes, tools and dependence on the owner) to decide what to organize, automate or change."],
+];
+
+const plans = serviceCatalogEn.filter((service) => service.group === planGroupEn);
+const featuredReviews = reviews.slice(0, 3);
+const scoreboard = billarArrabal.images.scoreboard;
 ---
 
 <BaseLayout
   title={title}
   description={description}
   canonicalPath="/en"
-  showHeaderBooking={false}
-  headerNavItems={[["Products", "#products"]]}
   lang="en"
+  faq={faqs}
   showChatbase={false}
-  schemaDescription="Technical services catalog: digitalization, Google Workspace, access management, leads, AI oracles, systems integration and custom tools."
-  schemaAreaServed={["United States", "Remote"]}
+  headerNavItems={[["Plans", "#services"], ["Projects", "#projects"], ["Portfolio", "#portfolio"], ["How I work", "#how-i-work"], ["FAQ", "#faq"], ["Contact", "#contacto"]]}
 >
   <section class="hero home-hero">
     <div class="hero-content">
-      <span class="eyebrow">Taller de Digitalización</span>
-      <h1>Technical solutions for concrete business problems.</h1>
-      <p class="hero-subtitle">Choose the problem you want to solve. Each service has its own page, its own context and a single objective.</p>
+      <span class="eyebrow">IT &amp; digitalization · Remote</span>
+      <h1>IT support and digitalization for small businesses, fully remote.</h1>
+      <p class="hero-subtitle">IT support, cybersecurity, websites and digital order for small and medium businesses. {siteConfig.experienceYears} years solving technical problems, all done remotely. No jargon and no selling you what you don't need.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Book a free call</a>
+        <a class="btn btn-secondary" href="#contacto">Write to me</a>
+      </div>
     </div>
   </section>
 
-  <section id="products" class="section">
+  <TrustBar lang="en" />
+
+  <section id="services" class="section">
     <div class="section-head">
       <span class="eyebrow">Services</span>
-      <h2>A catalog of pain points, one path each.</h2>
-      <p>This page only organizes the entrance. Product pages work as independent funnels, with no distractions or cross-navigation.</p>
+      <h2>Two ways of working with me.</h2>
+      <p>A monthly plan so your IT, website or operations run without surprises, or a fixed-price project to solve something specific. Many projects end up as a plan: whatever gets built has to be maintained.</p>
     </div>
-    <div class="product-grid">
-      {products.map((product) => (
+    <h3 class="service-group-title">Monthly plans</h3>
+    <div class="product-grid product-grid-3">
+      {plans.map((plan) => (
         <article class="product-card">
-          <span class="eyebrow">{product.eyebrow}</span>
-          <h3>{product.title}</h3>
-          <p>{product.text}</p>
-          <a class="btn btn-primary" href={product.href}>{product.cta}</a>
+          <span class="eyebrow">Monthly plan</span>
+          <h3>{plan.label}</h3>
+          <p>{plan.summary}</p>
+          <p class="price-tag">From <strong>€{siteConfig.planPriceFrom}/month</strong> + VAT</p>
+          <a class="btn btn-primary" href={plan.href}>View plan</a>
         </article>
       ))}
     </div>
   </section>
+
+  <section id="projects" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Projects</span>
+      <h2>Fixed-price projects.</h2>
+      <p>For solving something specific, with a start and an end, and a fixed quote before we begin. If you don't know where to start, start with the <a href="/digitalization-assessment/">digitalization assessment</a> or the <a href="/free-website-report/">free report on your website</a>.</p>
+    </div>
+    {projectGroupsEn.map((group) => (
+      <div class="service-group">
+        <h3 class="service-group-title">{group}</h3>
+        <div class="link-grid">
+          {serviceCatalogEn.filter((service) => service.group === group).map((service) => (
+            <article>
+              <strong>{service.label}</strong>
+              <span>{service.summary}</span>
+              <a class="btn btn-secondary btn-small" href={service.href}>Learn more</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section id="portfolio" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Portfolio</span>
+      <h2>A rescued app for a pool club.</h2>
+      <p>A club's scoring app had been left half-finished. I picked it up with AI, simplified it, and today any club can use it.</p>
+    </div>
+    <div class="portfolio-teaser">
+      <img src={withBase(scoreboard.src)} alt="The app's scoreboard during a match: points, average, inning, time and a turn timer bar for each player" width={scoreboard.width} height={scoreboard.height} loading="lazy" />
+      <div>
+        <h3>Billar El Arrabal scoreboard</h3>
+        <p class="muted">A carom billiards scoreboard that records the match on video with the score on screen.</p>
+        <a class="btn btn-secondary" href={billarArrabal.appUrl} target="_blank" rel="noreferrer">Try the app</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-i-work" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">How I work</span>
+      <h2>Four steps, no detours.</h2>
+      <p>{siteConfig.experienceYears} years developing software and solving technical problems for businesses. You deal with a real person, not an agency that hands you off.</p>
+    </div>
+    <div class="steps steps-4">
+      {steps.map(([name, text, href], index) => (
+        <article>
+          <span class="step-number">{index + 1}</span>
+          <h3>{href ? <a class="text-link" data-event="reservar_click" data-preserve-utm href={href} target="_blank" rel="noreferrer">{name}</a> : name}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Reviews</span>
+      <h2>What clients say.</h2>
+      <p>Real reviews from <a href={siteConfig.googleBusinessUrl} target="_blank" rel="noreferrer">our Google profile</a>, translated from Spanish.</p>
+    </div>
+    <div class="steps">
+      {featuredReviews.map((review) => (
+        <article>
+          <strong>{review.name}</strong>
+          <span class="microcopy">Google review · {review.rating}/5</span>
+          <p>{review.textEn}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="section-head"><span class="eyebrow">FAQ</span><h2>Common questions before calling.</h2></div>
+    <div class="faq-list">{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+  </section>
+
+  <ContactForm lang="en" />
 </BaseLayout>
+
+<style>
+  .portfolio-teaser {
+    display: grid;
+    grid-template-columns: minmax(0, 420px) 1fr;
+    gap: clamp(20px, 4vw, 40px);
+    align-items: center;
+    max-width: 920px;
+  }
+
+  .portfolio-teaser img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .portfolio-teaser h3 {
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  }
+
+  @media (max-width: 720px) {
+    .portfolio-teaser {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

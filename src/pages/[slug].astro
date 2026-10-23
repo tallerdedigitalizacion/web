@@ -5,17 +5,58 @@ import TrustBar from "@/components/TrustBar.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import { localPages, type LocalPage } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
+import { plansEn } from "@/data/plansEn";
 import { serviceLabelFor } from "@/data/services";
 
 export function getStaticPaths() {
-  return [...localPages, ...productPages].map((page) => ({ params: { slug: page.slug }, props: { page } }));
+  return [...localPages, ...productPages, ...plansEn].map((page) => ({ params: { slug: page.slug }, props: { page } }));
 }
 
 const { page } = Astro.props as { page: LocalPage };
+const lang = page.lang ?? "es";
+const isEnglish = lang === "en";
+const t = isEnglish
+  ? {
+      home: "Home",
+      book: "Book a free call",
+      write: "Write to me",
+      planPrice: "Monthly plan from",
+      vat: "+ VAT",
+      perMonth: "/month",
+      recognise: "Sound familiar?",
+      approach: "The approach",
+      services: "Services",
+      zone: "Delivery",
+      process: "Process",
+      faqEyebrow: "FAQ",
+      faqTitle: "Common questions",
+      relatedEyebrow: "You might also like",
+      relatedTitle: "Other services",
+      nav: [["What's included", "#servicios"], ["Delivery", "#zona"], ["FAQ", "#faq"], ["Contact", "#contacto"]],
+    }
+  : {
+      home: "Inicio",
+      book: "Reservar llamada gratuita",
+      write: "Escribirme",
+      planPrice: "Plan mensual desde",
+      vat: "+ IVA",
+      perMonth: "€/mes",
+      recognise: "¿Te suena?",
+      approach: "El enfoque",
+      services: "Servicios",
+      zone: "Zona",
+      process: "Proceso",
+      faqEyebrow: "Preguntas frecuentes",
+      faqTitle: "Dudas habituales",
+      relatedEyebrow: "También te puede interesar",
+      relatedTitle: "Otros servicios",
+      nav: [["Servicios", "#servicios"], ["Zona", "#zona"], ["FAQ", "#faq"], ["Contacto", "#contacto"]],
+    };
 const path = `/${page.slug}/`;
 const pageUrl = new URL(path, siteConfig.publicUrl).toString();
 const businessId = `${siteConfig.publicUrl}/#business`;
 const formService = page.formService ?? serviceLabelFor(path) ?? "";
+const priceText = page.priceFrom ? (isEnglish ? `€${page.priceFrom}${t.perMonth}` : `${page.priceFrom} ${t.perMonth}`) : "";
 
 const extraSchema = [
   {
@@ -47,39 +88,34 @@ const extraSchema = [
   {
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Inicio", item: `${siteConfig.publicUrl}/` },
+      { "@type": "ListItem", position: 1, name: t.home, item: `${siteConfig.publicUrl}/` },
       { "@type": "ListItem", position: 2, name: page.h1.replace(/\.$/, ""), item: pageUrl },
     ],
   },
 ];
 
-const navItems = [
-  ["Servicios", "#servicios"],
-  ["Zona", "#zona"],
-  ["FAQ", "#faq"],
-  ["Contacto", "#contacto"],
-];
+const navItems = t.nav;
 ---
 
-<BaseLayout title={page.title} description={page.description} canonicalPath={path} faq={page.faq} extraSchema={extraSchema} headerNavItems={navItems}>
+<BaseLayout title={page.title} description={page.description} canonicalPath={path} faq={page.faq} extraSchema={extraSchema} headerNavItems={navItems} lang={lang} showChatbase={!isEnglish}>
   <section class="hero">
     <div class="hero-content">
       <span class="eyebrow">{page.eyebrow}</span>
       <h1>{page.h1}</h1>
       <p class="hero-subtitle">{page.intro}</p>
-      {page.priceFrom && <p class="price-tag">Plan mensual desde <strong>{page.priceFrom} €/mes</strong> + IVA</p>}
+      {page.priceFrom && <p class="price-tag">{t.planPrice} <strong>{priceText}</strong> {t.vat}</p>}
       <div class="hero-actions">
-        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
-        <a class="btn btn-secondary" href="#contacto">Escribirme</a>
+        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">{t.book}</a>
+        <a class="btn btn-secondary" href="#contacto">{t.write}</a>
       </div>
     </div>
   </section>
 
-  <TrustBar />
+  <TrustBar lang={lang} />
 
   <section class="section section-split">
     <div>
-      <span class="eyebrow">¿Te suena?</span>
+      <span class="eyebrow">{t.recognise}</span>
       <h2>{page.problemsTitle}</h2>
     </div>
     <ul class="check-list">{page.problems.map((problem) => <li>{problem}</li>)}</ul>
@@ -88,7 +124,7 @@ const navItems = [
   {page.insight && (
     <section class="section">
       <div class="section-head">
-        <span class="eyebrow">El enfoque</span>
+        <span class="eyebrow">{t.approach}</span>
         <h2>{page.insightTitle}</h2>
         {page.insight.map((paragraph) => <p>{paragraph}</p>)}
       </div>
@@ -97,7 +133,7 @@ const navItems = [
 
   <section id="servicios" class="section section-accent">
     <div class="section-head">
-      <span class="eyebrow">Servicios</span>
+      <span class="eyebrow">{t.services}</span>
       <h2>{page.servicesTitle}</h2>
     </div>
     <div class="steps">
@@ -110,18 +146,18 @@ const navItems = [
     </div>
   </section>
 
-  <section id="zona" class="section section-split">
-    <div>
-      <span class="eyebrow">Zona</span>
+  <section id="zona" class={isEnglish ? "section" : "section section-split"}>
+    <div class={isEnglish ? "section-head" : undefined}>
+      <span class="eyebrow">{t.zone}</span>
       <h2>{page.zoneTitle}</h2>
       {page.zoneText.map((text) => <p>{text}</p>)}
     </div>
-    <div class="tag-grid area-grid">{page.areas.map((area) => <span>{area}</span>)}</div>
+    {!isEnglish && <div class="tag-grid area-grid">{page.areas.map((area) => <span>{area}</span>)}</div>}
   </section>
 
   <section class="section">
     <div class="section-head">
-      <span class="eyebrow">Proceso</span>
+      <span class="eyebrow">{t.process}</span>
       <h2>{page.approachTitle}</h2>
     </div>
     <div class={page.approach.length === 4 ? "steps steps-4" : "steps"}>
@@ -145,16 +181,16 @@ const navItems = [
   )}
 
   <section id="faq" class="section">
-    <div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>Dudas habituales</h2></div>
+    <div class="section-head"><span class="eyebrow">{t.faqEyebrow}</span><h2>{t.faqTitle}</h2></div>
     <div class="faq-list">{page.faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
   </section>
 
   <section class="section">
-    <div class="section-head"><span class="eyebrow">También te puede interesar</span><h2>Otros servicios</h2></div>
+    <div class="section-head"><span class="eyebrow">{t.relatedEyebrow}</span><h2>{t.relatedTitle}</h2></div>
     <div class="tag-grid">
       {page.related.map(([label, href]) => <a class="btn btn-secondary" href={href}>{label}</a>)}
     </div>
   </section>
 
-  <ContactForm selectedService={formService} title={page.finalCta} />
+  <ContactForm lang={lang} selectedService={formService} title={page.finalCta} />
 </BaseLayout>
