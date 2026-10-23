@@ -1,0 +1,60 @@
+---
+// Caso real explicado para personas no técnicas. Se coloca en las páginas de servicio; el caso que enseña sale de
+// `caseForPath` (src/data/casePages.ts). Si la página no tiene caso asignado (p. ej. las de inglés), no pinta nada.
+import { siteConfig } from "@/config/site";
+import VideoEmbed from "@/components/VideoEmbed.astro";
+import { caseForPath, entryOffer, formatEuro } from "@/data/casePages";
+
+const { path } = Astro.props as { path: string };
+const story = caseForPath(path);
+const entry = story ? entryOffer(story) : undefined;
+---
+
+{story && entry && (
+  <section id="caso-real" class="section case-story">
+    <div class="section-head">
+      <span class="eyebrow">Caso real</span>
+      <h2>Un caso real, explicado sin tecnicismos.</h2>
+      <p>Es un trabajo que ya hemos hecho para una empresa de verdad (no la nombramos). Puede que lo tuyo sea otra cosa, pero sirve para ver cómo trabajo: qué había, qué se hizo y qué cambió.</p>
+    </div>
+    <div class="case-story-body">
+      <h3>{story.h1}</h3>
+      {story.practical.map((paragraph) => <p>{paragraph}</p>)}
+      <p class="case-story-result"><strong>Qué cambió:</strong>{" "}{story.result[0]}</p>
+    </div>
+    {story.videoId && <VideoEmbed videoId={story.videoId} title={`Vídeo: ${story.h1}`} />}
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={`/casos/${story.slug}/`}>Ver el caso completo</a>
+      <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
+    </div>
+    <p class="microcopy">Este trabajo se puede llevar a otra empresa desde {formatEuro(entry.price)} + IVA.</p>
+  </section>
+)}
+
+<style>
+  .case-story-body {
+    display: grid;
+    gap: 14px;
+    max-width: 760px;
+    margin-bottom: 26px;
+  }
+
+  .case-story-body h3 {
+    margin: 0;
+  }
+
+  .case-story-body p {
+    margin: 0;
+  }
+
+  .case-story-result {
+    padding: 14px 18px;
+    border-left: 4px solid var(--accent);
+    background: var(--paper);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  .case-story :global(.video-frame) {
+    margin-bottom: 26px;
+  }
+</style>

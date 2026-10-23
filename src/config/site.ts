@@ -98,4 +98,11 @@ export const siteConfig = {
   methodPdfPath: "/downloads/metodo-auditoria-caos-operativo.pdf",
 };
 
-export const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent("Hola, vengo de la web de Taller de Digitalización y quería hacer una consulta.")}`;
+const whatsappMessages = {
+  es: "Hola, vengo de la web de Taller de Digitalización y quería hacer una consulta.",
+  en: "Hi, I'm coming from the Taller de Digitalización website and I'd like to ask about your services.",
+} as const;
+
+export const whatsappUrlFor = (lang: "es" | "en" = "es") => `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(whatsappMessages[lang])}`;
+
+export const whatsappUrl = whatsappUrlFor("es");

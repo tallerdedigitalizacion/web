@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import CaseStory from "@/components/CaseStory.astro";
 import { siteConfig } from "@/config/site";
 import { reviews } from "@/data/reviews";
 
@@ -58,7 +59,6 @@ const diagnosticoReviews = reviews.slice(0, 8);
   title={title}
   description={description}
   canonicalPath="/diagnostico-digitalizacion"
-  headerBrandHref="/diagnostico-digitalizacion"
   headerNavItems={navItems}
   headerBookingEvent="reservar_click"
   schemaDescription="Auditoría técnica y funcional de los procesos digitales de una empresa, con informe priorizado, mapa de procesos y plan de acción a 90 días."
@@ -122,6 +122,8 @@ const diagnosticoReviews = reviews.slice(0, 8);
     <h2>No venderle software. Ayudarle a tomar mejores decisiones tecnológicas.</h2>
     <p>Un buen diagnóstico suele descubrir pequeñas mejoras que generan un impacto inmediato, y también sirve como base para proyectos posteriores de automatización, integración de sistemas o inteligencia artificial.</p>
   </section>
+
+  <CaseStory path={"/diagnostico-digitalizacion/"} />
 
   <section id="por-que-yo" class="section">
     <div class="section-head">

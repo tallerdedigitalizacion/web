@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import CaseStory from "@/components/CaseStory.astro";
 import { siteConfig } from "@/config/site";
 
 const title = "Web lenta: diagnóstico y optimización de velocidad | Taller de Digitalización";
@@ -95,7 +96,6 @@ const speedReviews = [
   title={title}
   description={description}
   canonicalPath="/optimizacion-velocidad-web"
-  headerBrandHref="/optimizacion-velocidad-web"
   headerNavItems={navItems}
   alternates={[["es-ES", "/optimizacion-velocidad-web"], ["en", "/website-speed-optimization"], ["x-default", "/optimizacion-velocidad-web"]]}
   faq={faqs}
@@ -149,6 +149,8 @@ const speedReviews = [
       ))}
     </div>
   </section>
+
+  <CaseStory path={"/optimizacion-velocidad-web/"} />
 
   <section id="por-que-yo" class="section">
     <div class="section-head">

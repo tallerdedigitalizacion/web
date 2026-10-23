@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import CaseStory from "@/components/CaseStory.astro";
 import WebAuditAssessment from "@/components/WebAuditAssessment.astro";
 import { siteConfig } from "@/config/site";
 import { withBase } from "@/utils/paths";
@@ -15,7 +16,6 @@ const canonicalPath = isEnglish ? webAuditShared.englishPath : webAuditShared.sp
   title={copy.title}
   description={copy.description}
   canonicalPath={canonicalPath}
-  headerBrandHref={canonicalPath}
   headerNavItems={copy.nav}
   headerBookingEvent="click_reservar_llamada"
   lang={lang}
@@ -112,6 +112,8 @@ const canonicalPath = isEnglish ? webAuditShared.englishPath : webAuditShared.sp
       <a class="btn btn-primary" data-event="click_reservar_llamada" href={webAuditShared.bookingUrl} target="_blank" rel="noreferrer">{copy.hero.secondaryCta}</a>
     </div>
   </section>
+
+  {!isEnglish && <CaseStory path={canonicalPath} />}
 
   <section class="section section-split dark-band">
     <div>

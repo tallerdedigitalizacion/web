@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import CaseStory from "@/components/CaseStory.astro";
 import { siteConfig } from "@/config/site";
 import { reviews } from "@/data/reviews";
 
@@ -79,7 +80,6 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
   title={title}
   description={description}
   canonicalPath={slug}
-  headerBrandHref={slug}
   headerNavItems={navItems}
   headerBookingEvent="reservar_click"
   lang={lang}
@@ -119,6 +119,8 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
   ))}
 
   <slot name="lead-magnet" />
+
+  {!isEnglish && <CaseStory path={slug} />}
 
   <section id="por-que-yo" class="section">
     <div class="section-head">
