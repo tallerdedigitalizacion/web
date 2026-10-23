@@ -2,10 +2,7 @@
 export const billarArrabal = {
   name: "Marcador Billar El Arrabal",
   appUrl: "https://billararrabal.tallerdedigitalizacion.com/",
-  // ID del vídeo de YouTube que se incrusta en la página. Es un vídeo de prueba:
-  // cámbialo por el vídeo propio (lo que va después de "v=" en la URL de YouTube).
-  // Si lo dejas vacío (""), la página muestra un aviso de "vídeo próximamente".
-  videoId: "jNQXAC9IVRw",
+  // El vídeo de YouTube se registra en src/data/videos.ts (clave "portfolio-billar-arrabal").
   images: {
     menu: { src: "/portfolio/billar-arrabal-menu.jpg", alt: "Menú principal de la app del Billar El Arrabal, con los botones Nueva partida, Estadísticas, Opciones y Ayuda", width: 800, height: 500 },
     scoreboard: { src: "/portfolio/billar-arrabal-marcador.jpg", alt: "Marcador de la app durante una partida: puntos, promedio, entrada, tiempo y barra de tiempo del turno de cada jugador", width: 800, height: 500 },

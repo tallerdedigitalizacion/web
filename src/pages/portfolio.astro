@@ -1,10 +1,14 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContactForm from "@/components/ContactForm.astro";
+import VideoEmbed from "@/components/VideoEmbed.astro";
 import { siteConfig } from "@/config/site";
 import { billarArrabal as app } from "@/data/portfolio";
+import { videoIdFor } from "@/data/videos";
 import { getPublishedPosts } from "@/utils/blog";
 import { withBase } from "@/utils/paths";
+
+const videoId = videoIdFor("portfolio-billar-arrabal");
 
 const title = "Portfolio: la app del Billar El Arrabal | Taller de Digitalización";
 const description = "La historia de la app de marcador del Billar El Arrabal de Fuensalida: de dónde salió, qué hace y para qué sirve. Rescatada y simplificada con IA.";
@@ -53,24 +57,16 @@ const extraSchema = [
     </div>
   </section>
 
-  <section id="video" class="section">
-    <div class="section-head">
-      <span class="eyebrow">En vídeo</span>
-      <h2>La historia, contada por mí.</h2>
-      <p>De dónde salió la app, qué hace y para qué sirve.</p>
-    </div>
-    {app.videoId ? (
-      <div class="video-frame" data-video-id={app.videoId}>
-        <button class="video-play" type="button" aria-label="Reproducir el vídeo">
-          <svg aria-hidden="true" viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-          <span>Reproducir vídeo</span>
-        </button>
+  {videoId && (
+    <section id="video" class="section">
+      <div class="section-head">
+        <span class="eyebrow">En vídeo</span>
+        <h2>La historia, contada por mí.</h2>
+        <p>De dónde salió la app, qué hace y para qué sirve.</p>
       </div>
-      <p class="microcopy video-note">Al reproducirlo se carga el reproductor de YouTube (youtube-nocookie.com).</p>
-    ) : (
-      <div class="video-frame video-empty"><p>Vídeo próximamente.</p></div>
-    )}
-  </section>
+      <VideoEmbed videoId={videoId} title="Vídeo: la historia de la app del Billar El Arrabal" />
+    </section>
+  )}
 
   <section id="historia" class="section section-accent">
     <div class="section-head">
@@ -148,20 +144,6 @@ const extraSchema = [
   <ContactForm selectedService="Herramientas internas a medida" title="¿Tienes una herramienta que te está dando guerra?" />
 </BaseLayout>
 
-<script>
-  // El reproductor de YouTube solo se carga cuando la persona pulsa "Reproducir" (no hay peticiones a Google antes).
-  document.querySelectorAll<HTMLElement>(".video-frame[data-video-id]").forEach((frame) => {
-    frame.querySelector("button")?.addEventListener("click", () => {
-      const iframe = document.createElement("iframe");
-      iframe.src = `https://www.youtube-nocookie.com/embed/${frame.dataset.videoId}?autoplay=1&rel=0`;
-      iframe.title = "Vídeo: la historia de la app del Billar El Arrabal";
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
-      iframe.referrerPolicy = "strict-origin-when-cross-origin";
-      frame.replaceChildren(iframe);
-    });
-  });
-</script>
-
 <style>
   .portfolio-hero {
     min-height: 0;
@@ -195,67 +177,6 @@ const extraSchema = [
     margin-top: 10px;
     color: var(--muted);
     font-size: 0.9rem;
-  }
-
-  .video-frame {
-    position: relative;
-    width: min(960px, 100%);
-    aspect-ratio: 16 / 9;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--dark);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-
-  /* El iframe se crea con JS, por eso necesita :global (los estilos de Astro son por componente). */
-  .video-frame :global(iframe) {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-
-  .video-play {
-    display: grid;
-    place-content: center;
-    justify-items: center;
-    gap: 10px;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    background: transparent;
-    color: var(--ink);
-    font: inherit;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .video-play svg {
-    display: block;
-    width: 72px;
-    height: 72px;
-    padding: 18px 14px 18px 22px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #20242c;
-    box-sizing: border-box;
-    transition: transform 0.15s ease;
-  }
-
-  .video-play:hover svg {
-    transform: scale(1.06);
-  }
-
-  .video-empty {
-    display: grid;
-    place-items: center;
-    color: var(--muted);
-  }
-
-  .video-note {
-    margin-top: 10px;
   }
 
   .story-grid {

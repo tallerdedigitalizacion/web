@@ -5,6 +5,7 @@ import TrustBar from "@/components/TrustBar.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import VideoEmbed from "@/components/VideoEmbed.astro";
 import { casePages, entryOffer, formatEuro, type CasePage } from "@/data/casePages";
+import { videoIdFor } from "@/data/videos";
 
 export function getStaticPaths() {
   return casePages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
@@ -76,7 +77,7 @@ const navItems = [
       <h2>El caso, en palabras simples.</h2>
       {page.practical.map((paragraph) => <p>{paragraph}</p>)}
     </div>
-    <VideoEmbed videoId={page.videoId} title={`Vídeo: ${page.h1}`} />
+    <VideoEmbed videoId={videoIdFor(page.slug)} title={`Vídeo: ${page.h1}`} />
   </section>
 
   <section class="section section-split">

@@ -4,6 +4,7 @@
 import { siteConfig } from "@/config/site";
 import VideoEmbed from "@/components/VideoEmbed.astro";
 import { caseForPath, entryOffer, formatEuro } from "@/data/casePages";
+import { videoIdFor } from "@/data/videos";
 
 const { path } = Astro.props as { path: string };
 const story = caseForPath(path);
@@ -22,7 +23,7 @@ const entry = story ? entryOffer(story) : undefined;
       {story.practical.map((paragraph) => <p>{paragraph}</p>)}
       <p class="case-story-result"><strong>Qué cambió:</strong>{" "}{story.result[0]}</p>
     </div>
-    {story.videoId && <VideoEmbed videoId={story.videoId} title={`Vídeo: ${story.h1}`} />}
+    <VideoEmbed videoId={videoIdFor(story.slug)} title={`Vídeo: ${story.h1}`} />
     <div class="hero-actions">
       <a class="btn btn-primary" href={`/casos/${story.slug}/`}>Ver el caso completo</a>
       <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>

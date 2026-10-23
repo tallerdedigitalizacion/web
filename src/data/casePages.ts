@@ -20,10 +20,8 @@ export type CasePage = {
   intro: string;
   // Resumen corto para la tarjeta del hub.
   summary: string;
-  // El caso explicado con palabras simples; va justo encima del vídeo.
+  // El caso explicado con palabras simples; va justo encima del vídeo (src/data/videos.ts).
   practical: string[];
-  // ID del vídeo de YouTube (lo que va después de "v=" en la URL). Si está vacío, se muestra un espacio reservado.
-  videoId?: string;
   schemaService: string;
   painTitle: string;
   pains: string[];

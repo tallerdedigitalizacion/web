@@ -1,10 +1,10 @@
 ---
 // Vídeo de YouTube que solo se carga cuando la persona pulsa "Reproducir" (no hay peticiones a Google antes).
-// Sin videoId deja el espacio reservado hasta que se grabe el vídeo.
+// Sin videoId no pinta nada: los vídeos se registran en src/data/videos.ts.
 const { videoId, title } = Astro.props as { videoId?: string; title: string };
 ---
 
-{videoId ? (
+{videoId && (
   <>
     <div class="video-frame" data-video-id={videoId} data-video-title={title}>
       <button class="video-play" type="button" aria-label="Reproducir el vídeo">
@@ -14,8 +14,6 @@ const { videoId, title } = Astro.props as { videoId?: string; title: string };
     </div>
     <p class="microcopy video-note">Al reproducirlo se carga el reproductor de YouTube (youtube-nocookie.com).</p>
   </>
-) : (
-  <div class="video-frame video-empty"><p>El vídeo de este caso estará aquí muy pronto.</p></div>
 )}
 
 <script>
@@ -81,12 +79,6 @@ const { videoId, title } = Astro.props as { videoId?: string; title: string };
 
   .video-play:hover svg {
     transform: scale(1.06);
-  }
-
-  .video-empty {
-    display: grid;
-    place-items: center;
-    color: var(--muted);
   }
 
   .video-note {

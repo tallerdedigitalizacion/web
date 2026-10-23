@@ -46,9 +46,14 @@ const labels = {
           </svg>
         ) : (
           <svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false">
-            <rect width="30" height="20" fill="#fff" />
-            <rect x="12.5" width="5" height="20" fill="#cf142b" />
-            <rect y="7.5" width="30" height="5" fill="#cf142b" />
+            <clipPath id="flag-uk-clip"><rect width="30" height="20" /></clipPath>
+            <g clip-path="url(#flag-uk-clip)">
+              <rect width="30" height="20" fill="#012169" />
+              <path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4" />
+              <path d="M0 0L30 20M30 0L0 20" stroke="#c8102e" stroke-width="1.5" />
+              <path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="6.5" />
+              <path d="M15 0V20M0 10H30" stroke="#c8102e" stroke-width="3.8" />
+            </g>
           </svg>
         )}
       </a>
