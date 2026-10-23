@@ -15,7 +15,7 @@ npm run preview
 
 ## Configuración principal
 
-Cambia URLs, logo, GA4, Chatbase, WhatsApp, Calendly, Linktree, email, endpoint de formularios y textos legales en:
+Cambia URLs, logo, GA4, Chatbase, WhatsApp, Linktree, email, endpoint de formularios y textos legales en:
 
 ```text
 src/config/site.ts
@@ -76,7 +76,6 @@ SENDER_EMAIL=info@tallerdedigitalizacion.com
 NOTIFY_EMAIL=info@tallerdedigitalizacion.com
 EMAIL_DRIVER=ses
 PUBLIC_SITE_URL=https://tallerdedigitalizacion.com
-BOOKING_URL=https://calendly.com/tallerdedigitalizacion-info/30min
 ALLOWED_ORIGINS=https://tallerdedigitalizacion.com,http://localhost:4322,http://localhost:4323
 IP_HASH_SALT=cambia-esto-por-un-valor-largo-y-secreto
 npm run cdk:deploy

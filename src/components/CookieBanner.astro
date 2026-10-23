@@ -56,7 +56,7 @@ const t = isEnglish
   </div>
 </div>
 
-<script define:vars={{ gaId: siteConfig.googleAnalyticsId }}>
+<script define:vars={{ gaId: siteConfig.googleAnalyticsId, bookingUrl: siteConfig.bookingUrl }}>
   const consentKey = "td_cookie_consent";
   const consentVersion = 2;
   // La AEPD recomienda no conservar el consentimiento más de 24 meses; lo pedimos de nuevo a los 12.
@@ -66,7 +66,6 @@ const t = isEnglish
   const eventAliases = {
     click_reservar_llamada: "reservar_click",
     click_telefono: "telefono_click",
-    click_calendly_web_audit: "reservar_click",
   };
 
   function normalizeEventName(name) {
@@ -81,7 +80,7 @@ const t = isEnglish
     if (href.startsWith("tel:")) return "telefono_click";
     if (href.startsWith("mailto:")) return "email_click";
     if (href.includes("wa.me/")) return "whatsapp_click";
-    if (href.includes("calendly.com/tallerdedigitalizacion") || href.includes("cal.com/taller-de-digitalizacion")) return "reservar_click";
+    if (href.startsWith(bookingUrl)) return "reservar_click";
     return "";
   }
 
@@ -90,6 +89,7 @@ const t = isEnglish
     return {
       link_url: href || undefined,
       link_text: target.textContent?.trim().replace(/\s+/g, " ").slice(0, 120) || undefined,
+      link_id: target.dataset.linkId || undefined,
       page_path: window.location.pathname,
       page_location: window.location.href,
     };
@@ -105,22 +105,101 @@ const t = isEnglish
 
   window.tdTrackEvent = trackEvent;
 
-  function preserveAttributionParams() {
-    const params = new URLSearchParams(window.location.search);
-    const attributionEntries = [...params.entries()].filter(([key]) => {
-      const normalizedKey = key.toLowerCase();
-      return normalizedKey.startsWith("utm_") || ["gclid", "gbraid", "wbraid"].includes(normalizedKey);
-    });
+  // Origen de la visita: UTM de la URL o, si no hay, el dominio que enlaza. Solo se recuerda entre páginas
+  // con consentimiento analítico; sin él, vale únicamente la página actual.
+  const attributionKey = "td_attribution";
+  const attributionFields = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "gbraid", "wbraid"];
 
+  function currentTouch() {
+    const params = new URLSearchParams(window.location.search);
+    const touch = {};
+    attributionFields.forEach((key) => {
+      const value = params.get(key);
+      if (value) touch[key] = value.slice(0, 100);
+    });
+    if (Object.keys(touch).length > 0) return touch;
+    try {
+      const referrer = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "";
+      if (referrer && referrer !== window.location.hostname.replace(/^www\./, "")) return { referrer };
+    } catch {
+      // Referrer no válido: se ignora.
+    }
+    return {};
+  }
+
+  function readStoredTouch() {
+    try {
+      return JSON.parse(sessionStorage.getItem(attributionKey) || "null") || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function activeTouch() {
+    return { ...(window.tdConsent?.analytics ? readStoredTouch() : {}), ...currentTouch() };
+  }
+
+  function captureAttribution() {
+    if (!window.tdConsent?.analytics) return;
+    const touch = currentTouch();
+    // Un UTM nuevo sustituye al anterior; un simple referrer no pisa un origen ya guardado.
+    if (Object.keys(touch).length === 0 || (touch.referrer && Object.keys(readStoredTouch()).length > 0)) return;
+    try {
+      sessionStorage.setItem(attributionKey, JSON.stringify({ ...touch, landing: window.location.pathname }));
+    } catch {
+      // Sin almacenamiento disponible: se aplica solo a esta página.
+    }
+  }
+
+  // Origen que se adjunta a los leads (undefined si no hay ninguno).
+  window.tdAttribution = function tdAttribution() {
+    const touch = activeTouch();
+    if (Object.keys(touch).length === 0) return undefined;
+    return {
+      source: touch.utm_source || touch.referrer,
+      medium: touch.utm_medium,
+      campaign: touch.utm_campaign,
+      content: touch.utm_content,
+      term: touch.utm_term,
+      clickId: touch.gclid || touch.gbraid || touch.wbraid,
+      landing: touch.landing || window.location.pathname,
+    };
+  };
+
+  // El script corre mientras se parsea la página: los enlaces que van después aún no existen.
+  function applyAttributionToLinks() {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", preserveAttributionParams, { once: true });
+    } else {
+      preserveAttributionParams();
+    }
+  }
+
+  function preserveAttributionParams() {
+    const touch = activeTouch();
+    const attributionEntries = Object.entries(touch).filter(([key]) => attributionFields.includes(key));
     if (attributionEntries.length === 0) return;
 
-    document.querySelectorAll('a[href*="calendly.com/tallerdedigitalizacion"], a[href*="cal.com/taller-de-digitalizacion"]').forEach((link) => {
+    document.querySelectorAll(`a[href^="${bookingUrl}"]`).forEach((link) => {
       if (!(link instanceof HTMLAnchorElement)) return;
       const url = new URL(link.href);
       attributionEntries.forEach(([key, value]) => {
         if (!url.searchParams.has(key)) url.searchParams.set(key, value);
       });
       link.href = url.toString();
+    });
+
+    // WhatsApp no admite parámetros: se añade al mensaje un código corto, visible y editable por quien escribe.
+    if (!touch.utm_source) return;
+    const code = [touch.utm_source, touch.utm_campaign || touch.utm_medium].filter(Boolean).join("/").replace(/[^\w/.-]/g, "").slice(0, 40);
+    document.querySelectorAll('a[href*="wa.me/"]').forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement) || link.dataset.refCode) return;
+      const url = new URL(link.href);
+      const text = url.searchParams.get("text");
+      if (!text) return;
+      url.searchParams.set("text", `${text} (ref: ${code})`);
+      link.href = url.toString();
+      link.dataset.refCode = code;
     });
   }
 
@@ -180,6 +259,8 @@ const t = isEnglish
 
   function applyConsent(consent, previous) {
     window.tdConsent = consent;
+    captureAttribution();
+    applyAttributionToLinks();
     if (consent.analytics) {
       if (gaId) window[`ga-disable-${gaId}`] = false;
       loadAnalytics();
@@ -209,10 +290,10 @@ const t = isEnglish
   }
 
   const currentConsent = readConsent();
-  preserveAttributionParams();
   if (currentConsent) {
     applyConsent(currentConsent);
   } else {
+    applyAttributionToLinks();
     openBanner(false);
   }
 
@@ -252,14 +333,4 @@ const t = isEnglish
     }
   });
 
-  window.addEventListener("message", (event) => {
-    if (typeof event.origin !== "string" || !event.origin.includes("calendly.com")) return;
-    const eventName = event.data?.event;
-    if (eventName === "calendly.event_scheduled") {
-      trackEvent("reserva_completada", {
-        page_path: window.location.pathname,
-        page_location: window.location.href,
-      });
-    }
-  });
 </script>

@@ -192,6 +192,7 @@ const sections = [
         website: String(formData.get("website") || ""),
         startedAt: Number(formData.get("started_at") || Date.now()),
         pageUrl: window.location.href,
+        attribution: window.tdAttribution?.(),
         userAgent: navigator.userAgent,
       });
       if (status instanceof HTMLElement) status.textContent = response.message || "Te enviamos el resumen por email.";

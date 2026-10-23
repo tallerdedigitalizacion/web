@@ -1,3 +1,5 @@
+import { BOOKING_URL } from "../../src/config/booking";
+
 export const config = {
   tableName: requireEnv("LEADS_TABLE_NAME"),
   senderEmail: requireEnv("SENDER_EMAIL"),
@@ -9,8 +11,7 @@ export const config = {
   smtpUser: process.env.SMTP_USER || "",
   smtpPassword: process.env.SMTP_PASSWORD || process.env.SMTP_PASS || "",
   siteUrl: process.env.SITE_URL || "https://tallerdedigitalizacion.com",
-  bookingUrl: process.env.BOOKING_URL || "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
-  webAuditBookingUrl: process.env.WEB_AUDIT_BOOKING_URL || "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
+  bookingUrl: BOOKING_URL,
   allowedOrigins: (process.env.ALLOWED_ORIGINS || "https://tallerdedigitalizacion.com")
     .split(",")
     .map((origin) => origin.trim())

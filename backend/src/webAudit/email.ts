@@ -12,7 +12,7 @@ export type WebAuditEmailInput = {
   scoreInterpretation: string;
   areas: AreaScore[];
   priorities: string[];
-  calendlyUrl: string;
+  bookingUrl: string;
 };
 
 export function buildWebAuditEmail(input: WebAuditEmailInput) {
@@ -70,7 +70,7 @@ function buildSpanishEmail(input: WebAuditEmailInput) {
     "",
     "Si quieres revisar el resultado conmigo, puedes reservar una llamada de 15 minutos aquí:",
     "",
-    input.calendlyUrl,
+    input.bookingUrl,
     "",
     "En esa llamada vemos si tiene sentido hacer una auditoría completa. Si no hay margen claro de mejora, te lo diré.",
     "",
@@ -133,7 +133,7 @@ function buildEnglishEmail(input: WebAuditEmailInput) {
     "",
     "If you want to review the result with me, you can book a 15-minute call here:",
     "",
-    input.calendlyUrl,
+    input.bookingUrl,
     "",
     "On that call, we can see whether a full audit makes sense. If there is no clear room for improvement, I will tell you.",
     "",
@@ -223,7 +223,7 @@ function buildVisualEmail(input: WebAuditEmailInput) {
 
     <div style="border-top:1px solid #EBEBEA;margin:22px 0 20px;"></div>
 
-    <p>${escapeHtml(labels.bookIntro)} <a href="${escapeAttribute(input.calendlyUrl)}">${escapeHtml(labels.bookLink)}</a></p>
+    <p>${escapeHtml(labels.bookIntro)} <a href="${escapeAttribute(input.bookingUrl)}">${escapeHtml(labels.bookLink)}</a></p>
     <p>${escapeHtml(labels.callPromise)}</p>
     <p>${escapeHtml(labels.serviceIntro)} <a href="${serviceUrl}">${escapeHtml(labels.serviceLink)}</a></p>
 

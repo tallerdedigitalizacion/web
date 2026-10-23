@@ -1,3 +1,5 @@
+import { BOOKING_URL } from "@/config/booking";
+
 export const webAuditWeights = [
   { key: "business", weight: 15 },
   { key: "performance", weight: 20 },
@@ -9,7 +11,7 @@ export const webAuditWeights = [
 ] as const;
 
 export const webAuditShared = {
-  bookingUrl: "https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call",
+  bookingUrl: BOOKING_URL,
   spanishPath: "/informe-gratuito-web",
   englishPath: "/free-website-report",
 };

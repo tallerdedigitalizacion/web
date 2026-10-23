@@ -439,6 +439,13 @@ export function contactEmail(input: ContactLeadInput, bookingUrl: string) {
   };
 }
 
+function attributionLine(input: { attribution?: { source?: string; medium?: string; campaign?: string; content?: string; landing?: string } }) {
+  const origin = input.attribution;
+  if (!origin) return "-";
+  const parts = [origin.source, origin.medium, origin.campaign, origin.content].filter(Boolean).join(" / ");
+  return `${parts || "-"}${origin.landing ? ` (entrada: ${origin.landing})` : ""}`;
+}
+
 export function notificationEmail(
   action: "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact",
   input: DiagnosticLeadInput | MethodLeadInput | WebAuditLeadInput | WebAuditGuideLeadInput | ResourceLeadInput | ContactLeadInput,
@@ -454,6 +461,7 @@ export function notificationEmail(
       `Empresa: ${input.company || "-"}`,
       `Cargo: ${input.role || "-"}`,
       `Marketing: ${input.marketingAccepted ? "sí" : "no"}`,
+      `Origen: ${attributionLine(input)}`,
       ...(contact ? [`Servicio: ${contact.service}`, `Teléfono: ${contact.phone || "-"}`, `Página: ${contact.pageUrl || "-"}`, "", contact.message] : []),
       extra,
     ].join("\n"),
@@ -466,6 +474,7 @@ export function notificationEmail(
         <li><strong>Empresa:</strong> ${escapeHtml(input.company || "-")}</li>
         <li><strong>Cargo:</strong> ${escapeHtml(input.role || "-")}</li>
         <li><strong>Marketing:</strong> ${input.marketingAccepted ? "sí" : "no"}</li>
+        <li><strong>Origen:</strong> ${escapeHtml(attributionLine(input))}</li>
         ${
           contact
             ? `<li><strong>Servicio:</strong> ${escapeHtml(contact.service)}</li>
