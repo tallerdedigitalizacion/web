@@ -7,6 +7,18 @@ const optionalText = z
   .optional()
   .transform((value) => value || undefined);
 
+// Origen de la visita (UTM o dominio que enlaza). Sin transformaciones: DynamoDB no acepta undefined dentro del objeto.
+const attributionText = z.string().trim().max(100).optional();
+const attributionSchema = z.object({
+  source: attributionText,
+  medium: attributionText,
+  campaign: attributionText,
+  content: attributionText,
+  term: attributionText,
+  clickId: attributionText,
+  landing: attributionText,
+});
+
 const baseLeadSchema = z.object({
   name: z.string().trim().min(2).max(120),
   email: z.string().trim().email().max(180),
@@ -18,6 +30,7 @@ const baseLeadSchema = z.object({
   startedAt: z.number().int().positive().optional(),
   pageUrl: z.string().url().max(500).optional(),
   userAgent: z.string().max(500).optional(),
+  attribution: attributionSchema.optional(),
 });
 
 export const diagnosticLeadSchema = baseLeadSchema.extend({

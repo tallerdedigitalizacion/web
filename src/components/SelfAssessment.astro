@@ -180,6 +180,7 @@ import { withBase } from "@/utils/paths";
       website: String(formData.get("website") || ""),
       startedAt: Number(formData.get("started_at") || Date.now()),
       pageUrl: window.location.href,
+      attribution: window.tdAttribution?.(),
       userAgent: navigator.userAgent,
     };
   }
