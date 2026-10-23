@@ -2,6 +2,7 @@ export const reviews = [
   {
     name: "Akiwifi Girona Sud",
     text: "Servicio muy profesional y cercano. Explican las cosas de forma clara, sin complicaciones ni palabras raras. Me ayudaron a encontrar una solución rápida y eficaz justo cuando lo necesitaba. Da mucha confianza trabajar con un equipo así.",
+    textEn: "Very professional and approachable service. They explain things clearly, without complications or odd jargon. They helped me find a quick, effective solution right when I needed it. It gives you a lot of confidence to work with a team like this.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 3 meses",
@@ -9,6 +10,7 @@ export const reviews = [
   {
     name: "Nimbus Telecom S.L.",
     text: "Atención excelente y trato muy humano. Se nota la experiencia y las ganas de ayudar de verdad. Resolvieron el problema con rapidez y me explicaron todo de forma sencilla. Totalmente recomendables.",
+    textEn: "Excellent service and a very human approach. You can tell the experience and the genuine will to help. They solved the problem quickly and explained everything simply. Highly recommended.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 3 meses",
@@ -16,6 +18,7 @@ export const reviews = [
   {
     name: "Camilo Arnedo",
     text: "Soporte informático claro y honesto. No intenta vender cosas innecesarias, solo arreglar lo que hace falta. Muy conforme.",
+    textEn: "Clear, honest IT support. He doesn't try to sell unnecessary things, just fixes what needs fixing. Very satisfied.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 3 meses",
@@ -23,6 +26,7 @@ export const reviews = [
   {
     name: "Noelia Preziosi",
     text: "Profesional, resolutivo y cercano. Da soluciones reales a problemas reales. Totalmente recomendable.",
+    textEn: "Professional, resourceful and approachable. Gives real solutions to real problems. Highly recommended.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 3 meses",
@@ -30,6 +34,7 @@ export const reviews = [
   {
     name: "AAINJAA Dirección",
     text: "Un servicio excelente, una atención amable y en cuanto a mis necesidades, muy precisos, claros y profesionales en la información. Muchas gracias Pablo y todo su equipo.",
+    textEn: "Excellent service, friendly attention and, as for my needs, very precise, clear and professional with the information. Thank you very much Pablo and the whole team.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 4 meses",
@@ -37,6 +42,7 @@ export const reviews = [
   {
     name: "Patricia Leone",
     text: "Profesional y muy claro explicando. Se nota que sabe lo que hace y que busca soluciones prácticas, no marear con tecnicismos.",
+    textEn: "Professional and very clear when explaining. You can tell he knows what he's doing and looks for practical solutions, not confusing you with technical jargon.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 4 meses",
@@ -44,6 +50,7 @@ export const reviews = [
   {
     name: "Aldana",
     text: "Servicio súper ágil y profesional. Me ayudó mucho, ya que no tenía a nadie de confianza para estos temas de informática. Son muy claros y pacientes. Muy recomendable!",
+    textEn: "Super quick and professional service. It helped me a lot, as I had nobody I trusted for these IT matters. They are very clear and patient. Highly recommended!",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 3 meses",
@@ -51,6 +58,7 @@ export const reviews = [
   {
     name: "Jorge Signetti",
     text: "MUY BIENA ATENCION , TRABAJO MUY RAPIDO Y TODO FUNCIONA SIN PROBLEMAS. 👍👍👍👍👍👍Excelente soporte técnico. No intenta vender cosas innecesarias, va directo al problema y lo resuelve. Muy conforme.",
+    textEn: "VERY GOOD SERVICE, VERY FAST WORK AND EVERYTHING WORKS WITHOUT PROBLEMS. 👍👍👍👍👍👍 Excellent technical support. Doesn't try to sell unnecessary things, goes straight to the problem and solves it. Very satisfied.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 3 meses",
@@ -58,6 +66,7 @@ export const reviews = [
   {
     name: "Vanessa Cortés",
     text: "Me dio soporte informático cuando lo necesitaba y lo solucionó rápido. Trato cercano y directo. Da mucha tranquilidad tener a alguien así.",
+    textEn: "Gave me IT support when I needed it and solved it quickly. Friendly and direct. It's very reassuring to have someone like that.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 4 meses",
@@ -65,6 +74,7 @@ export const reviews = [
   {
     name: "Marcos Irazabal",
     text: "Muy buen servicio. Me ayudó a resolver un problema informático que llevaba tiempo dando vueltas. Rápido, claro y sin complicaciones. Recomendable.",
+    textEn: "Very good service. Helped me solve an IT problem that had been dragging on for a while. Fast, clear and uncomplicated. Recommended.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 4 meses",
@@ -72,6 +82,7 @@ export const reviews = [
   {
     name: "Alan Signetti",
     text: "Tenía problemas con el correo y el ordenador y lo dejó todo funcionando en poco tiempo. Servicio serio y profesional.",
+    textEn: "I had problems with email and my computer and he got everything working in no time. Serious, professional service.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 3 meses",
@@ -79,6 +90,7 @@ export const reviews = [
   {
     name: "jose luis rivera",
     text: "Muy conforme con el servicio técnico y muy eficaz y preciso para resolver problemas tecnológicos y en especial a distancia un genio",
+    textEn: "Very satisfied with the technical service, very effective and precise at solving tech problems, and especially remotely, a genius.",
     source: "Reseña de Google",
     rating: 5,
     date: "Hace 3 meses",

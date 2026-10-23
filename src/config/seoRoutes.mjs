@@ -26,6 +26,9 @@ export const languagePairs = [
   ["/herramientas-internas-medida", "/custom-internal-tools"],
   ["/informe-gratuito-web", "/free-website-report"],
   ["/optimizacion-velocidad-web", "/website-speed-optimization"],
+  ["/mantenimiento-informatico-toledo", "/managed-it-support"],
+  ["/mantenimiento-wordpress", "/managed-website"],
+  ["/plan-operaciones-ia", "/operations-ai-plan"],
 ];
 
 export const normalizePath = (path) => (path.length > 1 ? path.replace(/\/$/, "") : path);

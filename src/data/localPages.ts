@@ -1,5 +1,7 @@
 export type LocalPage = {
   slug: string;
+  // Idioma de la página; por defecto, español.
+  lang?: "es" | "en";
   title: string;
   description: string;
   eyebrow: string;

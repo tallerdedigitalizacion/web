@@ -125,7 +125,7 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
       <span class="eyebrow">{whyMeLabel}</span>
       <h2>{isEnglish ? "A technical person looking directly at the problem." : "Una persona técnica mirando el problema de frente."}</h2>
       <p>
-        {isEnglish ? "15 years building and optimizing software. " : "15 años desarrollando y optimizando software. "}
+        {isEnglish ? `${siteConfig.experienceYears} years building and optimizing software. ` : `${siteConfig.experienceYears} años desarrollando y optimizando software. `}
         <a class="google-review-link" href={googleReviewsUrl} target="_blank" rel="noreferrer">
           <svg class="google-mark" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-8.09Z"/>
@@ -154,7 +154,7 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
                 {isEnglish ? `Translated Google review · ${review.rating}/5 · ${review.date}` : `${review.source} · ${review.rating}/5 · ${review.date}`}
               </a>
             </div>
-            <p>{review.text}</p>
+            <p>{isEnglish ? review.textEn : review.text}</p>
           </article>
         ))}
       </div>

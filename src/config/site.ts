@@ -14,6 +14,7 @@ export const siteConfig = {
   // Precio de entrada de los planes mensuales (sin IVA).
   planPriceFrom: 39,
   anydeskUrl: "https://anydesk.com/es/downloads",
+  anydeskUrlEn: "https://anydesk.com/en/downloads",
   address: {
     streetAddress: "Calle Numancia, 4",
     postalCode: "45510",
