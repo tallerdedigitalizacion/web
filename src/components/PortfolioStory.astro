@@ -1,0 +1,31 @@
+---
+// Proyecto del portfolio con su vídeo, en las páginas de servicio que lo piden (`portfolioByPath` en src/data/portfolio.ts).
+// Si el proyecto aún no tiene vídeo (src/data/videos.ts), no pinta nada.
+import VideoEmbed from "@/components/VideoEmbed.astro";
+import { portfolioVideoKeyForPath } from "@/data/portfolio";
+import { videoIdFor } from "@/data/videos";
+
+const { path } = Astro.props as { path: string };
+const key = portfolioVideoKeyForPath(path);
+const videoId = key ? videoIdFor(key) : undefined;
+---
+
+{videoId && (
+  <section id="portfolio" class="section portfolio-story">
+    <div class="section-head">
+      <span class="eyebrow">Portfolio</span>
+      <h2>Una herramienta a medida que ya se usa cada día.</h2>
+      <p>El marcador del Billar El Arrabal de Fuensalida: una aplicación que se había quedado a medias, rescatada y simplificada hasta que pudo usarla cualquiera. Te lo cuento yo en el vídeo.</p>
+    </div>
+    <VideoEmbed videoId={videoId} title="Vídeo: la historia de la app del Billar El Arrabal" />
+    <div class="hero-actions">
+      <a class="btn btn-secondary" href="/portfolio/">Ver el proyecto completo</a>
+    </div>
+  </section>
+)}
+
+<style>
+  .portfolio-story :global(.video-frame) {
+    margin-bottom: 26px;
+  }
+</style>

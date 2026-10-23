@@ -21,3 +21,14 @@ export const billarArrabal = {
     author: "Pedro, Billar El Arrabal",
   },
 };
+
+// Páginas de servicio que, además del caso real, enseñan un proyecto del portfolio (con su vídeo si lo hay).
+// Clave: ruta de la página; valor: clave del vídeo en src/data/videos.ts.
+const portfolioByPath: Record<string, string> = {
+  "/herramientas-internas-medida/": "portfolio-billar-arrabal",
+};
+
+export const portfolioVideoKeyForPath = (path: string) => {
+  const normalized = path === "/" ? "/" : `/${path.replace(/^\/+|\/+$/g, "")}/`;
+  return portfolioByPath[normalized];
+};
