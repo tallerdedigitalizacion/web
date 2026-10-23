@@ -22,13 +22,14 @@ const {
   ogImageAlt,
   showWhatsAppButton,
   headerBookingEvent = "reservar_click",
-  headerBrandHref = "/",
   headerNavItems = [],
   showHeaderBooking = true,
   lang = "es",
   bookingHref = siteConfig.bookingUrl,
-  schemaDescription = "Soporte informático, webs y digitalización para PyMEs en Toledo y alrededores de Fuensalida, presencial o en remoto.",
-  schemaAreaServed = siteConfig.serviceAreas,
+  schemaDescription = lang === "en"
+    ? "Remote IT support, websites and digitalization for small businesses."
+    : "Soporte informático, webs y digitalización para PyMEs en Toledo y alrededores de Fuensalida, presencial o en remoto.",
+  schemaAreaServed = lang === "en" ? ["Remote"] : siteConfig.serviceAreas,
   alternates: alternatesProp = [],
   faq = [],
   extraSchema = [],
@@ -52,6 +53,51 @@ const canonical = pageUrl(effectiveCanonicalPath);
 const ogImage = absoluteUrl(ogImageProp);
 const businessId = `${siteConfig.publicUrl}/#business`;
 const founderId = `${siteConfig.publicUrl}/#founder`;
+const isEnglish = lang === "en";
+// La versión en inglés se presenta como servicio 100 % remoto: sin dirección, coordenadas, horario ni radio presencial.
+const localBusinessFields = isEnglish
+  ? {
+      areaServed: schemaAreaServed.map((name: string) => ({ "@type": "Place", name })),
+    }
+  : {
+      telephone: siteConfig.phone,
+      address: { "@type": "PostalAddress", ...siteConfig.address },
+      geo: { "@type": "GeoCoordinates", ...siteConfig.geo },
+      hasMap: siteConfig.googleBusinessUrl,
+      openingHoursSpecification: siteConfig.openingHours.map(({ days, opens, closes }) => ({
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: days,
+        opens,
+        closes,
+      })),
+      areaServed: [
+        ...schemaAreaServed.map((name: string) => ({ "@type": "Place", name })),
+        {
+          "@type": "GeoCircle",
+          geoMidpoint: { "@type": "GeoCoordinates", ...siteConfig.geo },
+          geoRadius: siteConfig.serviceRadiusKm * 1000,
+        },
+      ],
+    };
+const knowsAbout = isEnglish
+  ? [
+      "IT support for businesses",
+      "IT maintenance",
+      "Small business digitalization",
+      "Google Workspace",
+      "Website speed optimization",
+      "Process automation",
+      "AI agents for customer support",
+    ]
+  : [
+      "Soporte informático para empresas",
+      "Mantenimiento informático",
+      "Digitalización de PyMEs",
+      "Google Workspace",
+      "Optimización de velocidad web",
+      "Automatización de procesos",
+      "Agentes de IA para atención al cliente",
+    ];
 const schemaGraph: Record<string, unknown>[] = [
   {
     "@type": "ProfessionalService",
@@ -61,25 +107,8 @@ const schemaGraph: Record<string, unknown>[] = [
     url: siteConfig.publicUrl,
     logo: absoluteUrl(siteConfig.logo),
     image: ogImage,
-    telephone: siteConfig.phone,
     email: siteConfig.contactEmail,
-    address: { "@type": "PostalAddress", ...siteConfig.address },
-    geo: { "@type": "GeoCoordinates", ...siteConfig.geo },
-    hasMap: siteConfig.googleBusinessUrl,
-    openingHoursSpecification: siteConfig.openingHours.map(({ days, opens, closes }) => ({
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: days,
-      opens,
-      closes,
-    })),
-    areaServed: [
-      ...schemaAreaServed.map((name: string) => ({ "@type": "Place", name })),
-      {
-        "@type": "GeoCircle",
-        geoMidpoint: { "@type": "GeoCoordinates", ...siteConfig.geo },
-        geoRadius: siteConfig.serviceRadiusKm * 1000,
-      },
-    ],
+    ...localBusinessFields,
     founder: { "@id": founderId },
     sameAs: [
       siteConfig.googleBusinessUrl,
@@ -90,21 +119,13 @@ const schemaGraph: Record<string, unknown>[] = [
       siteConfig.tiktokUrl,
       siteConfig.facebookUrl,
     ],
-    knowsAbout: [
-      "Soporte informático para empresas",
-      "Mantenimiento informático",
-      "Digitalización de PyMEs",
-      "Google Workspace",
-      "Optimización de velocidad web",
-      "Automatización de procesos",
-      "Agentes de IA para atención al cliente",
-    ],
+    knowsAbout,
   },
   {
     "@type": "Person",
     "@id": founderId,
     name: siteConfig.founder,
-    jobTitle: "Consultor de digitalización y soporte IT",
+    jobTitle: isEnglish ? "Digitalization consultant and IT support" : "Consultor de digitalización y soporte IT",
     worksFor: { "@id": businessId },
     url: siteConfig.publicUrl,
     sameAs: [siteConfig.linkedinUrl],
@@ -114,7 +135,7 @@ const schemaGraph: Record<string, unknown>[] = [
     "@id": `${siteConfig.publicUrl}/#website`,
     name: siteConfig.name,
     url: siteConfig.publicUrl,
-    inLanguage: "es-ES",
+    inLanguage: isEnglish ? "en" : "es-ES",
     publisher: { "@id": businessId },
   },
 ];
@@ -182,7 +203,7 @@ const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
-    {!minimal && <Header bookingEvent={headerBookingEvent} brandHref={headerBrandHref} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} langSwitchHref={langSwitchHref} />}
+    {!minimal && <Header bookingEvent={headerBookingEvent} brandHref={lang === "en" ? "/en/" : "/"} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} langSwitchHref={langSwitchHref} />}
     <main>
       <slot />
     </main>

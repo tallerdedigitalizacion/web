@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 // Catálogo único de servicios: alimenta la portada, el desplegable del formulario, el footer y llms.txt.
 // "Planes mensuales" son los servicios recurrentes; el resto de grupos son proyectos con precio cerrado.
 export const planGroup = "Planes mensuales";
-export const serviceGroups = [planGroup, "Informática y seguridad", "Web", "Operaciones y procesos", "IA y captación"] as const;
+export const serviceGroups = [planGroup, "Informática y seguridad", "Web", "Operaciones y procesos", "IA y captación", "Casos prácticos"] as const;
 export const projectGroups = serviceGroups.filter((group) => group !== planGroup);
 export type ServiceGroup = (typeof serviceGroups)[number];
 
@@ -37,6 +37,11 @@ export const serviceCatalog: ServiceEntry[] = [
   { group: "IA y captación", label: "Captación y seguimiento de leads", href: "/gestion-leads-crm/", summary: "Que ningún contacto se quede sin respuesta: CRM y automatizaciones." },
   { group: "IA y captación", label: "Agente de IA para atención al cliente", href: "/agente-ia-atencion-cliente/", summary: "Respuestas rápidas a dudas frecuentes, con traspaso a una persona." },
   { group: "IA y captación", label: "Asistente de IA con el conocimiento de la empresa", href: "/asistente-ia-empresa/", summary: "Que el equipo consulte procedimientos sin preguntar siempre al dueño." },
+  // Casos prácticos: el detalle y el precio están en /casos/.
+  { group: "Casos prácticos", label: "Conciliación de proveedores", href: "/casos/conciliacion-proveedores/", summary: "Cruzar lo que te facturan los proveedores con lo que tienes en tu sistema, desde 490 €." },
+  { group: "Casos prácticos", label: "Rescate de datos y consulta con IA", href: "/casos/dar-de-baja-software-historico/", summary: "Dar de baja el programa que solo pagas por el histórico y consultarlo con IA, desde 900 €." },
+  { group: "Casos prácticos", label: "Consulta de cobertura por IA", href: "/casos/consulta-cobertura-ia/", summary: "Preguntar a la IA si una dirección tiene cobertura, desde 1.200 €." },
+  { group: "Casos prácticos", label: "Entrada de facturas automática", href: "/casos/entrada-facturas-automatica/", summary: "Que las facturas entren solas en tu programa y una persona las valide, desde 2.500 €." },
 ];
 
 export const serviceLabelFor = (href: string) => serviceCatalog.find((service) => service.href === href)?.label;

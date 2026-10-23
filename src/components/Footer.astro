@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from "@/config/site";
 import { serviceCatalog, serviceGroups } from "@/data/services";
+import { serviceCatalogEn, serviceGroupsEn } from "@/data/servicesEn";
 import { withBase } from "@/utils/paths";
 
 const { lang = "es" } = Astro.props;
@@ -11,13 +12,22 @@ const zoneLinks = [
   ["Illescas y La Sagra", "/informatico-illescas-la-sagra/"],
   ["Navalcarnero y sur de Madrid", "/informatico-navalcarnero-mostoles/"],
 ];
+const columns: { group: string; links: { label: string; href: string }[] }[] = (isEnglish ? serviceGroupsEn : serviceGroups).map((group) => ({
+  group,
+  links: (isEnglish ? serviceCatalogEn : serviceCatalog).filter((service) => service.group === group),
+}));
 ---
 
 <footer class="site-footer">
   <div class="footer-brand">
     <div>
       <strong>{siteConfig.name}</strong>
-      <p>{isEnglish ? "Technical diagnosis and fixes for websites and business operations." : "Soporte informático y digitalización para empresas en Toledo."}</p>
+      <p>{isEnglish ? "Remote IT support and digitalization for small businesses." : "Soporte informático y digitalización para empresas en Toledo."}</p>
+      {isEnglish && (
+        <address>
+          <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+        </address>
+      )}
       {!isEnglish && (
         <address>
           {siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} ({siteConfig.address.addressRegion})<br />
@@ -28,24 +38,25 @@ const zoneLinks = [
     </div>
     <img src={withBase("/logo-96.png")} alt="Taller de Digitalización" width="48" height="48" loading="lazy" />
   </div>
-  {!isEnglish && (
-    <div class="footer-columns">
-      {serviceGroups.map((group) => (
-        <nav aria-label={group}>
-          <strong>{group}</strong>
-          {serviceCatalog.filter((service) => service.group === group).map((service) => <a href={withBase(service.href)}>{service.label}</a>)}
-        </nav>
-      ))}
+  <div class="footer-columns">
+    {columns.map(({ group, links }) => (
+      <nav aria-label={group}>
+        <strong>{group}</strong>
+        {links.map((service) => <a href={withBase(service.href)}>{service.label}</a>)}
+      </nav>
+    ))}
+    {!isEnglish && (
       <nav aria-label="Zonas y clientes">
         <strong>Zonas</strong>
         {zoneLinks.map(([label, href]) => <a href={withBase(href)}>{label}</a>)}
         <strong>Clientes</strong>
         <a href={withBase("/soporte-remoto/")}>Soporte remoto (AnyDesk)</a>
         <a href={withBase("/blog/")}>Blog</a>
+        <a href={withBase("/casos/")}>Casos prácticos</a>
         <a href={withBase("/portfolio/")}>Portfolio</a>
       </nav>
-    </div>
-  )}
+    )}
+  </div>
   <nav class="footer-legal" aria-label={isEnglish ? "Footer links" : "Enlaces de pie de página"}>
     <a href={withBase("/aviso-legal")}>{isEnglish ? "Legal notice" : "Aviso legal"}</a>
     <a href={withBase("/politica-privacidad")}>{isEnglish ? "Privacy policy" : "Política de privacidad"}</a>

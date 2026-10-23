@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { localPages } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
 import { serviceCatalog } from "@/data/services";
+import { serviceCatalogEn } from "@/data/servicesEn";
 import { billarArrabal } from "@/data/portfolio";
 import { getPublishedPosts } from "@/utils/blog";
 
@@ -39,6 +40,11 @@ export const GET: APIRoute = async () => {
     ...extraPages.map((page) => `- [${page.h1.replace(/\.$/, "")}](${url(`/${page.slug}/`)}): ${page.description}`),
     `- [Website speed optimization (English)](${url("/website-speed-optimization/")}): the website speed service for English-speaking clients.`,
     "",
+    "## English version (remote service, no fixed location)",
+    "",
+    `- [Home (English)](${url("/en/")}): remote IT support and digitalization for small businesses, with monthly plans from €${siteConfig.planPriceFrom}/month + VAT and fixed-price projects.`,
+    ...serviceCatalogEn.map((service) => `- [${service.label}](${url(service.href)}): ${service.summary}`),
+    "",
     `## Zona de servicio presencial (municipios a menos de ${siteConfig.serviceRadiusKm} km de ${address.addressLocality})`,
     "",
     ...siteConfig.serviceRegions.map((region) => `- ${region.name}: ${region.towns.join(", ")}`),
@@ -49,6 +55,10 @@ export const GET: APIRoute = async () => {
     "- Presupuesto cerrado antes de empezar.",
     "- Proceso: llamada, propuesta cerrada, implementación y mantenimiento.",
     "- Explicaciones sin tecnicismos y sin vender servicios innecesarios.",
+    "",
+    "## Casos prácticos",
+    "",
+    `- [Casos prácticos](${url("/casos/")}): trabajos concretos de automatización e IA ya hechos en empresas reales, explicados con palabras simples y con precio "desde" (cada caso está también en la lista de servicios).`,
     "",
     "## Portfolio",
     "",
