@@ -6,7 +6,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import { z } from "zod";
-import { BOOKING_URL } from "../../../src/config/booking";
+import { bookingUrlFor } from "../../../src/config/booking";
 import { buildWebAuditEmail } from "./email";
 import { scoreWebAudit, type WebAuditAnswers, type WebAuditLanguage } from "./scoring";
 
@@ -123,7 +123,7 @@ export async function handler(event: APIGatewayProxyEventV2) {
     websiteUrl,
     language: parsed.language,
     answers: parsed.answers as WebAuditAnswers,
-    bookingUrl: BOOKING_URL,
+    bookingUrl: bookingUrlFor(parsed.language),
     ...scoreResult,
   });
 

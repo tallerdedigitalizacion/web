@@ -82,4 +82,4 @@ Quick best practices
 
 Want help implementing this in your actual Google Drive, with permissions
 and shared drives already configured?
-Book a call: https://cal.com/taller-de-digitalizacion/free-15-min-website-speed-call
+Book a call: https://cal.com/taller-de-digitalizacion/free-15-min-call

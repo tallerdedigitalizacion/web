@@ -12,7 +12,7 @@ const title = "IT support and digitalization for small businesses, fully remote 
 const description = "Remote IT support, cybersecurity, websites and digitalization for small businesses. Monthly plans from €39/month + VAT or fixed-price projects. First call is free.";
 
 const steps: [string, string, string?][] = [
-  ["Free 15-minute call", "You tell me what's going on. If I don't see how I can help, I'll say so.", siteConfig.bookingUrl],
+  ["Free 15-minute call", "You tell me what's going on. If I don't see how I can help, I'll say so.", siteConfig.bookingUrlEn],
   ["Fixed-price proposal", "What needs doing, in what order and how much it costs. No small print."],
   ["Implementation", "Done remotely. I explain what I've done in plain language."],
   ["Monthly plan", `Reviews, updates and ongoing support from €${siteConfig.planPriceFrom}/month + VAT, so everything keeps working and the problems don't come back.`],
@@ -47,7 +47,7 @@ const scoreboard = billarArrabal.images.scoreboard;
       <h1>IT support and digitalization for small businesses, fully remote.</h1>
       <p class="hero-subtitle">IT support, cybersecurity, websites and digital order for small and medium businesses. {siteConfig.experienceYears} years solving technical problems, all done remotely. No jargon and no selling you what you don't need.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Book a free call</a>
+        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrlEn} target="_blank" rel="noreferrer">Book a free call</a>
         <a class="btn btn-secondary" href="#contacto">Write to me</a>
       </div>
     </div>

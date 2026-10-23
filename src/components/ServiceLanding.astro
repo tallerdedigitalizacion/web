@@ -73,6 +73,7 @@ const navItems = [
   [faqLabel, "#faq"],
 ];
 
+const bookingUrl = isEnglish ? siteConfig.bookingUrlEn : siteConfig.bookingUrl;
 const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita";
 ---
 
@@ -95,7 +96,7 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
         index === 0 ? <p class="hero-subtitle">{paragraph}</p> : <p>{paragraph}</p>
       ))}
       <div class="hero-actions">
-        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">{bookingLabel}</a>
+        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={bookingUrl} target="_blank" rel="noreferrer">{bookingLabel}</a>
       </div>
     </div>
   </section>
@@ -186,19 +187,19 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
   <section class="section final-cta">
     <h2>{finalCtaHeading}</h2>
     <div class="hero-actions">
-      <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">{bookingLabel}</a>
+      <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={bookingUrl} target="_blank" rel="noreferrer">{bookingLabel}</a>
     </div>
   </section>
 </BaseLayout>
 
 <script>
-  import { BOOKING_URL } from "@/config/booking";
+  import { BOOKING_URLS } from "@/config/booking";
 
   const params = new URLSearchParams(window.location.search);
   const utmEntries = [...params.entries()].filter(([key]) => key.toLowerCase().startsWith("utm_"));
 
   if (utmEntries.length > 0) {
-    document.querySelectorAll(`[data-preserve-utm], a[href^="${BOOKING_URL}"]`).forEach((link) => {
+    document.querySelectorAll(`[data-preserve-utm], ${BOOKING_URLS.map((url) => `a[href^="${url}"]`).join(", ")}`).forEach((link) => {
       if (!(link instanceof HTMLAnchorElement)) return;
       const url = new URL(link.href);
       utmEntries.forEach(([key, value]) => {

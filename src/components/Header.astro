@@ -8,9 +8,10 @@ const {
   navItems = [],
   showBooking = true,
   lang = "es",
-  bookingHref = siteConfig.bookingUrl,
+  bookingHref: bookingHrefProp,
   langSwitchHref,
 } = Astro.props;
+const bookingHref = bookingHrefProp ?? (lang === "en" ? siteConfig.bookingUrlEn : siteConfig.bookingUrl);
 const resolveHref = (href: string) => (href.startsWith("/") ? (import.meta.env.DEV ? href : withBase(href)) : href);
 const brandTarget = resolveHref(brandHref);
 const resolvedNavItems = navItems.map(([label, href]: [string, string]) => [label, resolveHref(href)]);
@@ -22,7 +23,6 @@ const labels = {
   openMenu: isEnglish ? "Open menu" : "Abrir menú",
   closeMenu: isEnglish ? "Close menu" : "Cerrar menú",
   mobileNav: isEnglish ? "Mobile navigation" : "Navegación móvil",
-  langSwitch: isEnglish ? "ES" : "EN",
   langSwitchTitle: isEnglish ? "Ver en español" : "View in English",
 };
 ---
@@ -37,7 +37,22 @@ const labels = {
     </nav>
   )}
   <div class="header-actions">
-    {langSwitchHref && <a class="lang-switch" href={resolveHref(langSwitchHref)} hreflang={isEnglish ? "es" : "en"} lang={isEnglish ? "es" : "en"} title={labels.langSwitchTitle}>{labels.langSwitch}</a>}
+    {langSwitchHref && (
+      <a class="lang-switch" href={resolveHref(langSwitchHref)} hreflang={isEnglish ? "es" : "en"} lang={isEnglish ? "es" : "en"} title={labels.langSwitchTitle} aria-label={labels.langSwitchTitle}>
+        {isEnglish ? (
+          <svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false">
+            <rect width="30" height="20" fill="#c60b1e" />
+            <rect y="5" width="30" height="10" fill="#ffc400" />
+          </svg>
+        ) : (
+          <svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false">
+            <rect width="30" height="20" fill="#fff" />
+            <rect x="12.5" width="5" height="20" fill="#cf142b" />
+            <rect y="7.5" width="30" height="5" fill="#cf142b" />
+          </svg>
+        )}
+      </a>
+    )}
     {showBooking && <a class="btn btn-small btn-primary" data-event={bookingEvent} href={bookingHref} target="_blank" rel="noreferrer">{labels.book}</a>}
     {resolvedNavItems.length > 0 && (
       <button class="menu-toggle" type="button" aria-label={labels.openMenu} aria-expanded="false" aria-controls="mobile-menu" data-label-open={labels.openMenu} data-label-close={labels.closeMenu}>
