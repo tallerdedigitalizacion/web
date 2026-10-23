@@ -22,7 +22,6 @@ const {
   ogImageAlt,
   showWhatsAppButton,
   headerBookingEvent = "reservar_click",
-  headerBrandHref = "/",
   headerNavItems = [],
   showHeaderBooking = true,
   lang = "es",
@@ -204,7 +203,7 @@ const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
-    {!minimal && <Header bookingEvent={headerBookingEvent} brandHref={headerBrandHref} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} langSwitchHref={langSwitchHref} />}
+    {!minimal && <Header bookingEvent={headerBookingEvent} brandHref={lang === "en" ? "/en/" : "/"} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} langSwitchHref={langSwitchHref} />}
     <main>
       <slot />
     </main>

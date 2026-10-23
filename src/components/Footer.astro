@@ -36,7 +36,9 @@ const columns: { group: string; links: { label: string; href: string }[] }[] = (
         </address>
       )}
     </div>
-    <img src={withBase("/logo-96.png")} alt="Taller de Digitalización" width="48" height="48" loading="lazy" />
+    <a href={withBase(isEnglish ? "/en/" : "/")} aria-label={isEnglish ? "Home" : "Inicio"}>
+      <img src={withBase("/logo-96.png")} alt="Taller de Digitalización" width="48" height="48" loading="lazy" />
+    </a>
   </div>
   <div class="footer-columns">
     {columns.map(({ group, links }) => (

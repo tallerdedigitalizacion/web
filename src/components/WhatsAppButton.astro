@@ -1,7 +1,7 @@
 ---
-import { whatsappUrl } from "@/config/site";
+import { whatsappUrlFor } from "@/config/site";
 
-const { lang = "es", href = whatsappUrl } = Astro.props;
+const { lang = "es", href = whatsappUrlFor(lang === "en" ? "en" : "es") } = Astro.props;
 ---
 
 <a class="whatsapp-float" data-event="whatsapp_click" href={href} aria-label={lang === "en" ? "Open WhatsApp conversation" : "Abrir conversación por WhatsApp"} target="_blank" rel="noreferrer">
