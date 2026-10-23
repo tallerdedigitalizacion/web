@@ -40,6 +40,10 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 - [Captación y seguimiento de leads](https://tallerdedigitalizacion.com/gestion-leads-crm/): Que ningún contacto se quede sin respuesta: CRM y automatizaciones.
 - [Agente de IA para atención al cliente](https://tallerdedigitalizacion.com/agente-ia-atencion-cliente/): Respuestas rápidas a dudas frecuentes, con traspaso a una persona.
 - [Asistente de IA con el conocimiento de la empresa](https://tallerdedigitalizacion.com/asistente-ia-empresa/): Que el equipo consulte procedimientos sin preguntar siempre al dueño.
+- [Conciliación de proveedores](https://tallerdedigitalizacion.com/casos/conciliacion-proveedores/): Cruzar lo que te facturan los proveedores con lo que tienes en tu sistema, desde 490 €.
+- [Rescate de datos y consulta con IA](https://tallerdedigitalizacion.com/casos/dar-de-baja-software-historico/): Dar de baja el programa que solo pagas por el histórico y consultarlo con IA, desde 900 €.
+- [Consulta de cobertura por IA](https://tallerdedigitalizacion.com/casos/consulta-cobertura-ia/): Preguntar a la IA si una dirección tiene cobertura, desde 1.200 €.
+- [Entrada de facturas automática](https://tallerdedigitalizacion.com/casos/entrada-facturas-automatica/): Que las facturas entren solas en tu programa y una persona las valide, desde 2.500 €.
 - [Informático en Fuensalida y Torrijos para empresas y autónomos](https://tallerdedigitalizacion.com/informatico-fuensalida-torrijos/): Informático en Fuensalida para empresas y autónomos de Torrijos, Novés, Portillo, Camarena, Méntrida y alrededores. Soporte cercano, en remoto o presencial.
 - [Informático para empresas en Illescas y La Sagra](https://tallerdedigitalizacion.com/informatico-illescas-la-sagra/): Informático para empresas y naves de Illescas, Yuncos, Seseña, Esquivias, Ugena y toda La Sagra: soporte, redes, mantenimiento y ciberseguridad, en remoto o presencial.
 - [Informático para empresas en Navalcarnero, Móstoles y el sur de Madrid](https://tallerdedigitalizacion.com/informatico-navalcarnero-mostoles/): Soporte informático, mantenimiento y ciberseguridad para PyMEs de Navalcarnero, Móstoles, Fuenlabrada, Alcorcón, Arroyomolinos y el sur de Madrid. Remoto y presencial.
@@ -79,6 +83,10 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 - Presupuesto cerrado antes de empezar.
 - Proceso: llamada, propuesta cerrada, implementación y mantenimiento.
 - Explicaciones sin tecnicismos y sin vender servicios innecesarios.
+
+## Casos prácticos
+
+- [Casos prácticos](https://tallerdedigitalizacion.com/casos/): trabajos concretos de automatización e IA ya hechos en empresas reales, explicados con palabras simples y con precio "desde" (cada caso está también en la lista de servicios).
 
 ## Portfolio
 
