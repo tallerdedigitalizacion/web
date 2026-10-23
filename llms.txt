@@ -45,6 +45,25 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 - [Informático para empresas en Navalcarnero, Móstoles y el sur de Madrid](https://tallerdedigitalizacion.com/informatico-navalcarnero-mostoles/): Soporte informático, mantenimiento y ciberseguridad para PyMEs de Navalcarnero, Móstoles, Fuenlabrada, Alcorcón, Arroyomolinos y el sur de Madrid. Remoto y presencial.
 - [Website speed optimization (English)](https://tallerdedigitalizacion.com/website-speed-optimization/): the website speed service for English-speaking clients.
 
+## English version (remote service, no fixed location)
+
+- [Home (English)](https://tallerdedigitalizacion.com/en/): remote IT support and digitalization for small businesses, with monthly plans from €39/month + VAT and fixed-price projects.
+- [Managed IT](https://tallerdedigitalizacion.com/managed-it-support/): Equipment maintenance, verified backups, security, accounts and remote support.
+- [Managed website](https://tallerdedigitalizacion.com/managed-website/): Hosting, updates, backups, security, speed and small changes every month.
+- [Operations & AI](https://tallerdedigitalizacion.com/operations-ai-plan/): Automations, integrations and AI agents maintained and improved every month.
+- [Google Workspace reorganization](https://tallerdedigitalizacion.com/google-workspace-reorganization/): Users, licenses, groups and permissions organized so each person only accesses what they need.
+- [Google Drive restructuring](https://tallerdedigitalizacion.com/corporate-google-drive-restructuring/): A clear folder and permission structure to find any document in seconds.
+- [Password management](https://tallerdedigitalizacion.com/centralized-access-management/): Move off spreadsheets and chat apps: a password manager and onboarding/offboarding procedures.
+- [Website speed optimization](https://tallerdedigitalizacion.com/website-speed-optimization/): Speed up your site without rebuilding it, verified with Core Web Vitals.
+- [Free website report](https://tallerdedigitalizacion.com/free-website-report/): A free self-audit of speed, basic SEO, security and lead capture.
+- [Conversion landing pages](https://tallerdedigitalizacion.com/conversion-landing-pages/): Pages focused on a single goal to turn campaign traffic into contacts.
+- [Digitalization assessment](https://tallerdedigitalizacion.com/digitalization-assessment/): A technical and functional audit of your processes, with a prioritized report and action plan.
+- [Systems integration](https://tallerdedigitalizacion.com/systems-integration/): Connect your CRM, ERP, invoicing and email to eliminate manual tasks.
+- [Custom internal tools](https://tallerdedigitalizacion.com/custom-internal-tools/): Dashboards, portals and automations built for how your team works.
+- [Lead centralization](https://tallerdedigitalizacion.com/lead-centralization/): No contact left unanswered: all your prospects in one place, tracked in your CRM.
+- [AI agent for customer support](https://tallerdedigitalizacion.com/external-oracle/): Fast answers to common questions, with a handoff to a person.
+- [AI assistant with company knowledge](https://tallerdedigitalizacion.com/internal-oracle/): Let the team look up procedures without always asking the owner.
+
 ## Zona de servicio presencial (municipios a menos de 50 km de Fuensalida)
 
 - Torrijos y comarca: Fuensalida, Torrijos, Portillo de Toledo, Novés, Camarena, Santa Cruz del Retamar, Huecas, Arcicóllar, Barcience, Villamiel de Toledo, Rielves, Gerindote, Val de Santo Domingo, Quismondo, Maqueda, Alcabón, Chozas de Canales, Las Ventas de Retamosa, Camarenilla, Carmena
