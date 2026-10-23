@@ -87,6 +87,7 @@ const {
             website: String(data.get("website") || ""),
             startedAt: Number(data.get("started_at") || Date.now()),
             pageUrl: window.location.href,
+            attribution: window.tdAttribution?.(),
             userAgent: navigator.userAgent,
           }),
         });
