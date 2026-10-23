@@ -169,7 +169,7 @@ async function handleLead(c: Context, action: LeadAction) {
       );
       const leadDelivery = await trySendEmail(
         webAuditGuideInput.email,
-        webAuditGuideEmail(webAuditGuideInput, config.siteUrl, config.bookingUrl),
+        webAuditGuideEmail(webAuditGuideInput, config.siteUrl, webAuditGuideInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
         existsSync(webAuditGuidePdfPath) ? webAuditGuidePdfPath : undefined,
       );
       if (config.notifyEmail) {
@@ -200,7 +200,7 @@ async function handleLead(c: Context, action: LeadAction) {
         : undefined;
     const leadDelivery = await trySendEmail(
       resourceInput.email,
-      resourceEmail(resourceInput, config.bookingUrl),
+      resourceEmail(resourceInput, resourceInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
       resourceAttachmentPath && existsSync(resourceAttachmentPath) ? resourceAttachmentPath : undefined,
     );
     if (config.notifyEmail) {

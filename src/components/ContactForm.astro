@@ -81,7 +81,7 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
         <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> · <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a data-event="whatsapp_click" href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp</a>
       </p>
     )}
-    <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">{t.book}</a>
+    <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={isEnglish ? siteConfig.bookingUrlEn : siteConfig.bookingUrl} target="_blank" rel="noreferrer">{t.book}</a>
   </div>
   <form class="compact-form contact-form" data-contact-form action={siteConfig.formEndpoint} method="post" novalidate>
     <label>{t.service}

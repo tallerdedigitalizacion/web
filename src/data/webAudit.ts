@@ -1,4 +1,4 @@
-import { BOOKING_URL } from "@/config/booking";
+import { BOOKING_URL_EN, BOOKING_URL_ES } from "@/config/booking";
 
 export const webAuditWeights = [
   { key: "business", weight: 15 },
@@ -11,7 +11,8 @@ export const webAuditWeights = [
 ] as const;
 
 export const webAuditShared = {
-  bookingUrl: BOOKING_URL,
+  bookingUrl: BOOKING_URL_ES,
+  bookingUrlEn: BOOKING_URL_EN,
   spanishPath: "/informe-gratuito-web",
   englishPath: "/free-website-report",
 };

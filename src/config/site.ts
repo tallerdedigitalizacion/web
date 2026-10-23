@@ -1,4 +1,4 @@
-import { BOOKING_URL } from "./booking";
+import { BOOKING_URL_EN, BOOKING_URL_ES } from "./booking";
 
 export const siteConfig = {
   name: "Taller de Digitalización",
@@ -6,7 +6,8 @@ export const siteConfig = {
   seoDescription:
     "Soporte informático, webs y digitalización para PyMEs en Toledo y a 50 km de Fuensalida. Presencial o en remoto, sin tecnicismos ni ventas innecesarias.",
   publicUrl: "https://tallerdedigitalizacion.com",
-  bookingUrl: BOOKING_URL,
+  bookingUrl: BOOKING_URL_ES,
+  bookingUrlEn: BOOKING_URL_EN,
   contactEmail: "info@tallerdedigitalizacion.com",
   phone: "+34632990133",
   phoneDisplay: "632 99 01 33",

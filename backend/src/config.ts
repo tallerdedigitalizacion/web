@@ -1,4 +1,4 @@
-import { BOOKING_URL } from "../../src/config/booking";
+import { BOOKING_URL_EN, BOOKING_URL_ES } from "../../src/config/booking";
 
 export const config = {
   tableName: requireEnv("LEADS_TABLE_NAME"),
@@ -11,7 +11,8 @@ export const config = {
   smtpUser: process.env.SMTP_USER || "",
   smtpPassword: process.env.SMTP_PASSWORD || process.env.SMTP_PASS || "",
   siteUrl: process.env.SITE_URL || "https://tallerdedigitalizacion.com",
-  bookingUrl: BOOKING_URL,
+  bookingUrl: BOOKING_URL_ES,
+  bookingUrlEn: BOOKING_URL_EN,
   allowedOrigins: (process.env.ALLOWED_ORIGINS || "https://tallerdedigitalizacion.com")
     .split(",")
     .map((origin) => origin.trim())

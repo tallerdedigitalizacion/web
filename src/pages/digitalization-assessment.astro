@@ -5,7 +5,7 @@ import { reviews } from "@/data/reviews";
 
 const title = "Digitalization Assessment for businesses | Taller de Digitalización";
 const description = "Discover where you are losing time, money and opportunities. A technical and functional audit of your processes, with a prioritized report and action plan.";
-const bookingUrl = siteConfig.bookingUrl;
+const bookingUrl = siteConfig.bookingUrlEn;
 const googleReviewsUrl = "https://maps.app.goo.gl/iJYaupqoL8usLB6X7";
 
 const analysisItems = [
@@ -194,13 +194,13 @@ const assessmentReviews = reviews.slice(0, 8).map((review) => ({ ...review, date
 </BaseLayout>
 
 <script>
-  import { BOOKING_URL } from "@/config/booking";
+  import { BOOKING_URLS } from "@/config/booking";
 
   const params = new URLSearchParams(window.location.search);
   const utmEntries = [...params.entries()].filter(([key]) => key.toLowerCase().startsWith("utm_"));
 
   if (utmEntries.length > 0) {
-    document.querySelectorAll(`[data-preserve-utm], a[href^="${BOOKING_URL}"]`).forEach((link) => {
+    document.querySelectorAll(`[data-preserve-utm], ${BOOKING_URLS.map((url) => `a[href^="${url}"]`).join(", ")}`).forEach((link) => {
       if (!(link instanceof HTMLAnchorElement)) return;
       const url = new URL(link.href);
       utmEntries.forEach(([key, value]) => {

@@ -56,7 +56,7 @@ const t = isEnglish
   </div>
 </div>
 
-<script define:vars={{ gaId: siteConfig.googleAnalyticsId, bookingUrl: siteConfig.bookingUrl }}>
+<script define:vars={{ gaId: siteConfig.googleAnalyticsId, bookingUrls: [siteConfig.bookingUrl, siteConfig.bookingUrlEn] }}>
   const consentKey = "td_cookie_consent";
   const consentVersion = 2;
   // La AEPD recomienda no conservar el consentimiento más de 24 meses; lo pedimos de nuevo a los 12.
@@ -80,7 +80,7 @@ const t = isEnglish
     if (href.startsWith("tel:")) return "telefono_click";
     if (href.startsWith("mailto:")) return "email_click";
     if (href.includes("wa.me/")) return "whatsapp_click";
-    if (href.startsWith(bookingUrl)) return "reservar_click";
+    if (bookingUrls.some((url) => href.startsWith(url))) return "reservar_click";
     return "";
   }
 
@@ -180,7 +180,7 @@ const t = isEnglish
     const attributionEntries = Object.entries(touch).filter(([key]) => attributionFields.includes(key));
     if (attributionEntries.length === 0) return;
 
-    document.querySelectorAll(`a[href^="${bookingUrl}"]`).forEach((link) => {
+    document.querySelectorAll(bookingUrls.map((url) => `a[href^="${url}"]`).join(", ")).forEach((link) => {
       if (!(link instanceof HTMLAnchorElement)) return;
       const url = new URL(link.href);
       attributionEntries.forEach(([key, value]) => {
