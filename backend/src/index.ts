@@ -7,8 +7,8 @@ import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { z } from "zod";
 import { scoreAssessment } from "./assessment";
 import { config } from "./config";
-import { contactLeadSchema, diagnosticLeadSchema, methodLeadSchema, resourceLeadSchema, webAuditGuideLeadSchema, webAuditLeadSchema } from "./schemas";
-import { contactEmail, diagnosticEmail, methodEmail, notificationEmail, resourceEmail, webAuditEmail, webAuditGuideEmail } from "./email/templates";
+import { contactLeadSchema, diagnosticLeadSchema, methodLeadSchema, resourceLeadSchema, selfAssessmentLeadSchema, webAuditGuideLeadSchema, webAuditLeadSchema } from "./schemas";
+import { contactEmail, diagnosticEmail, methodEmail, notificationEmail, resourceEmail, selfAssessmentEmail, webAuditEmail, webAuditGuideEmail } from "./email/templates";
 import { sendEmail } from "./email/sender";
 import { assertAllowedOrigin, assertHoneypot, assertHumanTiming, assertPayloadSize, assertRateLimit, getClientIp, SecurityError } from "./security";
 import { hashValue, saveLead } from "./store";
@@ -32,8 +32,9 @@ app.post("/lead/web-audit", async (c) => handleLead(c, "web-audit"));
 app.post("/lead/web-audit-guide", async (c) => handleLead(c, "web-audit-guide"));
 app.post("/lead/resource", async (c) => handleLead(c, "resource"));
 app.post("/lead/contact", async (c) => handleLead(c, "contact"));
+app.post("/lead/self-assessment", async (c) => handleLead(c, "self-assessment"));
 
-type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact";
+type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact" | "self-assessment";
 
 async function handleLead(c: Context, action: LeadAction) {
   try {
@@ -189,6 +190,38 @@ async function handleLead(c: Context, action: LeadAction) {
       });
     }
 
+    if (action === "self-assessment") {
+      const assessmentInput = selfAssessmentLeadSchema.parse(input);
+      const saved = await saveLead("self-assessment", {
+        ...cleanLead(assessmentInput),
+        ipHash: hashValue(ip),
+      });
+      const leadDelivery = await trySendEmail(
+        assessmentInput.email,
+        selfAssessmentEmail(assessmentInput, assessmentInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
+      );
+      if (config.notifyEmail) {
+        const deliveryNote = leadDelivery.ok
+          ? "Email al lead: enviado."
+          : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+        await trySendEmail(
+          config.notifyEmail,
+          notificationEmail(
+            "self-assessment",
+            assessmentInput,
+            `Autoevaluación: ${assessmentInput.assessmentId} (${assessmentInput.language}). Puntaje: ${assessmentInput.score}/100, riesgo ${assessmentInput.level}. Página: ${assessmentInput.pageUrl || "-"}. Lead id: ${saved.id}\n${deliveryNote}`,
+          ),
+        );
+      }
+
+      return c.json({
+        ok: true,
+        leadId: saved.id,
+        emailDelivered: leadDelivery.ok,
+        message: leadDelivery.ok ? "Te enviamos el informe por email." : "Recibimos tus datos. El envío por email no está disponible ahora mismo.",
+      });
+    }
+
     const resourceInput = resourceLeadSchema.parse(input);
     const saved = await saveLead("resource", {
       ...cleanLead(resourceInput),
@@ -240,6 +273,7 @@ function parseLead(action: LeadAction, parsedJson: unknown) {
   if (action === "web-audit") return webAuditLeadSchema.parse(parsedJson);
   if (action === "web-audit-guide") return webAuditGuideLeadSchema.parse(parsedJson);
   if (action === "contact") return contactLeadSchema.parse(parsedJson);
+  if (action === "self-assessment") return selfAssessmentLeadSchema.parse(parsedJson);
   return resourceLeadSchema.parse(parsedJson);
 }
 

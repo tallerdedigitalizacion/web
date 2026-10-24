@@ -6,6 +6,9 @@ import CaseStory from "@/components/CaseStory.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import ServiceIcon from "@/components/ServiceIcon.astro";
+import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
+import LeadCalculator from "@/components/LeadCalculator.astro";
+import { quizIdForPath } from "@/data/leadMagnets";
 import { localPages, type LocalPage } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
 import { plansEn } from "@/data/plansEn";
@@ -98,7 +101,14 @@ const extraSchema = [
   },
 ];
 
-const navItems = t.nav;
+const quizId = quizIdForPath(path);
+// La calculadora de leads perdidos vive aquí porque es la página canónica de /centralizacion-leads/.
+const hasLeadCalculator = path === "/gestion-leads-crm/";
+const navItems = quizId
+  ? [...t.nav.slice(0, -2), [isEnglish ? "Self-assessment" : "Autoevaluación", isEnglish ? "#self-assessment" : "#autoevaluacion"], ...t.nav.slice(-2)]
+  : hasLeadCalculator
+    ? [...t.nav.slice(0, -2), ["Calculadora", "#calculadora"], ...t.nav.slice(-2)]
+    : t.nav;
 ---
 
 <BaseLayout title={page.title} description={page.description} canonicalPath={path} faq={page.faq} extraSchema={extraSchema} headerNavItems={navItems} lang={lang} showChatbase={!isEnglish}>
@@ -177,6 +187,9 @@ const navItems = t.nav;
       ))}
     </div>
   </section>
+
+  {quizId && <LeadMagnetQuiz id={quizId} lang={lang} />}
+  {hasLeadCalculator && <LeadCalculator />}
 
   {page.showReviews && (
     <section class="section">

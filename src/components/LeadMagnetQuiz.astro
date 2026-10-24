@@ -1,0 +1,400 @@
+---
+import { levelLabels, quizById, type Bi } from "@/data/leadMagnets";
+import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
+
+interface Props {
+  id: string;
+  lang?: "es" | "en";
+}
+
+const { id, lang = "es" } = Astro.props as Props;
+const quiz = quizById(id);
+if (!quiz) throw new Error(`Autoevaluación desconocida: ${id}`);
+
+const isEnglish = lang === "en";
+const tr = (value: Bi) => value[lang];
+const labelSet = levelLabels[quiz.labels ?? "risk"];
+
+const t = isEnglish
+  ? {
+      eyebrow: "Free self-assessment",
+      step: "Question",
+      of: "of",
+      back: "Back",
+      options: ["Yes", "Partly", "No"],
+      contactTitle: "Last step: where should we send your report?",
+      contactText: "We show it to you on screen right now, and you also get a copy in your inbox.",
+      name: "Name",
+      email: "Email",
+      company: "Company",
+      optional: "Optional.",
+      privacyBefore: "I accept the",
+      privacyLink: "privacy policy",
+      submit: "See my report",
+      sending: "Preparing your report…",
+      reportTitle: "Your report",
+      score: "Score",
+      scoreHelp: "100 means no risk detected",
+      found: "What we found",
+      none: "No relevant risks detected from your answers.",
+      would: "What we would do",
+      sentCopy: "You also have a copy in your inbox (check your spam folder if it does not arrive).",
+      received: "We received your details and will get in touch soon.",
+      notSent: "We could not email you the copy, but your report is right here.",
+      book: "Book a free call",
+      bookText: "Want to go through it together? 15 minutes, no commitment.",
+      restart: "Take it again",
+      progress: "Progress",
+    }
+  : {
+      eyebrow: "Autoevaluación gratuita",
+      step: "Pregunta",
+      of: "de",
+      back: "Atrás",
+      options: ["Sí", "A medias", "No"],
+      contactTitle: "Último paso: ¿a dónde te enviamos el informe?",
+      contactText: "Te lo enseñamos ahora mismo en pantalla y además te dejamos una copia en tu correo.",
+      name: "Nombre",
+      email: "Email",
+      company: "Empresa",
+      optional: "Opcional.",
+      privacyBefore: "Acepto la",
+      privacyLink: "política de privacidad",
+      submit: "Ver mi informe",
+      sending: "Preparando tu informe…",
+      reportTitle: "Tu informe",
+      score: "Puntaje",
+      scoreHelp: "100 significa que no se detectan riesgos",
+      found: "Qué hemos encontrado",
+      none: "Con tus respuestas no se detectan riesgos relevantes.",
+      would: "Qué haríamos",
+      sentCopy: "Tienes también una copia en tu correo (mira en spam si no llega).",
+      received: "Hemos recibido tus datos y te escribiré pronto.",
+      notSent: "No hemos podido enviarte la copia por correo, pero tu informe está aquí.",
+      book: "Reservar llamada gratuita",
+      bookText: "¿Lo repasamos juntos? 15 minutos, sin compromiso.",
+      restart: "Volver a hacerla",
+      progress: "Progreso",
+    };
+
+// Opciones por defecto: Sí / A medias / No. En las preguntas formuladas al revés, "Sí" es lo que supone riesgo.
+const questions = quiz.questions.map((question) => ({
+  ...question,
+  options:
+    question.options ??
+    ([0, 1, 2] as const).map((index) => ({
+      label: { es: t.options[index], en: t.options[index] } as Bi,
+      risk: (question.inverse ? 2 - index : index) as 0 | 1 | 2,
+    })),
+}));
+
+const sectionId = isEnglish ? "self-assessment" : "autoevaluacion";
+const bands = { high: tr(quiz.bands.high), medium: tr(quiz.bands.medium), low: tr(quiz.bands.low) };
+const labels = { high: tr(labelSet.high), medium: tr(labelSet.medium), low: tr(labelSet.low) };
+const actions = quiz.actions.map(tr);
+---
+
+<section
+  id={sectionId}
+  class="section section-accent"
+  data-lm
+  data-quiz={quiz.id}
+  data-lang={lang}
+  data-endpoint={siteConfig.formEndpoint}
+  data-title={tr(quiz.title)}
+  data-service={tr(quiz.service)}
+  data-bands={JSON.stringify(bands)}
+  data-labels={JSON.stringify(labels)}
+  data-actions={JSON.stringify(actions)}
+  data-msg={JSON.stringify({ sentCopy: t.sentCopy, received: t.received, notSent: t.notSent, none: t.none, sending: t.sending })}
+>
+  <div class="section-head">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h2>{tr(quiz.title)}</h2>
+    <p>{tr(quiz.intro)}</p>
+  </div>
+
+  <div class="lm-card">
+    <div data-lm-flow>
+      <div class="lm-progress" role="progressbar" aria-label={t.progress} aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-lm-progress>
+        <i data-lm-bar></i>
+      </div>
+      <p class="lm-step" aria-live="polite" data-lm-step></p>
+
+      <form data-lm-form novalidate>
+        {questions.map((question, index) => (
+          <fieldset class="lm-q" data-lm-q data-finding={tr(question.finding)} hidden={index !== 0}>
+            <legend tabindex="-1">{tr(question.q)}</legend>
+            <div class="lm-options">
+              {question.options.map((option, optionIndex) => (
+                <label class="lm-option">
+                  <input type="radio" name={`q${index}`} value={optionIndex} data-risk={option.risk} data-label={tr(option.label)} />
+                  <span>{tr(option.label)}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))}
+
+        <div class="lm-contact" data-lm-contact hidden>
+          <h3 tabindex="-1">{t.contactTitle}</h3>
+          <p class="form-help">{t.contactText}</p>
+          <label>{t.name}<input required name="nombre" autocomplete="name" /></label>
+          <label>{t.email}<input required type="email" name="email" autocomplete="email" /></label>
+          <label>{t.company}<input name="empresa" autocomplete="organization" /><small>{t.optional}</small></label>
+          <label class="check"><input required type="checkbox" name="privacidad" /> <span>{t.privacyBefore} <a href={withBase("/politica-privacidad")} target="_blank" rel="noreferrer">{t.privacyLink}</a>.</span></label>
+          <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
+          <button class="btn btn-primary" type="submit" data-lm-submit>{t.submit}</button>
+          <p class="form-help" role="alert" data-lm-error></p>
+        </div>
+
+        <div class="lm-nav">
+          <button class="btn btn-secondary btn-small" type="button" data-lm-back hidden>{t.back}</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="lm-report" data-lm-report hidden aria-live="polite">
+      <h3 tabindex="-1">{t.reportTitle}</h3>
+      <div class="lm-summary">
+        <div class="lm-score" data-lm-score-box>
+          <strong data-lm-score>0</strong>
+          <span>/ 100</span>
+        </div>
+        <div>
+          <p class="lm-level" data-lm-level></p>
+          <p class="form-help">{t.scoreHelp}</p>
+          <p data-lm-summary></p>
+        </div>
+      </div>
+      <h4>{t.found}</h4>
+      <ul class="check-list" data-lm-risks></ul>
+      <h4>{t.would}</h4>
+      <ul class="check-list" data-lm-actions></ul>
+      <p class="form-help" data-lm-delivery></p>
+      <div class="lm-cta">
+        <p>{t.bookText}</p>
+        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={isEnglish ? siteConfig.bookingUrlEn : siteConfig.bookingUrl} target="_blank" rel="noreferrer">{t.book}</a>
+        <button class="btn btn-secondary btn-small" type="button" data-lm-restart>{t.restart}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Answer = { question: string; answer: string; risk: number };
+  type Win = Window & {
+    tdAttribution?: () => Record<string, string> | undefined;
+    tdTrackEvent?: (name: string, params?: Record<string, unknown>) => void;
+  };
+  const win = window as Win;
+
+  function parse<T>(value: string | undefined, fallback: T): T {
+    try {
+      return value ? (JSON.parse(value) as T) : fallback;
+    } catch {
+      return fallback;
+    }
+  }
+
+  async function post(endpoint: string, path: string, payload: Record<string, unknown>) {
+    const base = endpoint && !endpoint.includes("INSERTAR") ? endpoint.replace(/\/$/, "") : "";
+    if (!base) throw new Error("endpoint");
+    const response = await fetch(`${base}/lead/${path}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) throw new Error(String(data.error || response.status));
+    return data as { emailDelivered?: boolean };
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-lm]").forEach((root) => {
+    const questions = [...root.querySelectorAll<HTMLFieldSetElement>("[data-lm-q]")];
+    const form = root.querySelector<HTMLFormElement>("[data-lm-form]")!;
+    const contact = root.querySelector<HTMLElement>("[data-lm-contact]")!;
+    const flow = root.querySelector<HTMLElement>("[data-lm-flow]")!;
+    const report = root.querySelector<HTMLElement>("[data-lm-report]")!;
+    const bar = root.querySelector<HTMLElement>("[data-lm-bar]")!;
+    const progress = root.querySelector<HTMLElement>("[data-lm-progress]")!;
+    const stepLabel = root.querySelector<HTMLElement>("[data-lm-step]")!;
+    const back = root.querySelector<HTMLButtonElement>("[data-lm-back]")!;
+    const submit = root.querySelector<HTMLButtonElement>("[data-lm-submit]")!;
+    const errorBox = root.querySelector<HTMLElement>("[data-lm-error]")!;
+    const isEnglish = root.dataset.lang === "en";
+    const total = questions.length;
+    const bands = parse<Record<string, string>>(root.dataset.bands, {});
+    const labels = parse<Record<string, string>>(root.dataset.labels, {});
+    const actions = parse<string[]>(root.dataset.actions, []);
+    const msg = parse<Record<string, string>>(root.dataset.msg, {});
+    const startedAt = Date.now();
+    const answers: (Answer | undefined)[] = new Array(total).fill(undefined);
+    let step = 0;
+    let started = false;
+
+    function show(next: number) {
+      step = next;
+      questions.forEach((question, index) => (question.hidden = index !== step));
+      contact.hidden = step < total;
+      back.hidden = step === 0;
+      const pct = Math.round((Math.min(step, total) / total) * 100);
+      bar.style.width = `${pct}%`;
+      progress.setAttribute("aria-valuenow", String(pct));
+      stepLabel.textContent =
+        step < total ? `${isEnglish ? "Question" : "Pregunta"} ${step + 1} ${isEnglish ? "of" : "de"} ${total}` : "";
+      const target = step < total ? questions[step].querySelector<HTMLElement>("legend") : contact.querySelector<HTMLElement>("h3");
+      target?.focus({ preventScroll: true });
+    }
+
+    questions.forEach((question, index) => {
+      question.querySelectorAll<HTMLInputElement>("input[type='radio']").forEach((input) => {
+        input.addEventListener("change", () => {
+          answers[index] = {
+            question: (question.querySelector("legend")?.textContent || "").trim().slice(0, 300),
+            answer: (input.dataset.label || "").slice(0, 200),
+            risk: Number(input.dataset.risk || 0),
+          };
+          if (!started) {
+            started = true;
+            win.tdTrackEvent?.("self_assessment_start", { assessment: root.dataset.quiz });
+          }
+          window.setTimeout(() => show(index + 1), 220);
+          if (index === total - 1) win.tdTrackEvent?.("self_assessment_complete", { assessment: root.dataset.quiz });
+        });
+      });
+    });
+
+    back.addEventListener("click", () => show(Math.max(0, step - 1)));
+
+    function buildReport() {
+      const given = answers.filter((answer): answer is Answer => Boolean(answer));
+      const riskSum = given.reduce((sum, answer) => sum + answer.risk, 0);
+      const score = Math.round(100 * (1 - riskSum / (2 * total)));
+      const level = score < 40 ? "high" : score < 70 ? "medium" : "low";
+      const risks = questions
+        .map((question, index) => ({ text: question.dataset.finding || "", risk: answers[index]?.risk ?? 0, index }))
+        .filter((item) => item.risk >= 1)
+        .sort((a, b) => b.risk - a.risk || a.index - b.index)
+        .slice(0, 5)
+        .map((item) => item.text);
+      return { score, level, risks, summary: bands[level] || "", levelLabel: labels[level] || "" };
+    }
+
+    function fill(list: HTMLElement, items: string[]) {
+      list.replaceChildren(
+        ...items.map((text) => {
+          const li = document.createElement("li");
+          li.textContent = text;
+          return li;
+        }),
+      );
+    }
+
+    function render(result: ReturnType<typeof buildReport>, delivery: string) {
+      root.querySelector<HTMLElement>("[data-lm-score]")!.textContent = String(result.score);
+      root.querySelector<HTMLElement>("[data-lm-score-box]")!.dataset.level = result.level;
+      const levelEl = root.querySelector<HTMLElement>("[data-lm-level]")!;
+      levelEl.textContent = result.levelLabel;
+      levelEl.dataset.level = result.level;
+      root.querySelector<HTMLElement>("[data-lm-summary]")!.textContent = result.summary;
+      const risksList = root.querySelector<HTMLElement>("[data-lm-risks]")!;
+      fill(risksList, result.risks.length > 0 ? result.risks : [msg.none || ""]);
+      fill(root.querySelector<HTMLElement>("[data-lm-actions]")!, actions);
+      root.querySelector<HTMLElement>("[data-lm-delivery]")!.textContent = delivery;
+      flow.hidden = true;
+      report.hidden = false;
+      report.querySelector<HTMLElement>("h3")?.focus({ preventScroll: true });
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (answers.some((answer) => !answer)) {
+        const firstMissing = answers.findIndex((answer) => !answer);
+        show(firstMissing);
+        return;
+      }
+      const data = new FormData(form);
+      const name = String(data.get("nombre") || "").trim();
+      const email = String(data.get("email") || "").trim();
+      const privacy = data.get("privacidad") === "on";
+      errorBox.textContent = "";
+      if (name.length < 2 || !/^\S+@\S+\.\S+$/.test(email) || !privacy) {
+        errorBox.textContent = isEnglish ? "Please add your name, a valid email and accept the privacy policy." : "Añade tu nombre, un email válido y acepta la política de privacidad.";
+        return;
+      }
+
+      const result = buildReport();
+      submit.disabled = true;
+      const idleText = submit.textContent;
+      submit.textContent = msg.sending || "…";
+
+      const base = {
+        name,
+        email,
+        company: String(data.get("empresa") || "").trim(),
+        privacyAccepted: true,
+        marketingAccepted: false,
+        website: String(data.get("website") || ""),
+        startedAt,
+        pageUrl: window.location.href,
+        attribution: win.tdAttribution?.(),
+        userAgent: navigator.userAgent,
+      };
+      const endpoint = root.dataset.endpoint || "";
+      let delivery = msg.notSent || "";
+      try {
+        const sent = await post(endpoint, "self-assessment", {
+          ...base,
+          language: root.dataset.lang,
+          assessmentId: root.dataset.quiz,
+          assessmentTitle: (root.dataset.title || "").slice(0, 200),
+          score: result.score,
+          level: result.level,
+          levelLabel: result.levelLabel,
+          summary: result.summary.slice(0, 800),
+          risks: result.risks.map((risk) => risk.slice(0, 400)),
+          actions: actions.map((action) => action.slice(0, 400)),
+          answers: answers.map((answer) => answer as Answer),
+        });
+        delivery = sent.emailDelivered === false ? msg.received || "" : msg.sentCopy || "";
+        win.tdTrackEvent?.("generate_lead", { lead_type: "self-assessment", assessment: root.dataset.quiz });
+      } catch {
+        // Si la API de autoevaluaciones aún no está disponible, el lead entra por el formulario de contacto.
+        try {
+          await post(endpoint, "contact", {
+            ...base,
+            service: `${isEnglish ? "Self-assessment" : "Autoevaluación"}: ${root.dataset.service || ""}`.slice(0, 80),
+            message: [
+              `${root.dataset.title} · ${result.score}/100 · ${result.levelLabel}`,
+              ...result.risks.map((risk) => `- ${risk}`),
+            ]
+              .join("\n")
+              .slice(0, 2000),
+          });
+          delivery = msg.received || "";
+          win.tdTrackEvent?.("generate_lead", { lead_type: "self-assessment", assessment: root.dataset.quiz });
+        } catch {
+          delivery = msg.notSent || "";
+        }
+      }
+      submit.disabled = false;
+      submit.textContent = idleText;
+      render(result, delivery);
+    });
+
+    root.querySelector("[data-lm-restart]")?.addEventListener("click", () => {
+      form.reset();
+      answers.fill(undefined);
+      started = false;
+      report.hidden = true;
+      flow.hidden = false;
+      show(0);
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    show(0);
+  });
+</script>

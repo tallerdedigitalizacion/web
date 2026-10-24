@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
+import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
 import CaseStory from "@/components/CaseStory.astro";
 import { siteConfig } from "@/config/site";
 
@@ -48,6 +49,7 @@ const navItems = [
   ["Qué analizamos", "#que-analizamos"],
   ["Qué recibe", "#que-recibe"],
   ["Ideal para", "#ideal-para"],
+  ["Autoevaluación", "#autoevaluacion"],
   ["Por qué yo", "#por-que-yo"],
   ["FAQ", "#faq"],
 ];
@@ -123,6 +125,8 @@ const navItems = [
   </section>
 
   <CaseStory path={"/diagnostico-digitalizacion/"} />
+
+  <LeadMagnetQuiz id="digital" lang="es" />
 
   <section id="por-que-yo" class="section">
     <div class="section-head">

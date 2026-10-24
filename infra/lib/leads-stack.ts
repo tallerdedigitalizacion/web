@@ -88,6 +88,7 @@ export class LeadsStack extends Stack {
     lead.addResource("web-audit").addMethod("POST", integration);
     lead.addResource("web-audit-guide").addMethod("POST", integration);
     lead.addResource("resource").addMethod("POST", integration);
+    lead.addResource("self-assessment").addMethod("POST", integration);
     api.root.addResource("health").addMethod("GET", integration);
 
     new CfnOutput(this, "LeadsApiUrl", {

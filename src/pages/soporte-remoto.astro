@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
 import CaseStory from "@/components/CaseStory.astro";
 import { siteConfig } from "@/config/site";
 
@@ -21,7 +22,7 @@ const faqs: [string, string][] = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/soporte-remoto" faq={faqs} headerNavItems={[["Pasos", "#pasos"], ["FAQ", "#faq"]]}>
+<BaseLayout title={title} description={description} canonicalPath="/soporte-remoto" faq={faqs} headerNavItems={[["Pasos", "#pasos"], ["Autoevaluación", "#autoevaluacion"], ["FAQ", "#faq"]]}>
   <section class="hero">
     <div class="hero-content">
       <span class="eyebrow">Soporte remoto</span>
@@ -49,6 +50,8 @@ const faqs: [string, string][] = [
   </section>
 
   <CaseStory path={"/soporte-remoto/"} />
+
+  <LeadMagnetQuiz id="remote" lang="es" />
 
   <section id="faq" class="section">
     <div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>Dudas sobre el soporte remoto</h2></div>

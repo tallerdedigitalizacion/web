@@ -4,6 +4,8 @@ import CaseStory from "@/components/CaseStory.astro";
 import PortfolioStory from "@/components/PortfolioStory.astro";
 import { siteConfig } from "@/config/site";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
+import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
+import { quizIdForPath } from "@/data/leadMagnets";
 
 export interface ServiceSection {
   id: string;
@@ -50,6 +52,7 @@ const {
 } = Astro.props as Props;
 
 const isEnglish = lang === "en";
+const quizId = Astro.slots.has("lead-magnet") ? undefined : quizIdForPath(slug);
 const googleReviewsUrl = "https://maps.app.goo.gl/iJYaupqoL8usLB6X7";
 
 
@@ -72,6 +75,7 @@ const faqLabel = "FAQ";
 const navItems = [
   ...sections.map((section) => [section.eyebrow, `#${section.id}`]),
   ...(leadMagnetNav ? [leadMagnetNav] : []),
+  ...(quizId ? [[isEnglish ? "Self-assessment" : "Autoevaluación", isEnglish ? "#self-assessment" : "#autoevaluacion"]] : []),
   [whyMeLabel, "#por-que-yo"],
   [faqLabel, "#faq"],
 ];
@@ -134,6 +138,7 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
   ))}
 
   <slot name="lead-magnet" />
+  {quizId && <LeadMagnetQuiz id={quizId} lang={lang} />}
 
   {!isEnglish && <CaseStory path={slug} />}
   {!isEnglish && <PortfolioStory path={slug} />}

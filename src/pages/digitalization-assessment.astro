@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
+import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
 import { siteConfig } from "@/config/site";
 
 const title = "Digitalization Assessment for businesses | Taller de Digitalización";
@@ -48,6 +49,7 @@ const navItems = [
   ["What we analyze", "#what-we-analyze"],
   ["What you get", "#what-you-get"],
   ["Ideal for", "#ideal-for"],
+  ["Self-assessment", "#self-assessment"],
   ["Why me", "#why-me"],
   ["FAQ", "#faq"],
 ];
@@ -125,6 +127,8 @@ const navItems = [
     <h2>Not to sell you software. To help you make better technology decisions.</h2>
     <p>A good assessment usually uncovers small improvements with immediate impact, and it also lays the groundwork for later automation, systems integration or AI projects.</p>
   </section>
+
+  <LeadMagnetQuiz id="digital" lang="en" />
 
   <section id="why-me" class="section">
     <div class="section-head">

@@ -119,9 +119,33 @@ export const resourceLeadSchema = baseLeadSchema.extend({
   calculatorResults: z.record(z.string(), z.number()).optional(),
 });
 
+// Autoevaluación de una página de servicio: respuestas, puntaje (100 = sin riesgo) e informe ya calculado en la web.
+export const selfAssessmentLeadSchema = baseLeadSchema.extend({
+  language: z.enum(["es", "en"]).optional().default("es"),
+  assessmentId: z.string().trim().min(2).max(60),
+  assessmentTitle: z.string().trim().min(2).max(200),
+  score: z.number().int().min(0).max(100),
+  level: z.enum(["high", "medium", "low"]),
+  levelLabel: z.string().trim().max(120),
+  summary: z.string().trim().max(800),
+  risks: z.array(z.string().trim().max(400)).max(8),
+  actions: z.array(z.string().trim().max(400)).max(6),
+  answers: z
+    .array(
+      z.object({
+        question: z.string().trim().max(300),
+        answer: z.string().trim().max(200),
+        risk: z.number().int().min(0).max(2),
+      }),
+    )
+    .min(1)
+    .max(10),
+});
+
 export type DiagnosticLeadInput = z.infer<typeof diagnosticLeadSchema>;
 export type MethodLeadInput = z.infer<typeof methodLeadSchema>;
 export type ContactLeadInput = z.infer<typeof contactLeadSchema>;
 export type WebAuditLeadInput = z.infer<typeof webAuditLeadSchema>;
 export type WebAuditGuideLeadInput = z.infer<typeof webAuditGuideLeadSchema>;
 export type ResourceLeadInput = z.infer<typeof resourceLeadSchema>;
+export type SelfAssessmentLeadInput = z.infer<typeof selfAssessmentLeadSchema>;

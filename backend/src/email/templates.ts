@@ -1,5 +1,5 @@
 import { assessmentAreas } from "../assessment";
-import type { ContactLeadInput, DiagnosticLeadInput, MethodLeadInput, ResourceLeadInput, WebAuditGuideLeadInput, WebAuditLeadInput } from "../schemas";
+import type { ContactLeadInput, DiagnosticLeadInput, MethodLeadInput, ResourceLeadInput, SelfAssessmentLeadInput, WebAuditGuideLeadInput, WebAuditLeadInput } from "../schemas";
 import type { scoreAssessment } from "../assessment";
 
 type DiagnosticScore = ReturnType<typeof scoreAssessment>;
@@ -439,6 +439,69 @@ export function contactEmail(input: ContactLeadInput, bookingUrl: string) {
   };
 }
 
+export function selfAssessmentEmail(input: SelfAssessmentLeadInput, bookingUrl: string) {
+  const isEnglish = input.language === "en";
+  const name = firstName(input.name);
+  const copy = isEnglish
+    ? {
+        subject: `Your report: ${input.assessmentTitle}`,
+        greeting: `Hi ${name},`,
+        intro: "Here is the copy of the report you just saw on screen.",
+        score: `Your score: ${input.score}/100 (100 means no risk detected)`,
+        risks: "What we found",
+        noRisks: "No relevant risks detected from your answers.",
+        actions: "What we would do",
+        book: `If you want to go through it together, you can book a free call here: ${bookingUrl}`,
+        bye: "Best,",
+      }
+    : {
+        subject: `Tu informe: ${input.assessmentTitle}`,
+        greeting: `Hola ${name},`,
+        intro: "Te dejo aquí la copia del informe que acabas de ver en pantalla.",
+        score: `Tu puntaje: ${input.score}/100 (100 significa que no se detectan riesgos)`,
+        risks: "Qué hemos encontrado",
+        noRisks: "Con tus respuestas no se detectan riesgos relevantes.",
+        actions: "Qué haríamos",
+        book: `Si quieres repasarlo juntos, puedes reservar una llamada gratuita aquí: ${bookingUrl}`,
+        bye: "Un saludo,",
+      };
+  return {
+    subject: copy.subject,
+    text: [
+      copy.greeting,
+      "",
+      copy.intro,
+      "",
+      `${copy.score} · ${input.levelLabel}`,
+      input.summary,
+      "",
+      `${copy.risks}:`,
+      ...(input.risks.length > 0 ? input.risks.map((risk) => `- ${risk}`) : [copy.noRisks]),
+      "",
+      `${copy.actions}:`,
+      ...input.actions.map((action) => `- ${action}`),
+      "",
+      copy.book,
+      "",
+      copy.bye,
+      "Pablo Leone · Taller de Digitalización",
+    ].join("\n"),
+    html: `
+      <h1>${escapeHtml(input.assessmentTitle)}</h1>
+      <p>${escapeHtml(copy.greeting)}</p>
+      <p>${escapeHtml(copy.intro)}</p>
+      <p><strong>${escapeHtml(copy.score)}</strong><br />${escapeHtml(input.levelLabel)}</p>
+      <p>${escapeHtml(input.summary)}</p>
+      <h2>${escapeHtml(copy.risks)}</h2>
+      ${input.risks.length > 0 ? `<ul>${input.risks.map((risk) => `<li>${escapeHtml(risk)}</li>`).join("")}</ul>` : `<p>${escapeHtml(copy.noRisks)}</p>`}
+      <h2>${escapeHtml(copy.actions)}</h2>
+      <ul>${input.actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("")}</ul>
+      <p><a href="${escapeAttribute(bookingUrl)}">${escapeHtml(copy.book.split(":")[0])}</a></p>
+      <p>${escapeHtml(copy.bye)}<br />Pablo Leone · Taller de Digitalización</p>
+    `,
+  };
+}
+
 function attributionLine(input: { attribution?: { source?: string; medium?: string; campaign?: string; content?: string; landing?: string } }) {
   const origin = input.attribution;
   if (!origin) return "-";
@@ -447,8 +510,8 @@ function attributionLine(input: { attribution?: { source?: string; medium?: stri
 }
 
 export function notificationEmail(
-  action: "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact",
-  input: DiagnosticLeadInput | MethodLeadInput | WebAuditLeadInput | WebAuditGuideLeadInput | ResourceLeadInput | ContactLeadInput,
+  action: "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact" | "self-assessment",
+  input: DiagnosticLeadInput | MethodLeadInput | WebAuditLeadInput | WebAuditGuideLeadInput | ResourceLeadInput | ContactLeadInput | SelfAssessmentLeadInput,
   extra = "",
 ) {
   const contact = "service" in input ? input : undefined;
