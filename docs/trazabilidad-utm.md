@@ -27,7 +27,7 @@ Destino general: el hub (`/hub/`), que reparte a reservar, WhatsApp, informe gra
 | Dónde | Enlace |
 |---|---|
 | Instagram, bio | `https://tallerdedigitalizacion.com/hub/?utm_source=instagram&utm_medium=social&utm_campaign=bio` |
-| TikTok, bio | `https://tallerdedigitalizacion.com/hub/?utm_source=tiktok&utm_medium=social&utm_campaign=bio` |
+| TikTok, bio (límite de 80 caracteres, por eso sin `utm_campaign`) | `https://tallerdedigitalizacion.com/hub/?utm_source=tiktok&utm_medium=social` |
 | Facebook, botón y "Sobre" de la página | `https://tallerdedigitalizacion.com/hub/?utm_source=facebook&utm_medium=social&utm_campaign=perfil` |
 | LinkedIn, perfil personal | `https://tallerdedigitalizacion.com/hub/?utm_source=linkedin&utm_medium=social&utm_campaign=perfil` |
 | YouTube, enlaces del canal | `https://tallerdedigitalizacion.com/hub/?utm_source=youtube&utm_medium=video&utm_campaign=perfil` |
