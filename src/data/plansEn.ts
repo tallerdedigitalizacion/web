@@ -35,7 +35,7 @@ export const plansEn: LocalPage[] = [
       ["Network and security", "Router and wifi settings reviewed, guest wifi separated, default passwords changed, managed antivirus and up-to-date devices."],
       ["Google Workspace and passwords", "Email accounts, Drive permissions and a password manager administered, with two-factor authentication on."],
       ["Support included", "Day-to-day issues are handled remotely and with priority within the plan."],
-      ["Compliance as an add-on", "If you or your customers need it (GDPR, NIS2): periodic reviews, phishing training and up-to-date compliance documentation."],
+      ["Compliance as an add-on", "If you or your customers need it (ISO 27001-style standards, GDPR, NIS2): periodic reviews, phishing training and up-to-date compliance documentation."],
     ],
     zoneTitle: "Delivered entirely remotely",
     zoneText: [
