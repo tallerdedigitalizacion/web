@@ -9,7 +9,7 @@ const optionalText = z
 
 // Origen de la visita (UTM o dominio que enlaza). Sin transformaciones: DynamoDB no acepta undefined dentro del objeto.
 const attributionText = z.string().trim().max(100).optional();
-const attributionSchema = z.object({
+export const attributionSchema = z.object({
   source: attributionText,
   medium: attributionText,
   campaign: attributionText,

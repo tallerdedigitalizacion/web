@@ -7,6 +7,7 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import { z } from "zod";
 import { bookingUrlFor } from "../../../src/config/booking";
+import { attributionSchema } from "../schemas";
 import { buildWebAuditEmail } from "./email";
 import { scoreWebAudit, type WebAuditAnswers, type WebAuditLanguage } from "./scoring";
 
@@ -45,6 +46,7 @@ const payloadSchema = z.object({
   websiteUrl: z.string().trim().url().max(500),
   language: z.enum(["es", "en"]),
   answers: answerSchema,
+  attribution: attributionSchema.optional(),
   antiSpam: z.object({
     honeypot: z.string().max(500).default(""),
     formStartedAt: z.string().max(80),
@@ -223,6 +225,7 @@ function leadRecord(
     priorities: scoreResult.priorities,
     penalties: scoreResult.penalties,
     answers: payload.answers,
+    attribution: payload.attribution ?? null,
     userAgent,
     ipHash,
   };

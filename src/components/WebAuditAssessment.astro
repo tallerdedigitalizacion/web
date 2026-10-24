@@ -373,6 +373,7 @@ const webAuditClientToken = import.meta.env.PUBLIC_WEB_AUDIT_CLIENT_TOKEN || "";
         codeVersioned: answerValue(6, 1),
         technicalOwner: answerValue(6, 2),
       },
+      attribution: window.tdAttribution?.(),
       antiSpam: {
         honeypot: String(formData.get("website_extra_info") || ""),
         formStartedAt: String(formData.get("started_at") || Date.now()),
