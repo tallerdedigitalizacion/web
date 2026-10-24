@@ -4,8 +4,6 @@
 
 export type Offer = {
   price: number;
-  // Moneda; por defecto euros. La página inglesa de velocidad ya anunciaba el precio en dólares.
-  currency?: "EUR" | "USD";
   fixed?: boolean;
   // Unidad del precio cuando no es un proyecto, por ejemplo "hora".
   unit?: string;
@@ -308,9 +306,8 @@ export const offersEn: Record<string, Offer> = {
     ],
   },
   "/website-speed-optimization/": {
-    price: 150,
-    currency: "USD",
-    deadline: "3 business days",
+    price: 250,
+    deadline: "3 to 5 business days",
     includes: [
       "Free diagnosis first: I tell you what slows your site down before charging",
       "Before and after measurements with PageSpeed and Core Web Vitals",
@@ -409,17 +406,15 @@ export const offersEn: Record<string, Offer> = {
   },
 };
 
-const money = (amount: number, lang: "es" | "en", currency: "EUR" | "USD" = "EUR") => {
-  if (currency === "USD") return `$${amount.toLocaleString("en-US")}`;
-  return lang === "en" ? `€${amount.toLocaleString("en-GB")}` : `${amount.toLocaleString("de-DE")} €`;
-};
+const money = (amount: number, lang: "es" | "en") =>
+  lang === "en" ? `€${amount.toLocaleString("en-GB")}` : `${amount.toLocaleString("de-DE")} €`;
 
 // "Desde 290 € + IVA" · "490 € + IVA (precio cerrado)" · "Desde 50 €/hora + IVA"
 export function priceLabel(offer: Offer, lang: "es" | "en" = "es"): string {
-  const amount = money(offer.price, lang, offer.currency);
+  const amount = money(offer.price, lang);
   const unit = offer.unit ? `/${offer.unit}` : "";
   if (lang === "en") {
-    const base = `${offer.fixed ? "" : "From "}${amount}${unit}${offer.currency === "USD" ? "" : " + VAT"}`;
+    const base = `${offer.fixed ? "" : "From "}${amount}${unit} + VAT`;
     return offer.fixed ? `${base} (fixed price)` : base;
   }
   const base = `${offer.fixed ? "" : "Desde "}${amount}${unit} + IVA`;

@@ -22,7 +22,7 @@ export type WebAuditLang = "es" | "en";
 const es = {
   title: "Análisis gratuito de tu web: velocidad, SEO y seguridad | Taller de Digitalización",
   description:
-    "Detecta si tu web está perdiendo leads por velocidad, SEO técnico, formularios, seguridad o infraestructura. Auditoría web desde 399 USD.",
+    "Detecta si tu web está perdiendo leads por velocidad, SEO técnico, formularios, seguridad o infraestructura. Auditoría web desde 399 €.",
   nav: [
     ["Problema", "#problema"],
     ["Autoauditoría", "#autoevaluacion"],
@@ -92,7 +92,7 @@ const es = {
   offer: {
     eyebrow: "Producto",
     h2: "Auditoría Web Técnica",
-    price: "Desde 399 USD",
+    price: "Desde 399 € + IVA",
     time: "3 días",
     intro:
       "Es un producto de diagnóstico, no de implementación. Recibes claridad técnica y una hoja de ruta priorizada. Después puedes ejecutar con tu equipo, con mi guía o contratándome para hacerlo.",
@@ -147,7 +147,7 @@ const es = {
 const en: typeof es = {
   title: "Technical Web Audit for businesses | Taller de Digitalización",
   description:
-    "Find out whether your website is losing leads because of speed, technical SEO, forms, security or infrastructure. Web audit from 399 USD.",
+    "Find out whether your website is losing leads because of speed, technical SEO, forms, security or infrastructure. Web audit from €399.",
   nav: [
     ["Problem", "#problem"],
     ["Self-audit", "#self-assessment"],
@@ -217,7 +217,7 @@ const en: typeof es = {
   offer: {
     eyebrow: "Product",
     h2: "Technical Web Audit",
-    price: "From 399 USD",
+    price: "From €399 + VAT",
     time: "3 days",
     intro:
       "This is a diagnosis product, not an implementation package. You get technical clarity and a prioritized roadmap. After that, your team can execute it, you can ask me for guidance, or you can hire me to implement it.",
