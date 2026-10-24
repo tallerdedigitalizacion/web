@@ -62,6 +62,7 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 - [Free website report](https://tallerdedigitalizacion.com/free-website-report/): A free self-audit of speed, basic SEO, security and lead capture.
 - [Conversion landing pages](https://tallerdedigitalizacion.com/conversion-landing-pages/): Pages focused on a single goal to turn campaign traffic into contacts.
 - [Digitalization assessment](https://tallerdedigitalizacion.com/digitalization-assessment/): A technical and functional audit of your processes, with a prioritized report and action plan.
+- [AI process automation](https://tallerdedigitalizacion.com/ai-process-automation/): Automate repetitive processes with AI: invoice entry, supplier reconciliation and data lookups, with a person confirming what matters.
 - [Systems integration](https://tallerdedigitalizacion.com/systems-integration/): Connect your CRM, ERP, invoicing and email to eliminate manual tasks.
 - [Custom internal tools](https://tallerdedigitalizacion.com/custom-internal-tools/): Dashboards, portals and automations built for how your team works.
 - [Lead centralization](https://tallerdedigitalizacion.com/lead-centralization/): No contact left unanswered: all your prospects in one place, tracked in your CRM.
