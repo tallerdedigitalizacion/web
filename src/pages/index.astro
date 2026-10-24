@@ -22,7 +22,7 @@ const steps: [string, string, string?][] = [
 const faqs: [string, string][] = [
   ["¿Dónde trabajas?", `Tengo base en Fuensalida (Toledo) y trabajo de forma presencial en un radio de ${siteConfig.serviceRadiusKm} km: Torrijos y su comarca, Toledo, La Sagra (Illescas, Yuncos, Seseña), Escalona y el Alberche, La Puebla de Montalbán y el sur y oeste de Madrid (Navalcarnero, Móstoles, Fuenlabrada, Alcorcón, Parla, Getafe). En remoto, con empresas de toda España.`],
   ["¿Atiendes a particulares o solo a empresas?", "Mi trabajo está pensado para empresas, autónomos y PyMEs: equipos, correo, web, herramientas y procesos del negocio."],
-  ["¿Cuánto cuesta un informático para mi empresa?", `Hay dos formas de trabajar: planes mensuales desde ${siteConfig.planPriceFrom} €/mes + IVA (informática, web u operaciones e IA) o proyectos con presupuesto cerrado antes de empezar. La primera llamada es gratuita.`],
+  ["¿Cuánto cuesta un informático para mi empresa?", `Hay dos formas de trabajar: planes mensuales desde ${siteConfig.planPriceFrom} €/mes + IVA (informática, web u operaciones e IA) o soluciones concretas con precio y plazo, por ejemplo copias de seguridad desde 290 €, una web nueva desde 790 € o acelerar una web lenta desde 250 €. El precio cerrado te lo doy antes de empezar y la primera llamada es gratuita.`],
   ["¿Puedes resolver problemas en remoto?", "Sí. Con AnyDesk me conecto a tu equipo con tu permiso y la mayoría de incidencias de software, correo, cuentas y web se resuelven en el momento. Si hace falta tocar hardware o red, voy a tu empresa."],
   ["¿Me ayudas a cumplir la NIS2 y el RGPD?", "Sí. Reviso la situación de la empresa, priorizo las medidas técnicas y organizativas, y te acompaño en la documentación y la implantación. También si eres proveedor de una empresa que te exige cumplir NIS2."],
   ["¿Qué diferencia hay entre soporte informático y el diagnóstico de caos operativo?", "El soporte resuelve incidencias técnicas concretas. El diagnóstico mira cómo funciona la empresa entera: procesos, herramientas y dependencia del dueño, para decidir qué ordenar, automatizar o cambiar."],
@@ -36,7 +36,7 @@ const plans = serviceCatalog.filter((service) => service.group === planGroup);
   description={description}
   canonicalPath="/"
   faq={faqs}
-  headerNavItems={[["Planes", "#servicios"], ["Proyectos", "#proyectos"], ["Portfolio", "#portfolio"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"], ["Contacto", "#contacto"]]}
+  headerNavItems={[["Planes", "#servicios"], ["Soluciones", "#proyectos"], ["Portfolio", "#portfolio"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"], ["Contacto", "#contacto"]]}
 >
   <section class="hero home-hero">
     <div class="hero-content">
@@ -56,7 +56,7 @@ const plans = serviceCatalog.filter((service) => service.group === planGroup);
     <div class="section-head">
       <span class="eyebrow">Servicios</span>
       <h2>Dos formas de trabajar conmigo.</h2>
-      <p>Un plan mensual para que la informática, la web o la operación funcionen sin sustos, o un proyecto con precio cerrado para resolver algo concreto. Muchos proyectos terminan en un plan: lo que se monta hay que mantenerlo.</p>
+      <p>Un plan mensual para que la informática, la web o la operación funcionen sin sustos, o una solución con precio y plazo para resolver algo concreto. Muchas soluciones terminan en un plan: lo que se monta hay que mantenerlo.</p>
     </div>
     <h3 class="service-group-title">Planes mensuales</h3>
     <div class="product-grid product-grid-3">
@@ -74,9 +74,9 @@ const plans = serviceCatalog.filter((service) => service.group === planGroup);
 
   <section id="proyectos" class="section section-accent">
     <div class="section-head">
-      <span class="eyebrow">Proyectos</span>
-      <h2>Proyectos con precio cerrado.</h2>
-      <p>Para resolver algo concreto, con principio y final, y un presupuesto cerrado antes de empezar. Si no sabes por dónde empezar, empieza por el <a href="/diagnostico-caos-operativo/">diagnóstico de caos operativo</a> o el <a href="/informe-gratuito-web/">informe gratuito de tu web</a>.</p>
+      <span class="eyebrow">Qué necesitas resolver</span>
+      <h2>Cada solución, con su precio y su plazo.</h2>
+      <p>Elige lo que quieres resolver y mira cuánto cuesta y cuánto tarda. El precio es "desde": el cerrado te lo doy tras una primera revisión, antes de empezar. Si no sabes por dónde empezar, haz el <a href="/informe-gratuito-web/">análisis gratuito de tu web</a> o el <a href="/diagnostico-caos-operativo/#autoevaluacion">test de caos operativo</a>. Y si quieres ver trabajos reales, mira los <a href="/casos/">casos prácticos</a>.</p>
     </div>
     {projectGroups.map((group) => (
       <div class="service-group">
@@ -86,6 +86,7 @@ const plans = serviceCatalog.filter((service) => service.group === planGroup);
             <article>
               <strong>{service.label}</strong>
               <span>{service.summary}</span>
+              {service.price && <span class="service-offer"><b>{service.price}</b>{service.deadline && <> · {service.deadline}</>}</span>}
               <a class="btn btn-secondary btn-small" href={service.href}>Saber más</a>
             </article>
           ))}

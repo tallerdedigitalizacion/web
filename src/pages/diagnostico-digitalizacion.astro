@@ -3,9 +3,10 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
 import CaseStory from "@/components/CaseStory.astro";
+import OfferBox from "@/components/OfferBox.astro";
 import { siteConfig } from "@/config/site";
 
-const title = "Diagnóstico de Digitalización para empresas | Taller de Digitalización";
+const title = "Auditoría de procesos con plan de acción para empresas, desde 690 € | Taller de Digitalización";
 const description = "Descubra dónde pierde tiempo, dinero y oportunidades. Auditoría técnica y funcional de sus procesos, con un informe priorizado y un plan de acción.";
 const googleReviewsUrl = "https://maps.app.goo.gl/iJYaupqoL8usLB6X7";
 
@@ -42,7 +43,7 @@ const faqs = [
   ["¿Esto es lo mismo que el Diagnóstico de Caos Operativo?", "No. Ese analiza procesos y dependencia del dueño en la empresa. Este se centra en tu digitalización: herramientas, flujo de información, automatizaciones e integraciones entre plataformas."],
   ["¿Tengo que cambiarlo todo de golpe?", "No. Las recomendaciones se priorizan por impacto y esfuerzo, para que puedas implementarlas por fases."],
   ["¿Me vais a vender herramientas nuevas?", "No. El objetivo no es venderle software, sino ayudarle a tomar mejores decisiones tecnológicas."],
-  ["¿Cuánto cuesta?", "El alcance y el precio se ajustan al tamaño y complejidad de la empresa. Sin compromiso hasta que decida seguir."],
+  ["¿Cuánto cuesta y cuánto tarda?", "Desde 690 € + IVA y entre 1 y 2 semanas. El precio cerrado depende del tamaño y la complejidad de la empresa y te lo doy tras una primera llamada, sin compromiso hasta que decidas seguir."],
 ];
 
 const navItems = [
@@ -66,7 +67,7 @@ const navItems = [
 >
   <section class="hero">
     <div class="hero-content">
-      <span class="eyebrow">Diagnóstico de Digitalización</span>
+      <span class="eyebrow">Auditoría de procesos con plan de acción</span>
       <h1>Descubra dónde pierde tiempo, dinero y oportunidades.</h1>
       <p class="hero-subtitle">La mayoría de las empresas no necesitan más herramientas. Necesitan entender qué tienen, cómo trabajan y qué está frenando su crecimiento.</p>
       <div class="hero-actions">
@@ -74,6 +75,8 @@ const navItems = [
       </div>
     </div>
   </section>
+
+  <OfferBox path="/diagnostico-digitalizacion/" />
 
   <section id="que-hago" class="section section-split">
     <div>

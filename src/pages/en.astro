@@ -9,7 +9,7 @@ import { billarArrabal } from "@/data/portfolio";
 import { withBase } from "@/utils/paths";
 
 const title = "IT support and digitalization for small businesses, fully remote | Taller de Digitalización";
-const description = "Remote IT support, cybersecurity, websites and digitalization for small businesses. Monthly plans from €39/month + VAT or fixed-price projects. First call is free.";
+const description = "Remote IT support, cybersecurity, websites and digitalization for small businesses. Monthly plans from €39/month + VAT or solutions with a price and timing. First call is free.";
 
 const steps: [string, string, string?][] = [
   ["Free 15-minute call", "You tell me what's going on. If I don't see how I can help, I'll say so.", siteConfig.bookingUrlEn],
@@ -38,7 +38,7 @@ const scoreboard = billarArrabal.images.scoreboard;
   lang="en"
   faq={faqs}
   showChatbase={false}
-  headerNavItems={[["Plans", "#services"], ["Projects", "#projects"], ["Portfolio", "#portfolio"], ["How I work", "#how-i-work"], ["FAQ", "#faq"], ["Contact", "#contacto"]]}
+  headerNavItems={[["Plans", "#services"], ["Solutions", "#projects"], ["Portfolio", "#portfolio"], ["How I work", "#how-i-work"], ["FAQ", "#faq"], ["Contact", "#contacto"]]}
 >
   <section class="hero home-hero">
     <div class="hero-content">
@@ -58,7 +58,7 @@ const scoreboard = billarArrabal.images.scoreboard;
     <div class="section-head">
       <span class="eyebrow">Services</span>
       <h2>Two ways of working with me.</h2>
-      <p>A monthly plan so your IT, website or operations run without surprises, or a fixed-price project to solve something specific. Many projects end up as a plan: whatever gets built has to be maintained.</p>
+      <p>A monthly plan so your IT, website or operations run without surprises, or a solution with a price and timing to solve something specific. Many solutions end up as a plan: whatever gets built has to be maintained.</p>
     </div>
     <h3 class="service-group-title">Monthly plans</h3>
     <div class="product-grid product-grid-3">
@@ -76,9 +76,9 @@ const scoreboard = billarArrabal.images.scoreboard;
 
   <section id="projects" class="section section-accent">
     <div class="section-head">
-      <span class="eyebrow">Projects</span>
-      <h2>Fixed-price projects.</h2>
-      <p>For solving something specific, with a start and an end, and a fixed quote before we begin. If you don't know where to start, start with the <a href="/digitalization-assessment/">digitalization assessment</a> or the <a href="/free-website-report/">free report on your website</a>.</p>
+      <span class="eyebrow">What you need to solve</span>
+      <h2>Every solution, with its price and timing.</h2>
+      <p>Pick what you want to solve and see what it costs and how long it takes. Prices are "from": the fixed price comes after a first review, before we start. If you don't know where to start, get the <a href="/free-website-report/">free report on your website</a> or the <a href="/digitalization-assessment/">process audit</a>.</p>
     </div>
     {projectGroupsEn.map((group) => (
       <div class="service-group">
@@ -88,6 +88,7 @@ const scoreboard = billarArrabal.images.scoreboard;
             <article>
               <strong>{service.label}</strong>
               <span>{service.summary}</span>
+              {service.price && <span class="service-offer"><b>{service.price}</b>{service.deadline && <> · {service.deadline}</>}</span>}
               <a class="btn btn-secondary btn-small" href={service.href}>Learn more</a>
             </article>
           ))}

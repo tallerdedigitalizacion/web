@@ -3,27 +3,32 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
 import CaseStory from "@/components/CaseStory.astro";
+import OfferBox from "@/components/OfferBox.astro";
 import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
 
-const title = "Web lenta: diagnóstico y optimización de velocidad | Taller de Digitalización";
-const description = "¿Tu web va lenta? Diagnostico por qué y la acelero. Trabajo técnico, sin rehacerla. Reserva un diagnóstico gratis.";
+const title = "Mi web va lenta: acelerarla desde 250 € y análisis gratuito | Taller de Digitalización";
+const description = "¿Tu web va lenta? Haz el análisis gratuito de velocidad, SEO y seguridad y, si hace falta, la acelero sin rehacerla: desde 250 € + IVA, en 3 a 5 días y con las cifras de antes y después.";
 const googleReviewsUrl = "https://maps.app.goo.gl/iJYaupqoL8usLB6X7";
 
 const costBullets = ["Se van antes de cargar", "Google te penaliza", "Menos contactos y ventas"];
 const steps = [
-  "Llamada de diagnóstico gratis (15 min)",
-  "Te digo qué está mal y cuánto cuesta arreglarlo",
-  "Lo acelero y lo verificamos con PageSpeed / Core Web Vitals",
+  "Haces el análisis gratuito de tu web o reservas una llamada de 15 min",
+  "Te digo qué la frena y cuánto cuesta arreglarlo",
+  "La acelero y lo verificamos con PageSpeed y Core Web Vitals",
 ];
 const faqs = [
   ["¿Hace falta rehacer la web?", "No, optimizo lo que ya tienes."],
   ["¿En qué plataformas trabajas?", "WordPress y la mayoría de stacks."],
-  ["¿Cuánto tarda?", "Te lo digo tras el diagnóstico."],
-  ["¿Cuánto cuesta?", "Diagnóstico gratis; el arreglo, presupuesto cerrado tras la llamada."],
+  ["¿Cuánto tarda?", "De 3 a 5 días laborables una vez aprobado el presupuesto."],
+  ["¿Cuánto cuesta?", "El análisis y el diagnóstico son gratis. Acelerar la web cuesta desde 250 € + IVA; el precio cerrado te lo doy tras ver tu web, antes de empezar."],
+  ["¿Qué es el análisis gratuito de mi web?", "Un cuestionario de unos minutos que revisa velocidad, SEO básico, seguridad y captación de contactos, y te devuelve una puntuación con lo que conviene arreglar primero."],
 ];
 
 const navItems = [
   ["Coste", "#coste"],
+  ["Análisis gratis", "#analisis"],
+  ["Precio", "#precio"],
   ["Qué hago", "#que-hago"],
   ["Cómo funciona", "#como-funciona"],
   ["Autoevaluación", "#autoevaluacion"],
@@ -44,12 +49,26 @@ const navItems = [
 >
   <section class="hero">
     <div class="hero-content">
-      <span class="eyebrow">Optimización de velocidad web</span>
-      <h1>¿Tu web tarda en cargar y estás perdiendo clientes por eso?</h1>
-      <p class="hero-subtitle">Diagnostico por qué tu web va lenta y la acelero. Trabajo técnico, sin rehacerla entera y sin venderte marketing.</p>
+      <span class="eyebrow">Acelerar una web lenta</span>
+      <h1>Mi web va lenta: la acelero sin rehacerla y te enseño las cifras.</h1>
+      <p class="hero-subtitle">Si tu web tarda en cargar, pierdes visitas antes de que vean nada. Haz el análisis gratuito para ver cómo está, y si hace falta la acelero: trabajo técnico, sin rehacerla entera y sin venderte marketing.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar diagnóstico gratis (15 min)</a>
+        <a class="btn btn-primary" href={withBase("/informe-gratuito-web/")}>Análisis gratuito de mi web</a>
+        <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
       </div>
+    </div>
+  </section>
+
+  <OfferBox path="/optimizacion-velocidad-web/" />
+
+  <section id="analisis" class="section section-accent">
+    <div class="section-head">
+      <span class="eyebrow">Análisis gratuito de tu web</span>
+      <h2>Antes de pagar nada, mira cómo está tu web.</h2>
+      <p>En pocos minutos revisas la velocidad, el SEO básico, la seguridad y si tu web recoge contactos. Te devuelve una puntuación y lo que conviene arreglar primero. Es gratis y no te compromete a nada.</p>
+    </div>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={withBase("/informe-gratuito-web/")}>Hacer el análisis gratuito</a>
     </div>
   </section>
 
@@ -128,9 +147,10 @@ const navItems = [
   </section>
 
   <section class="section final-cta">
-    <h2>Reserva el diagnóstico gratis y veamos qué está frenando tu web.</h2>
+    <h2>Haz el análisis gratuito o reserva una llamada y veamos qué está frenando tu web.</h2>
     <div class="hero-actions">
-      <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar diagnóstico gratis</a>
+      <a class="btn btn-primary" href={withBase("/informe-gratuito-web/")}>Análisis gratuito de mi web</a>
+      <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
     </div>
   </section>
 </BaseLayout>

@@ -56,7 +56,7 @@ export const servicePagesEn: LocalPage[] = [
       ["AI assistant with company knowledge", "/internal-oracle/"],
     ],
     finalCta: "Got a process eating your team's hours? Let's see whether it can run on its own.",
-    formService: "AI process automation",
+    formService: "Automate repetitive tasks with AI",
     showReviews: true,
   },
 ];

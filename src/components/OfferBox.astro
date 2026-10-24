@@ -1,0 +1,78 @@
+---
+import { offerFor, priceLabel } from "@/data/offers";
+
+// Cuadro "Precio, plazo y qué incluye" de una oferta empaquetada. Se muestra solo si la ruta tiene oferta en offers.ts.
+interface Props {
+  // Ruta de la página con barra final, por ejemplo "/funnel-web/".
+  path: string;
+  lang?: "es" | "en";
+}
+
+const { path, lang = "es" } = Astro.props as Props;
+const offer = offerFor(path, lang);
+const t =
+  lang === "en"
+    ? { eyebrow: "Price and timing", price: "Price", deadline: "Delivery", includes: "What's included", fixedHint: "The final price is fixed after a first review, before we start.", fixed: "Closed price, no surprises." }
+    : { eyebrow: "Precio y plazo", price: "Precio", deadline: "Plazo", includes: "Qué incluye", fixedHint: "El precio cerrado te lo doy tras una primera revisión, antes de empezar.", fixed: "Precio cerrado, sin sorpresas." };
+---
+
+{offer && (
+  <section id="precio" class="section section-split offer-box">
+    <div>
+      <span class="eyebrow">{t.eyebrow}</span>
+      <dl class="offer-meta">
+        <div>
+          <dt>{t.price}</dt>
+          <dd class="offer-price">{priceLabel(offer, lang)}</dd>
+        </div>
+        <div>
+          <dt>{t.deadline}</dt>
+          <dd>{offer.deadline}</dd>
+        </div>
+      </dl>
+      <p class="offer-hint">{offer.fixed ? t.fixed : t.fixedHint}</p>
+      {offer.note && <p class="offer-hint">{offer.note}</p>}
+    </div>
+    <div>
+      <h2 class="offer-includes-title">{t.includes}</h2>
+      <ul class="check-list">{offer.includes.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </section>
+)}
+
+<style>
+  .offer-meta {
+    display: grid;
+    gap: 14px;
+    margin: 14px 0;
+  }
+
+  .offer-meta dt {
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .offer-meta dd {
+    margin: 2px 0 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .offer-price {
+    color: var(--accent);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .offer-hint {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .offer-includes-title {
+    margin: 0 0 14px;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  }
+</style>

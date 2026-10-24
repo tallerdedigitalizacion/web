@@ -20,7 +20,7 @@ export const webAuditShared = {
 export type WebAuditLang = "es" | "en";
 
 const es = {
-  title: "Auditoría Web Técnica para empresas | Taller de Digitalización",
+  title: "Análisis gratuito de tu web: velocidad, SEO y seguridad | Taller de Digitalización",
   description:
     "Detecta si tu web está perdiendo leads por velocidad, SEO técnico, formularios, seguridad o infraestructura. Auditoría web desde 399 USD.",
   nav: [
@@ -31,7 +31,7 @@ const es = {
     ["FAQ", "#faq"],
   ],
   hero: {
-    eyebrow: "Auditoría Web Técnica",
+    eyebrow: "Análisis gratuito de tu web",
     h1: "¿Tu web está preparada para convertir visitas en leads?",
     subtitle:
       "Audito la parte técnica, comercial y operativa de tu sitio web para detectar dónde estás perdiendo oportunidades: velocidad, SEO técnico, formularios, seguridad, infraestructura y trazabilidad.",

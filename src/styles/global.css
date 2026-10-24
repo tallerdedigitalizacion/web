@@ -1627,3 +1627,6 @@ textarea { resize: vertical; font: inherit; }
 .blog-post a { color: var(--accent); }
 @media (max-width: 640px) { .blog-post table { display: block; overflow-x: auto; } }
 
+
+.link-grid article .service-offer { color: var(--ink); font-size: 0.9rem; }
+.link-grid article .service-offer b { color: var(--accent); }

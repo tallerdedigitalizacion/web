@@ -2,9 +2,10 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
+import OfferBox from "@/components/OfferBox.astro";
 import { siteConfig } from "@/config/site";
 
-const title = "Digitalization Assessment for businesses | Taller de Digitalización";
+const title = "Process audit with an action plan, from €690 | Taller de Digitalización";
 const description = "Discover where you are losing time, money and opportunities. A technical and functional audit of your processes, with a prioritized report and action plan.";
 const bookingUrl = siteConfig.bookingUrlEn;
 const googleReviewsUrl = "https://maps.app.goo.gl/iJYaupqoL8usLB6X7";
@@ -70,7 +71,7 @@ const navItems = [
 >
   <section class="hero">
     <div class="hero-content">
-      <span class="eyebrow">Digitalization Assessment</span>
+      <span class="eyebrow">Process audit with an action plan</span>
       <h1>Discover where you are losing time, money and opportunities.</h1>
       <p class="hero-subtitle">Most businesses do not need more tools. They need to understand what they have, how they work, and what is holding back their growth.</p>
       <div class="hero-actions">
@@ -78,6 +79,8 @@ const navItems = [
       </div>
     </div>
   </section>
+
+  <OfferBox path="/digitalization-assessment/" lang="en" />
 
   <section id="what-i-do" class="section section-split">
     <div>

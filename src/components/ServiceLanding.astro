@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/site";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
 import { quizIdForPath } from "@/data/leadMagnets";
+import OfferBox from "@/components/OfferBox.astro";
 
 export interface ServiceSection {
   id: string;
@@ -107,6 +108,8 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
       </div>
     </div>
   </section>
+
+  <OfferBox path={`${slug.replace(/\/$/, "")}/`} lang={lang} />
 
   {sections.map((section, index) => (
     <section id={section.id} class={`section ${index % 2 === 0 ? "section-accent" : ""}`}>

@@ -9,6 +9,7 @@ import ServiceIcon from "@/components/ServiceIcon.astro";
 import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
 import LeadCalculator from "@/components/LeadCalculator.astro";
 import { quizIdForPath } from "@/data/leadMagnets";
+import OfferBox from "@/components/OfferBox.astro";
 import { localPages, type LocalPage } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
 import { plansEn } from "@/data/plansEn";
@@ -126,6 +127,8 @@ const navItems = quizId
   </section>
 
   <TrustBar lang={lang} />
+
+  <OfferBox path={path} lang={lang} />
 
   <section class="section section-split">
     <div>

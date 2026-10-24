@@ -58,7 +58,7 @@ const peopleFaq: [string, string] = [
 export const casePages: CasePage[] = [
   {
     slug: "conciliacion-proveedores",
-    title: "Auditoría de conciliación de proveedores: ¿pagas por servicios que no tienes? | Taller de Digitalización",
+    title: "Revisar las facturas de tus proveedores: ¿pagas por servicios que no tienes? | Taller de Digitalización",
     description:
       "Cruzo lo que te facturan tus proveedores con lo que tienes dado de alta en tu sistema para encontrar lo que pagas sin tener. Auditoría cerrada por 490 € + IVA.",
     eyebrow: "Caso práctico",
@@ -121,16 +121,16 @@ export const casePages: CasePage[] = [
       privacyFaq,
     ],
     related: [
-      ["Integración de sistemas", "/integracion-sistemas/"],
+      ["Conectar tus programas entre sí", "/integracion-sistemas/"],
       ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
       ["Diagnóstico de caos operativo", "/diagnostico-caos-operativo/"],
     ],
     finalCta: "¿Quieres saber cuánto estás pagando por lo que no tienes? Lo cruzamos.",
-    formService: "Conciliación de proveedores",
+    formService: "Revisar las facturas de tus proveedores",
   },
   {
     slug: "dar-de-baja-software-historico",
-    title: "Dar de baja el programa que solo usas para consultar el histórico | Taller de Digitalización",
+    title: "Dar de baja un programa antiguo y consultar su histórico con IA | Taller de Digitalización",
     description:
       "Rescato los datos de un programa que solo mantienes por el histórico y los dejo consultables con IA, sin interfaz ni licencia. Desde 900 € + IVA.",
     eyebrow: "Caso práctico",
@@ -188,16 +188,16 @@ export const casePages: CasePage[] = [
       privacyFaq,
     ],
     related: [
-      ["Herramientas internas a medida", "/herramientas-internas-medida/"],
-      ["Asistente de IA con el conocimiento de la empresa", "/asistente-ia-empresa/"],
+      ["Aplicación a medida para tu equipo", "/herramientas-internas-medida/"],
+      ["Oráculo interno con IA", "/asistente-ia-empresa/"],
       ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿Hay un programa que solo pagas por el histórico? Veamos si se puede dar de baja.",
-    formService: "Rescate de datos y consulta con IA",
+    formService: "Dar de baja un programa antiguo y consultar su histórico",
   },
   {
     slug: "consulta-cobertura-ia",
-    title: "Consulta de cobertura por IA: pregunta por una dirección y te dice si llega | Taller de Digitalización",
+    title: "Consulta de cobertura con IA: pregunta por una dirección y te dice si llega | Taller de Digitalización",
     description:
       "Un conector que permite preguntar a la IA si hay cobertura en una dirección y a qué distancia está la más cercana. Desde 1.200 € + IVA.",
     eyebrow: "Caso práctico",
@@ -254,20 +254,20 @@ export const casePages: CasePage[] = [
       privacyFaq,
     ],
     related: [
-      ["Integración de sistemas", "/integracion-sistemas/"],
-      ["Asistente de IA con el conocimiento de la empresa", "/asistente-ia-empresa/"],
+      ["Conectar tus programas entre sí", "/integracion-sistemas/"],
+      ["Oráculo interno con IA", "/asistente-ia-empresa/"],
       ["Caos operativo en telecomunicaciones", "/caos-operativo-telecomunicaciones/"],
     ],
     finalCta: "¿Tienes datos con coordenadas que nadie aprovecha? Pregúntaselos a la IA.",
-    formService: "Consulta de cobertura por IA",
+    formService: "Consulta de cobertura con IA",
   },
   {
     slug: "entrada-facturas-automatica",
-    title: "Entrada de facturas automática: que las facturas entren solas en tu programa | Taller de Digitalización",
+    title: "Automatizar la entrada de facturas: que entren solas en tu programa | Taller de Digitalización",
     description:
       "Las facturas entran solas en tu programa de gestión y una persona las valida. De una semana de revisión cada trimestre a una mañana. Desde 2.500 € + IVA.",
     eyebrow: "Caso práctico",
-    h1: "Entrada de facturas automática.",
+    h1: "Automatizar la entrada de facturas: que entren solas en tu programa.",
     intro:
       "Las facturas entran solas en el programa donde las gestionas y una persona las valida. Se acabó teclearlas y se acabó rastrear quién metió cada una. Es un trabajo hecho a medida de cómo entran las facturas en tu empresa.",
     summary: "Las facturas entran solas en tu programa de gestión y una persona las valida. De una semana de revisión a una mañana.",
@@ -302,7 +302,7 @@ export const casePages: CasePage[] = [
     offersTitle: "Cuánto cuesta",
     offers: [
       {
-        name: "Entrada de facturas automática",
+        name: "Automatizar la entrada de facturas",
         price: 2500,
         text: "Un trabajo a medida de tu flujo de facturas: cómo entran, quién las introduce y en qué programa o programas hay que introducirlas. El precio final depende de ese flujo; te lo doy cerrado tras la primera llamada. Incluye un mes de desarrollo y tres meses de observación.",
       },
@@ -330,12 +330,12 @@ export const casePages: CasePage[] = [
       ["¿Mis datos salen de mi empresa?", "No. Lo único que está en tránsito son las facturas. No sale ningún otro dato de tu empresa."],
     ],
     related: [
-      ["Integración de sistemas", "/integracion-sistemas/"],
-      ["Herramientas internas a medida", "/herramientas-internas-medida/"],
+      ["Conectar tus programas entre sí", "/integracion-sistemas/"],
+      ["Aplicación a medida para tu equipo", "/herramientas-internas-medida/"],
       ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿Alguien en tu empresa introduce facturas a mano? Veamos cómo automatizarlo.",
-    formService: "Entrada de facturas automática",
+    formService: "Automatizar la entrada de facturas",
   },
 ];
 

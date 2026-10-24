@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import { siteConfig } from "@/config/site";
 import { casePages, entryOffer, formatEuro } from "@/data/casePages";
+import { offerFor } from "@/data/offers";
 
 const title = "Casos prácticos de automatización e IA para PyMEs | Taller de Digitalización";
 const description =
@@ -65,18 +66,18 @@ const faq: [string, string][] = [
   <section id="casos" class="section">
     <div class="section-head">
       <span class="eyebrow">Casos</span>
-      <h2>Cuatro casos, con su precio.</h2>
-      <p>Precios sin IVA. Cada caso explica el problema, la solución y lo que costaría llevarlo a tu empresa.</p>
+      <h2>Cuatro ejemplos, con su precio y su plazo.</h2>
+      <p>Son ejemplos reales de los paquetes de "Automatizar tareas". Precios sin IVA. Cada uno explica el problema, la solución y lo que costaría llevarlo a tu empresa.</p>
     </div>
     <div class="product-grid lab-grid">
       {casePages.map((item) => {
         const entry = entryOffer(item);
         return (
           <article class="product-card">
-            <span class="eyebrow">Caso práctico</span>
+            <span class="eyebrow">Ejemplo real</span>
             <h3>{item.h1.replace(/\.$/, "")}</h3>
             <p>{item.summary}</p>
-            <p class="price-tag">{entry.fixed ? "" : "Desde "}<strong>{formatEuro(entry.price)}</strong> + IVA</p>
+            <p class="price-tag">{entry.fixed ? "" : "Desde "}<strong>{formatEuro(entry.price)}</strong> + IVA{offerFor(`/casos/${item.slug}/`) && ` · ${offerFor(`/casos/${item.slug}/`)?.deadline}`}</p>
             <a class="btn btn-primary" href={`/casos/${item.slug}/`}>Ver el caso</a>
           </article>
         );

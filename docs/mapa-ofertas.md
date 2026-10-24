@@ -1,5 +1,7 @@
 # Mapa de ofertas con nombres de comprador
 
+> **Actualización:** los precios, plazos e inclusiones de este mapa ya están definidos (estimados, a corregir) en `src/data/offers.ts` y se muestran en la web. Las columnas FALTA de abajo son el estado anterior.
+
 Objetivo: que cada servicio tenga una versión que se pueda **buscar y comprar como un objeto** (resultado + precio + plazo), y que "a medida" sea el nivel superior, no el titular.
 
 Las frases de búsqueda son **hipótesis**, no datos. Se validan con el Planificador de palabras clave y una campaña de prueba en Google Ads (ver el final).
