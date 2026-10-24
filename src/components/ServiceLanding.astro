@@ -9,8 +9,12 @@ export interface ServiceSection {
   id: string;
   eyebrow: string;
   heading: string;
-  variant: "tag" | "check";
-  items: string[];
+  variant: "tag" | "check" | "steps";
+  // Párrafo opcional bajo el título de la sección.
+  intro?: string;
+  items?: string[];
+  // Solo para variant "steps": pasos numerados con título y texto.
+  steps?: [string, string][];
 }
 
 interface Props {
@@ -105,14 +109,25 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
       <div class="section-head">
         <span class="eyebrow">{section.eyebrow}</span>
         <h2>{section.heading}</h2>
+        {section.intro && <p>{section.intro}</p>}
       </div>
-      {section.variant === "tag" ? (
+      {section.variant === "steps" ? (
+        <div class={section.steps?.length === 4 ? "steps steps-4" : "steps"}>
+          {section.steps?.map(([name, text], index) => (
+            <article>
+              <span class="step-number">{index + 1}</span>
+              <h3>{name}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      ) : section.variant === "tag" ? (
         <div class="tag-grid">
-          {section.items.map((item) => <span>{item}</span>)}
+          {section.items?.map((item) => <span>{item}</span>)}
         </div>
       ) : (
         <ul class="check-list">
-          {section.items.map((item) => <li>{item}</li>)}
+          {section.items?.map((item) => <li>{item}</li>)}
         </ul>
       )}
     </section>

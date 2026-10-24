@@ -3,16 +3,53 @@ import ServiceLanding from "@/components/ServiceLanding.astro";
 
 const sections = [
   {
-    id: "what-it-includes",
-    eyebrow: "What it includes",
-    heading: "Everything needed to turn traffic into contacts.",
+    id: "what-you-get",
+    eyebrow: "What you get",
+    heading: "A landing page that sells and measures conversion.",
     variant: "tag" as const,
     items: [
+      "One goal and a clear call to action",
       "Conversion-focused design",
       "Optimized forms",
-      "CRM integration",
-      "Results tracking",
       "Mobile optimization",
+      "Tracking from the first click",
+      "CRM integration",
+    ],
+  },
+  {
+    id: "tracking",
+    eyebrow: "Tracking, end to end",
+    heading: "From the ad link to your CRM, nothing in between is lost.",
+    intro: "You run the ads, or your agency does. We make sure that every click that arrives can be followed all the way to the end.",
+    variant: "steps" as const,
+    steps: [
+      ["The ad link", "Your ad points to the landing page with UTM parameters, so the source, campaign and ad of every visit are known from the very first click."],
+      ["On the page", "We follow each visitor through the page, down to the form and as far as they get."],
+      ["The form or the call", "Form submissions, clicks and booked calls are recorded as events, and the source travels with the lead."],
+      ["Your CRM, ERP or inbox", "The lead arrives where you work with its origin attached, so you know which campaign brought it."],
+    ] as [string, string][],
+  },
+  {
+    id: "connected",
+    eyebrow: "Connected to your ad platforms",
+    heading: "One set of events, shared by every platform.",
+    variant: "check" as const,
+    items: [
+      "Meta Pixel installed and sending the right events.",
+      "Google Analytics events set up for every key action on the page.",
+      "Google Ads conversions fed by those same Google Analytics events.",
+      "Google Analytics, Google Ads and Meta connected, so each platform sees the same conversions and can optimize on them.",
+    ],
+  },
+  {
+    id: "improve",
+    eyebrow: "Then we improve it",
+    heading: "With real numbers, we iterate until conversion improves.",
+    variant: "check" as const,
+    items: [
+      "See how many visitors become leads, and which campaign, ad or source each one comes from.",
+      "Find the step where people drop off.",
+      "Adjust the copy, the form or the layout, and measure again.",
     ],
   },
   {
@@ -28,21 +65,30 @@ const sections = [
     ],
   },
 ];
+
+const faqs: [string, string][] = [
+  ["Do you manage the ads?", "No. The ads are run by you or your agency. We build the landing page and the tracking, so that every click can be followed from the ad to your CRM, your ERP or a booked call."],
+  ["What exactly do I get at the end?", "A landing page that sells and measures conversion, with Meta Pixel, Google Analytics and Google Ads events connected, and leads arriving where you work with their source attached."],
+  ["What is the difference between a landing page and a full web funnel?", "A landing page is a single page with one goal. A funnel covers more steps, such as automated follow-up. If you need the full funnel, we can build it on the same foundations."],
+  ["How long does the project take?", "It depends on scope. We confirm timing after an initial call."],
+  ["How much does it cost?", "Scope and price are adjusted to the complexity of the business. No commitment."],
+];
 ---
 
 <ServiceLanding
   lang="en"
-  title="Conversion Landing Pages | Taller de Digitalización"
-  description="We build landing pages focused on a single goal: getting the visitor to request information, book a meeting, or leave their details."
+  title="Conversion Landing Pages with Full Tracking | Taller de Digitalización"
+  description="Landing pages that sell and measure conversion: tracking from the ad link to your CRM, with Meta Pixel, Google Analytics and Google Ads events connected."
   slug="/conversion-landing-pages"
-  schemaDescription="Conversion landing pages for marketing campaigns: conversion-focused design, optimized forms and CRM integration."
+  schemaDescription="Conversion landing pages for marketing campaigns: conversion-focused design, optimized forms, end-to-end tracking and Meta, Google Analytics and Google Ads events connected."
   schemaAreaServed={["United States", "Remote"]}
   eyebrow="Conversion Landing Pages"
-  h1="Every campaign deserves a page designed to convert."
+  h1="A landing page that sells, and measures every step of the way."
   subtitleParagraphs={[
-    "Sending traffic to your homepage usually lowers conversions.",
-    "We build landing pages focused on a single goal: getting the visitor to request information, book a meeting, or leave their details.",
+    "Sending ad traffic to your homepage usually lowers conversions. What we deliver is a landing page that sells and measures conversion, built on the fundamentals of a web funnel.",
+    "Tracking starts at the link you put in your ads and follows each visitor through the page, the form and wherever they end up: your CRM, your ERP or a booked call. No information from your campaigns gets lost along the way.",
   ]}
   sections={sections}
-  finalCtaHeading="Turn visits into prospects."
+  faqs={faqs}
+  finalCtaHeading="Turn clicks into leads, and know where each one came from."
 />
