@@ -9,10 +9,11 @@ import ServiceIcon from "@/components/ServiceIcon.astro";
 import { localPages, type LocalPage } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
 import { plansEn } from "@/data/plansEn";
+import { servicePagesEn } from "@/data/servicePagesEn";
 import { serviceLabelFor } from "@/data/services";
 
 export function getStaticPaths() {
-  return [...localPages, ...productPages, ...plansEn].map((page) => ({ params: { slug: page.slug }, props: { page } }));
+  return [...localPages, ...productPages, ...plansEn, ...servicePagesEn].map((page) => ({ params: { slug: page.slug }, props: { page } }));
 }
 
 const { page } = Astro.props as { page: LocalPage };

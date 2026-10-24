@@ -20,6 +20,7 @@ export const serviceCatalogEn: ServiceEntryEn[] = [
   { group: "Web", label: "Free website report", href: "/free-website-report/", summary: "A free self-audit of speed, basic SEO, security and lead capture." },
   { group: "Web", label: "Conversion landing pages", href: "/conversion-landing-pages/", summary: "Pages focused on a single goal to turn campaign traffic into contacts." },
   { group: "Operations & processes", label: "Digitalization assessment", href: "/digitalization-assessment/", summary: "A technical and functional audit of your processes, with a prioritized report and action plan." },
+  { group: "Operations & processes", label: "AI process automation", href: "/ai-process-automation/", summary: "Automate repetitive processes with AI: invoice entry, supplier reconciliation and data lookups, with a person confirming what matters." },
   { group: "Operations & processes", label: "Systems integration", href: "/systems-integration/", summary: "Connect your CRM, ERP, invoicing and email to eliminate manual tasks." },
   { group: "Operations & processes", label: "Custom internal tools", href: "/custom-internal-tools/", summary: "Dashboards, portals and automations built for how your team works." },
   { group: "AI & lead capture", label: "Lead centralization", href: "/lead-centralization/", summary: "No contact left unanswered: all your prospects in one place, tracked in your CRM." },
