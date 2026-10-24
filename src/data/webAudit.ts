@@ -147,7 +147,7 @@ const es = {
 const en: typeof es = {
   title: "Technical Web Audit for businesses | Taller de Digitalización",
   description:
-    "Find out whether your website is losing leads because of speed, technical SEO, forms, security or infrastructure. Web audit from €399.",
+    "Find out whether your website is losing leads because of speed, technical SEO, forms, security or infrastructure. Web audit from $499.",
   nav: [
     ["Problem", "#problem"],
     ["Self-audit", "#self-assessment"],
@@ -217,7 +217,7 @@ const en: typeof es = {
   offer: {
     eyebrow: "Product",
     h2: "Technical Web Audit",
-    price: "From €399 + VAT",
+    price: "From $499, excl. taxes",
     time: "3 days",
     intro:
       "This is a diagnosis product, not an implementation package. You get technical clarity and a prioritized roadmap. After that, your team can execute it, you can ask me for guidance, or you can hire me to implement it.",

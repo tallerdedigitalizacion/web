@@ -108,7 +108,7 @@ export const offers: Record<string, Offer> = {
     ],
     note: "Si el problema es el hosting o la web hay que rehacerla, te lo digo antes de empezar.",
   },
-  "/funnel-web/": {
+  "/landing-page-campanas/": {
     price: 490,
     deadline: "7 a 10 días laborables",
     includes: [
@@ -194,6 +194,19 @@ export const offers: Record<string, Offer> = {
       "Funciona desde el chat que ya usa tu equipo",
     ],
   },
+  "/diagnostico-en-tu-empresa/": {
+    price: 190,
+    fixed: true,
+    deadline: "Visita de unas 2 horas",
+    includes: [
+      "Visita a tu empresa (o videollamada) de unas 2 horas",
+      "Repaso de equipos, programas, copias, accesos y facturas",
+      "Lista priorizada de qué arreglar primero, con precios orientativos",
+      "Resumen por escrito",
+      "Se descuenta íntegro si después contratas un proyecto conmigo",
+    ],
+    note: "Visitas presenciales a menos de 50 km de Fuensalida; fuera de esa zona, por videollamada.",
+  },
   "/diagnostico-caos-operativo/": {
     price: 1000,
     fixed: true,
@@ -270,8 +283,8 @@ export const offers: Record<string, Offer> = {
 
 // Versión en inglés. Las claves son las rutas inglesas.
 export const offersEn: Record<string, Offer> = {
-  "/centralized-access-management/": {
-    price: 250,
+  "/business-password-manager-setup/": {
+    price: 300,
     deadline: "2 to 3 business days",
     includes: [
       "Password manager set up for up to 10 people",
@@ -283,7 +296,7 @@ export const offersEn: Record<string, Offer> = {
     note: "The password manager licence is paid separately, directly to the provider.",
   },
   "/google-workspace-reorganization/": {
-    price: 300,
+    price: 350,
     deadline: "3 to 5 business days",
     includes: [
       "Domain and business email configured",
@@ -295,7 +308,7 @@ export const offersEn: Record<string, Offer> = {
     note: "Google Workspace licences are paid separately, directly to Google.",
   },
   "/corporate-google-drive-restructuring/": {
-    price: 450,
+    price: 500,
     deadline: "5 to 8 business days",
     includes: [
       "A map of what is in the Drive today",
@@ -306,7 +319,7 @@ export const offersEn: Record<string, Offer> = {
     ],
   },
   "/website-speed-optimization/": {
-    price: 250,
+    price: 300,
     deadline: "3 to 5 business days",
     includes: [
       "Free diagnosis first: I tell you what slows your site down before charging",
@@ -317,7 +330,7 @@ export const offersEn: Record<string, Offer> = {
     note: "If the cause is the hosting or the site needs rebuilding, I tell you before we start.",
   },
   "/conversion-landing-pages/": {
-    price: 490,
+    price: 600,
     deadline: "7 to 10 business days",
     includes: [
       "One sales page built around a single goal",
@@ -327,8 +340,8 @@ export const offersEn: Record<string, Offer> = {
     ],
     note: "Running the ad campaigns is not included.",
   },
-  "/lead-centralization/": {
-    price: 690,
+  "/crm-implementation/": {
+    price: 850,
     deadline: "7 to 10 business days",
     includes: [
       "Website forms, WhatsApp and email in one place",
@@ -339,8 +352,8 @@ export const offersEn: Record<string, Offer> = {
     ],
     note: "The CRM licence, if you do not use a free one, is paid separately.",
   },
-  "/external-oracle/": {
-    price: 890,
+  "/ai-chatbot-small-business/": {
+    price: 1100,
     deadline: "2 to 3 weeks",
     includes: [
       "An AI agent trained on your FAQs and documents",
@@ -351,8 +364,8 @@ export const offersEn: Record<string, Offer> = {
     ],
     note: "The platform and AI usage cost is paid separately, based on volume.",
   },
-  "/internal-oracle/": {
-    price: 990,
+  "/ai-knowledge-base/": {
+    price: 1200,
     deadline: "2 to 3 weeks",
     includes: [
       "Your company documents gathered and organized",
@@ -364,7 +377,7 @@ export const offersEn: Record<string, Offer> = {
     note: "The platform and AI usage cost is paid separately, based on usage.",
   },
   "/digitalization-assessment/": {
-    price: 690,
+    price: 750,
     deadline: "1 to 2 weeks",
     includes: [
       "A review of your processes and the software you use",
@@ -374,7 +387,7 @@ export const offersEn: Record<string, Offer> = {
     ],
   },
   "/systems-integration/": {
-    price: 590,
+    price: 700,
     deadline: "1 to 2 weeks",
     includes: [
       "Two systems connected (for example CRM and invoicing)",
@@ -385,7 +398,7 @@ export const offersEn: Record<string, Offer> = {
     note: "The price is per connection between two systems.",
   },
   "/custom-internal-tools/": {
-    price: 2500,
+    price: 3000,
     deadline: "3 to 6 weeks",
     includes: [
       "Analysis of how your team works",
@@ -395,27 +408,28 @@ export const offersEn: Record<string, Offer> = {
     ],
   },
   "/ai-process-automation/": {
-    price: 490,
-    deadline: "5 business days (audit) to 4 weeks (full automation)",
+    price: 3000,
+    deadline: "3 to 4 weeks",
     includes: [
-      "Supplier reconciliation audit, closed price",
-      "Automatic invoice entry, a person validates",
-      "Ask-your-data AI and retiring old software",
+      "One process automated end to end (for example automatic invoice entry, with a person validating)",
+      "Tested with your real data before it goes live",
+      "Documentation and a handover call",
+      "30 days of adjustments included",
     ],
-    note: "Prices for each example are on this page.",
+    note: "A one-off supplier spend audit is available as a closed-price starter from $590.",
   },
 };
 
 const money = (amount: number, lang: "es" | "en") =>
-  lang === "en" ? `€${amount.toLocaleString("en-GB")}` : `${amount.toLocaleString("de-DE")} €`;
+  lang === "en" ? `$${amount.toLocaleString("en-US")}` : `${amount.toLocaleString("de-DE")} €`;
 
 // "Desde 290 € + IVA" · "490 € + IVA (precio cerrado)" · "Desde 50 €/hora + IVA"
 export function priceLabel(offer: Offer, lang: "es" | "en" = "es"): string {
   const amount = money(offer.price, lang);
   const unit = offer.unit ? `/${offer.unit}` : "";
   if (lang === "en") {
-    const base = `${offer.fixed ? "" : "From "}${amount}${unit} + VAT`;
-    return offer.fixed ? `${base} (fixed price)` : base;
+    const base = `${offer.fixed ? "" : "From "}${amount}${unit}`;
+    return offer.fixed ? `${base} (fixed price, excl. taxes)` : `${base} (excl. taxes)`;
   }
   const base = `${offer.fixed ? "" : "Desde "}${amount}${unit} + IVA`;
   return offer.fixed ? `${base} (precio cerrado)` : base;

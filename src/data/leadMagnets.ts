@@ -719,7 +719,7 @@ export const quizzes: Quiz[] = [
   },
   {
     id: "funnel",
-    service: b("Funnel web / landing pages", "Web funnel / landing pages"),
+    service: b("Landing pages para campañas", "Landing pages for campaigns"),
     title: b("¿Tu web vende, o solo está ahí?", "Does your website sell, or does it just sit there?"),
     intro: b(
       "Cinco preguntas para saber si tu web convierte visitas en contactos y si sabes de dónde vienen.",
@@ -774,7 +774,7 @@ export const quizzes: Quiz[] = [
       ),
       low: b(
         "Tu web ya funciona como embudo. Lo siguiente es iterar con los datos para convertir aún más.",
-        "Your site already works as a funnel. The next step is to iterate with the data to convert even more.",
+        "Your site already works as a sales page. The next step is to iterate with the data to convert even more.",
       ),
     },
     actions: [
@@ -1206,7 +1206,7 @@ export const quizByPath: Record<string, string> = {
   "/herramientas-internas-medida": "tools",
   "/asistente-ia-empresa": "knowledge",
   "/agente-ia-atencion-cliente": "response",
-  "/funnel-web": "funnel",
+  "/landing-page-campanas": "funnel",
   "/diagnostico-digitalizacion": "digital",
   "/consultor-digitalizacion-toledo": "digital",
   "/optimizacion-velocidad-web": "speed",
@@ -1215,14 +1215,14 @@ export const quizByPath: Record<string, string> = {
   "/consultoria-erp-pymes": "erp",
   "/caos-operativo-telecomunicaciones": "telecom",
   // Inglés
-  "/centralized-access-management": "passwords",
+  "/business-password-manager-setup": "passwords",
   "/managed-it-support": "itdown",
   "/google-workspace-reorganization": "workspace",
   "/managed-website": "wordpress",
   "/systems-integration": "integration",
   "/custom-internal-tools": "tools",
-  "/internal-oracle": "knowledge",
-  "/external-oracle": "response",
+  "/ai-knowledge-base": "knowledge",
+  "/ai-chatbot-small-business": "response",
   "/conversion-landing-pages": "funnel",
   "/digitalization-assessment": "digital",
   "/website-speed-optimization": "speed",

@@ -102,7 +102,7 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
       <label>{t.phone}<input type="tel" name="telefono" autocomplete="tel" /><small>{t.phoneHelp}</small></label>
     </div>
     <label>{t.message}<textarea required name="mensaje" rows="4" minlength="5" maxlength="2000"></textarea></label>
-    <label class="check"><input required type="checkbox" name="privacidad" /> <span>{t.privacyBefore} <a href={withBase("/politica-privacidad")}>{t.privacyLink}</a>.</span></label>
+    <label class="check"><input required type="checkbox" name="privacidad" /> <span>{t.privacyBefore} <a href={withBase(isEnglish ? "/privacy-policy" : "/politica-privacidad")}>{t.privacyLink}</a>.</span></label>
     <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
     <input type="hidden" name="started_at" data-started-at />
     <button class="btn btn-primary" type="submit">{t.send}</button>

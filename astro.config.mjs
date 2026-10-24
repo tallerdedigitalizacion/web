@@ -16,6 +16,12 @@ export default defineConfig({
     "/agente-oraculo-ia-interno": "/asistente-ia-empresa/",
     "/agente-soporte-cliente-ia": "/agente-ia-atencion-cliente/",
     "/arranque-digital-negocios": "/diseno-web-toledo/",
+    // Octubre de 2026: nombres de comprador en la URL.
+    "/funnel-web": "/landing-page-campanas/",
+    "/external-oracle": "/ai-chatbot-small-business/",
+    "/internal-oracle": "/ai-knowledge-base/",
+    "/lead-centralization": "/crm-implementation/",
+    "/centralized-access-management": "/business-password-manager-setup/",
   },
   integrations: [
     sitemap({

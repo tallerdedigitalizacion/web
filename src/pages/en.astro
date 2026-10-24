@@ -4,47 +4,56 @@ import TrustBar from "@/components/TrustBar.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import { siteConfig } from "@/config/site";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
-import { planGroupEn, projectGroupsEn, serviceCatalogEn } from "@/data/servicesEn";
+import { projectGroupsEn, serviceCatalogEn } from "@/data/servicesEn";
+import { offerFor, priceLabel } from "@/data/offers";
 import { billarArrabal } from "@/data/portfolio";
 import { withBase } from "@/utils/paths";
 
-const title = "IT support and digitalization for small businesses, fully remote | Taller de Digitalización";
-const description = "Remote IT support, cybersecurity, websites and digitalization for small businesses. Monthly plans from €39/month + VAT or solutions with a price and timing. First call is free.";
+const title = "AI automation and systems integration for small businesses, fully remote | Taller de Digitalización";
+const description = "A senior software developer automates the repetitive work in your business: invoices, data copied between tools, CRM, chatbots and custom tools. Fixed prices in USD, fully remote. First call is free.";
 
 const steps: [string, string, string?][] = [
   ["Free 15-minute call", "You tell me what's going on. If I don't see how I can help, I'll say so.", siteConfig.bookingUrlEn],
   ["Fixed-price proposal", "What needs doing, in what order and how much it costs. No small print."],
-  ["Implementation", "Done remotely. I explain what I've done in plain language."],
-  ["Monthly plan", `Reviews, updates and ongoing support from €${siteConfig.planPriceFrom}/month + VAT, so everything keeps working and the problems don't come back.`],
+  ["Build and handover", "Done remotely, with progress updates waiting in your inbox each morning. You own everything I build."],
+  ["Keep it running", "Optional ongoing support so the automations keep working as your tools change. Ask for a quote."],
 ];
 
 const faqs: [string, string][] = [
-  ["Where do you work?", "Everything is delivered remotely, so I work with businesses wherever they are. Calls, support and documentation are in English."],
-  ["Do you help individuals or only businesses?", "My work is designed for businesses, freelancers and small companies: equipment, email, website, tools and business processes."],
-  ["How much does it cost to have an IT person for my business?", `There are two ways of working: monthly plans from €${siteConfig.planPriceFrom}/month + VAT (IT, website or operations & AI) or projects with a fixed quote before we start. The first call is free.`],
-  ["Can you fix problems remotely?", "Yes. With AnyDesk I connect to your computer with your permission, and most software, email, account and website issues are solved on the spot. If something turns out to be physical, such as hardware or cabling, I'll tell you exactly what is needed."],
-  ["Can you help with security and compliance standards (ISO 27001, GDPR, NIS2)?", "Yes. I review where the company stands against the standard your customers or regulators expect, such as ISO 27001-style security controls or, if you operate in the EU, GDPR and NIS2. I prioritize the technical and organizational measures and support you with the documentation and implementation. This also applies if you are a supplier to a company that requires you to comply."],
-  ["What's the difference between IT support and the digitalization assessment?", "Support fixes specific technical issues. The assessment looks at how the whole company works (processes, tools and dependence on the owner) to decide what to organize, automate or change."],
+  ["Where do you work, and what hours?", "Everything is delivered remotely, so I work with businesses and agencies wherever they are. I am available for calls from 9:00 to 13:00 Eastern Time (6:00 to 10:00 Pacific). Updates and documentation are in English and are written so you can read them asynchronously."],
+  ["How much does it cost?", "Every project has a fixed quote before we start, in US dollars and excluding taxes. An operations audit starts at $750 and an Automation Sprint (one process automated end to end) starts at $3,000. The first call is free."],
+  ["How do you get paid?", "50% when we start and 50% on delivery, by bank transfer, Wise or card, in US dollars."],
+  ["Who owns the code and the accounts?", "You do. Code, automations and accounts are in your name, and everything is documented. Ownership passes to you when the final payment is made."],
+  ["What happens if something breaks after delivery?", "Integration and custom-tool projects include 30 days of adjustments after delivery. After that you can book ongoing support or ask for a one-off fix, so nothing depends on guessing who built it."],
+  ["Do you work with agencies?", "Yes. If a client asks for something technical that your team does not build (an integration, an automation, a custom tool), I can build it under your brand at a fixed price."],
+  ["Do you help individuals or only businesses?", "My work is designed for businesses, freelancers and small companies: tools, data and business processes."],
 ];
 
-const plans = serviceCatalogEn.filter((service) => service.group === planGroupEn);
 const scoreboard = billarArrabal.images.scoreboard;
+const startHere = [
+  { label: "Operations audit", href: "/digitalization-assessment/", text: "A review of your processes and tools, with a prioritized report of what to change and in which order." },
+  { label: "Automation Sprint", href: "/ai-process-automation/", text: "One repetitive process automated end to end, for a fixed price, with a person confirming what matters." },
+].map((item) => {
+  const offer = offerFor(item.href, "en");
+  return { ...item, price: offer ? priceLabel(offer, "en") : "", deadline: offer?.deadline };
+});
 ---
 
 <BaseLayout
+
   title={title}
   description={description}
   canonicalPath="/en"
   lang="en"
   faq={faqs}
   showChatbase={false}
-  headerNavItems={[["Plans", "#services"], ["Solutions", "#projects"], ["Portfolio", "#portfolio"], ["How I work", "#how-i-work"], ["FAQ", "#faq"], ["Contact", "#contacto"]]}
+  headerNavItems={[["Start here", "#start"], ["Solutions", "#projects"], ["Portfolio", "#portfolio"], ["How I work", "#how-i-work"], ["FAQ", "#faq"], ["Contact", "#contacto"]]}
 >
   <section class="hero home-hero">
     <div class="hero-content">
-      <span class="eyebrow">IT &amp; digitalization · Remote</span>
-      <h1>IT support and digitalization for small businesses, fully remote.</h1>
-      <p class="hero-subtitle">IT support, cybersecurity, websites and digital order for small and medium businesses. {siteConfig.experienceYears} years solving technical problems, all done remotely. No jargon and no selling you what you don't need.</p>
+      <span class="eyebrow">Automation &amp; AI · Remote</span>
+      <h1>Your team re-types the same data into three tools. I automate it for a fixed price.</h1>
+      <p class="hero-subtitle">A senior software developer with {siteConfig.experienceYears} years building and fixing business software. I automate invoices, data entry, follow-up and reporting for small businesses and agencies, fully remote. Fixed prices in USD, you own everything I build.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrlEn} target="_blank" rel="noreferrer">Book a free call</a>
         <a class="btn btn-secondary" href="#contacto">Write to me</a>
@@ -54,21 +63,20 @@ const scoreboard = billarArrabal.images.scoreboard;
 
   <TrustBar lang="en" />
 
-  <section id="services" class="section">
+  <section id="start" class="section">
     <div class="section-head">
-      <span class="eyebrow">Services</span>
-      <h2>Two ways of working with me.</h2>
-      <p>A monthly plan so your IT, website or operations run without surprises, or a solution with a price and timing to solve something specific. Many solutions end up as a plan: whatever gets built has to be maintained.</p>
+      <span class="eyebrow">Start here</span>
+      <h2>Two ways to start.</h2>
+      <p>A short audit to find what is worth fixing, or one process automated end to end. Both with a fixed quote before we start.</p>
     </div>
-    <h3 class="service-group-title">Monthly plans</h3>
-    <div class="product-grid product-grid-3">
-      {plans.map((plan) => (
+    <div class="product-grid">
+      {startHere.map((item) => (
         <article class="product-card">
-          <span class="eyebrow">Monthly plan</span>
-          <h3>{plan.label}</h3>
-          <p>{plan.summary}</p>
-          <p class="price-tag">From <strong>€{siteConfig.planPriceFrom}/month</strong> + VAT</p>
-          <a class="btn btn-primary" href={plan.href}>View plan</a>
+          <span class="eyebrow">{item.deadline}</span>
+          <h3>{item.label}</h3>
+          <p>{item.text}</p>
+          <p class="price-tag"><strong>{item.price}</strong></p>
+          <a class="btn btn-primary" href={item.href}>Learn more</a>
         </article>
       ))}
     </div>
@@ -78,7 +86,7 @@ const scoreboard = billarArrabal.images.scoreboard;
     <div class="section-head">
       <span class="eyebrow">What you need to solve</span>
       <h2>Every solution, with its price and timing.</h2>
-      <p>Pick what you want to solve and see what it costs and how long it takes. Prices are "from": the fixed price comes after a first review, before we start. If you don't know where to start, get the <a href="/free-website-report/">free report on your website</a> or the <a href="/digitalization-assessment/">process audit</a>.</p>
+      <p>Pick what you want to solve and see what it costs and how long it takes. Prices are in US dollars, excluding taxes, and are "from": the fixed price comes after a first review, before we start. If you don't know where to start, get the <a href="/free-website-report/">free report on your website</a> or the <a href="/digitalization-assessment/">process audit</a>.</p>
     </div>
     {projectGroupsEn.map((group) => (
       <div class="service-group">

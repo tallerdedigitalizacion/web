@@ -58,7 +58,7 @@ const peopleFaq: [string, string] = [
 export const casePages: CasePage[] = [
   {
     slug: "conciliacion-proveedores",
-    title: "Revisar las facturas de tus proveedores: ¿pagas por servicios que no tienes? | Taller de Digitalización",
+    title: "Auditoría de gastos de proveedores: lo que pagas sin usar | Taller de Digitalización",
     description:
       "Cruzo lo que te facturan tus proveedores con lo que tienes dado de alta en tu sistema para encontrar lo que pagas sin tener. Auditoría cerrada por 490 € + IVA.",
     eyebrow: "Caso práctico",
@@ -70,7 +70,7 @@ export const casePages: CasePage[] = [
       "Un operador de telecomunicaciones paga a varios proveedores por cada línea o servicio de sus clientes. Cuando un cliente se da de baja o se porta a otra compañía, el proveedor no siempre avisa y el sistema de la empresa tampoco se entera, así que se sigue pagando por algo que ya no existe.",
       "Lo que hicimos fue un proceso que mira de forma automática lo que dice cada proveedor, lo compara con lo que hay en el sistema de gestión y, si algo no cuadra, manda un correo diciendo qué hay que revisar. La decisión de dar de baja o de reclamar la toma una persona.",
     ],
-    schemaService: "Auditoría y automatización de conciliación de proveedores",
+    schemaService: "Auditoría y revisión automática de gastos de proveedores",
     painTitle: "¿Te pasa algo de esto?",
     pains: [
       "Los proveedores te facturan servicios y nadie comprueba línea por línea si siguen vigentes.",
@@ -94,13 +94,13 @@ export const casePages: CasePage[] = [
     offersTitle: "Cómo se puede empezar",
     offers: [
       {
-        name: "Auditoría de conciliación",
+        name: "Auditoría puntual de proveedores",
         price: 490,
         fixed: true,
         text: "Cruzo una vez lo que te factura un proveedor con lo que tienes en tu sistema y te entrego un informe con las discrepancias: lo que pagas sin tener y lo que no cuadra. Precio cerrado. Si hay más de un proveedor, te doy el presupuesto cerrado antes de empezar.",
       },
       {
-        name: "Conciliación automática",
+        name: "Revisión automática de proveedores",
         price: 1800,
         text: "Lo mismo, pero repetido solo y con aviso por correo cuando aparece una discrepancia. El precio final depende de cuántos proveedores y sistemas haya que cruzar.",
       },
@@ -114,23 +114,23 @@ export const casePages: CasePage[] = [
       ["Alguien que decida", "Una persona que revise las discrepancias y diga qué se da de baja y qué se reclama."],
     ],
     faq: [
-      ["¿Cuánto cuesta?", "La auditoría puntual cuesta 490 € + IVA, precio cerrado. La conciliación automática parte de 1.800 € + IVA y te doy el precio cerrado antes de empezar, según cuántos proveedores y sistemas haya."],
+      ["¿Cuánto cuesta?", "La auditoría puntual cuesta 490 € + IVA, precio cerrado. La revisión automática parte de 1.800 € + IVA y te doy el precio cerrado antes de empezar, según cuántos proveedores y sistemas haya."],
       ["¿Sirve si no soy un operador de telecomunicaciones?", "Sí. Sirve en cualquier empresa con proveedores que facturan por servicio o por unidad: licencias de software, líneas, suscripciones, alquileres. El caso práctico es de telecomunicaciones, pero la idea es la misma."],
       ["¿Y si mi sistema no tiene API?", "Es justo el caso práctico. Se puede automatizar el acceso a su pantalla con un usuario específico, y si el sistema permite exportar listados, aún más fácil."],
       peopleFaq,
       privacyFaq,
     ],
     related: [
-      ["Conectar tus programas entre sí", "/integracion-sistemas/"],
+      ["Conectar tus programas (n8n, Make, Zapier, Holded, A3)", "/integracion-sistemas/"],
       ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
       ["Diagnóstico de caos operativo", "/diagnostico-caos-operativo/"],
     ],
     finalCta: "¿Quieres saber cuánto estás pagando por lo que no tienes? Lo cruzamos.",
-    formService: "Revisar las facturas de tus proveedores",
+    formService: "Auditoría de gastos de proveedores",
   },
   {
     slug: "dar-de-baja-software-historico",
-    title: "Dar de baja un programa antiguo y consultar su histórico con IA | Taller de Digitalización",
+    title: "Migrar datos de un programa antiguo y cancelar la licencia, con consulta por IA | Taller de Digitalización",
     description:
       "Rescato los datos de un programa que solo mantienes por el histórico y los dejo consultables con IA, sin interfaz ni licencia. Desde 900 € + IVA.",
     eyebrow: "Caso práctico",
@@ -188,12 +188,12 @@ export const casePages: CasePage[] = [
       privacyFaq,
     ],
     related: [
-      ["Aplicación a medida para tu equipo", "/herramientas-internas-medida/"],
-      ["Oráculo interno con IA", "/asistente-ia-empresa/"],
+      ["Software a medida para empresas", "/herramientas-internas-medida/"],
+      ["Asistente de IA con los documentos de tu empresa", "/asistente-ia-empresa/"],
       ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿Hay un programa que solo pagas por el histórico? Veamos si se puede dar de baja.",
-    formService: "Dar de baja un programa antiguo y consultar su histórico",
+    formService: "Migrar datos de un programa antiguo y cancelar la licencia",
   },
   {
     slug: "consulta-cobertura-ia",
@@ -254,8 +254,8 @@ export const casePages: CasePage[] = [
       privacyFaq,
     ],
     related: [
-      ["Conectar tus programas entre sí", "/integracion-sistemas/"],
-      ["Oráculo interno con IA", "/asistente-ia-empresa/"],
+      ["Conectar tus programas (n8n, Make, Zapier, Holded, A3)", "/integracion-sistemas/"],
+      ["Asistente de IA con los documentos de tu empresa", "/asistente-ia-empresa/"],
       ["Caos operativo en telecomunicaciones", "/caos-operativo-telecomunicaciones/"],
     ],
     finalCta: "¿Tienes datos con coordenadas que nadie aprovecha? Pregúntaselos a la IA.",
@@ -263,11 +263,11 @@ export const casePages: CasePage[] = [
   },
   {
     slug: "entrada-facturas-automatica",
-    title: "Automatizar la entrada de facturas: que entren solas en tu programa | Taller de Digitalización",
+    title: "Automatizar facturas de proveedores: que entren solas en Holded, A3 o tu programa | Taller de Digitalización",
     description:
       "Las facturas entran solas en tu programa de gestión y una persona las valida. De una semana de revisión cada trimestre a una mañana. Desde 2.500 € + IVA.",
     eyebrow: "Caso práctico",
-    h1: "Automatizar la entrada de facturas: que entren solas en tu programa.",
+    h1: "Automatizar facturas de proveedores: que entren solas en tu programa.",
     intro:
       "Las facturas entran solas en el programa donde las gestionas y una persona las valida. Se acabó teclearlas y se acabó rastrear quién metió cada una. Es un trabajo hecho a medida de cómo entran las facturas en tu empresa.",
     summary: "Las facturas entran solas en tu programa de gestión y una persona las valida. De una semana de revisión a una mañana.",
@@ -302,7 +302,7 @@ export const casePages: CasePage[] = [
     offersTitle: "Cuánto cuesta",
     offers: [
       {
-        name: "Automatizar la entrada de facturas",
+        name: "Automatizar facturas de proveedores",
         price: 2500,
         text: "Un trabajo a medida de tu flujo de facturas: cómo entran, quién las introduce y en qué programa o programas hay que introducirlas. El precio final depende de ese flujo; te lo doy cerrado tras la primera llamada. Incluye un mes de desarrollo y tres meses de observación.",
       },
@@ -330,12 +330,12 @@ export const casePages: CasePage[] = [
       ["¿Mis datos salen de mi empresa?", "No. Lo único que está en tránsito son las facturas. No sale ningún otro dato de tu empresa."],
     ],
     related: [
-      ["Conectar tus programas entre sí", "/integracion-sistemas/"],
-      ["Aplicación a medida para tu equipo", "/herramientas-internas-medida/"],
+      ["Conectar tus programas (n8n, Make, Zapier, Holded, A3)", "/integracion-sistemas/"],
+      ["Software a medida para empresas", "/herramientas-internas-medida/"],
       ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿Alguien en tu empresa introduce facturas a mano? Veamos cómo automatizarlo.",
-    formService: "Automatizar la entrada de facturas",
+    formService: "Automatizar facturas de proveedores",
   },
 ];
 
@@ -356,6 +356,7 @@ const caseByPath: Record<string, string> = {
   "/informatico-illescas-la-sagra/": "dar-de-baja-software-historico",
   "/informatico-navalcarnero-mostoles/": "dar-de-baja-software-historico",
   "/consultor-digitalizacion-toledo/": "entrada-facturas-automatica",
+  "/diagnostico-en-tu-empresa/": "entrada-facturas-automatica",
   "/ciberseguridad-empresas-toledo/": "conciliacion-proveedores",
   "/google-workspace-empresas-toledo/": "conciliacion-proveedores",
   "/diseno-web-toledo/": "consulta-cobertura-ia",
@@ -363,7 +364,7 @@ const caseByPath: Record<string, string> = {
   "/caos-operativo-telecomunicaciones/": "conciliacion-proveedores",
   "/gestor-contrasenas-empresas/": "conciliacion-proveedores",
   "/mantenimiento-wordpress/": "dar-de-baja-software-historico",
-  "/funnel-web/": "consulta-cobertura-ia",
+  "/landing-page-campanas/": "consulta-cobertura-ia",
   "/consultoria-erp-pymes/": "entrada-facturas-automatica",
   "/gestion-leads-crm/": "consulta-cobertura-ia",
   "/agente-ia-atencion-cliente/": "consulta-cobertura-ia",

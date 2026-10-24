@@ -29,7 +29,7 @@ const t = isEnglish
       book: "Book a free call",
       write: "Write to me",
       planPrice: "Monthly plan from",
-      vat: "+ VAT",
+      vat: ", excl. taxes",
       perMonth: "/month",
       recognise: "Sound familiar?",
       approach: "The approach",
@@ -64,7 +64,7 @@ const path = `/${page.slug}/`;
 const pageUrl = new URL(path, siteConfig.publicUrl).toString();
 const businessId = `${siteConfig.publicUrl}/#business`;
 const formService = page.formService ?? serviceLabelFor(path) ?? "";
-const priceText = page.priceFrom ? (isEnglish ? `€${page.priceFrom}${t.perMonth}` : `${page.priceFrom} ${t.perMonth}`) : "";
+const priceText = page.priceFrom ? (isEnglish ? `$${page.priceFrom}${t.perMonth}` : `${page.priceFrom} ${t.perMonth}`) : "";
 
 const extraSchema = [
   {
@@ -81,11 +81,11 @@ const extraSchema = [
         "@type": "Offer",
         url: pageUrl,
         price: page.priceFrom,
-        priceCurrency: "EUR",
+        priceCurrency: isEnglish ? "USD" : "EUR",
         priceSpecification: {
           "@type": "UnitPriceSpecification",
           price: page.priceFrom,
-          priceCurrency: "EUR",
+          priceCurrency: isEnglish ? "USD" : "EUR",
           unitCode: "MON",
           referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "MON" },
           valueAddedTaxIncluded: false,

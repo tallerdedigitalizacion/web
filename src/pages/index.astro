@@ -8,6 +8,8 @@ import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import { planGroup, projectGroups, serviceCatalog } from "@/data/services";
 import { billarArrabal } from "@/data/portfolio";
 import { withBase } from "@/utils/paths";
+import { offerFor, priceLabel } from "@/data/offers";
+import { existsSync } from "node:fs";
 
 const title = "Informático para empresas y digitalización en Toledo | Taller de Digitalización";
 const description = "Soporte informático, ciberseguridad, webs y digitalización para PyMEs en Toledo, Torrijos, Illescas y a 50 km de Fuensalida. Presencial o en remoto. Primera llamada gratis.";
@@ -29,6 +31,19 @@ const faqs: [string, string][] = [
 ];
 
 const plans = serviceCatalog.filter((service) => service.group === planGroup);
+
+// La foto se muestra solo si el archivo existe en public/ (se añade a mano), para no dejar una imagen rota.
+const founderPhoto = ["jpg", "jpeg", "png", "webp"].map((ext) => `/pablo-leone.${ext}`).find((src) => existsSync(`public${src}`));
+
+// Tres formas de empezar: las ofertas de entrada. El resto del catálogo queda en "Todos los servicios".
+const startOffers = [
+  { label: "Diagnóstico en tu empresa", href: "/diagnostico-en-tu-empresa/", text: "Voy a tu empresa, veo cómo trabajáis y te dejo una lista priorizada de qué arreglar primero. Se descuenta si contratas un proyecto." },
+  { label: "Que las facturas entren solas", href: "/casos/entrada-facturas-automatica/", text: "Las facturas de proveedores entran solas en tu programa de gestión y una persona las valida. De una semana de revisión a una mañana." },
+  { label: "Mantenimiento informático para empresas", href: "/mantenimiento-informatico-toledo/", text: "Equipos, copias comprobadas, seguridad y soporte en remoto con tarifa plana mensual." },
+].map((item) => {
+  const offer = offerFor(item.href);
+  return { ...item, price: offer ? priceLabel(offer) : `Desde ${siteConfig.planPriceFrom} €/mes + IVA`, deadline: offer?.deadline ?? "Plan mensual" };
+});
 ---
 
 <BaseLayout
@@ -36,12 +51,13 @@ const plans = serviceCatalog.filter((service) => service.group === planGroup);
   description={description}
   canonicalPath="/"
   faq={faqs}
-  headerNavItems={[["Planes", "#servicios"], ["Soluciones", "#proyectos"], ["Portfolio", "#portfolio"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"], ["Contacto", "#contacto"]]}
+  headerNavItems={[["Empezar", "#empezar"], ["Todos los servicios", "#todos-los-servicios"], ["Portfolio", "#portfolio"], ["Zona", "#zona"], ["Cómo trabajo", "#como-trabajo"], ["FAQ", "#faq"], ["Contacto", "#contacto"]]}
 >
   <section class="hero home-hero">
     <div class="hero-content">
       <span class="eyebrow">Informático y digitalización · Toledo</span>
       <h1>Informático para empresas y digitalización de PyMEs en Toledo.</h1>
+      <p class="hero-founder">{founderPhoto && <img src={withBase(founderPhoto)} alt="Pablo Leone, informático en Fuensalida" width="64" height="64" loading="eager" />}<span>Soy <strong>Pablo Leone</strong>, informático en Fuensalida (Toledo).</span></p>
       <p class="hero-subtitle">Soporte informático, ciberseguridad, webs y orden digital para empresas de Fuensalida, Torrijos, Toledo, La Sagra y el sur de Madrid. {siteConfig.experienceYears} años resolviendo problemas técnicos, presencial en {siteConfig.serviceRadiusKm} km o en remoto. Sin tecnicismos y sin venderte lo que no necesitas.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrl} target="_blank" rel="noreferrer">Reservar llamada gratuita</a>
@@ -52,6 +68,27 @@ const plans = serviceCatalog.filter((service) => service.group === planGroup);
 
   <TrustBar />
 
+  <section id="empezar" class="section">
+    <div class="section-head">
+      <span class="eyebrow">Por dónde empezar</span>
+      <h2>Tres formas de empezar.</h2>
+      <p>Elige la que encaje con tu caso. Todas con precio claro, sin letra pequeña. Si no sabes cuál, el diagnóstico te lo aclara.</p>
+    </div>
+    <div class="product-grid product-grid-3">
+      {startOffers.map((offer) => (
+        <article class="product-card">
+          {offer.deadline && <span class="eyebrow">{offer.deadline}</span>}
+          <h3>{offer.label}</h3>
+          <p>{offer.text}</p>
+          <p class="price-tag"><strong>{offer.price}</strong></p>
+          <a class="btn btn-primary" href={offer.href}>Saber más</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <details id="todos-los-servicios" class="all-services">
+    <summary>Ver todos los servicios y planes</summary>
   <section id="servicios" class="section">
     <div class="section-head">
       <span class="eyebrow">Servicios</span>
@@ -94,6 +131,7 @@ const plans = serviceCatalog.filter((service) => service.group === planGroup);
       </div>
     ))}
   </section>
+  </details>
 
   <CaseStory path={"/"} />
 
@@ -162,6 +200,17 @@ const plans = serviceCatalog.filter((service) => service.group === planGroup);
     <ReviewsCarousel lang="es" />
   </section>
 
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Gestorías y ayudas</span>
+      <h2>Para asesorías, y para empresas que buscan una ayuda.</h2>
+    </div>
+    <div class="hero-actions">
+      <a class="btn btn-secondary" href="/para-gestorias-y-asesorias/">Para gestorías y asesorías</a>
+      <a class="btn btn-secondary" href="/ayudas-digitalizacion-camara-toledo/">Ayuda Pyme Digital de la Cámara de Toledo</a>
+    </div>
+  </section>
+
   <section id="faq" class="section">
     <div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>Dudas habituales antes de llamar.</h2></div>
     <div class="faq-list">{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
@@ -170,7 +219,60 @@ const plans = serviceCatalog.filter((service) => service.group === planGroup);
   <ContactForm />
 </BaseLayout>
 
+<script>
+  // Los enlaces a #servicios, #proyectos o #todos-los-servicios abren el catálogo plegado.
+  const openCatalog = () => {
+    const catalog = document.getElementById("todos-los-servicios") as HTMLDetailsElement | null;
+    const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
+    if (catalog && target && catalog.contains(target)) {
+      catalog.open = true;
+      target.scrollIntoView();
+    }
+  };
+  openCatalog();
+  window.addEventListener("hashchange", openCatalog);
+  document.querySelectorAll<HTMLAnchorElement>("a[href=\"#todos-los-servicios\"]").forEach((link) => link.addEventListener("click", () => ((document.getElementById("todos-los-servicios") as HTMLDetailsElement).open = true)));
+</script>
+
 <style>
+  .hero-founder {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 12px;
+    font-size: 1.05rem;
+  }
+
+  .hero-founder img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--line);
+  }
+
+  .all-services > summary {
+    cursor: pointer;
+    list-style: none;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px var(--page-gutter, 20px);
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .all-services > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .all-services > summary::after {
+    content: " ▾";
+  }
+
+  .all-services[open] > summary::after {
+    content: " ▴";
+  }
+
   .portfolio-teaser {
     display: grid;
     grid-template-columns: minmax(0, 420px) 1fr;

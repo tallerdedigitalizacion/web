@@ -1,5 +1,7 @@
 # Mapa de ofertas con nombres de comprador
 
+> **Octubre de 2026:** los nombres ganadores, las frases del Planificador, la campaña de prueba y las negativas están en `docs/busqueda-y-nombres.md`; el plan de venta, en `docs/plan-primer-cliente.md`. Los nombres de este mapa son los anteriores.
+
 > **Actualización:** los precios, plazos e inclusiones de este mapa ya están definidos (estimados, a corregir) en `src/data/offers.ts` y se muestran en la web. Las columnas FALTA de abajo son el estado anterior.
 
 Objetivo: que cada servicio tenga una versión que se pueda **buscar y comprar como un objeto** (resultado + precio + plazo), y que "a medida" sea el nivel superior, no el titular.
