@@ -16,34 +16,34 @@
 
 ## Servicios
 
-Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanencias largas) y proyectos con presupuesto cerrado.
+Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanencias largas) y soluciones con precio y plazo. Los precios son "desde", sin IVA; el precio cerrado se da tras una primera revisión.
 
-- [Informática gestionada](https://tallerdedigitalizacion.com/mantenimiento-informatico-toledo/): Mantenimiento de equipos, copias comprobadas, seguridad, cuentas y soporte en remoto.
-- [Web gestionada](https://tallerdedigitalizacion.com/mantenimiento-wordpress/): Hosting, actualizaciones, copias, seguridad, velocidad y pequeños cambios cada mes.
-- [Operaciones e IA](https://tallerdedigitalizacion.com/plan-operaciones-ia/): Automatizaciones, integraciones y agentes de IA mantenidos y mejorados cada mes.
-- [Soporte informático](https://tallerdedigitalizacion.com/informatico-empresas-toledo/): Incidencias puntuales de ordenadores, correo, red e impresoras, en remoto o presencial.
-- [Ciberseguridad y NIS2](https://tallerdedigitalizacion.com/ciberseguridad-empresas-toledo/): Auditoría, copias, protección de equipos, RGPD y adaptación a NIS2.
-- [Google Workspace y correo](https://tallerdedigitalizacion.com/google-workspace-empresas-toledo/): Correo con dominio propio, Drive compartido, permisos y migraciones.
-- [Reestructuración de Google Drive](https://tallerdedigitalizacion.com/reestructuracion-google-drive/): Una estructura de carpetas y permisos clara para encontrar cualquier documento en segundos.
-- [Gestión de contraseñas](https://tallerdedigitalizacion.com/gestor-contrasenas-empresas/): Salir del Excel y del WhatsApp: gestor de contraseñas y doble factor.
-- [Diseño web que genera clientes](https://tallerdedigitalizacion.com/diseno-web-toledo/): Webs rápidas, pensadas para captar contactos y fáciles de mantener.
-- [Optimización de velocidad web](https://tallerdedigitalizacion.com/optimizacion-velocidad-web/): Acelerar la web sin rehacerla, verificado con Core Web Vitals.
-- [Informe gratuito de tu web](https://tallerdedigitalizacion.com/informe-gratuito-web/): Autoauditoría gratuita de velocidad, SEO básico, seguridad y captación de contactos.
-- [Funnel web para un producto](https://tallerdedigitalizacion.com/funnel-web/): Página de venta, captación y seguimiento automático para un producto o servicio.
-- [Diagnóstico de caos operativo](https://tallerdedigitalizacion.com/diagnostico-caos-operativo/): Auditoría de procesos para PyMEs que dependen demasiado del dueño.
-- [Caos operativo en telecomunicaciones](https://tallerdedigitalizacion.com/caos-operativo-telecomunicaciones/): Para operadores, ISPs e instaladores de hasta 50 personas: diseñar la operación como una cadena.
-- [Diagnóstico de digitalización](https://tallerdedigitalizacion.com/diagnostico-digitalizacion/): Auditoría técnica y funcional de procesos con informe priorizado y plan de acción.
-- [Consultoría de digitalización](https://tallerdedigitalizacion.com/consultor-digitalizacion-toledo/): Qué cambiar, en qué orden y con qué herramientas.
-- [ERP y software de gestión](https://tallerdedigitalizacion.com/consultoria-erp-pymes/): Entender, ordenar o elegir el ERP sin volver a equivocarse.
-- [Integración de sistemas](https://tallerdedigitalizacion.com/integracion-sistemas/): Conectar CRM, ERP, facturación y correo para eliminar tareas manuales.
-- [Herramientas internas a medida](https://tallerdedigitalizacion.com/herramientas-internas-medida/): Paneles, portales y automatizaciones hechos para cómo trabaja tu equipo.
-- [Captación y seguimiento de leads](https://tallerdedigitalizacion.com/gestion-leads-crm/): Que ningún contacto se quede sin respuesta: CRM y automatizaciones.
-- [Agente de IA para atención al cliente](https://tallerdedigitalizacion.com/agente-ia-atencion-cliente/): Respuestas rápidas a dudas frecuentes, con traspaso a una persona.
-- [Asistente de IA con el conocimiento de la empresa](https://tallerdedigitalizacion.com/asistente-ia-empresa/): Que el equipo consulte procedimientos sin preguntar siempre al dueño.
-- [Conciliación de proveedores](https://tallerdedigitalizacion.com/casos/conciliacion-proveedores/): Cruzar lo que te facturan los proveedores con lo que tienes en tu sistema, desde 490 €.
-- [Rescate de datos y consulta con IA](https://tallerdedigitalizacion.com/casos/dar-de-baja-software-historico/): Dar de baja el programa que solo pagas por el histórico y consultarlo con IA, desde 900 €.
-- [Consulta de cobertura por IA](https://tallerdedigitalizacion.com/casos/consulta-cobertura-ia/): Preguntar a la IA si una dirección tiene cobertura, desde 1.200 €.
-- [Entrada de facturas automática](https://tallerdedigitalizacion.com/casos/entrada-facturas-automatica/): Que las facturas entren solas en tu programa y una persona las valide, desde 2.500 €.
+- [Mantenimiento informático para empresas](https://tallerdedigitalizacion.com/mantenimiento-informatico-toledo/): Mantenimiento de equipos, copias comprobadas, seguridad, cuentas y soporte en remoto. Desde 39 €/mes + IVA.
+- [Mantenimiento web y WordPress](https://tallerdedigitalizacion.com/mantenimiento-wordpress/): Hosting, actualizaciones, copias, seguridad, velocidad y pequeños cambios cada mes. Desde 39 €/mes + IVA.
+- [Plan de automatización e IA](https://tallerdedigitalizacion.com/plan-operaciones-ia/): Automatizaciones, integraciones y agentes de IA mantenidos y mejorados cada mes. Desde 39 €/mes + IVA.
+- [Soporte informático para empresas](https://tallerdedigitalizacion.com/informatico-empresas-toledo/): Ordenadores, correo, red e impresoras que fallan: lo arreglo en remoto o voy a tu oficina. Desde 50 €/hora + IVA, plazo: Mismo día en remoto.
+- [Copias de seguridad automáticas](https://tallerdedigitalizacion.com/copias-seguridad-empresas/): Tus datos copiados fuera de la oficina y con una restauración probada de verdad. Desde 290 € + IVA, plazo: 3 a 5 días laborables.
+- [Gestor de contraseñas para tu equipo](https://tallerdedigitalizacion.com/gestor-contrasenas-empresas/): Salir del Excel y del WhatsApp: contraseñas compartidas con seguridad y doble factor. Desde 250 € + IVA, plazo: 2 a 3 días laborables.
+- [Revisión de seguridad, RGPD y NIS2](https://tallerdedigitalizacion.com/ciberseguridad-empresas-toledo/): Informe de qué le falta a tu empresa en seguridad y qué exigen el RGPD y la NIS2. Desde 590 € + IVA, plazo: 7 a 10 días laborables.
+- [Google Workspace y correo con tu dominio](https://tallerdedigitalizacion.com/google-workspace-empresas-toledo/): Correo profesional, Drive compartido y permisos por persona, configurados y migrados. Desde 300 € + IVA, plazo: 3 a 5 días laborables.
+- [Ordenar tu Google Drive](https://tallerdedigitalizacion.com/reestructuracion-google-drive/): Una estructura de carpetas y permisos clara para encontrar cualquier documento en segundos. Desde 450 € + IVA, plazo: 5 a 8 días laborables.
+- [Creación de páginas web](https://tallerdedigitalizacion.com/diseno-web-toledo/): Tu web de empresa publicada, rápida, adaptada a móvil y preparada para recibir contactos. Desde 790 € + IVA, plazo: 2 a 3 semanas.
+- [Acelerar una web lenta](https://tallerdedigitalizacion.com/optimizacion-velocidad-web/): Mi web va lenta: la acelero sin rehacerla y te doy las cifras de antes y después. Análisis gratuito. Desde 250 € + IVA, plazo: 3 a 5 días laborables.
+- [Landing page para vender](https://tallerdedigitalizacion.com/funnel-web/): Una página de venta con formulario y seguimiento automático para un producto o servicio. Desde 490 € + IVA, plazo: 7 a 10 días laborables.
+- [Sistema de captación y seguimiento de leads](https://tallerdedigitalizacion.com/gestion-leads-crm/): Todos los contactos de web, WhatsApp y correo en un solo sitio, y ninguno sin respuesta. Desde 690 € + IVA, plazo: 7 a 10 días laborables.
+- [Agente de IA para atención al cliente](https://tallerdedigitalizacion.com/agente-ia-atencion-cliente/): Responde las dudas frecuentes de tus clientes en tu web o WhatsApp y pasa a una persona lo difícil. Desde 890 € + IVA, plazo: 2 a 3 semanas.
+- [Oráculo interno con IA](https://tallerdedigitalizacion.com/asistente-ia-empresa/): Un chat que responde con los documentos de tu empresa, para que el equipo no pregunte siempre al dueño. Desde 990 € + IVA, plazo: 2 a 3 semanas.
+- [Automatizar la entrada de facturas](https://tallerdedigitalizacion.com/casos/entrada-facturas-automatica/): Las facturas entran solas en tu programa y una persona las valida. De una semana de revisión a una mañana. Desde 2.500 € + IVA, plazo: 3 a 4 semanas.
+- [Revisar las facturas de tus proveedores](https://tallerdedigitalizacion.com/casos/conciliacion-proveedores/): Cruzo lo que te facturan con lo que tienes dado de alta para encontrar lo que pagas sin tener. 490 € + IVA (precio cerrado), plazo: 5 días laborables.
+- [Dar de baja un programa antiguo y consultar su histórico](https://tallerdedigitalizacion.com/casos/dar-de-baja-software-historico/): Rescato los datos del programa que solo pagas por el histórico y los consultas con IA, sin licencia. Desde 900 € + IVA, plazo: 2 a 3 semanas.
+- [Consulta de cobertura con IA](https://tallerdedigitalizacion.com/casos/consulta-cobertura-ia/): Pregunta a la IA si una dirección tiene cobertura y a qué distancia está la más cercana. Desde 1.200 € + IVA, plazo: 2 a 3 semanas.
+- [Diagnóstico de caos operativo](https://tallerdedigitalizacion.com/diagnostico-caos-operativo/): Auditoría de procesos para PyMEs que dependen demasiado del dueño. 1.000 € + IVA (precio cerrado), plazo: 2 a 3 semanas.
+- [Caos operativo en telecomunicaciones](https://tallerdedigitalizacion.com/caos-operativo-telecomunicaciones/): Para operadores, ISPs e instaladores de hasta 50 personas: diseñar la operación como una cadena. 1.000 € + IVA (precio cerrado), plazo: 2 a 3 semanas.
+- [Auditoría de procesos con plan de acción](https://tallerdedigitalizacion.com/diagnostico-digitalizacion/): Revisión de tus procesos y programas con un informe priorizado de qué cambiar y en qué orden. Desde 690 € + IVA, plazo: 1 a 2 semanas.
+- [Asesoramiento de digitalización](https://tallerdedigitalizacion.com/consultor-digitalizacion-toledo/): Sesiones para decidir qué cambiar, en qué orden y con qué herramientas. Desde 90 €/hora + IVA, plazo: Sesión en 1 semana.
+- [Revisar, ordenar o elegir tu ERP](https://tallerdedigitalizacion.com/consultoria-erp-pymes/): Entiende el ERP que ya tienes o elige uno sin volver a equivocarte. Desde 490 € + IVA, plazo: 5 a 7 días laborables.
+- [Conectar tus programas entre sí](https://tallerdedigitalizacion.com/integracion-sistemas/): CRM, ERP, facturación y correo intercambian datos solos, sin copiar y pegar. Desde 590 € + IVA, plazo: 1 a 2 semanas.
+- [Aplicación a medida para tu equipo](https://tallerdedigitalizacion.com/herramientas-internas-medida/): Paneles, portales y automatizaciones hechos para cómo trabaja tu equipo. Desde 2.500 € + IVA, plazo: 3 a 6 semanas.
 - [Informático en Fuensalida y Torrijos para empresas y autónomos](https://tallerdedigitalizacion.com/informatico-fuensalida-torrijos/): Informático en Fuensalida para empresas y autónomos de Torrijos, Novés, Portillo, Camarena, Méntrida y alrededores. Soporte cercano, en remoto o presencial.
 - [Informático para empresas en Illescas y La Sagra](https://tallerdedigitalizacion.com/informatico-illescas-la-sagra/): Informático para empresas y naves de Illescas, Yuncos, Seseña, Esquivias, Ugena y toda La Sagra: soporte, redes, mantenimiento y ciberseguridad, en remoto o presencial.
 - [Informático para empresas en Navalcarnero, Móstoles y el sur de Madrid](https://tallerdedigitalizacion.com/informatico-navalcarnero-mostoles/): Soporte informático, mantenimiento y ciberseguridad para PyMEs de Navalcarnero, Móstoles, Fuenlabrada, Alcorcón, Arroyomolinos y el sur de Madrid. Remoto y presencial.
@@ -55,19 +55,18 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 - [Managed IT](https://tallerdedigitalizacion.com/managed-it-support/): Equipment maintenance, verified backups, security, accounts and remote support.
 - [Managed website](https://tallerdedigitalizacion.com/managed-website/): Hosting, updates, backups, security, speed and small changes every month.
 - [Operations & AI](https://tallerdedigitalizacion.com/operations-ai-plan/): Automations, integrations and AI agents maintained and improved every month.
-- [Google Workspace reorganization](https://tallerdedigitalizacion.com/google-workspace-reorganization/): Users, licenses, groups and permissions organized so each person only accesses what they need.
-- [Google Drive restructuring](https://tallerdedigitalizacion.com/corporate-google-drive-restructuring/): A clear folder and permission structure to find any document in seconds.
-- [Password management](https://tallerdedigitalizacion.com/centralized-access-management/): Move off spreadsheets and chat apps: a password manager and onboarding/offboarding procedures.
-- [Website speed optimization](https://tallerdedigitalizacion.com/website-speed-optimization/): Speed up your site without rebuilding it, verified with Core Web Vitals.
-- [Free website report](https://tallerdedigitalizacion.com/free-website-report/): A free self-audit of speed, basic SEO, security and lead capture.
-- [Conversion landing pages](https://tallerdedigitalizacion.com/conversion-landing-pages/): Pages focused on a single goal to turn campaign traffic into contacts.
-- [Digitalization assessment](https://tallerdedigitalizacion.com/digitalization-assessment/): A technical and functional audit of your processes, with a prioritized report and action plan.
-- [AI process automation](https://tallerdedigitalizacion.com/ai-process-automation/): Automate repetitive processes with AI: invoice entry, supplier reconciliation and data lookups, with a person confirming what matters.
-- [Systems integration](https://tallerdedigitalizacion.com/systems-integration/): Connect your CRM, ERP, invoicing and email to eliminate manual tasks.
-- [Custom internal tools](https://tallerdedigitalizacion.com/custom-internal-tools/): Dashboards, portals and automations built for how your team works.
-- [Lead centralization](https://tallerdedigitalizacion.com/lead-centralization/): No contact left unanswered: all your prospects in one place, tracked in your CRM.
-- [AI agent for customer support](https://tallerdedigitalizacion.com/external-oracle/): Fast answers to common questions, with a handoff to a person.
-- [AI assistant with company knowledge](https://tallerdedigitalizacion.com/internal-oracle/): Let the team look up procedures without always asking the owner.
+- [Google Workspace setup and cleanup](https://tallerdedigitalizacion.com/google-workspace-reorganization/): Business email, users, groups and permissions set up so each person only accesses what they need.
+- [Organize your Google Drive](https://tallerdedigitalizacion.com/corporate-google-drive-restructuring/): A clear folder and permission structure to find any document in seconds.
+- [Password manager for your team](https://tallerdedigitalizacion.com/centralized-access-management/): Move off spreadsheets and chat apps: a password manager, two-factor and onboarding/offboarding procedures.
+- [Speed up a slow website](https://tallerdedigitalizacion.com/website-speed-optimization/): My website is slow: I speed it up without rebuilding it and show you the before and after. Free website report included.
+- [Landing page to sell your product](https://tallerdedigitalizacion.com/conversion-landing-pages/): A page focused on a single goal, with tracking, to turn campaign traffic into contacts.
+- [Process audit with an action plan](https://tallerdedigitalizacion.com/digitalization-assessment/): A review of your processes and tools, with a prioritized report of what to change and in which order.
+- [Automate repetitive tasks with AI](https://tallerdedigitalizacion.com/ai-process-automation/): Invoice entry, supplier checks and data lookups handled by AI, with a person confirming what matters.
+- [Connect your software tools](https://tallerdedigitalizacion.com/systems-integration/): CRM, ERP, invoicing and email exchange data on their own, with no copy and paste.
+- [Custom app for your team](https://tallerdedigitalizacion.com/custom-internal-tools/): Dashboards, portals and automations built for how your team works.
+- [Lead capture and follow-up system](https://tallerdedigitalizacion.com/lead-centralization/): All your prospects from web, WhatsApp and email in one place, and none left unanswered.
+- [AI agent for customer support](https://tallerdedigitalizacion.com/external-oracle/): Fast answers to common questions on your website or WhatsApp, with a handoff to a person.
+- [Internal AI oracle](https://tallerdedigitalizacion.com/internal-oracle/): A chat that answers with your company documents, so the team stops asking the owner.
 
 ## Zona de servicio presencial (municipios a menos de 50 km de Fuensalida)
 
