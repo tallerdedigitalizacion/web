@@ -3,7 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import TrustBar from "@/components/TrustBar.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import { siteConfig } from "@/config/site";
-import { reviews } from "@/data/reviews";
+import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import { planGroupEn, projectGroupsEn, serviceCatalogEn } from "@/data/servicesEn";
 import { billarArrabal } from "@/data/portfolio";
 import { withBase } from "@/utils/paths";
@@ -28,7 +28,6 @@ const faqs: [string, string][] = [
 ];
 
 const plans = serviceCatalogEn.filter((service) => service.group === planGroupEn);
-const featuredReviews = reviews.slice(0, 3);
 const scoreboard = billarArrabal.images.scoreboard;
 ---
 
@@ -136,15 +135,7 @@ const scoreboard = billarArrabal.images.scoreboard;
       <h2>What clients say.</h2>
       <p>Real reviews from <a href={siteConfig.googleBusinessUrl} target="_blank" rel="noreferrer">our Google profile</a>, translated from Spanish.</p>
     </div>
-    <div class="steps">
-      {featuredReviews.map((review) => (
-        <article>
-          <strong>{review.name}</strong>
-          <span class="microcopy">Google review · {review.rating}/5</span>
-          <p>{review.textEn}</p>
-        </article>
-      ))}
-    </div>
+    <ReviewsCarousel lang="en" />
   </section>
 
   <section id="faq" class="section">

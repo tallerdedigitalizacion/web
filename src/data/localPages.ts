@@ -23,10 +23,10 @@ export type LocalPage = {
   formService?: string;
   // Planes mensuales: precio de entrada en €/mes sin IVA (se muestra en la cabecera y en el schema).
   priceFrom?: number;
-  // Bloques opcionales: una idea central explicada en varios párrafos y una reseña real destacada.
+  // Bloques opcionales: una idea central explicada en varios párrafos y las reseñas de Google en carrusel.
   insightTitle?: string;
   insight?: string[];
-  testimonial?: { text: string; author: string; source: string };
+  showReviews?: boolean;
 };
 
 export const localPages: LocalPage[] = [

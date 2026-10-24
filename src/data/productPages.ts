@@ -53,11 +53,7 @@ export const productPages: LocalPage[] = [
       ["Diseño y hoja de ruta", "La estructura objetivo y los cambios por fases, con prioridades claras."],
       ["Implantación y seguimiento", "Acompañamiento mensual para que los cambios se queden y la estructura no se vuelva a descuidar."],
     ],
-    testimonial: {
-      text: "Atención excelente y trato muy humano. Se nota la experiencia y las ganas de ayudar de verdad. Resolvieron el problema con rapidez y me explicaron todo de forma sencilla. Totalmente recomendables.",
-      author: "Nimbus Telecom S.L.",
-      source: "Reseña de Google",
-    },
+    showReviews: true,
     faq: [
       ["¿Para qué empresas es?", "Para operadores pequeños, proveedores de internet locales, instaladores de telecomunicaciones y distribuidores de hasta 50 personas, que funcionan pero sienten que todo pesa demasiado."],
       ["¿Por qué no empezar arreglando lo más urgente?", "Porque arreglar un punto sin mirar la cadena suele mover el problema a otro sitio. Primero se entiende la estructura; después, cada arreglo concreto (contraseñas, correo, tickets, copias) encaja y se mantiene."],

@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import TrustBar from "@/components/TrustBar.astro";
 import CaseStory from "@/components/CaseStory.astro";
 import ContactForm from "@/components/ContactForm.astro";
+import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import { localPages, type LocalPage } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
 import { plansEn } from "@/data/plansEn";
@@ -174,12 +175,9 @@ const navItems = t.nav;
     </div>
   </section>
 
-  {page.testimonial && (
+  {page.showReviews && (
     <section class="section">
-      <blockquote class="testimonial">
-        <p>“{page.testimonial.text}”</p>
-        <footer><strong>{page.testimonial.author}</strong> · <a href={siteConfig.googleBusinessUrl} target="_blank" rel="noreferrer">{page.testimonial.source}</a></footer>
-      </blockquote>
+      <ReviewsCarousel lang={lang} />
     </section>
   )}
 

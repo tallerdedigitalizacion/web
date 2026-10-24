@@ -4,7 +4,7 @@ import TrustBar from "@/components/TrustBar.astro";
 import CaseStory from "@/components/CaseStory.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import { siteConfig } from "@/config/site";
-import { reviews } from "@/data/reviews";
+import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import { planGroup, projectGroups, serviceCatalog } from "@/data/services";
 import { billarArrabal } from "@/data/portfolio";
 import { withBase } from "@/utils/paths";
@@ -29,7 +29,6 @@ const faqs: [string, string][] = [
 ];
 
 const plans = serviceCatalog.filter((service) => service.group === planGroup);
-const featuredReviews = reviews.slice(0, 3);
 ---
 
 <BaseLayout
@@ -159,15 +158,7 @@ const featuredReviews = reviews.slice(0, 3);
       <h2>Lo que dicen los clientes.</h2>
       <p>Reseñas reales de <a href={siteConfig.googleBusinessUrl} target="_blank" rel="noreferrer">nuestra ficha de Google</a>.</p>
     </div>
-    <div class="steps">
-      {featuredReviews.map((review) => (
-        <article>
-          <strong>{review.name}</strong>
-          <span class="microcopy">{review.source} · {review.rating}/5</span>
-          <p>{review.text}</p>
-        </article>
-      ))}
-    </div>
+    <ReviewsCarousel lang="es" />
   </section>
 
   <section id="faq" class="section">

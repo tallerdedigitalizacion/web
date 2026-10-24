@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import CaseStory from "@/components/CaseStory.astro";
 import SelfAssessment from "@/components/SelfAssessment.astro";
 import { siteConfig } from "@/config/site";
 import { revealRows, faqItems } from "@/data/content";
-import { reviews } from "@/data/reviews";
 
 const impactItems = [
   ["Desacoplar al CEO de la operativa", "Reducir la dependencia diaria del dueño para que no todo tenga que pasar por su cabeza."],
@@ -285,24 +285,7 @@ const navItems = [
 
   <section class="section">
     <div class="section-head"><span class="eyebrow">Que dicen nuestros clientes</span><h2>Reseñas</h2><p>Reseñas reales de <a href="https://maps.app.goo.gl/iJYaupqoL8usLB6X7" target="_blank" rel="noreferrer">Google My Business</a>, ordenadas priorizando las que mejor reflejan claridad, honestidad, resolución y confianza.</p></div>
-    <div class="reviews-carousel" data-reviews-carousel aria-label="Reseñas de Google My Business">
-      <div class="reviews-track" data-reviews-track>
-        {reviews.map((review, index) => (
-          <article class="review-card" data-review-card aria-label={`Reseña ${index + 1} de ${reviews.length}`}>
-            <div class="review-meta">
-              <strong>{review.name}</strong>
-              <span>{review.source} · {review.rating}/5 · {review.date}</span>
-            </div>
-            <p>{review.text}</p>
-          </article>
-        ))}
-      </div>
-      <div class="carousel-controls">
-        <button class="btn btn-secondary btn-small" type="button" data-review-prev aria-label="Ver reseña anterior">Anterior</button>
-        <div class="carousel-dots" data-review-dots aria-label="Indicador de reseñas"></div>
-        <button class="btn btn-secondary btn-small" type="button" data-review-next aria-label="Ver reseña siguiente">Siguiente</button>
-      </div>
-    </div>
+    <ReviewsCarousel lang="es" />
   </section>
 
   <CaseStory path={"/diagnostico-caos-operativo/"} />
@@ -342,68 +325,6 @@ const navItems = [
       card.setAttribute("data-state", "front");
     });
   });
-
-  const carousel = document.querySelector("[data-reviews-carousel]");
-  const track = document.querySelector("[data-reviews-track]");
-  const cards = [...document.querySelectorAll("[data-review-card]")];
-  const prev = document.querySelector("[data-review-prev]");
-  const next = document.querySelector("[data-review-next]");
-  const dots = document.querySelector("[data-review-dots]");
-  let activeReview = 0;
-  let reviewTimer;
-
-  function renderDots() {
-    if (!(dots instanceof HTMLElement)) return;
-    dots.innerHTML = cards
-      .map((_, index) => `<button type="button" aria-label="Ver reseña ${index + 1}" data-review-dot="${index}"></button>`)
-      .join("");
-  }
-
-  function showReview(index) {
-    if (!(track instanceof HTMLElement) || cards.length === 0) return;
-    activeReview = (index + cards.length) % cards.length;
-    const card = cards[activeReview];
-    track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: "smooth" });
-    dots?.querySelectorAll("[data-review-dot]").forEach((dot) => {
-      dot.toggleAttribute("aria-current", dot.getAttribute("data-review-dot") === String(activeReview));
-    });
-  }
-
-  function startReviewAutoplay() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    stopReviewAutoplay();
-    reviewTimer = window.setInterval(() => showReview(activeReview + 1), 5200);
-  }
-
-  function stopReviewAutoplay() {
-    if (reviewTimer) window.clearInterval(reviewTimer);
-  }
-
-  if (carousel && track && cards.length) {
-    renderDots();
-    showReview(0);
-    startReviewAutoplay();
-
-    prev?.addEventListener("click", () => {
-      showReview(activeReview - 1);
-      startReviewAutoplay();
-    });
-    next?.addEventListener("click", () => {
-      showReview(activeReview + 1);
-      startReviewAutoplay();
-    });
-    dots?.addEventListener("click", (event) => {
-      const dot = event.target instanceof Element ? event.target.closest("[data-review-dot]") : null;
-      if (dot instanceof HTMLElement) {
-        showReview(Number(dot.dataset.reviewDot));
-        startReviewAutoplay();
-      }
-    });
-    carousel.addEventListener("mouseenter", stopReviewAutoplay);
-    carousel.addEventListener("mouseleave", startReviewAutoplay);
-    carousel.addEventListener("focusin", stopReviewAutoplay);
-    carousel.addEventListener("focusout", startReviewAutoplay);
-  }
 
   document.querySelectorAll(".faq-list details").forEach((item) => {
     item.addEventListener("click", (event) => {
