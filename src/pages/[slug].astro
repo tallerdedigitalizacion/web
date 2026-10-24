@@ -5,6 +5,7 @@ import TrustBar from "@/components/TrustBar.astro";
 import CaseStory from "@/components/CaseStory.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
+import ServiceIcon from "@/components/ServiceIcon.astro";
 import { localPages, type LocalPage } from "@/data/localPages";
 import { productPages } from "@/data/productPages";
 import { plansEn } from "@/data/plansEn";
@@ -139,8 +140,9 @@ const navItems = t.nav;
       <h2>{page.servicesTitle}</h2>
     </div>
     <div class="steps">
-      {page.services.map(([name, text]) => (
+      {page.services.map(([name, text, icon]) => (
         <article>
+          {icon && <ServiceIcon name={icon} />}
           <h3>{name}</h3>
           <p>{text}</p>
         </article>

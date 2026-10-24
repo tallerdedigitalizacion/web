@@ -983,6 +983,17 @@ input, select, textarea {
   align-content: start;
 }
 
+.service-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  background: rgba(78, 229, 141, 0.14);
+  color: var(--accent);
+}
+
 .steps article > .step-number {
   display: grid;
   place-items: center;

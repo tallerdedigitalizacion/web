@@ -1,3 +1,8 @@
+import type { ServiceIconName } from "@/data/serviceIcons";
+
+// Caja de "qué incluye": nombre, texto y, opcionalmente, el icono que se pinta encima.
+export type ServiceItem = [name: string, text: string, icon?: ServiceIconName];
+
 export type LocalPage = {
   slug: string;
   // Idioma de la página; por defecto, español.
@@ -12,7 +17,7 @@ export type LocalPage = {
   problemsTitle: string;
   problems: string[];
   servicesTitle: string;
-  services: [string, string][];
+  services: ServiceItem[];
   zoneTitle: string;
   zoneText: string[];
   approachTitle: string;
@@ -105,14 +110,14 @@ export const localPages: LocalPage[] = [
     ],
     servicesTitle: "Qué incluye el plan",
     services: [
-      ["Revisión periódica", "Estado de discos, actualizaciones del sistema, antivirus y rendimiento de cada equipo."],
-      ["Copias de seguridad comprobadas", "No basta con tener copia: se comprueba que se puede restaurar."],
-      ["Inventario de equipos y accesos", "Qué equipos hay, quién usa qué, qué licencias pagáis y quién tiene acceso a cada cosa."],
-      ["Altas y bajas de personal", "Ordenador preparado, correo y permisos listos el primer día, y accesos retirados el último."],
-      ["Red y seguridad", "Router, wifi para invitados separada, contraseñas cambiadas, antivirus gestionado y dispositivos actualizados."],
-      ["Google Workspace y contraseñas", "Cuentas de correo, permisos de Drive y gestor de contraseñas administrados, con doble factor activado."],
-      ["Soporte incluido", "Las incidencias del día a día se atienden en remoto y con prioridad dentro del plan."],
-      ["NIS2 como añadido", "Si tu empresa o tus clientes lo exigen: revisiones periódicas, formación contra el phishing y documentación de cumplimiento al día."],
+      ["Revisión periódica", "Estado de discos, actualizaciones del sistema, antivirus y rendimiento de cada equipo.", "pulse"],
+      ["Copias de seguridad comprobadas", "No basta con tener copia: se comprueba que se puede restaurar.", "backup"],
+      ["Inventario de equipos y accesos", "Qué equipos hay, quién usa qué, qué licencias pagáis y quién tiene acceso a cada cosa.", "clipboard"],
+      ["Altas y bajas de personal", "Ordenador preparado, correo y permisos listos el primer día, y accesos retirados el último.", "users"],
+      ["Red y seguridad", "Router, wifi para invitados separada, contraseñas cambiadas, antivirus gestionado y dispositivos actualizados.", "shield"],
+      ["Google Workspace y contraseñas", "Cuentas de correo, permisos de Drive y gestor de contraseñas administrados, con doble factor activado.", "key"],
+      ["Soporte incluido", "Las incidencias del día a día se atienden en remoto y con prioridad dentro del plan.", "headset"],
+      ["NIS2 como añadido", "Si tu empresa o tus clientes lo exigen: revisiones periódicas, formación contra el phishing y documentación de cumplimiento al día.", "filecheck"],
     ],
     zoneTitle: "Mantenimiento presencial y en remoto",
     zoneText: [
