@@ -5,10 +5,13 @@ import { withBase } from "@/utils/paths";
 
 const { lang = "es" } = Astro.props;
 const isEnglish = lang === "en";
+const hasPixel = Boolean(siteConfig.metaPixelId);
 const t = isEnglish
   ? {
       title: "Cookies",
-      text: "We use necessary cookies to keep the site working. Analytics and the help chat only load if you allow them.",
+      text: hasPixel
+        ? "We use necessary cookies to keep the site working. Analytics, the help chat and ad measurement only load if you allow them."
+        : "We use necessary cookies to keep the site working. Analytics and the help chat only load if you allow them.",
       policy: "Cookie policy",
       necessary: "Necessary.",
       necessaryText: "Required for the site to work. Always active.",
@@ -16,6 +19,8 @@ const t = isEnglish
       analyticsText: "Anonymous visit statistics to improve the site.",
       chat: "Help chat (Chatbase).",
       chatText: "Automated assistant provided by a third party.",
+      marketing: "Marketing (Meta Pixel).",
+      marketingText: "Measures the results of our ads on Facebook and Instagram.",
       reject: "Reject",
       configure: "Configure",
       save: "Save choice",
@@ -23,7 +28,9 @@ const t = isEnglish
     }
   : {
       title: "Cookies",
-      text: "Usamos cookies necesarias para que la web funcione. Las analíticas y el chat de ayuda solo se cargan si los permites.",
+      text: hasPixel
+        ? "Usamos cookies necesarias para que la web funcione. Las analíticas, el chat de ayuda y la medición de anuncios solo se cargan si los permites."
+        : "Usamos cookies necesarias para que la web funcione. Las analíticas y el chat de ayuda solo se cargan si los permites.",
       policy: "Política de cookies",
       necessary: "Necesarias.",
       necessaryText: "Imprescindibles para que la web funcione. Siempre activas.",
@@ -31,6 +38,8 @@ const t = isEnglish
       analyticsText: "Estadísticas anónimas de visitas para mejorar la web.",
       chat: "Chat de ayuda (Chatbase).",
       chatText: "Asistente automático prestado por un tercero.",
+      marketing: "Marketing (Meta Pixel).",
+      marketingText: "Mide los resultados de nuestros anuncios en Facebook e Instagram.",
       reject: "Rechazar",
       configure: "Configurar",
       save: "Guardar selección",
@@ -47,6 +56,7 @@ const t = isEnglish
     <label class="cookie-option"><input type="checkbox" checked disabled /> <span><strong>{t.necessary}</strong> {t.necessaryText}</span></label>
     <label class="cookie-option"><input type="checkbox" name="analytics" /> <span><strong>{t.analytics}</strong> {t.analyticsText}</span></label>
     <label class="cookie-option"><input type="checkbox" name="chat" /> <span><strong>{t.chat}</strong> {t.chatText}</span></label>
+    {hasPixel && <label class="cookie-option"><input type="checkbox" name="marketing" /> <span><strong>{t.marketing}</strong> {t.marketingText}</span></label>}
   </form>
   <div class="cookie-actions">
     <button class="btn btn-small btn-secondary" type="button" data-cookie-choice="reject">{t.reject}</button>
@@ -56,9 +66,10 @@ const t = isEnglish
   </div>
 </div>
 
-<script define:vars={{ gaId: siteConfig.googleAnalyticsId, bookingUrls: [siteConfig.bookingUrl, siteConfig.bookingUrlEn] }}>
+<script define:vars={{ gaId: siteConfig.googleAnalyticsId, pixelId: siteConfig.metaPixelId, bookingUrls: [siteConfig.bookingUrl, siteConfig.bookingUrlEn] }}>
   const consentKey = "td_cookie_consent";
-  const consentVersion = 2;
+  // Con el Meta Pixel activo hay una categoría nueva: se sube la versión para volver a pedir el consentimiento una vez.
+  const consentVersion = pixelId ? 3 : 2;
   // La AEPD recomienda no conservar el consentimiento más de 24 meses; lo pedimos de nuevo a los 12.
   const consentMaxAgeMs = 365 * 24 * 60 * 60 * 1000;
   const banner = document.querySelector("[data-cookie-banner]");
@@ -66,6 +77,15 @@ const t = isEnglish
   const eventAliases = {
     click_reservar_llamada: "reservar_click",
     click_telefono: "telefono_click",
+  };
+
+  // Eventos propios que se envían a Meta con su nombre estándar (solo si hay consentimiento de marketing).
+  const metaEvents = {
+    reservar_click: "Schedule",
+    generate_lead: "Lead",
+    whatsapp_click: "Contact",
+    telefono_click: "Contact",
+    email_click: "Contact",
   };
 
   function normalizeEventName(name) {
@@ -100,6 +120,9 @@ const t = isEnglish
     window.dataLayer = window.dataLayer || [];
     if (typeof window.gtag === "function") {
       window.gtag("event", eventName, params);
+    }
+    if (typeof window.fbq === "function" && metaEvents[eventName]) {
+      window.fbq("track", metaEvents[eventName]);
     }
   }
 
@@ -218,6 +241,24 @@ const t = isEnglish
     window.gtag("config", gaId, { anonymize_ip: true });
   }
 
+  function loadMetaPixel() {
+    if (!pixelId || window.fbq) return;
+    const fbq = (window.fbq = function () {
+      fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
+    });
+    if (!window._fbq) window._fbq = fbq;
+    fbq.push = fbq;
+    fbq.loaded = true;
+    fbq.version = "2.0";
+    fbq.queue = [];
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://connect.facebook.net/en_US/fbevents.js";
+    document.head.appendChild(script);
+    fbq("init", pixelId);
+    fbq("track", "PageView");
+  }
+
   function readConsent() {
     try {
       const raw = localStorage.getItem(consentKey);
@@ -233,8 +274,8 @@ const t = isEnglish
     }
   }
 
-  function saveConsent(analytics, chat) {
-    const consent = { analytics, chat, date: Date.now(), version: consentVersion };
+  function saveConsent(analytics, chat, marketing) {
+    const consent = { analytics, chat, marketing, date: Date.now(), version: consentVersion };
     try {
       localStorage.setItem(consentKey, JSON.stringify(consent));
     } catch {
@@ -257,6 +298,19 @@ const t = isEnglish
     });
   }
 
+  function disableMarketing() {
+    // Borra las cookies de Meta (_fbp, _fbc) del dominio actual y del dominio raíz.
+    const domain = window.location.hostname.replace(/^www\./, "");
+    document.cookie.split(";").forEach((cookie) => {
+      const name = cookie.split("=")[0].trim();
+      if (name === "_fbp" || name === "_fbc") {
+        ["", `; domain=${domain}`, `; domain=.${domain}`].forEach((scope) => {
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${scope}`;
+        });
+      }
+    });
+  }
+
   function applyConsent(consent, previous) {
     window.tdConsent = consent;
     captureAttribution();
@@ -267,9 +321,14 @@ const t = isEnglish
     } else {
       disableAnalytics();
     }
+    if (consent.marketing) {
+      loadMetaPixel();
+    } else if (pixelId) {
+      disableMarketing();
+    }
     window.dispatchEvent(new CustomEvent("td:consent", { detail: consent }));
     // Retirar un consentimiento ya dado exige recargar para descargar los scripts de terceros.
-    if (previous && ((previous.analytics && !consent.analytics) || (previous.chat && !consent.chat))) {
+    if (previous && ((previous.analytics && !consent.analytics) || (previous.chat && !consent.chat) || (previous.marketing && !consent.marketing))) {
       window.location.reload();
     }
   }
@@ -278,6 +337,8 @@ const t = isEnglish
     if (!(settingsForm instanceof HTMLFormElement)) return;
     settingsForm.elements.namedItem("analytics").checked = Boolean(consent?.analytics);
     settingsForm.elements.namedItem("chat").checked = Boolean(consent?.chat);
+    const marketingInput = settingsForm.elements.namedItem("marketing");
+    if (marketingInput) marketingInput.checked = Boolean(consent?.marketing);
   }
 
   function openBanner(showSettings) {
@@ -311,17 +372,20 @@ const t = isEnglish
       const previous = readConsent();
       let analytics = false;
       let chat = false;
+      let marketing = false;
       if (choice === "all") {
         analytics = true;
         chat = true;
+        marketing = Boolean(pixelId);
       } else if (choice === "save" && settingsForm instanceof HTMLFormElement) {
         analytics = settingsForm.elements.namedItem("analytics").checked;
         chat = settingsForm.elements.namedItem("chat").checked;
+        marketing = Boolean(settingsForm.elements.namedItem("marketing")?.checked);
       }
-      const consent = saveConsent(analytics, chat);
+      const consent = saveConsent(analytics, chat, marketing);
       if (banner instanceof HTMLElement) banner.hidden = true;
       applyConsent(consent, previous);
-      trackEvent(analytics ? "aceptacion_cookies" : "rechazo_cookies", { choice, analytics, chat });
+      trackEvent(analytics ? "aceptacion_cookies" : "rechazo_cookies", { choice, analytics, chat, marketing });
     });
   });
 

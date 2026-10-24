@@ -92,6 +92,8 @@ export const siteConfig = {
   tiktokUrl: "https://www.tiktok.com/@tallerdedigitalizacion",
   facebookUrl: "https://www.facebook.com/tallerddigitalizacion",
   googleAnalyticsId: "G-4GY58K423T",
+  // ID del Meta Pixel (Events Manager). Vacío = el píxel no se carga y el banner no pide consentimiento de marketing.
+  metaPixelId: "",
   chatbaseId: "V8ryUqCVZxb4N8Hnym06s",
   ogImage: "/og-image.jpg",
   logo: "/logo.png",

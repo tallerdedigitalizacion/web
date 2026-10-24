@@ -1,5 +1,8 @@
 ---
 import LegalPage from "@/components/LegalPage.astro";
+import { siteConfig } from "@/config/site";
+
+const hasPixel = Boolean(siteConfig.metaPixelId);
 ---
 
 <LegalPage title="Política de cookies" description="Política de cookies de Taller de Digitalización.">
@@ -43,13 +46,23 @@ import LegalPage from "@/components/LegalPage.astro";
     <p>Este sitio web puede utilizar Google Analytics 4 para analizar el uso de la web y mejorar sus contenidos, navegación, rendimiento y llamadas a la acción.</p>
     <p>La información recogida puede incluir datos técnicos como dirección IP, navegador, dispositivo, páginas visitadas, eventos de interacción, fecha, hora y origen de la visita.</p>
 
-    <h3>3.3. Cookies de terceros</h3>
+    {hasPixel && (
+      <>
+        <h3>3.3. Cookies de marketing o publicidad</h3>
+        <p>Son cookies que permiten medir el resultado de los anuncios que Taller de Digitalización publique en Facebook e Instagram y mostrar anuncios a personas que ya han visitado la web.</p>
+        <p>Este sitio web puede utilizar el Meta Pixel, un servicio de Meta Platforms Ireland Limited. El píxel registra visitas a páginas y acciones como reservar una llamada, escribir por WhatsApp, llamar, enviar un email o completar un formulario, y las asocia al navegador mediante las cookies <code>_fbp</code> y <code>_fbc</code>.</p>
+        <p>El Meta Pixel solo se carga si el usuario acepta la categoría "Marketing" en el panel de cookies.</p>
+      </>
+    )}
+
+    <h3>{hasPixel ? "3.4." : "3.3."} Cookies de terceros</h3>
     <p>Este sitio web puede integrar o enlazar servicios de terceros que pueden instalar cookies o tecnologías similares cuando el usuario interactúa con ellos.</p>
     <p>Entre estos servicios pueden estar:</p>
     <ul>
       <li>Google Analytics, para analítica web.</li>
       <li>Cal.com, para la reserva de llamadas.</li>
       <li>Chatbase, para el chatbot o asistente automatizado.</li>
+      {hasPixel && <li>Meta Pixel (Facebook e Instagram), para medir anuncios.</li>}
       <li>WhatsApp, para facilitar el contacto directo.</li>
       <li>Servicios técnicos vinculados a formularios personalizados o backend propio.</li>
     </ul>
@@ -82,6 +95,14 @@ import LegalPage from "@/components/LegalPage.astro";
             <td>Medición anónima de visitas, eventos y comportamiento de navegación</td>
             <td>Hasta 2 años</td>
           </tr>
+          {hasPixel && (
+            <tr>
+              <td>Meta Pixel (<code>_fbp</code>, <code>_fbc</code>)</td>
+              <td>Marketing (requiere consentimiento)</td>
+              <td>Medición de anuncios y conversiones en Facebook e Instagram</td>
+              <td>Hasta 3 meses</td>
+            </tr>
+          )}
           <tr>
             <td>Chatbase</td>
             <td>Terceros (requiere consentimiento)</td>
@@ -136,8 +157,8 @@ import LegalPage from "@/components/LegalPage.astro";
     <h2>9. Consentimiento</h2>
     <p>Las cookies técnicas necesarias pueden utilizarse sin consentimiento previo, al ser necesarias para el funcionamiento básico del sitio web.</p>
     <p>Las cookies analíticas, publicitarias o de terceros que no sean estrictamente necesarias requieren, con carácter general, el consentimiento previo del usuario conforme a la normativa aplicable.</p>
-    <p>Al entrar por primera vez, la web muestra un banner que permite <strong>rechazar</strong>, <strong>configurar</strong> por categorías (analíticas y chat de ayuda) o <strong>aceptar todas</strong> las cookies no necesarias. Rechazar es tan sencillo como aceptar.</p>
-    <p>Google Analytics y Chatbase no se cargan hasta que el usuario da su consentimiento para la categoría correspondiente. La elección se conserva durante 12 meses; pasado ese plazo, se vuelve a preguntar.</p>
+    <p>Al entrar por primera vez, la web muestra un banner que permite <strong>rechazar</strong>, <strong>configurar</strong> por categorías ({hasPixel ? "analíticas, chat de ayuda y marketing" : "analíticas y chat de ayuda"}) o <strong>aceptar todas</strong> las cookies no necesarias. Rechazar es tan sencillo como aceptar.</p>
+    <p>{hasPixel ? "Google Analytics, Chatbase y el Meta Pixel" : "Google Analytics y Chatbase"} no se cargan hasta que el usuario da su consentimiento para la categoría correspondiente. La elección se conserva durante 12 meses; pasado ese plazo, se vuelve a preguntar.</p>
   </section>
 
   <section>
@@ -155,13 +176,13 @@ import LegalPage from "@/components/LegalPage.astro";
 
   <section>
     <h2>11. Retirada del consentimiento</h2>
-    <p>El usuario puede cambiar o retirar su consentimiento en cualquier momento desde el enlace <a href="#" data-cookie-settings-open>Configurar cookies</a>, disponible también al pie de todas las páginas, o modificando la configuración de su navegador. Al retirar el consentimiento de analítica se eliminan las cookies de Google Analytics de este dominio.</p>
+    <p>El usuario puede cambiar o retirar su consentimiento en cualquier momento desde el enlace <a href="#" data-cookie-settings-open>Configurar cookies</a>, disponible también al pie de todas las páginas, o modificando la configuración de su navegador. Al retirar el consentimiento de analítica se eliminan las cookies de Google Analytics de este dominio{hasPixel ? ", y al retirar el de marketing, las de Meta" : ""}.</p>
     <p>La retirada del consentimiento no afectará a la licitud del tratamiento realizado con anterioridad.</p>
   </section>
 
   <section>
     <h2>12. Transferencias internacionales</h2>
-    <p>El uso de servicios de terceros como Google Analytics, Cal.com, Chatbase o WhatsApp puede implicar transferencias internacionales de datos o tratamientos realizados fuera del Espacio Económico Europeo.</p>
+    <p>El uso de servicios de terceros como Google Analytics, Cal.com, Chatbase{hasPixel ? ", Meta" : ""} o WhatsApp puede implicar transferencias internacionales de datos o tratamientos realizados fuera del Espacio Económico Europeo.</p>
     <p>Dichos tratamientos se regirán por las garantías, condiciones y políticas de privacidad aplicables en cada proveedor.</p>
   </section>
 
