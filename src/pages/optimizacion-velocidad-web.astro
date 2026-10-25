@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
 import CaseStory from "@/components/CaseStory.astro";
+import PageVideo from "@/components/PageVideo.astro";
 import OfferBox from "@/components/OfferBox.astro";
 import { siteConfig } from "@/config/site";
 import { withBase } from "@/utils/paths";
@@ -110,6 +111,7 @@ const navItems = [
     </div>
   </section>
 
+  <PageVideo path={"/optimizacion-velocidad-web/"} />
   <CaseStory path={"/optimizacion-velocidad-web/"} />
 
   <LeadMagnetQuiz id="speed" lang="es" />

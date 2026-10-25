@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
 import LeadMagnetQuiz from "@/components/LeadMagnetQuiz.astro";
 import CaseStory from "@/components/CaseStory.astro";
+import PageVideo from "@/components/PageVideo.astro";
 import OfferBox from "@/components/OfferBox.astro";
 import { siteConfig } from "@/config/site";
 
@@ -127,6 +128,7 @@ const navItems = [
     <p>Un buen diagnóstico suele descubrir pequeñas mejoras que generan un impacto inmediato, y también sirve como base para proyectos posteriores de automatización, integración de sistemas o inteligencia artificial.</p>
   </section>
 
+  <PageVideo path={"/diagnostico-digitalizacion/"} />
   <CaseStory path={"/diagnostico-digitalizacion/"} />
 
   <LeadMagnetQuiz id="digital" lang="es" />

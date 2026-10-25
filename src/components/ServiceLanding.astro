@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import CaseStory from "@/components/CaseStory.astro";
+import PageVideo from "@/components/PageVideo.astro";
 import PortfolioStory from "@/components/PortfolioStory.astro";
 import { siteConfig } from "@/config/site";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
@@ -143,6 +144,7 @@ const bookingLabel = isEnglish ? "Book a free call" : "Reservar llamada gratuita
   <slot name="lead-magnet" />
   {quizId && <LeadMagnetQuiz id={quizId} lang={lang} />}
 
+  {!isEnglish && <PageVideo path={slug} />}
   {!isEnglish && <CaseStory path={slug} />}
   {!isEnglish && <PortfolioStory path={slug} />}
 

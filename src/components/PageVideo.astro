@@ -1,0 +1,18 @@
+---
+// Vídeo del tema de la página (`topicByPath` en src/data/videos.ts). Si la página no tiene vídeo, no pinta nada.
+import VideoEmbed from "@/components/VideoEmbed.astro";
+import { topicVideoForPath } from "@/data/videos";
+
+const { path } = Astro.props as { path: string };
+const video = topicVideoForPath(path);
+---
+
+{video && (
+  <section id="video" class="section page-video">
+    <div class="section-head">
+      <span class="eyebrow">En vídeo</span>
+      <h2>{video.title}</h2>
+    </div>
+    <VideoEmbed videoId={video.id} title={`Vídeo: ${video.title}`} />
+  </section>
+)}

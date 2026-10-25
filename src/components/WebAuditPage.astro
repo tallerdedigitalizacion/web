@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import CaseStory from "@/components/CaseStory.astro";
+import PageVideo from "@/components/PageVideo.astro";
 import WebAuditAssessment from "@/components/WebAuditAssessment.astro";
 import { siteConfig } from "@/config/site";
 import { withBase } from "@/utils/paths";
@@ -114,6 +115,7 @@ const canonicalPath = isEnglish ? webAuditShared.englishPath : webAuditShared.sp
     </div>
   </section>
 
+  {!isEnglish && <PageVideo path={canonicalPath} />}
   {!isEnglish && <CaseStory path={canonicalPath} />}
 
   <section class="section section-split dark-band">
