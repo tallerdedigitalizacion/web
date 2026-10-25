@@ -8,6 +8,7 @@ import { projectGroupsEn, serviceCatalogEn } from "@/data/servicesEn";
 import { offerFor, priceLabel } from "@/data/offers";
 import { billarArrabal } from "@/data/portfolio";
 import { withBase } from "@/utils/paths";
+import { existsSync } from "node:fs";
 
 const title = "AI automation and systems integration for small businesses, fully remote | Taller de Digitalización";
 const description = "A senior software developer automates the repetitive work in your business: invoices, data copied between tools, CRM, chatbots and custom tools. Fixed prices in USD, fully remote. First call is free.";
@@ -30,6 +31,8 @@ const faqs: [string, string][] = [
 ];
 
 const scoreboard = billarArrabal.images.scoreboard;
+// La foto se muestra solo si el archivo existe en public/.
+const founderPhoto = ["jpg", "jpeg", "png", "webp"].map((ext) => `/pablo-leone.${ext}`).find((src) => existsSync(`public${src}`));
 const startHere = [
   { label: "Operations audit", href: "/digitalization-assessment/", text: "A review of your processes and tools, with a prioritized report of what to change and in which order." },
   { label: "Automation Sprint", href: "/ai-process-automation/", text: "One repetitive process automated end to end, for a fixed price, with a person confirming what matters." },
@@ -53,6 +56,7 @@ const startHere = [
     <div class="hero-content">
       <span class="eyebrow">Automation &amp; AI · Remote</span>
       <h1>Your team re-types the same data into three tools. I automate it for a fixed price.</h1>
+      <p class="hero-founder">{founderPhoto && <img src={withBase(founderPhoto)} alt="Pablo Leone, software developer" width="64" height="64" loading="eager" />}<span>I'm <strong>Pablo Leone</strong>, a software developer based in Spain.</span></p>
       <p class="hero-subtitle">A senior software developer with {siteConfig.experienceYears} years building and fixing business software. I automate invoices, data entry, follow-up and reporting for small businesses and agencies, fully remote. Fixed prices in USD, you own everything I build.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" data-event="reservar_click" data-preserve-utm href={siteConfig.bookingUrlEn} target="_blank" rel="noreferrer">Book a free call</a>
@@ -156,6 +160,22 @@ const startHere = [
 </BaseLayout>
 
 <style>
+  .hero-founder {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 12px;
+    font-size: 1.05rem;
+  }
+
+  .hero-founder img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--line);
+  }
+
   .portfolio-teaser {
     display: grid;
     grid-template-columns: minmax(0, 420px) 1fr;
