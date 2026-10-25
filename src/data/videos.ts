@@ -9,7 +9,7 @@
 export const videos: Record<string, string> = {
   // Casos reales
   "conciliacion-proveedores": "https://www.youtube.com/watch?v=0RZ21zqMD3o",
-  "dar-de-baja-software-historico": "",
+  "dar-de-baja-software-historico": "https://www.youtube.com/watch?v=rZhTE-mLBT0",
   "consulta-cobertura-ia": "https://www.youtube.com/watch?v=hQCEmBElN7c",
   "entrada-facturas-automatica": "https://www.youtube.com/watch?v=BHFEujLCyM4",
   // Portfolio

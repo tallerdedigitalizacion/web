@@ -348,7 +348,7 @@ export const entryOffer = (page: CasePage) => page.offers.reduce((lowest, offer)
 // Qué caso real se enseña en cada página de servicio (ruta -> slug del caso). El caso no tiene por qué ser el mismo tema
 // que la página: sirve para que una persona no técnica vea cómo se trabaja. Las páginas en inglés no lo llevan.
 const caseByPath: Record<string, string> = {
-  "/": "conciliacion-proveedores",
+  "/": "dar-de-baja-software-historico",
   // Páginas locales
   "/informatico-empresas-toledo/": "dar-de-baja-software-historico",
   "/mantenimiento-informatico-toledo/": "dar-de-baja-software-historico",
