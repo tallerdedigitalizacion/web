@@ -25,14 +25,16 @@ const columns: { group: string; links: { label: string; href: string }[] }[] = (
       <p>{isEnglish ? "Remote IT support and digitalization for small businesses." : "Soporte informático y digitalización para empresas en Toledo."}</p>
       {isEnglish && (
         <address>
-          <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+          <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a><br />
+          <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn (Pablo Leone)</a> · <a href={siteConfig.linkedinCompanyUrl} target="_blank" rel="noreferrer">LinkedIn ({siteConfig.name})</a>
         </address>
       )}
       {!isEnglish && (
         <address>
           {siteConfig.address.streetAddress}, {siteConfig.address.postalCode} {siteConfig.address.addressLocality} ({siteConfig.address.addressRegion})<br />
           <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a><br />
-          {siteConfig.openingHours.map((h) => h.label).join(" · ")}
+          {siteConfig.openingHours.map((h) => h.label).join(" · ")}<br />
+          <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn de Pablo Leone</a> · <a href={siteConfig.linkedinCompanyUrl} target="_blank" rel="noreferrer">LinkedIn de la empresa</a>
         </address>
       )}
     </div>

@@ -74,11 +74,15 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
     <h2>{title}</h2>
     <p>{intro}</p>
     {isEnglish ? (
-      <p class="microcopy"><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></p>
+      <p class="microcopy">
+        <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a><br />
+        <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn (Pablo Leone)</a> · <a href={siteConfig.linkedinCompanyUrl} target="_blank" rel="noreferrer">LinkedIn ({siteConfig.name})</a>
+      </p>
     ) : (
       <p class="microcopy">
         {siteConfig.openingHours.map((h) => h.label).join(" · ")}<br />
-        <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> · <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a data-event="whatsapp_click" href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp</a>
+        <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> · <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a> · <a data-event="whatsapp_click" href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp</a><br />
+        <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn de Pablo Leone</a> · <a href={siteConfig.linkedinCompanyUrl} target="_blank" rel="noreferrer">LinkedIn de la empresa</a>
       </p>
     )}
     <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={isEnglish ? siteConfig.bookingUrlEn : siteConfig.bookingUrl} target="_blank" rel="noreferrer">{t.book}</a>

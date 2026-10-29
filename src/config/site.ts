@@ -88,6 +88,7 @@ export const siteConfig = {
   googleReviewUrl: "https://www.google.com/maps/place/data=!4m3!3m2!1s0xd41db85f0548759:0x24b149c2763646b0!12e1",
   githubUrl: "https://github.com/tallerdedigitalizacion",
   linkedinUrl: "https://www.linkedin.com/in/pabloleone/",
+  linkedinCompanyUrl: "https://www.linkedin.com/company/taller-de-digitalizacion/",
   instagramUrl: "https://www.instagram.com/tallerdedigitalizacion/",
   youtubeUrl: "https://www.youtube.com/@taller-de-digitalizacion",
   tiktokUrl: "https://www.tiktok.com/@tallerdedigitalizacion",
