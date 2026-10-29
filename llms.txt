@@ -94,6 +94,7 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 
 ## Blog
 
+- [Cuadrar el gestor interno, la gestoría y el banco con IA](https://tallerdedigitalizacion.com/blog/cuadrar-gestor-gestoria-banco-con-ia/): Tres sistemas que deberían decir lo mismo y no lo dicen. Cómo una IA los cruzó en media hora y qué puede arreglar sola una PyME.
 - [Cómo aparecer en Google cuando buscan tu negocio en tu pueblo](https://tallerdedigitalizacion.com/blog/aparecer-en-google-negocio-local/): Ficha de Google, web, reseñas y directorios: lo que de verdad funciona para que un negocio local aparezca en Google y en los asistentes de IA.
 - [Copias de seguridad en una PyME: cómo saber si de verdad te salvarían](https://tallerdedigitalizacion.com/blog/copias-de-seguridad-pyme/): Tener copia no es lo mismo que poder recuperarte. La regla 3-2-1, los errores más habituales y una comprobación de 15 minutos para tu empresa.
 - [¿Cuánto cuesta un informático para una PyME? Soporte puntual o mantenimiento](https://tallerdedigitalizacion.com/blog/cuanto-cuesta-informatico-empresa/): Cómo se cobra el soporte informático para empresas, qué debería incluir un mantenimiento y cómo decidir qué modelo te conviene, sin letra pequeña.
