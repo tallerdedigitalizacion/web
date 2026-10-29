@@ -1,6 +1,6 @@
 # Taller de Digitalización
 
-> Soporte informático, ciberseguridad, webs y digitalización para empresas, autónomos y PyMEs. Base en Fuensalida (Toledo, España). Trabajo presencial en un radio de 50 km y en remoto con toda España. Lo dirige Pablo Leone, con 18 años de experiencia resolviendo problemas técnicos para empresas, cientos de clientes atendidos y certificado como desarrollador de software.
+> Soporte informático, ciberseguridad, webs y digitalización para empresas, autónomos y PyMEs. Base en Fuensalida (Toledo, España). Trabajo presencial en un radio de 50 km y en remoto con toda España. Lo dirige Pablo Leone, con más de 15 años de experiencia resolviendo problemas técnicos para empresas, cientos de clientes atendidos y certificado como desarrollador de software.
 
 ## Datos de contacto
 
@@ -8,7 +8,7 @@
 - Dirección: Calle Numancia, 4, 45510 Fuensalida, Toledo, España
 - Teléfono y WhatsApp: +34 632 99 01 33
 - Email: info@tallerdedigitalizacion.com
-- Horario: Lunes a viernes, 10:00–16:00; Sábados, 10:00–14:00
+- Horario: Lunes a viernes, 9:00–18:00
 - Reservar llamada gratuita (15 min): https://cal.com/taller-de-digitalizacion/llamada-gratuita-de-15-minutos
 - Soporte remoto: AnyDesk (https://tallerdedigitalizacion.com/soporte-remoto/)
 - Reseñas en Google: https://maps.app.goo.gl/iJYaupqoL8usLB6X7
@@ -37,7 +37,7 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 - [Auditoría de gastos de proveedores](https://tallerdedigitalizacion.com/casos/conciliacion-proveedores/): Cruzo lo que te facturan con lo que tienes dado de alta para encontrar lo que pagas sin tener. 490 € + IVA (precio cerrado), plazo: 5 días laborables.
 - [Migrar datos de un programa antiguo y cancelar la licencia](https://tallerdedigitalizacion.com/casos/dar-de-baja-software-historico/): Rescato los datos del programa que solo pagas por el histórico y los consultas con IA, sin licencia. Desde 900 € + IVA, plazo: 2 a 3 semanas.
 - [Consulta de cobertura con IA](https://tallerdedigitalizacion.com/casos/consulta-cobertura-ia/): Pregunta a la IA si una dirección tiene cobertura y a qué distancia está la más cercana. Desde 1.200 € + IVA, plazo: 2 a 3 semanas.
-- [Diagnóstico en tu empresa](https://tallerdedigitalizacion.com/diagnostico-en-tu-empresa/): Visita de unas 2 horas: veo cómo trabajáis y te dejo una lista priorizada de qué arreglar primero. Se descuenta si contratas un proyecto. 190 € + IVA (precio cerrado), plazo: Visita de unas 2 horas.
+- [Diagnóstico en tu empresa](https://tallerdedigitalizacion.com/diagnostico-en-tu-empresa/): Visita de unas 2 horas: veo cómo trabajáis y te dejo una lista priorizada de qué arreglar primero. Se descuenta si contratas un proyecto. 90 € + IVA (precio cerrado), plazo: Visita de unas 2 horas.
 - [Diagnóstico de caos operativo](https://tallerdedigitalizacion.com/diagnostico-caos-operativo/): Auditoría de procesos para PyMEs que dependen demasiado del dueño. 1.000 € + IVA (precio cerrado), plazo: 2 a 3 semanas.
 - [Caos operativo en telecomunicaciones](https://tallerdedigitalizacion.com/caos-operativo-telecomunicaciones/): Para operadores, ISPs e instaladores de hasta 50 personas: diseñar la operación como una cadena. 1.000 € + IVA (precio cerrado), plazo: 2 a 3 semanas.
 - [Consultoría de procesos para pymes](https://tallerdedigitalizacion.com/diagnostico-digitalizacion/): Revisión de tus procesos y programas con un informe priorizado de qué cambiar y en qué orden. Desde 690 € + IVA, plazo: 1 a 2 semanas.
