@@ -1,4 +1,4 @@
-// Proyectos del portfolio. De momento solo hay uno; la página /portfolio/ se construye con estos datos.
+// Proyectos del portfolio. La página /portfolio/ se construye con estos datos.
 export const billarArrabal = {
   name: "Marcador Billar El Arrabal",
   appUrl: "https://billararrabal.tallerdedigitalizacion.com/",
@@ -31,4 +31,11 @@ const portfolioByPath: Record<string, string> = {
 export const portfolioVideoKeyForPath = (path: string) => {
   const normalized = path === "/" ? "/" : `/${path.replace(/^\/+|\/+$/g, "")}/`;
   return portfolioByPath[normalized];
+};
+
+// Tarjeta de Nimbus Telecom en /portfolio/. Enlaza al caso de la consulta de cobertura; no tiene página propia.
+export const nimbusTelecom = {
+  title: "Nimbus Telecom: digitalización y automatización con IA",
+  text: "Desde febrero de 2026 trabajo con Nimbus Telecom, una empresa de telecomunicaciones: diagnóstico de procesos (soporte, herramientas internas, documentación) y herramientas con IA, como una consulta de cobertura en lenguaje normal y automatizaciones administrativas.",
+  href: "/casos/consulta-cobertura-ia/",
 };
