@@ -16,7 +16,7 @@ const entry = story ? entryOffer(story) : undefined;
     <div class="section-head">
       <span class="eyebrow">Caso real</span>
       <h2>Un caso real, explicado sin tecnicismos.</h2>
-      <p>Es un trabajo que ya hemos hecho para una empresa de verdad (no la nombramos). Puede que lo tuyo sea otra cosa, pero sirve para ver cómo trabajo: qué había, qué se hizo y qué cambió.</p>
+      <p>Es un trabajo que ya hemos hecho para una empresa de verdad{story.clientName ? `: ${story.clientName}.` : " (no la nombramos)."} Puede que lo tuyo sea otra cosa, pero sirve para ver cómo trabajo: qué había, qué se hizo y qué cambió.</p>
     </div>
     <div class="case-story-body">
       <h3>{story.h1}</h3>

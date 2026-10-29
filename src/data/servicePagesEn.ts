@@ -1,7 +1,7 @@
 import type { LocalPage } from "@/data/localPages";
 
 // Páginas de servicio en inglés que no son planes mensuales. Contenido y precios salen de los casos prácticos
-// publicados en español (casePages.ts); allí no se nombra a la empresa y aquí tampoco.
+// publicados en español (casePages.ts); aquí no se nombra a ninguna empresa.
 export const servicePagesEn: LocalPage[] = [
   {
     slug: "ai-process-automation",

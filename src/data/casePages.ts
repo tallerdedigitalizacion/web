@@ -1,6 +1,6 @@
 // Casos prácticos: trabajos concretos de automatización e IA ya hechos en empresas reales (sobre todo operadores
 // de telecomunicaciones pequeños), explicados con palabras simples y con precio "desde" para llevarlos a otra empresa.
-// No se nombran ni la empresa ni los proveedores ni los programas de terceros.
+// Nunca se nombran los proveedores ni los programas de terceros. La empresa solo se nombra si el caso tiene `clientName`.
 // Las páginas /casos/ y /casos/<slug>/ se construyen con estos datos.
 
 export type CaseOffer = {
@@ -13,6 +13,8 @@ export type CaseOffer = {
 
 export type CasePage = {
   slug: string;
+  // Empresa del caso, solo si se puede nombrar. Sin él, la página dice que no se nombra.
+  clientName?: string;
   title: string;
   description: string;
   eyebrow: string;
@@ -197,6 +199,7 @@ export const casePages: CasePage[] = [
   },
   {
     slug: "consulta-cobertura-ia",
+    clientName: "Nimbus Telecom",
     title: "Consulta de cobertura con IA: pregunta por una dirección y te dice si llega | Taller de Digitalización",
     description:
       "Un conector que permite preguntar a la IA si hay cobertura en una dirección y a qué distancia está la más cercana. Desde 1.200 € + IVA.",
