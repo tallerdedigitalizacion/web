@@ -195,7 +195,7 @@ export const offers: Record<string, Offer> = {
     ],
   },
   "/diagnostico-en-tu-empresa/": {
-    price: 190,
+    price: 90,
     fixed: true,
     deadline: "Visita de unas 2 horas",
     includes: [

@@ -91,11 +91,11 @@ export const localPages: LocalPage[] = [
   },
   {
     slug: "diagnostico-en-tu-empresa",
-    title: "Diagnóstico en tu empresa: visita de 2 horas por 190 €, descontable | Taller de Digitalización",
-    description: "Voy a tu empresa (o hacemos videollamada), reviso cómo trabajáis y te dejo una lista priorizada de qué arreglar primero. 190 € + IVA, descontables si después contratas un proyecto conmigo.",
-    eyebrow: "Diagnóstico en tu empresa · 190 €",
+    title: "Diagnóstico en tu empresa: visita de 2 horas por 90 €, descontable | Taller de Digitalización",
+    description: "Voy a tu empresa (o hacemos videollamada), reviso cómo trabajáis y te dejo una lista priorizada de qué arreglar primero. 90 € + IVA, descontables si después contratas un proyecto conmigo.",
+    eyebrow: "Diagnóstico en tu empresa · 90 €",
     h1: "¿No sabes por dónde empezar? Voy a tu empresa y lo vemos juntos.",
-    intro: "Muchas pymes saben que algo no va bien (facturas metidas a mano, programas que no se hablan entre sí, copias que nadie ha probado) pero no saben qué arreglar primero. En una visita de unas dos horas veo cómo trabajáis, hablo con quien usa cada herramienta y te dejo claro qué conviene arreglar, en qué orden y cuánto cuesta aproximadamente. Si después contratas un proyecto conmigo, los 190 € se descuentan.",
+    intro: "Muchas pymes saben que algo no va bien (facturas metidas a mano, programas que no se hablan entre sí, copias que nadie ha probado) pero no saben qué arreglar primero. En una visita de unas dos horas veo cómo trabajáis, hablo con quien usa cada herramienta y te dejo claro qué conviene arreglar, en qué orden y cuánto cuesta aproximadamente. Si después contratas un proyecto conmigo, los 90 € se descuentan.",
     schemaService: "Diagnóstico informático y de procesos en la empresa",
     areas: ["Toledo", "Torrijos", "Fuensalida", "Illescas", "Navalcarnero", "Móstoles"],
     problemsTitle: "Cuándo tiene sentido",
@@ -114,7 +114,7 @@ export const localPages: LocalPage[] = [
       ["Lista priorizada", "Qué arreglar primero, qué puede esperar y qué no merece la pena tocar."],
       ["Precios orientativos", "Una estimación de coste y plazo de cada mejora, para que puedas decidir con números."],
       ["Resumen por escrito", "Te lo mando por correo en lenguaje normal, para que lo puedas compartir con quien decida."],
-      ["Descontable", "Si después contratas un proyecto conmigo, los 190 € + IVA se restan del precio."],
+      ["Descontable", "Si después contratas un proyecto conmigo, los 90 € + IVA se restan del precio."],
     ],
     zoneTitle: "En tu empresa o por videollamada",
     zoneText: [
@@ -125,10 +125,10 @@ export const localPages: LocalPage[] = [
       ["Llamada de 15 minutos", "Me cuentas qué pasa y vemos si el diagnóstico te sirve. Si no veo cómo ayudarte, te lo digo."],
       ["Visita", "Dos horas contigo y con quien usa las herramientas."],
       ["Resumen", "Lista priorizada con precios orientativos por correo."],
-      ["Tú decides", "Puedes hacerlo por tu cuenta, contratarme un proyecto (descontando los 190 €) o dejarlo ahí."],
+      ["Tú decides", "Puedes hacerlo por tu cuenta, contratarme un proyecto (descontando los 90 €) o dejarlo ahí."],
     ],
     faq: [
-      ["¿Cuánto cuesta el diagnóstico?", "190 € + IVA, precio cerrado. Si después contratas un proyecto conmigo, ese importe se descuenta."],
+      ["¿Cuánto cuesta el diagnóstico?", "90 € + IVA, precio cerrado. Si después contratas un proyecto conmigo, ese importe se descuenta."],
       ["¿Cuánto dura?", "Unas dos horas de visita o videollamada, más el resumen por escrito."],
       ["¿Vienes a mi empresa?", "Sí, si está a menos de 50 km de Fuensalida. Fuera de esa zona lo hacemos por videollamada."],
       ["¿En qué se diferencia de la auditoría de procesos?", "Es la primera mirada, corta y barata, para decidir por dónde empezar. La auditoría de procesos (desde 690 €) y el diagnóstico de caos operativo (1.000 €) son trabajos más profundos, con informe completo y plan de acción."],
@@ -167,7 +167,7 @@ export const localPages: LocalPage[] = [
       ["Copias de seguridad probadas", "Copia automática de la facturación y los documentos importantes, con una restauración probada.", "backup"],
       ["Contraseñas y accesos", "Gestor de contraseñas y doble factor, para que no haya claves en un Excel ni en WhatsApp.", "key"],
       ["Soporte informático", "Incidencias en remoto o en la oficina del cliente, con presupuesto antes de tocar nada.", "monitor"],
-      ["Diagnóstico en la empresa", "Visita de unas 2 horas por 190 € para decidir por dónde empezar.", "calendar"],
+      ["Diagnóstico en la empresa", "Visita de unas 2 horas por 90 € para decidir por dónde empezar.", "calendar"],
     ],
     zoneTitle: "En tu zona",
     zoneText: [
@@ -177,7 +177,7 @@ export const localPages: LocalPage[] = [
     approachTitle: "Cómo trabajamos juntos",
     approach: [
       ["Presentas al cliente", "Le comentas que puedo ayudarle y me pasas su contacto, o él me escribe diciendo que viene de tu parte."],
-      ["Diagnóstico o llamada", "Veo su caso en una llamada de 15 minutos o con el diagnóstico de 190 €."],
+      ["Diagnóstico o llamada", "Veo su caso en una llamada de 15 minutos o con el diagnóstico de 90 €."],
       ["Propuesta cerrada", "El cliente recibe un presupuesto claro antes de empezar. El precio es el mismo con o sin comisión."],
       ["Te mantengo al tanto", "Si hay que cuadrar datos con tu gestoría, lo hago contigo."],
     ],
@@ -225,7 +225,7 @@ export const localPages: LocalPage[] = [
     zoneTitle: "Qué puedo hacer yo",
     zoneText: [
       "No soy la Cámara ni tramito la solicitud: eso lo haces tú (o tu gestoría) por la sede electrónica de la Cámara. Yo te ayudo con la parte técnica: decidir qué conviene implantar, con presupuesto, para llegar a la convocatoria con el proyecto claro.",
-      "Antes de contratar cualquier cosa, comprueba con la Cámara que es subvencionable en la convocatoria vigente. Si quieres, hacemos juntos un diagnóstico en tu empresa de 190 € y lo preparamos.",
+      "Antes de contratar cualquier cosa, comprueba con la Cámara que es subvencionable en la convocatoria vigente. Si quieres, hacemos juntos un diagnóstico en tu empresa de 90 € y lo preparamos.",
     ],
     approachTitle: "Cómo prepararte",
     approach: [
