@@ -13,7 +13,9 @@ export const siteConfig = {
   phoneDisplay: "632 99 01 33",
   whatsappNumber: "34632990133",
   founder: "Pablo Leone",
-  experienceYears: 18,
+  // Años de experiencia ya con la palabra "más de" (ES) o el "+" (EN): "Más de 15 años" / "15+ years".
+  experienceYears: "Más de 15",
+  experienceYearsEn: "15+",
   // Precio de entrada de los planes mensuales (sin IVA).
   planPriceFrom: 39,
   anydeskUrl: "https://anydesk.com/es/downloads",

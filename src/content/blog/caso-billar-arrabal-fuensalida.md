@@ -54,7 +54,7 @@ Y en el día a día:
 - **Donde antes había tres o cuatro herramientas y papel, ahora se abre una aplicación y está todo ahí.**
 - Y la mejor señal: **ahora me piden funciones nuevas** para meterlas en la aplicación. Cuando un equipo pasa de sufrir una herramienta a pedirle cosas, es que la herramienta ya forma parte de su día a día.
 
-Tener todo centralizado le da a Pedro una gestión mucho más sencilla. Y a mí me confirma algo que llevo viendo 18 años: la mayoría de los problemas no se arreglan añadiendo otra herramienta, sino juntando las que ya hay.
+Tener todo centralizado le da a Pedro una gestión mucho más sencilla. Y a mí me confirma algo que llevo viendo más de 15 años: la mayoría de los problemas no se arreglan añadiendo otra herramienta, sino juntando las que ya hay.
 
 ## La decisión más importante: decir que no a una parte
 

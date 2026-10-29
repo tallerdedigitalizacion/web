@@ -18,7 +18,7 @@ export const GET: APIRoute = async () => {
   const lines = [
     `# ${siteConfig.name}`,
     "",
-    `> Soporte informático, ciberseguridad, webs y digitalización para empresas, autónomos y PyMEs. Base en ${address.addressLocality} (${address.addressRegion}, España). Trabajo presencial en un radio de ${siteConfig.serviceRadiusKm} km y en remoto con toda España. Lo dirige ${siteConfig.founder}, con ${siteConfig.experienceYears} años de experiencia resolviendo problemas técnicos para empresas, cientos de clientes atendidos y certificado como desarrollador de software.`,
+    `> Soporte informático, ciberseguridad, webs y digitalización para empresas, autónomos y PyMEs. Base en ${address.addressLocality} (${address.addressRegion}, España). Trabajo presencial en un radio de ${siteConfig.serviceRadiusKm} km y en remoto con toda España. Lo dirige ${siteConfig.founder}, con ${siteConfig.experienceYears.toLowerCase()} años de experiencia resolviendo problemas técnicos para empresas, cientos de clientes atendidos y certificado como desarrollador de software.`,
     "",
     "## Datos de contacto",
     "",
