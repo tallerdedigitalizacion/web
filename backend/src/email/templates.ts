@@ -419,7 +419,7 @@ export function contactEmail(input: ContactLeadInput, bookingUrl: string) {
     text: [
       `Hola ${input.name},`,
       "",
-      `Gracias por escribir. He recibido tu consulta sobre "${input.service}" y te responderé lo antes posible en horario de lunes a viernes de 10:00 a 16:00.`,
+      `Gracias por escribir. He recibido tu consulta sobre "${input.service}" y te responderé lo antes posible en horario de lunes a viernes de 9:00 a 18:00.`,
       "",
       "Tu mensaje:",
       input.message,
@@ -430,7 +430,7 @@ export function contactEmail(input: ContactLeadInput, bookingUrl: string) {
     ].join("\n"),
     html: `
       <p>Hola ${escapeHtml(input.name)},</p>
-      <p>Gracias por escribir. He recibido tu consulta sobre <strong>${escapeHtml(input.service)}</strong> y te responderé lo antes posible en horario de lunes a viernes de 10:00 a 16:00.</p>
+      <p>Gracias por escribir. He recibido tu consulta sobre <strong>${escapeHtml(input.service)}</strong> y te responderé lo antes posible en horario de lunes a viernes de 9:00 a 18:00.</p>
       <p><strong>Tu mensaje:</strong></p>
       <blockquote>${escapeHtml(input.message).replace(/\n/g, "<br />")}</blockquote>
       <p>Si prefieres, puedes <a href="${bookingUrl}">reservar directamente una llamada gratuita de 15 minutos</a>.</p>

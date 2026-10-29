@@ -30,8 +30,7 @@ export const siteConfig = {
   geo: { latitude: 40.056756, longitude: -4.2000738 },
   // Debe coincidir con el horario de la ficha de Google Business Profile.
   openingHours: [
-    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "10:00", closes: "16:00", label: "Lunes a viernes, 10:00–16:00" },
-    { days: ["Saturday"], opens: "10:00", closes: "14:00", label: "Sábados, 10:00–14:00" },
+    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00", label: "Lunes a viernes, 9:00–18:00" },
   ],
   serviceRadiusKm: 50,
   // Municipios principales para datos estructurados (areaServed). La lista completa por comarcas está en serviceRegions.
