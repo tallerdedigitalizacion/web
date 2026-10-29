@@ -1,0 +1,72 @@
+---
+// Bloque "Quién está detrás" de la portada (español e inglés). Los CV son PDF que se suben a public/downloads/.
+import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
+import { existsSync } from "node:fs";
+
+const { lang = "es" } = Astro.props;
+const isEnglish = lang === "en";
+
+// La foto se muestra solo si el archivo existe en public/, para no dejar una imagen rota.
+const photo = ["jpg", "jpeg", "png", "webp"].map((ext) => `/pablo-leone.${ext}`).find((src) => existsSync(`public${src}`));
+
+const copy = isEnglish
+  ? {
+      eyebrow: "Who is behind this",
+      title: "A real person, not an agency.",
+      alt: "Pablo Leone, founder and CEO of Taller de Digitalización",
+      text: "I'm Pablo Leone, founder and CEO of Taller de Digitalización. I've been building software for 15+ years and have led development teams at companies in Spain, Ireland, Germany and Austria, in fintech, health and telecom. I started Taller de Digitalización to do for small businesses what I did there: look at how work really gets done, cut what isn't needed and automate what repeats. I live in Fuensalida. There's no team behind this: if you write to me, I answer.",
+    }
+  : {
+      eyebrow: "Quién está detrás",
+      title: "Una persona, no una agencia.",
+      alt: "Pablo Leone, CEO y fundador de Taller de Digitalización",
+      text: "Soy Pablo Leone, CEO y fundador de Taller de Digitalización. Llevo más de 15 años haciendo software y he dirigido equipos de desarrollo en empresas de España, Irlanda, Alemania y Austria: fintech, salud y telecomunicaciones. Monté Taller de Digitalización para hacer en las pymes lo que hacía en esas empresas: mirar cómo se trabaja de verdad, quitar lo que sobra y automatizar lo que se repite. Vivo en Fuensalida. No hay un equipo detrás: si me escribes, te contesto yo.",
+    };
+---
+
+<section id="quien-esta-detras" class="section about-founder">
+  <div class="about-founder-body">
+    {photo && <img src={withBase(photo)} alt={copy.alt} width="160" height="160" loading="lazy" />}
+    <div>
+      <span class="eyebrow">{copy.eyebrow}</span>
+      <h2>{copy.title}</h2>
+      <p>{copy.text}</p>
+      <div class="hero-actions">
+        <a class="btn btn-secondary btn-small" href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn btn-secondary btn-small" href={withBase("/downloads/pablo-leone-cv-es.pdf")} target="_blank" rel="noreferrer">CV en español</a>
+        <a class="btn btn-secondary btn-small" href={withBase("/downloads/pablo-leone-cv-en.pdf")} target="_blank" rel="noreferrer">CV in English</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-founder-body {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: clamp(20px, 4vw, 40px);
+    align-items: center;
+    max-width: 920px;
+  }
+
+  .about-founder-body img {
+    display: block;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--line);
+  }
+
+  .about-founder-body p {
+    margin: 0 0 18px;
+  }
+
+  @media (max-width: 720px) {
+    .about-founder-body {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
+  }
+</style>

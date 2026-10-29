@@ -5,6 +5,7 @@ import CaseStory from "@/components/CaseStory.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import { siteConfig } from "@/config/site";
 import ReviewsCarousel from "@/components/ReviewsCarousel.astro";
+import AboutFounder from "@/components/AboutFounder.astro";
 import { planGroup, projectGroups, serviceCatalog } from "@/data/services";
 import { billarArrabal } from "@/data/portfolio";
 import { withBase } from "@/utils/paths";
@@ -190,6 +191,8 @@ const startOffers = [
       ))}
     </div>
   </section>
+
+  <AboutFounder />
 
   <section class="section">
     <div class="section-head">
