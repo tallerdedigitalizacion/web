@@ -2,6 +2,7 @@
 title: "Cómo aparecer en Google cuando buscan tu negocio en tu pueblo"
 description: "Ficha de Google, web, reseñas y directorios: lo que de verdad funciona para que un negocio local aparezca en Google y en los asistentes de IA."
 pubDate: 2026-10-20
+categoria: pregunta
 relatedService: "/diseno-web-toledo/"
 ---
 

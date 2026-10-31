@@ -2,6 +2,7 @@
 title: "Cuadrar el gestor interno, la gestoría y el banco con IA"
 description: "Tres sistemas que deberían decir lo mismo y no lo dicen. Cómo una IA los cruzó en media hora y qué puede arreglar sola una PyME."
 pubDate: 2026-10-29
+categoria: caso
 relatedService: "/integracion-sistemas/"
 ---
 

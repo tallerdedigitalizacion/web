@@ -2,6 +2,7 @@
 title: "¿Te afecta la NIS2? Guía práctica para PyMEs de Toledo y el sur de Madrid"
 description: "Qué es la directiva NIS2, a qué empresas afecta directa o indirectamente y qué medidas conviene aplicar ya, explicado sin jerga para PyMEs."
 pubDate: 2026-09-26
+categoria: pregunta
 relatedService: "/ciberseguridad-empresas-toledo/"
 ---
 

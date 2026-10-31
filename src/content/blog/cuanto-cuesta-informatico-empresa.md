@@ -2,6 +2,7 @@
 title: "¿Cuánto cuesta un informático para una PyME? Soporte puntual o mantenimiento"
 description: "Cómo se cobra el soporte informático para empresas, qué debería incluir un mantenimiento y cómo decidir qué modelo te conviene, sin letra pequeña."
 pubDate: 2026-09-26
+categoria: pregunta
 relatedService: "/mantenimiento-informatico-toledo/"
 ---
 

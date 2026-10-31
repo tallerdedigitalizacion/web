@@ -1630,3 +1630,38 @@ textarea { resize: vertical; font: inherit; }
 
 .link-grid article .service-offer { color: var(--ink); font-size: 0.9rem; }
 .link-grid article .service-offer b { color: var(--accent); }
+
+.blog-category {
+  display: inline-block;
+  justify-self: start;
+  margin-bottom: 6px;
+  color: var(--accent-dark);
+  font-size: 0.82rem;
+  font-weight: 850;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.blog-category:hover { text-decoration: underline; }
+.legal-page.blog-post a.blog-category { color: var(--accent-dark); }
+
+.blog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.blog-filters a {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  padding: 8px 14px;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.blog-filters a:hover { border-color: var(--accent); }
+.blog-filters a[aria-current="page"] { border-color: var(--accent-dark); background: var(--accent-dark); color: #fff; }

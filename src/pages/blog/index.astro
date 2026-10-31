@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogCard from "@/components/BlogCard.astro";
+import BlogFilters from "@/components/BlogFilters.astro";
 import { getPublishedPosts } from "@/utils/blog";
 
 const posts = await getPublishedPosts();
-const dateFormat = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
 ---
 
 <BaseLayout
@@ -17,14 +18,9 @@ const dateFormat = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
       <h1>Informática y digitalización para PyMEs, sin jerga.</h1>
       <p>Respuestas a las preguntas que me hacen las empresas de Toledo, Torrijos, La Sagra y el sur de Madrid.</p>
     </div>
+    <BlogFilters />
     <div class="link-grid">
-      {posts.map((post) => (
-        <article>
-          <strong>{post.data.title}</strong>
-          <span>{dateFormat.format(post.data.pubDate)} · {post.data.description}</span>
-          <a class="btn btn-secondary btn-small" href={`/blog/${post.slug}/`}>Leer artículo</a>
-        </article>
-      ))}
+      {posts.map((post) => <BlogCard post={post} />)}
     </div>
   </section>
 </BaseLayout>
