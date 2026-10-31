@@ -1,0 +1,14 @@
+---
+import { getPublishedCategories, categoryPath } from "@/utils/blog";
+
+// Filtro por categoría con enlaces normales (sin JavaScript). Solo ofrece categorías con artículos publicados.
+const { current } = Astro.props as { current?: string };
+const categories = await getPublishedCategories();
+---
+
+<nav class="blog-filters" aria-label="Categorías del blog">
+  <a href="/blog/" aria-current={current ? undefined : "page"}>Todos</a>
+  {categories.map((category) => (
+    <a href={categoryPath(category.slug)} aria-current={current === category.slug ? "page" : undefined}>{category.label}</a>
+  ))}
+</nav>

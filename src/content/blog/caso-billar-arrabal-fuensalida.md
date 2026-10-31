@@ -2,6 +2,7 @@
 title: "Caso: la app del Billar El Arrabal de Fuensalida, rescatada y simplificada"
 description: "Una aplicación a medias que no grababa bien las partidas, rescatada y simplificada con IA para el Billar El Arrabal de Fuensalida. Qué se hizo y qué aprendí."
 pubDate: 2026-11-03
+categoria: caso
 relatedService: "/herramientas-internas-medida/"
 ---
 

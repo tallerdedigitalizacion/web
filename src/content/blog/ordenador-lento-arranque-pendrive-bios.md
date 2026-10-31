@@ -2,6 +2,7 @@
 title: "Ordenador lento al arrancar: el culpable era un pendrive USB, no el disco"
 description: "Tres ordenadores de oficina tardaban minutos en arrancar. Cambié RAM y disco, y el problema real era un pendrive USB. Qué probar antes de gastar dinero."
 pubDate: 2026-12-01
+categoria: pregunta
 relatedService: "/mantenimiento-informatico-toledo/"
 ---
 

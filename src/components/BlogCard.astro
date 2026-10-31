@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { categoryLabel, categoryPath } from "@/utils/blog";
+
+const { post } = Astro.props as { post: CollectionEntry<"blog"> };
+const dateFormat = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+---
+
+<article>
+  <a class="blog-category" href={categoryPath(post.data.categoria)}>{categoryLabel(post.data.categoria)}</a>
+  <strong>{post.data.title}</strong>
+  <span>{dateFormat.format(post.data.pubDate)} · {post.data.description}</span>
+  <a class="btn btn-secondary btn-small" href={`/blog/${post.slug}/`}>Leer artículo</a>
+</article>

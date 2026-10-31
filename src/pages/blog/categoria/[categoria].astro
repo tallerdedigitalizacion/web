@@ -1,0 +1,49 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogCard from "@/components/BlogCard.astro";
+import BlogFilters from "@/components/BlogFilters.astro";
+import { siteConfig } from "@/config/site";
+import { getPublishedCategories, getPublishedPosts } from "@/utils/blog";
+
+// Solo se generan las categorías con al menos un artículo ya publicado (misma regla de pubDate que el resto del blog).
+export async function getStaticPaths() {
+  const categories = await getPublishedCategories();
+  const posts = await getPublishedPosts();
+  return categories.map((category) => ({
+    params: { categoria: category.slug },
+    props: { category, posts: posts.filter((post) => post.data.categoria === category.slug) },
+  }));
+}
+
+const { category, posts } = Astro.props;
+const path = `/blog/categoria/${category.slug}/`;
+const extraSchema = [
+  {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: `${siteConfig.publicUrl}/` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${siteConfig.publicUrl}/blog/` },
+      { "@type": "ListItem", position: 3, name: category.label, item: new URL(path, siteConfig.publicUrl).toString() },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={`${category.label} | Blog de ${siteConfig.name}`}
+  description={category.description}
+  canonicalPath={path}
+  extraSchema={extraSchema}
+>
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Blog</span>
+      <h1>{category.label}</h1>
+      <p>{category.description}</p>
+    </div>
+    <BlogFilters current={category.slug} />
+    <div class="link-grid">
+      {posts.map((post) => <BlogCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -2,6 +2,7 @@
 title: "Cuadrar el trimestre con IA: primero que aprenda, luego que se pueda auditar"
 description: "Segunda fase del cruce contable en una empresa de telecomunicaciones: la IA aprende el proceso con el pasado y después lo pasamos a código que se pueda auditar."
 pubDate: 2027-01-26
+categoria: progreso
 relatedService: "/integracion-sistemas/"
 ---
 

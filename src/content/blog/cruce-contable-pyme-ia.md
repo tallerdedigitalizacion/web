@@ -2,6 +2,7 @@
 title: "Cuadrar las cuentas cada mes y no una vez al año: lo que hemos probado con IA"
 description: "Cruzar contabilidad, ERP y bancos era un trabajo de meses una vez al año. Te cuento cómo lo hemos probado con IA en una empresa real, qué funciona y qué no."
 pubDate: 2026-12-29
+categoria: progreso
 relatedService: "/diagnostico-digitalizacion/"
 ---
 
