@@ -28,7 +28,7 @@ El resultado: la administración ocupaba una jornada completa, o más, y hacía 
 
 **3. Los canales de comunicación, juntos.** Unificamos los canales de comunicación dentro del propio programa de gestión, para que lo que pasa con un cliente quede en un único sitio.
 
-**4. Web nueva con embudos por servicio.** Renovamos la web por completo y creamos un recorrido para cada servicio, conectado con el programa de gestión: la persona que pide información no se pierde en un correo. Es lo que en la web llamo [funnel web](/funnel-web/).
+**4. Web nueva con embudos por servicio.** Renovamos la web por completo y creamos un recorrido para cada servicio, conectado con el programa de gestión: la persona que pide información no se pierde en un correo. Es lo que en la web llamo [funnel web](/landing-page-campanas/).
 
 ![Portada de la web nueva de Nimbus Telecom](./caso-nimbus-telecom-administracion-ia-web.jpg)
 
