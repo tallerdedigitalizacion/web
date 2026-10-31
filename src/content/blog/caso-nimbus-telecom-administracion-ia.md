@@ -2,6 +2,7 @@
 title: "Caso: Nimbus Telecom, una oficina que se reorganiza con IA para volver a vender"
 description: "Contraseñas, Google Workspace, web, cobertura y asistentes de IA: cómo estamos reorganizando la administración de Nimbus Telecom para liberar tiempo y vender."
 pubDate: 2026-11-17
+categoria: caso
 relatedService: "/consultor-digitalizacion-toledo/"
 ---
 
