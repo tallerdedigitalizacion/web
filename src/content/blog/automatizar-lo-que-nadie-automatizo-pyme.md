@@ -2,6 +2,7 @@
 title: "La tarea de 4 horas al mes que nadie automatizó (y que ahora sí compensa)"
 description: "Las herramientas generales cubren lo que hacen todas las empresas. Lo tuyo se quedó a mano porque no salía a cuenta. Con IA, ahora sí."
 pubDate: 2026-12-15
+categoria: servicio
 relatedService: "/herramientas-internas-medida/"
 ---
 
