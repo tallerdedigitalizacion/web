@@ -1,9 +1,11 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { canonicalOverrides, normalizePath } from "./src/config/seoRoutes.mjs";
+import { noindexBlogPaths } from "./src/config/blogNoindex.mjs";
 
 const site = process.env.PUBLIC_SITE_URL || "https://tallerdedigitalizacion.com";
 const base = process.env.PUBLIC_BASE_PATH || "/";
+const noindexPaths = new Set(noindexBlogPaths());
 
 export default defineConfig({
   site,
@@ -25,7 +27,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes("/404") && !page.endsWith("/hub/") && !(normalizePath(new URL(page).pathname) in canonicalOverrides),
+      filter: (page) => !page.includes("/404") && !page.endsWith("/hub/") && !(normalizePath(new URL(page).pathname) in canonicalOverrides) && !noindexPaths.has(normalizePath(new URL(page).pathname)),
       serialize: (item) => ({ ...item, lastmod: new Date().toISOString() }),
     }),
   ],

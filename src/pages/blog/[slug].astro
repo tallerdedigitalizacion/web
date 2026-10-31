@@ -2,9 +2,10 @@
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContactForm from "@/components/ContactForm.astro";
+import BlogVideo from "@/components/BlogVideo.astro";
 import { siteConfig } from "@/config/site";
 import { serviceLabelFor } from "@/data/services";
-import { getPublishedPosts } from "@/utils/blog";
+import { categoryLabel, categoryPath, getPublishedPosts } from "@/utils/blog";
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
@@ -16,6 +17,8 @@ const { Content } = await post.render();
 const path = `/blog/${post.slug}/`;
 const url = new URL(path, siteConfig.publicUrl).toString();
 const dateFormat = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+const { categoria, videoYoutube, noindex } = post.data;
+const videoId = `${url}#video`;
 const extraSchema = [
   {
     "@type": "BlogPosting",
@@ -25,10 +28,25 @@ const extraSchema = [
     datePublished: post.data.pubDate.toISOString(),
     dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
     inLanguage: "es-ES",
+    articleSection: categoryLabel(categoria),
+    ...(videoYoutube && { video: { "@id": videoId } }),
     mainEntityOfPage: url,
     author: { "@id": `${siteConfig.publicUrl}/#founder` },
     publisher: { "@id": `${siteConfig.publicUrl}/#business` },
   },
+  ...(videoYoutube
+    ? [
+        {
+          "@type": "VideoObject",
+          "@id": videoId,
+          name: post.data.title,
+          description: post.data.description,
+          thumbnailUrl: `https://i.ytimg.com/vi/${videoYoutube}/hqdefault.jpg`,
+          uploadDate: post.data.pubDate.toISOString(),
+          embedUrl: `https://www.youtube-nocookie.com/embed/${videoYoutube}`,
+        },
+      ]
+    : []),
   {
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -40,11 +58,13 @@ const extraSchema = [
 ];
 ---
 
-<BaseLayout title={`${post.data.title} | ${siteConfig.name}`} description={post.data.description} canonicalPath={path} extraSchema={extraSchema}>
+<BaseLayout title={`${post.data.title} | ${siteConfig.name}`} description={post.data.description} canonicalPath={path} extraSchema={extraSchema} noindex={noindex}>
   <article class="legal-page blog-post">
     <a class="microcopy" href="/blog/">← Blog</a>
+    <a class="blog-category" href={categoryPath(categoria)}>{categoryLabel(categoria)}</a>
     <h1>{post.data.title}</h1>
     <p class="microcopy">Por {siteConfig.founder} · {dateFormat.format(post.data.pubDate)}</p>
+    {videoYoutube && <BlogVideo videoId={videoYoutube} title={post.data.title} />}
     <Content />
   </article>
   <ContactForm selectedService={post.data.relatedService ? serviceLabelFor(post.data.relatedService) : ""} title="¿Quieres que lo veamos para tu empresa?" />

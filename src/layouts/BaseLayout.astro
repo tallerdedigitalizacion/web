@@ -164,7 +164,7 @@ const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
     <meta name="description" content={description} />
     
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    {noindex && <meta name="robots" content="noindex,follow" />}
     {alternates.map(([hreflang, path]: [string, string]) => <link rel="alternate" hreflang={hreflang} href={pageUrl(path)} />)}
     
     <meta property="og:title" content={title} />

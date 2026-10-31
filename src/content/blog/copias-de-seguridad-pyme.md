@@ -2,6 +2,7 @@
 title: "Copias de seguridad en una PyME: cómo saber si de verdad te salvarían"
 description: "Tener copia no es lo mismo que poder recuperarte. La regla 3-2-1, los errores más habituales y una comprobación de 15 minutos para tu empresa."
 pubDate: 2026-10-06
+categoria: pregunta
 relatedService: "/mantenimiento-informatico-toledo/"
 ---
 
