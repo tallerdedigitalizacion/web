@@ -9,13 +9,18 @@ const optionalText = z
 
 // Origen de la visita (UTM o dominio que enlaza). Sin transformaciones: DynamoDB no acepta undefined dentro del objeto.
 const attributionText = z.string().trim().max(100).optional();
+// Los identificadores de clic de Google (gclid, gbraid, wbraid) pueden pasar de 100 caracteres: cortarlos los invalida
+// para importar conversiones sin conexión.
+const clickIdText = z.string().trim().max(255).optional();
 export const attributionSchema = z.object({
   source: attributionText,
   medium: attributionText,
   campaign: attributionText,
   content: attributionText,
   term: attributionText,
-  clickId: attributionText,
+  clickId: clickIdText,
+  // Qué parámetro trajo el identificador. Sin transformaciones ni .catch: DynamoDB no acepta undefined.
+  clickIdType: z.enum(["gclid", "gbraid", "wbraid"]).optional(),
   landing: attributionText,
 });
 
@@ -28,7 +33,8 @@ const baseLeadSchema = z.object({
   marketingAccepted: z.boolean().optional().default(false),
   website: z.string().trim().max(200).optional().default(""),
   startedAt: z.number().int().positive().optional(),
-  pageUrl: z.string().url().max(500).optional(),
+  // La URL completa lleva gclid y utm_*; con 500 caracteres un gclid largo podía hacer fallar el envío entero.
+  pageUrl: z.string().url().max(1000).optional(),
   userAgent: z.string().max(500).optional(),
   attribution: attributionSchema.optional(),
 });

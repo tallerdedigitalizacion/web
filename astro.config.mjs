@@ -27,7 +27,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes("/404") && !page.endsWith("/hub/") && !(normalizePath(new URL(page).pathname) in canonicalOverrides) && !noindexPaths.has(normalizePath(new URL(page).pathname)),
+      filter: (page) => !page.includes("/404") && !page.endsWith("/hub/") && !page.endsWith("/reserva-confirmada/") && !page.endsWith("/booking-confirmed/") && !(normalizePath(new URL(page).pathname) in canonicalOverrides) && !noindexPaths.has(normalizePath(new URL(page).pathname)),
       serialize: (item) => ({ ...item, lastmod: new Date().toISOString() }),
     }),
   ],

@@ -502,11 +502,38 @@ export function selfAssessmentEmail(input: SelfAssessmentLeadInput, bookingUrl: 
   };
 }
 
-function attributionLine(input: { attribution?: { source?: string; medium?: string; campaign?: string; content?: string; landing?: string } }) {
+type AttributionOrigin = {
+  source?: string;
+  medium?: string;
+  campaign?: string;
+  content?: string;
+  term?: string;
+  clickId?: string;
+  clickIdType?: string;
+  landing?: string;
+};
+type AttributionInput = { attribution?: AttributionOrigin; pageUrl?: string };
+
+function attributionLine(input: AttributionInput) {
   const origin = input.attribution;
   if (!origin) return "-";
   const parts = [origin.source, origin.medium, origin.campaign, origin.content].filter(Boolean).join(" / ");
   return `${parts || "-"}${origin.landing ? ` (entrada: ${origin.landing})` : ""}`;
+}
+
+// Todos los parámetros de atribución, uno por fila, para copiarlos tal cual a Google Ads o a una hoja.
+function attributionRows(input: AttributionInput): [string, string][] {
+  const origin = input.attribution;
+  return [
+    ["Fuente (utm_source)", origin?.source || "-"],
+    ["Medio (utm_medium)", origin?.medium || "-"],
+    ["Campaña (utm_campaign)", origin?.campaign || "-"],
+    ["Contenido (utm_content)", origin?.content || "-"],
+    ["Término (utm_term)", origin?.term || "-"],
+    [origin?.clickIdType ? `ID de clic (${origin.clickIdType})` : "ID de clic", origin?.clickId || "-"],
+    ["Landing", origin?.landing || "-"],
+    ["Página (pageUrl)", input.pageUrl || "-"],
+  ];
 }
 
 export function notificationEmail(
@@ -525,7 +552,8 @@ export function notificationEmail(
       `Cargo: ${input.role || "-"}`,
       `Marketing: ${input.marketingAccepted ? "sí" : "no"}`,
       `Origen: ${attributionLine(input)}`,
-      ...(contact ? [`Servicio: ${contact.service}`, `Teléfono: ${contact.phone || "-"}`, `Página: ${contact.pageUrl || "-"}`, "", contact.message] : []),
+      ...attributionRows(input).map(([label, value]) => `${label}: ${value}`),
+      ...(contact ? [`Servicio: ${contact.service}`, `Teléfono: ${contact.phone || "-"}`, "", contact.message] : []),
       extra,
     ].join("\n"),
     html: `
@@ -538,11 +566,13 @@ export function notificationEmail(
         <li><strong>Cargo:</strong> ${escapeHtml(input.role || "-")}</li>
         <li><strong>Marketing:</strong> ${input.marketingAccepted ? "sí" : "no"}</li>
         <li><strong>Origen:</strong> ${escapeHtml(attributionLine(input))}</li>
+        ${attributionRows(input)
+          .map(([label, value]) => `<li><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</li>`)
+          .join("\n        ")}
         ${
           contact
             ? `<li><strong>Servicio:</strong> ${escapeHtml(contact.service)}</li>
-        <li><strong>Teléfono:</strong> ${escapeHtml(contact.phone || "-")}</li>
-        <li><strong>Página:</strong> ${escapeHtml(contact.pageUrl || "-")}</li>`
+        <li><strong>Teléfono:</strong> ${escapeHtml(contact.phone || "-")}</li>`
             : ""
         }
       </ul>

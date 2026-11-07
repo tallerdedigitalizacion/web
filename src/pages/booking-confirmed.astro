@@ -1,0 +1,35 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
+
+// Destino de "Redirect on booking" del tipo de evento en inglés de Cal.com. Misma lógica que /reserva-confirmada.
+---
+
+<BaseLayout
+  title={`Booking confirmed | ${siteConfig.name}`}
+  description="Your call is booked."
+  canonicalPath="/booking-confirmed"
+  lang="en"
+  noindex
+  showChatbase={false}
+>
+  <script is:inline>
+    if (location.search) history.replaceState(null, "", location.pathname + location.hash);
+  </script>
+  <section class="section final-cta">
+    <span class="eyebrow">Booking</span>
+    <h1>Booking confirmed.</h1>
+    <p>Your free call is booked. Cal.com has sent you an email with the date, the time and a link to reschedule or cancel.</p>
+    <a class="btn btn-primary" href={withBase("/en/")}>Back to home</a>
+  </section>
+  <script>
+    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (navigation?.type !== "reload") {
+      (window as Window & { tdTrackEvent?: (name: string, params?: Record<string, unknown>) => void }).tdTrackEvent?.("reserva_completada", {
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+      });
+    }
+  </script>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
+
+// Destino de "Redirect on booking" del tipo de evento en español de Cal.com (ver docs/verificacion-medicion.md).
+// Dispara reserva_completada. En Cal.com hay que desmarcar "Forward parameters": si no, Cal añade el email del
+// asistente a la URL. Aun así, el primer script quita la query antes de que cargue GA4.
+---
+
+<BaseLayout
+  title={`Reserva confirmada | ${siteConfig.name}`}
+  description="Tu llamada está reservada."
+  canonicalPath="/reserva-confirmada"
+  noindex
+  showChatbase={false}
+>
+  <script is:inline>
+    // Debe ir antes de cualquier etiqueta de analítica: sin esto, GA4 recibiría la URL con datos personales.
+    if (location.search) history.replaceState(null, "", location.pathname + location.hash);
+  </script>
+  <section class="section final-cta">
+    <span class="eyebrow">Reserva</span>
+    <h1>Reserva confirmada.</h1>
+    <p>Tu llamada gratuita está reservada. Cal.com te ha enviado un email con la fecha, la hora y el enlace para cambiarla o cancelarla.</p>
+    <a class="btn btn-primary" href={withBase("/")}>Volver al inicio</a>
+  </section>
+  <script>
+    // Una recarga de la página no cuenta como una reserva nueva.
+    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (navigation?.type !== "reload") {
+      (window as Window & { tdTrackEvent?: (name: string, params?: Record<string, unknown>) => void }).tdTrackEvent?.("reserva_completada", {
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+      });
+    }
+  </script>
+</BaseLayout>

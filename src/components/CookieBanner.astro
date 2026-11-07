@@ -115,8 +115,18 @@ const t = isEnglish
     };
   }
 
+  // generate_lead es el evento canónico de conversión: exactamente uno por acción de lead. Si por un fallo
+  // (doble clic, doble escuchador) llegara dos veces seguidas con el mismo lead_type, la segunda se descarta.
+  const recentLeadEvents = {};
+
   function trackEvent(name, params = {}) {
     const eventName = normalizeEventName(name);
+    if (eventName === "generate_lead") {
+      const leadKey = String(params.lead_type || "");
+      const now = Date.now();
+      if (now - (recentLeadEvents[leadKey] || 0) < 3000) return;
+      recentLeadEvents[leadKey] = now;
+    }
     window.dataLayer = window.dataLayer || [];
     if (typeof window.gtag === "function") {
       window.gtag("event", eventName, params);
@@ -128,19 +138,26 @@ const t = isEnglish
 
   window.tdTrackEvent = trackEvent;
 
-  // Origen de la visita: UTM de la URL o, si no hay, el dominio que enlaza. Solo se recuerda entre páginas
-  // con consentimiento analítico; sin él, vale únicamente la página actual.
+  // Origen de la visita. Orden de prioridad: parámetros de la URL actual, luego el valor persistido (solo con
+  // consentimiento analítico) y, si no hay ninguno, el dominio que enlaza. Una visita sin parámetros nunca borra
+  // ni sustituye una atribución anterior; solo la sustituye una URL nueva con parámetros (último clic).
   const attributionKey = "td_attribution";
-  const attributionFields = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "gbraid", "wbraid"];
+  const clickIdFields = ["gclid", "gbraid", "wbraid"];
+  const attributionFields = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", ...clickIdFields];
 
-  function currentTouch() {
+  // Parámetros de atribución de la URL actual. Los identificadores de clic de Google pueden superar los 100
+  // caracteres y no se pueden cortar sin invalidarlos.
+  function urlTouch() {
     const params = new URLSearchParams(window.location.search);
     const touch = {};
     attributionFields.forEach((key) => {
       const value = params.get(key);
-      if (value) touch[key] = value.slice(0, 100);
+      if (value) touch[key] = value.slice(0, clickIdFields.includes(key) ? 255 : 100);
     });
-    if (Object.keys(touch).length > 0) return touch;
+    return touch;
+  }
+
+  function referrerTouch() {
     try {
       const referrer = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : "";
       if (referrer && referrer !== window.location.hostname.replace(/^www\./, "")) return { referrer };
@@ -158,15 +175,36 @@ const t = isEnglish
     }
   }
 
+  function sameParams(a, b) {
+    return attributionFields.every((key) => (a[key] || "") === (b[key] || ""));
+  }
+
+  // Origen vigente en esta página. Sin consentimiento analítico no se lee ni se guarda nada: vale la URL actual.
+  // Con parámetros en la URL manda la URL entera (nunca se mezclan campos de dos clics distintos).
   function activeTouch() {
-    return { ...(window.tdConsent?.analytics ? readStoredTouch() : {}), ...currentTouch() };
+    const fromUrl = urlTouch();
+    const stored = window.tdConsent?.analytics ? readStoredTouch() : {};
+    if (Object.keys(fromUrl).length > 0) {
+      const landing = stored.landing && sameParams(stored, fromUrl) ? stored.landing : window.location.pathname;
+      return { ...fromUrl, landing };
+    }
+    if (Object.keys(stored).length > 0) return stored;
+    return referrerTouch();
   }
 
   function captureAttribution() {
     if (!window.tdConsent?.analytics) return;
-    const touch = currentTouch();
-    // Un UTM nuevo sustituye al anterior; un simple referrer no pisa un origen ya guardado.
-    if (Object.keys(touch).length === 0 || (touch.referrer && Object.keys(readStoredTouch()).length > 0)) return;
+    const fromUrl = urlTouch();
+    const stored = readStoredTouch();
+    let touch;
+    if (Object.keys(fromUrl).length > 0) {
+      // Misma atribución que la guardada: se conserva tal cual (incluida la página de entrada).
+      if (Object.keys(stored).length > 0 && sameParams(stored, fromUrl)) return;
+      touch = fromUrl;
+    } else if (Object.keys(stored).length === 0) {
+      touch = referrerTouch();
+    }
+    if (!touch || Object.keys(touch).length === 0) return;
     try {
       sessionStorage.setItem(attributionKey, JSON.stringify({ ...touch, landing: window.location.pathname }));
     } catch {
@@ -174,17 +212,20 @@ const t = isEnglish
     }
   }
 
-  // Origen que se adjunta a los leads (undefined si no hay ninguno).
+  // Origen que se adjunta a los leads (undefined si no hay ninguno). Llega al backend en el campo `attribution`
+  // del JSON de cada formulario: es el equivalente de los "campos ocultos" y no depende del consentimiento.
   window.tdAttribution = function tdAttribution() {
     const touch = activeTouch();
     if (Object.keys(touch).length === 0) return undefined;
+    const clickIdType = clickIdFields.find((key) => touch[key]);
     return {
       source: touch.utm_source || touch.referrer,
       medium: touch.utm_medium,
       campaign: touch.utm_campaign,
       content: touch.utm_content,
       term: touch.utm_term,
-      clickId: touch.gclid || touch.gbraid || touch.wbraid,
+      clickId: clickIdType ? touch[clickIdType] : undefined,
+      clickIdType,
       landing: touch.landing || window.location.pathname,
     };
   };
@@ -198,7 +239,45 @@ const t = isEnglish
     }
   }
 
+  // Enlaces internos: arrastran los parámetros de atribución de la URL actual (solo la URL, sin guardar nada), de
+  // modo que la atribución sobrevive a la navegación aunque no haya consentimiento. Se omiten anclas, descargas y
+  // otros dominios.
+  function carryParamsToInternalLink(link, params) {
+    if (!(link instanceof HTMLAnchorElement)) return;
+    const raw = link.getAttribute("href") || "";
+    if (!raw || raw.startsWith("#") || link.hasAttribute("download")) return;
+    let url;
+    try {
+      url = new URL(link.href, window.location.href);
+    } catch {
+      return;
+    }
+    if (url.origin !== window.location.origin) return;
+    if (/\.[a-z0-9]{2,5}$/i.test(url.pathname) && !url.pathname.endsWith(".html")) return;
+    let changed = false;
+    params.forEach(([key, value]) => {
+      if (!url.searchParams.has(key)) {
+        url.searchParams.set(key, value);
+        changed = true;
+      }
+    });
+    if (changed) link.href = url.toString();
+  }
+
   function preserveAttributionParams() {
+    const params = Object.entries(urlTouch());
+    if (params.length > 0) {
+      document.querySelectorAll("a[href]").forEach((link) => carryParamsToInternalLink(link, params));
+      // Enlaces que se creen después (menús, componentes dinámicos): se completan al hacer clic.
+      if (!window.tdLinkCarryBound) {
+        window.tdLinkCarryBound = true;
+        document.addEventListener("click", (event) => {
+          const link = event.target instanceof Element ? event.target.closest("a[href]") : null;
+          if (link) carryParamsToInternalLink(link, Object.entries(urlTouch()));
+        }, true);
+      }
+    }
+
     const touch = activeTouch();
     const attributionEntries = Object.entries(touch).filter(([key]) => attributionFields.includes(key));
     if (attributionEntries.length === 0) return;
@@ -212,9 +291,10 @@ const t = isEnglish
       link.href = url.toString();
     });
 
-    // WhatsApp no admite parámetros: se añade al mensaje un código corto, visible y editable por quien escribe.
+    // WhatsApp no admite parámetros: se añade al mensaje un código corto, visible y editable por quien escribe,
+    // con el formato (ref: <utm_source>/<utm_campaign>[/<utm_content>]). Sin utm_source no se añade.
     if (!touch.utm_source) return;
-    const code = [touch.utm_source, touch.utm_campaign || touch.utm_medium].filter(Boolean).join("/").replace(/[^\w/.-]/g, "").slice(0, 40);
+    const code = [touch.utm_source, touch.utm_campaign || touch.utm_medium, touch.utm_content].filter(Boolean).join("/").replace(/[^\w/.-]/g, "").slice(0, 60);
     document.querySelectorAll('a[href*="wa.me/"]').forEach((link) => {
       if (!(link instanceof HTMLAnchorElement) || link.dataset.refCode) return;
       const url = new URL(link.href);

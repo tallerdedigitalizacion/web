@@ -42,12 +42,15 @@ La web de destino de una publicación es la página relacionada con el tema (cas
 
 ## Qué hace la web con los UTM
 
-- Los guarda durante la sesión (solo si se aceptan las cookies analíticas) y los añade a los enlaces de reserva (cal.com),
-  aunque el visitante navegue por otras páginas.
-- Los envía con cada formulario (`attribution` en el lead: origen, canal, campaña, contenido y página de entrada).
-  El email de aviso de lead incluye una línea `Origen:`.
-- Añade un código visible al mensaje de WhatsApp, por ejemplo `(ref: instagram/bio)`. WhatsApp no admite parámetros.
-  Quien escribe puede borrarlo.
+- Arrastra `gclid/gbraid/wbraid` y los `utm_*` de la URL actual a todos los enlaces internos (sin guardar nada), así que la
+  atribución sobrevive a la navegación aunque no se hayan aceptado las cookies.
+- Los guarda durante la sesión (solo si se aceptan las cookies analíticas) y los añade a los enlaces de reserva (cal.com).
+  Una visita posterior sin parámetros no los borra; una URL nueva con parámetros los sustituye.
+- Los envía con cada formulario (`attribution` en el lead: fuente, medio, campaña, contenido, término, identificador de clic
+  y su tipo, y página de entrada), junto con `pageUrl`. El email de aviso de lead muestra una línea `Origen:` y una fila por
+  parámetro. No depende del consentimiento.
+- Añade un código visible al mensaje de WhatsApp, por ejemplo `(ref: instagram/bio)` o, con anuncio,
+  `(ref: google/C02-maps-toledo/A)`. WhatsApp no admite parámetros. Quien escribe puede borrarlo.
 - Sin consentimiento analítico no se guarda nada entre páginas: solo vale el UTM de la página de entrada.
 - Eventos del hub: uno por enlace (`hub_servicios`, `hub_informe_web`, `hub_linkedin`, `hub_instagram`…).
   Reservar, WhatsApp y reseña mantienen `reservar_click`, `whatsapp_click` y `resena_click`, con el parámetro `link_id`.
@@ -55,7 +58,8 @@ La web de destino de una publicación es la página relacionada con el tema (cas
 ## Pendiente en GA4 (se hace en la interfaz, no en el código)
 
 1. **Eventos clave.** Marcar como evento clave `reservar_click`, `whatsapp_click`, `telefono_click`, `email_click`,
-   `generate_lead` y `reserva_completada`. Hoy solo hay 2 eventos clave.
+   `generate_lead` y `reserva_completada` (la página `/reserva-confirmada/` existe; falta apuntar Cal.com a ella). Hoy solo hay 2
+   eventos clave. Lista completa en `docs/verificacion-medicion.md`.
 2. **Dimensión personalizada.** Registrar `link_id` (ámbito: evento) para distinguir desde qué botón del hub se reserva.
 3. **Tráfico interno.** Crear el filtro de tráfico interno con la IP de la oficina y de casa: ahora mismo las pruebas propias
    cuentan como visitas y como clics de reserva.
