@@ -11,7 +11,9 @@ import { contactLeadSchema, diagnosticLeadSchema, methodLeadSchema, resourceLead
 import { contactEmail, diagnosticEmail, methodEmail, notificationEmail, resourceEmail, selfAssessmentEmail, webAuditEmail, webAuditGuideEmail } from "./email/templates";
 import { sendEmail } from "./email/sender";
 import { assertAllowedOrigin, assertHoneypot, assertHumanTiming, assertPayloadSize, assertRateLimit, getClientIp, SecurityError } from "./security";
-import { hashValue, saveLead } from "./store";
+import { syncLeadToNotion } from "./notion";
+import { notionLeadFromInput } from "./notionLead";
+import { claimSubmission, hashValue, releaseSubmission, saveLead } from "./store";
 
 const app = new Hono();
 
@@ -54,206 +56,14 @@ async function handleLead(c: Context, action: LeadAction) {
     assertHumanTiming(input.startedAt);
     await assertRateLimit(ip, action);
 
-    if (action === "diagnostic") {
-      const diagnosticInput = diagnosticLeadSchema.parse(input);
-      const score = scoreAssessment(diagnosticInput.answers);
-      const saved = await saveLead("diagnostic", {
-        ...cleanLead(diagnosticInput),
-        ipHash: hashValue(ip),
-        score,
-        answers: diagnosticInput.answers,
-      });
-
-      const leadDelivery = await trySendEmail(diagnosticInput.email, diagnosticEmail(diagnosticInput, score));
-      if (config.notifyEmail) {
-        const deliveryNote = leadDelivery.ok
-          ? "Email al lead: enviado."
-          : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
-        await trySendEmail(
-          config.notifyEmail,
-          notificationEmail("diagnostic", diagnosticInput, `Score: ${score.total}/81 (${score.percent}%). Lead id: ${saved.id}\n${deliveryNote}`),
-        );
-      }
-
-      return c.json({
-        ok: true,
-        leadId: saved.id,
-        emailDelivered: leadDelivery.ok,
-        message: leadDelivery.ok
-          ? "Diagnóstico enviado por email."
-          : "Recibimos tu diagnóstico. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
-      });
+    // El alta en Notion corre en paralelo al email y se espera al final: en Lambda no se puede seguir trabajando
+    // tras responder. Nunca lanza ni retrasa la respuesta más allá de su tope de tiempo.
+    const notionSync = startNotionSync(action, input);
+    try {
+      return await processLead(c, action, input, ip);
+    } finally {
+      await notionSync;
     }
-
-    if (action === "contact") {
-      const contactInput = contactLeadSchema.parse(input);
-      const saved = await saveLead("contact", {
-        ...cleanLead(contactInput),
-        ipHash: hashValue(ip),
-      });
-      const leadDelivery = await trySendEmail(contactInput.email, contactEmail(contactInput, config.bookingUrl));
-      if (config.notifyEmail) {
-        const deliveryNote = leadDelivery.ok
-          ? "Email de confirmación al lead: enviado."
-          : `Email de confirmación al lead: no enviado. Motivo: ${leadDelivery.message}`;
-        await trySendEmail(config.notifyEmail, notificationEmail("contact", contactInput, `Lead id: ${saved.id}\n${deliveryNote}`));
-      }
-
-      return c.json({
-        ok: true,
-        leadId: saved.id,
-        emailDelivered: leadDelivery.ok,
-        message: "Mensaje recibido. Te responderé lo antes posible.",
-      });
-    }
-
-    if (action === "method") {
-      const methodInput = methodLeadSchema.parse(input);
-      const saved = await saveLead("method", {
-        ...cleanLead(methodInput),
-        ipHash: hashValue(ip),
-      });
-      const methodPdfPath = resolve(config.methodPdfFile);
-      const leadDelivery = await trySendEmail(methodInput.email, methodEmail(methodInput, config.siteUrl), existsSync(methodPdfPath) ? methodPdfPath : undefined);
-      if (config.notifyEmail) {
-        const deliveryNote = leadDelivery.ok
-          ? "Email al lead: enviado."
-          : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
-        await trySendEmail(config.notifyEmail, notificationEmail("method", methodInput, `Lead id: ${saved.id}\n${deliveryNote}`));
-      }
-
-      return c.json({
-        ok: true,
-        leadId: saved.id,
-        emailDelivered: leadDelivery.ok,
-        message: leadDelivery.ok
-          ? "Método enviado por email."
-          : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
-      });
-    }
-
-    if (action === "web-audit") {
-      const webAuditInput = webAuditLeadSchema.parse(input);
-      const saved = await saveLead("web-audit", {
-        ...cleanLead(webAuditInput),
-        ipHash: hashValue(ip),
-      });
-      const leadDelivery = await trySendEmail(webAuditInput.email, webAuditEmail(webAuditInput, config.bookingUrl));
-      if (config.notifyEmail) {
-        const deliveryNote = leadDelivery.ok
-          ? "Email al lead: enviado."
-          : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
-        await trySendEmail(
-          config.notifyEmail,
-          notificationEmail("web-audit", webAuditInput, `Score: ${webAuditInput.score.total}/100. Lead id: ${saved.id}\n${deliveryNote}`),
-        );
-      }
-
-      return c.json({
-        ok: true,
-        leadId: saved.id,
-        emailDelivered: leadDelivery.ok,
-        message: leadDelivery.ok
-          ? "Autoauditoría recibida. Te enviamos el resultado por email."
-          : "Recibimos tu autoauditoría. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
-      });
-    }
-
-    if (action === "web-audit-guide") {
-      const webAuditGuideInput = webAuditGuideLeadSchema.parse(input);
-      const saved = await saveLead("web-audit-guide", {
-        ...cleanLead(webAuditGuideInput),
-        ipHash: hashValue(ip),
-      });
-      const webAuditGuidePdfPath = resolve(
-        webAuditGuideInput.language === "en" ? config.webAuditGuidePdfFileEn : config.webAuditGuidePdfFileEs,
-      );
-      const leadDelivery = await trySendEmail(
-        webAuditGuideInput.email,
-        webAuditGuideEmail(webAuditGuideInput, config.siteUrl, webAuditGuideInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
-        existsSync(webAuditGuidePdfPath) ? webAuditGuidePdfPath : undefined,
-      );
-      if (config.notifyEmail) {
-        const deliveryNote = leadDelivery.ok
-          ? "Email al lead: enviado."
-          : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
-        await trySendEmail(config.notifyEmail, notificationEmail("web-audit-guide", webAuditGuideInput, `Lead id: ${saved.id}\n${deliveryNote}`));
-      }
-
-      return c.json({
-        ok: true,
-        leadId: saved.id,
-        emailDelivered: leadDelivery.ok,
-        message: leadDelivery.ok
-          ? "Documento enviado por email."
-          : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
-      });
-    }
-
-    if (action === "self-assessment") {
-      const assessmentInput = selfAssessmentLeadSchema.parse(input);
-      const saved = await saveLead("self-assessment", {
-        ...cleanLead(assessmentInput),
-        ipHash: hashValue(ip),
-      });
-      const leadDelivery = await trySendEmail(
-        assessmentInput.email,
-        selfAssessmentEmail(assessmentInput, assessmentInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
-      );
-      if (config.notifyEmail) {
-        const deliveryNote = leadDelivery.ok
-          ? "Email al lead: enviado."
-          : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
-        await trySendEmail(
-          config.notifyEmail,
-          notificationEmail(
-            "self-assessment",
-            assessmentInput,
-            `Autoevaluación: ${assessmentInput.assessmentId} (${assessmentInput.language}). Puntaje: ${assessmentInput.score}/100, riesgo ${assessmentInput.level}. Página: ${assessmentInput.pageUrl || "-"}. Lead id: ${saved.id}\n${deliveryNote}`,
-          ),
-        );
-      }
-
-      return c.json({
-        ok: true,
-        leadId: saved.id,
-        emailDelivered: leadDelivery.ok,
-        message: leadDelivery.ok ? "Te enviamos el informe por email." : "Recibimos tus datos. El envío por email no está disponible ahora mismo.",
-      });
-    }
-
-    const resourceInput = resourceLeadSchema.parse(input);
-    const saved = await saveLead("resource", {
-      ...cleanLead(resourceInput),
-      ipHash: hashValue(ip),
-    });
-    const resourceAttachmentPath =
-      resourceInput.resourceType === "drive-template"
-        ? resolve(resourceInput.language === "en" ? config.driveTemplateFileEn : config.driveTemplateFileEs)
-        : undefined;
-    const leadDelivery = await trySendEmail(
-      resourceInput.email,
-      resourceEmail(resourceInput, resourceInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
-      resourceAttachmentPath && existsSync(resourceAttachmentPath) ? resourceAttachmentPath : undefined,
-    );
-    if (config.notifyEmail) {
-      const deliveryNote = leadDelivery.ok
-        ? "Email al lead: enviado."
-        : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
-      await trySendEmail(
-        config.notifyEmail,
-        notificationEmail("resource", resourceInput, `Recurso: ${resourceInput.resourceType}. Lead id: ${saved.id}\n${deliveryNote}`),
-      );
-    }
-
-    return c.json({
-      ok: true,
-      leadId: saved.id,
-      emailDelivered: leadDelivery.ok,
-      message: leadDelivery.ok
-        ? "Te enviamos el resultado por email."
-        : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
-    });
   } catch (error) {
     if (error instanceof SecurityError) {
       const status = error.status as ContentfulStatusCode;
@@ -267,6 +77,209 @@ async function handleLead(c: Context, action: LeadAction) {
   }
 }
 
+async function processLead(c: Context, action: LeadAction, input: ReturnType<typeof parseLead>, ip: string) {
+  if (action === "diagnostic") {
+    const diagnosticInput = diagnosticLeadSchema.parse(input);
+    const score = scoreAssessment(diagnosticInput.answers);
+    const saved = await saveLead("diagnostic", {
+      ...cleanLead(diagnosticInput),
+      ipHash: hashValue(ip),
+      score,
+      answers: diagnosticInput.answers,
+    });
+
+    const leadDelivery = await trySendEmail(diagnosticInput.email, diagnosticEmail(diagnosticInput, score));
+    if (config.notifyEmail) {
+      const deliveryNote = leadDelivery.ok
+        ? "Email al lead: enviado."
+        : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+      await trySendEmail(
+        config.notifyEmail,
+        notificationEmail("diagnostic", diagnosticInput, `Score: ${score.total}/81 (${score.percent}%). Lead id: ${saved.id}\n${deliveryNote}`),
+      );
+    }
+
+    return c.json({
+      ok: true,
+      leadId: saved.id,
+      emailDelivered: leadDelivery.ok,
+      message: leadDelivery.ok
+        ? "Diagnóstico enviado por email."
+        : "Recibimos tu diagnóstico. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+    });
+  }
+
+  if (action === "contact") {
+    const contactInput = contactLeadSchema.parse(input);
+    const saved = await saveLead("contact", {
+      ...cleanLead(contactInput),
+      ipHash: hashValue(ip),
+    });
+    const leadDelivery = await trySendEmail(contactInput.email, contactEmail(contactInput, config.bookingUrl));
+    if (config.notifyEmail) {
+      const deliveryNote = leadDelivery.ok
+        ? "Email de confirmación al lead: enviado."
+        : `Email de confirmación al lead: no enviado. Motivo: ${leadDelivery.message}`;
+      await trySendEmail(config.notifyEmail, notificationEmail("contact", contactInput, `Lead id: ${saved.id}\n${deliveryNote}`));
+    }
+
+    return c.json({
+      ok: true,
+      leadId: saved.id,
+      emailDelivered: leadDelivery.ok,
+      message: "Mensaje recibido. Te responderé lo antes posible.",
+    });
+  }
+
+  if (action === "method") {
+    const methodInput = methodLeadSchema.parse(input);
+    const saved = await saveLead("method", {
+      ...cleanLead(methodInput),
+      ipHash: hashValue(ip),
+    });
+    const methodPdfPath = resolve(config.methodPdfFile);
+    const leadDelivery = await trySendEmail(methodInput.email, methodEmail(methodInput, config.siteUrl), existsSync(methodPdfPath) ? methodPdfPath : undefined);
+    if (config.notifyEmail) {
+      const deliveryNote = leadDelivery.ok
+        ? "Email al lead: enviado."
+        : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+      await trySendEmail(config.notifyEmail, notificationEmail("method", methodInput, `Lead id: ${saved.id}\n${deliveryNote}`));
+    }
+
+    return c.json({
+      ok: true,
+      leadId: saved.id,
+      emailDelivered: leadDelivery.ok,
+      message: leadDelivery.ok
+        ? "Método enviado por email."
+        : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+    });
+  }
+
+  if (action === "web-audit") {
+    const webAuditInput = webAuditLeadSchema.parse(input);
+    const saved = await saveLead("web-audit", {
+      ...cleanLead(webAuditInput),
+      ipHash: hashValue(ip),
+    });
+    const leadDelivery = await trySendEmail(webAuditInput.email, webAuditEmail(webAuditInput, config.bookingUrl));
+    if (config.notifyEmail) {
+      const deliveryNote = leadDelivery.ok
+        ? "Email al lead: enviado."
+        : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+      await trySendEmail(
+        config.notifyEmail,
+        notificationEmail("web-audit", webAuditInput, `Score: ${webAuditInput.score.total}/100. Lead id: ${saved.id}\n${deliveryNote}`),
+      );
+    }
+
+    return c.json({
+      ok: true,
+      leadId: saved.id,
+      emailDelivered: leadDelivery.ok,
+      message: leadDelivery.ok
+        ? "Autoauditoría recibida. Te enviamos el resultado por email."
+        : "Recibimos tu autoauditoría. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+    });
+  }
+
+  if (action === "web-audit-guide") {
+    const webAuditGuideInput = webAuditGuideLeadSchema.parse(input);
+    const saved = await saveLead("web-audit-guide", {
+      ...cleanLead(webAuditGuideInput),
+      ipHash: hashValue(ip),
+    });
+    const webAuditGuidePdfPath = resolve(
+      webAuditGuideInput.language === "en" ? config.webAuditGuidePdfFileEn : config.webAuditGuidePdfFileEs,
+    );
+    const leadDelivery = await trySendEmail(
+      webAuditGuideInput.email,
+      webAuditGuideEmail(webAuditGuideInput, config.siteUrl, webAuditGuideInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
+      existsSync(webAuditGuidePdfPath) ? webAuditGuidePdfPath : undefined,
+    );
+    if (config.notifyEmail) {
+      const deliveryNote = leadDelivery.ok
+        ? "Email al lead: enviado."
+        : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+      await trySendEmail(config.notifyEmail, notificationEmail("web-audit-guide", webAuditGuideInput, `Lead id: ${saved.id}\n${deliveryNote}`));
+    }
+
+    return c.json({
+      ok: true,
+      leadId: saved.id,
+      emailDelivered: leadDelivery.ok,
+      message: leadDelivery.ok
+        ? "Documento enviado por email."
+        : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+    });
+  }
+
+  if (action === "self-assessment") {
+    const assessmentInput = selfAssessmentLeadSchema.parse(input);
+    const saved = await saveLead("self-assessment", {
+      ...cleanLead(assessmentInput),
+      ipHash: hashValue(ip),
+    });
+    const leadDelivery = await trySendEmail(
+      assessmentInput.email,
+      selfAssessmentEmail(assessmentInput, assessmentInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
+    );
+    if (config.notifyEmail) {
+      const deliveryNote = leadDelivery.ok
+        ? "Email al lead: enviado."
+        : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+      await trySendEmail(
+        config.notifyEmail,
+        notificationEmail(
+          "self-assessment",
+          assessmentInput,
+          `Autoevaluación: ${assessmentInput.assessmentId} (${assessmentInput.language}). Puntaje: ${assessmentInput.score}/100, riesgo ${assessmentInput.level}. Página: ${assessmentInput.pageUrl || "-"}. Lead id: ${saved.id}\n${deliveryNote}`,
+        ),
+      );
+    }
+
+    return c.json({
+      ok: true,
+      leadId: saved.id,
+      emailDelivered: leadDelivery.ok,
+      message: leadDelivery.ok ? "Te enviamos el informe por email." : "Recibimos tus datos. El envío por email no está disponible ahora mismo.",
+    });
+  }
+
+  const resourceInput = resourceLeadSchema.parse(input);
+  const saved = await saveLead("resource", {
+    ...cleanLead(resourceInput),
+    ipHash: hashValue(ip),
+  });
+  const resourceAttachmentPath =
+    resourceInput.resourceType === "drive-template"
+      ? resolve(resourceInput.language === "en" ? config.driveTemplateFileEn : config.driveTemplateFileEs)
+      : undefined;
+  const leadDelivery = await trySendEmail(
+    resourceInput.email,
+    resourceEmail(resourceInput, resourceInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
+    resourceAttachmentPath && existsSync(resourceAttachmentPath) ? resourceAttachmentPath : undefined,
+  );
+  if (config.notifyEmail) {
+    const deliveryNote = leadDelivery.ok
+      ? "Email al lead: enviado."
+      : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+    await trySendEmail(
+      config.notifyEmail,
+      notificationEmail("resource", resourceInput, `Recurso: ${resourceInput.resourceType}. Lead id: ${saved.id}\n${deliveryNote}`),
+    );
+  }
+
+  return c.json({
+    ok: true,
+    leadId: saved.id,
+    emailDelivered: leadDelivery.ok,
+    message: leadDelivery.ok
+      ? "Te enviamos el resultado por email."
+      : "Recibimos tu solicitud. Ahora mismo el envío automático está limitado por la configuración de email, pero tus datos quedaron registrados.",
+  });
+}
+
 function parseLead(action: LeadAction, parsedJson: unknown) {
   if (action === "diagnostic") return diagnosticLeadSchema.parse(parsedJson);
   if (action === "method") return methodLeadSchema.parse(parsedJson);
@@ -275,6 +288,16 @@ function parseLead(action: LeadAction, parsedJson: unknown) {
   if (action === "contact") return contactLeadSchema.parse(parsedJson);
   if (action === "self-assessment") return selfAssessmentLeadSchema.parse(parsedJson);
   return resourceLeadSchema.parse(parsedJson);
+}
+
+function startNotionSync(action: LeadAction, input: ReturnType<typeof parseLead>) {
+  try {
+    return syncLeadToNotion(notionLeadFromInput(action, input), { claim: claimSubmission, release: releaseSubmission });
+  } catch (error) {
+    // Ni siquiera un fallo al preparar el alta puede impedir que el email salga.
+    console.error(`NOTION_SYNC_FAILED ${JSON.stringify({ action, reason: error instanceof Error ? error.message : "Error desconocido" })}`);
+    return Promise.resolve("failed" as const);
+  }
 }
 
 async function trySendEmail(to: string, content: Parameters<typeof sendEmail>[1], attachmentPath?: string) {

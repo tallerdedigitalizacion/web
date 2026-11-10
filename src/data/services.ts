@@ -1,4 +1,5 @@
 import { siteConfig } from "@/config/site";
+import { automationLandingLive } from "@/config/launch.mjs";
 import { offerFor, priceLabel } from "@/data/offers";
 
 // Catálogo único de servicios: alimenta la portada, el desplegable del formulario, el footer y llms.txt.
@@ -40,6 +41,7 @@ const seeds: ServiceSeed[] = [
   { group: "Clientes y leads con IA", label: "Chatbot con IA para WhatsApp y web", href: "/agente-ia-atencion-cliente/", summary: "Responde las dudas frecuentes de tus clientes en tu web o WhatsApp y pasa a una persona lo difícil." },
   { group: "Clientes y leads con IA", label: "Asistente de IA con los documentos de tu empresa", href: "/asistente-ia-empresa/", summary: "Un chat que responde con los documentos de tu empresa, para que el equipo no pregunte siempre al dueño." },
   // Automatizar tareas: ejemplos reales con el detalle en /casos/.
+  ...(automationLandingLive ? [{ group: "Automatizar tareas", label: "Automatización de procesos con IA", href: "/automatizacion-procesos-ia/", summary: "Facturas, datos y tareas repetitivas que se hacen solas, con una persona que solo revisa lo importante." }] : []),
   { group: "Automatizar tareas", label: "Automatizar facturas de proveedores", href: "/casos/entrada-facturas-automatica/", summary: "Las facturas entran solas en tu programa y una persona las valida. De una semana de revisión a una mañana." },
   { group: "Automatizar tareas", label: "Auditoría de gastos de proveedores", href: "/casos/conciliacion-proveedores/", summary: "Cruzo lo que te facturan con lo que tienes dado de alta para encontrar lo que pagas sin tener." },
   { group: "Automatizar tareas", label: "Migrar datos de un programa antiguo y cancelar la licencia", href: "/casos/dar-de-baja-software-historico/", summary: "Rescato los datos del programa que solo pagas por el histórico y los consultas con IA, sin licencia." },
@@ -51,7 +53,7 @@ const seeds: ServiceSeed[] = [
   { group: "Ordenar y conectar la empresa", label: "Asesoramiento de digitalización", href: "/consultor-digitalizacion-toledo/", summary: "Sesiones para decidir qué cambiar, en qué orden y con qué herramientas." },
   { group: "Ordenar y conectar la empresa", label: "Consultor ERP independiente: elegir o cambiar de ERP", href: "/consultoria-erp-pymes/", summary: "Entiende el ERP que ya tienes o elige uno sin volver a equivocarte." },
   { group: "Ordenar y conectar la empresa", label: "Conectar tus programas (n8n, Make, Zapier, Holded, A3)", href: "/integracion-sistemas/", summary: "CRM, ERP, facturación y correo intercambian datos solos, sin copiar y pegar." },
-  { group: "Ordenar y conectar la empresa", label: "Software a medida para empresas", href: "/herramientas-internas-medida/", summary: "Paneles, portales y automatizaciones hechos para cómo trabaja tu equipo." },
+  { group: "Ordenar y conectar la empresa", label: "Software a medida para empresas", href: "/desarrollo-software-a-medida/", summary: "Paneles, portales y automatizaciones hechos para cómo trabaja tu equipo." },
 ];
 
 export const serviceCatalog: ServiceEntry[] = seeds.map((seed) => {

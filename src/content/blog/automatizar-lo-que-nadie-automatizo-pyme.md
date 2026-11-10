@@ -3,7 +3,7 @@ title: "La tarea de 4 horas al mes que nadie automatizó (y que ahora sí compen
 description: "Las herramientas generales cubren lo que hacen todas las empresas. Lo tuyo se quedó a mano porque no salía a cuenta. Con IA, ahora sí."
 pubDate: 2026-12-15
 categoria: servicio
-relatedService: "/herramientas-internas-medida/"
+relatedService: "/desarrollo-software-a-medida/"
 ---
 
 Casi todas las empresas con las que hablo tienen una tarea que nadie ha automatizado. No porque no se pueda... sino porque nunca salía a cuenta.
@@ -54,4 +54,4 @@ Lo digital lo llevamos hasta donde tenga sentido para tu negocio. Para que tú t
 
 Durante una semana apunta lo que haces a mano más de dos veces. Después pregúntate tres cosas: ¿me lleva 10 minutos o más?, ¿se repite?, ¿se hace casi siempre igual? Si respondes que sí a las tres, ya tienes candidata.
 
-Si quieres que la miremos, cuéntamela por el [formulario](#contacto) o mira cómo trabajamos en [herramientas internas a medida](/herramientas-internas-medida/). También puedes escribirme por WhatsApp o llamarme al 632 99 01 33... y en pocos minutos te digo si merece la pena o no.
+Si quieres que la miremos, cuéntamela por el [formulario](#contacto) o mira cómo trabajamos en [herramientas internas a medida](/desarrollo-software-a-medida/). También puedes escribirme por WhatsApp o llamarme al 632 99 01 33... y en pocos minutos te digo si merece la pena o no.

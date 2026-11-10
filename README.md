@@ -150,7 +150,7 @@ Los artículos están en `src/content/blog/*.md`. Solo se publican los que tiene
 
 ## Analítica y cookies
 
-Google Analytics no se carga hasta que el usuario acepta cookies analíticas. Los eventos preparados incluyen:
+Google Analytics 4 se carga siempre con Consent Mode v2 (todo denegado por defecto, sin cookies de Google hasta que el usuario acepta analítica o marketing en el banner). Los eventos preparados incluyen:
 
 - `click_reservar_llamada`
 - `click_whatsapp`

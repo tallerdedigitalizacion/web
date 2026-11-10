@@ -6,6 +6,7 @@ import CookieBanner from "@/components/CookieBanner.astro";
 import Chatbase from "@/components/Chatbase.astro";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
 import { withBase } from "@/utils/paths";
+import { consentMaxAgeMs, consentStorageKey, consentVersion } from "@/config/consent";
 import { canonicalOverrides, languagePairs, normalizePath } from "@/config/seoRoutes.mjs";
 import "@/styles/global.css";
 
@@ -35,7 +36,10 @@ const {
   extraSchema = [],
 } = Astro.props;
 
-const overriddenCanonical = canonicalOverrides[normalizePath(canonicalPath)];
+const gaId = siteConfig.googleAnalyticsId;
+const hasGoogleTag = Boolean(gaId) && !gaId.includes("INSERTAR");
+
+const overriddenCanonical =canonicalOverrides[normalizePath(canonicalPath)];
 const effectiveCanonicalPath = overriddenCanonical ?? canonicalPath;
 const pair = languagePairs.find(([es, en]) => [es, en].includes(normalizePath(effectiveCanonicalPath)));
 const alternates: [string, string][] =
@@ -159,7 +163,55 @@ const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
+    {
+      hasGoogleTag && (
+        <>
+          {/* Consent Mode v2. Va lo primero del <head>: el consentimiento por defecto se declara ANTES de cargar gtag.js.
+              Todo denegado hasta que el visitante decide; si ya decidió en una visita anterior, se aplica enseguida,
+              antes del primer evento. El banner (CookieBanner.astro) actualiza el estado cuando el visitante cambia. */}
+          <script
+            is:inline
+            define:vars={{ gaId, consentKey: consentStorageKey, consentVersion, consentMaxAgeMs }}
+          >
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function gtag() {
+              window.dataLayer.push(arguments);
+            };
+            window.tdGoogleConsent = function tdGoogleConsent(consent) {
+              window.gtag("consent", "update", {
+                analytics_storage: consent && consent.analytics ? "granted" : "denied",
+                ad_storage: consent && consent.marketing ? "granted" : "denied",
+                ad_user_data: consent && consent.marketing ? "granted" : "denied",
+                ad_personalization: consent && consent.marketing ? "granted" : "denied",
+              });
+            };
+            window.gtag("consent", "default", {
+              ad_storage: "denied",
+              ad_user_data: "denied",
+              ad_personalization: "denied",
+              analytics_storage: "denied",
+              wait_for_update: 500,
+            });
+            window.gtag("set", "ads_data_redaction", true);
+            window.gtag("set", "url_passthrough", true);
+            try {
+              var raw = localStorage.getItem(consentKey);
+              var stored = raw && raw.charAt(0) === "{" ? JSON.parse(raw) : null;
+              if (stored && stored.version === consentVersion && Date.now() - Number(stored.date || 0) <= consentMaxAgeMs) {
+                window.tdGoogleConsent(stored);
+              }
+            } catch (error) {
+              // Sin almacenamiento: se queda el consentimiento por defecto (denegado).
+            }
+            window.gtag("js", new Date());
+            window.gtag("config", gaId, { anonymize_ip: true });
+          </script>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        </>
+      )
+    }
+
     <title>{title}</title>
     <meta name="description" content={description} />
     
@@ -205,9 +257,12 @@ const schema = { "@context": "https://schema.org", "@graph": schemaGraph };
   </head>
   <body>
     {!minimal && <Header bookingEvent={headerBookingEvent} brandHref={lang === "en" ? "/en/" : "/"} navItems={headerNavItems} showBooking={showHeaderBooking} lang={lang} bookingHref={bookingHref} langSwitchHref={langSwitchHref} />}
+    {/* Cabecera y pie propios de una página mínima (landings de campaña); vacíos en el resto. */}
+    <slot name="header" />
     <main>
       <slot />
     </main>
+    <slot name="footer" />
     {!minimal && <Footer lang={lang} />}
     <CookieBanner lang={lang} />
     {!minimal && (showWhatsAppButton ?? lang !== "en") && <WhatsAppButton lang={lang} />}

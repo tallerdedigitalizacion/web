@@ -1,0 +1,142 @@
+---
+// Vídeo de presentación de Pablo para las landings de campaña (60-90 s, uno por idioma; ver `campaignVideos` en
+// src/data/campaigns.ts).
+//
+// Carga ligera y respetuosa con el consentimiento:
+//  - Lo que se ve al cargar es solo el póster (una imagen local): no hay iframe, ni script de terceros, ni cookies.
+//  - El reproductor de YouTube (dominio youtube-nocookie.com, modo de privacidad ampliada) se crea cuando la persona pulsa
+//    «reproducir». Nunca hay autoplay: el sonido solo suena porque ella lo ha pedido.
+//  - El póster lleva width/height y fetchpriority alto, así que no mueve el diseño ni retrasa el LCP.
+// Mientras no haya vídeo registrado se muestra la foto de Pablo sin botón de reproducir; el marcador [PABLO: …] solo
+// aparece en `npm run dev`, nunca en producción.
+import { withBase } from "@/utils/paths";
+import { youtubeId } from "@/data/videos";
+
+interface Props {
+  id?: string;
+  title: string;
+  // Sin póster se ve un recuadro oscuro con el botón de reproducir (testimonios sin imagen).
+  poster?: string;
+  posterAlt?: string;
+  caption: string;
+  playLabel: string;
+  marker?: string;
+}
+
+const { id, title, poster, posterAlt, caption, playLabel, marker } = Astro.props as Props;
+const videoId = youtubeId(id);
+---
+
+<figure class:list={["campaign-video", { "has-video": Boolean(videoId) }]}>
+  <div class="cv-frame" data-video-id={videoId} data-video-title={title}>
+    {poster && <img src={withBase(poster)} alt={posterAlt ?? ""} width="400" height="400" fetchpriority="high" decoding="async" />}
+    {videoId && (
+      <button class="cv-play" type="button" aria-label={playLabel}>
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30"><path fill="currentColor" d="M8 5.14v13.72a1 1 0 0 0 1.52.85l11.1-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14Z" /></svg>
+      </button>
+    )}
+  </div>
+  <figcaption>{caption}</figcaption>
+  {import.meta.env.DEV && !videoId && marker && <p class="cv-marker">{marker}</p>}
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".campaign-video .cv-frame[data-video-id]").forEach((frame) => {
+    const button = frame.querySelector<HTMLButtonElement>(".cv-play");
+    button?.addEventListener("click", () => {
+      const id = frame.dataset.videoId;
+      if (!id) return;
+      const params = new URLSearchParams({ autoplay: "1", rel: "0", playsinline: "1" });
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?${params}`;
+      iframe.title = frame.dataset.videoTitle ?? "Video";
+      iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.replaceChildren(iframe);
+      iframe.focus();
+    });
+  });
+</script>
+
+<style>
+  .campaign-video {
+    margin: 0;
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+  }
+
+  .cv-frame {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--dark);
+    box-shadow: var(--shadow);
+  }
+
+  .has-video .cv-frame {
+    max-width: 640px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .cv-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 28%;
+  }
+
+  .cv-frame :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .cv-play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: linear-gradient(180deg, rgba(21, 25, 32, 0) 40%, rgba(21, 25, 32, 0.55) 100%);
+    color: #18211d;
+    cursor: pointer;
+  }
+
+  .cv-play svg {
+    box-sizing: content-box;
+    padding: 20px 20px 20px 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: transform 160ms ease, background 160ms ease;
+  }
+
+  .cv-play:hover svg { background: var(--accent-dark); transform: scale(1.05); }
+
+  figcaption {
+    max-width: 420px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .has-video figcaption { max-width: 640px; }
+
+  .cv-marker {
+    margin: 0;
+    padding: 8px 12px;
+    border: 1px dashed var(--warn);
+    border-radius: var(--radius);
+    color: var(--warn);
+    font-size: 0.85rem;
+  }
+</style>

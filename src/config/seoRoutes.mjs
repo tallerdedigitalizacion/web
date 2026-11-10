@@ -1,3 +1,5 @@
+import { automationLandingLive } from "./launch.mjs";
+
 // Reglas de URL compartidas por BaseLayout (canonical/hreflang) y astro.config.mjs (sitemap).
 
 // Páginas antiguas que se solapan con una página más completa: siguen publicadas para no romper enlaces,
@@ -23,9 +25,13 @@ export const languagePairs = [
   ["/asistente-ia-empresa", "/ai-knowledge-base"],
   ["/agente-ia-atencion-cliente", "/ai-chatbot-small-business"],
   ["/integracion-sistemas", "/systems-integration"],
-  ["/herramientas-internas-medida", "/custom-internal-tools"],
+  // Landings de campaña (Google Ads, Comunidad de Madrid): producto y método, cada una en español y en inglés.
+  ["/desarrollo-software-a-medida", "/custom-software-development"],
+  ...(automationLandingLive ? [["/automatizacion-procesos-ia", "/ai-process-automation"]] : []),
   ["/informe-gratuito-web", "/free-website-report"],
   ["/politica-privacidad", "/privacy-policy"],
+  ["/aviso-legal", "/legal-notice"],
+  ["/politica-cookies", "/cookie-policy"],
   ["/optimizacion-velocidad-web", "/website-speed-optimization"],
   ["/mantenimiento-informatico-toledo", "/managed-it-support"],
   ["/mantenimiento-wordpress", "/managed-website"],

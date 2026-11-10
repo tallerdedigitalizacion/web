@@ -1,0 +1,758 @@
+---
+// Cuerpo de una landing de campaña (producto o método, en español o en inglés). El contenido sale de src/data/campaigns.ts;
+// la plantilla (cabecera, pie, meta, schema) es CampaignLayout.astro.
+//
+// Orden: hero (promesa, garantía y «¿Cómo sé si esto es para mí?», un lead magnet sin email) · qué hago (solo producto) ·
+// cómo trabajo (cinco pasos, precios y garantía) · quién está detrás (con el vídeo de Pablo) · casos reales con antes y ahora ·
+// testimonios en vídeo (solo cuando haya vídeos) · preguntas · reserva dentro de la página y formulario por botones.
+// Sin menú ni WhatsApp: la salida es reservar, escribir o leer un caso.
+import CampaignLayout from "@/layouts/CampaignLayout.astro";
+import CampaignVideo from "@/components/CampaignVideo.astro";
+import CampaignBooking from "@/components/CampaignBooking.astro";
+import ContactForm from "@/components/ContactForm.astro";
+import { siteConfig } from "@/config/site";
+import { cal, campaignVideos, pabloMarkers, shared, type CampaignPage } from "@/data/campaigns";
+import { withBase } from "@/utils/paths";
+
+interface Props {
+  page: CampaignPage;
+}
+
+const { page } = Astro.props as Props;
+const { lang, hero } = page;
+const t = shared[lang];
+const video = campaignVideos[lang];
+const videoMarker = lang === "es" ? pabloMarkers[0] : pabloMarkers[1];
+// Testimonios: los de vídeo y los escritos aprobados por su autor. Los borradores sin aprobar solo se ven en `npm run dev`.
+const publishedTestimonials = t.testimonials.list.filter((item) => item.videoId || (item.quote && item.approved));
+const draftTestimonials = import.meta.env.DEV ? t.testimonials.list.filter((item) => item.quote && !item.approved && !item.videoId) : [];
+const shownTestimonials = [...publishedTestimonials, ...draftTestimonials];
+// Cada idioma enseña solo su CV: el español en la versión en español y el inglés en la versión en inglés.
+const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/pablo-leone-cv-es.pdf";
+---
+
+<CampaignLayout
+  lang={lang}
+  path={page.path}
+  pairPath={page.pairPath}
+  title={page.seo.title}
+  description={page.seo.description}
+  faq={page.faq}
+  service={{ ...page.schema, priceFrom: 90 }}
+  bookingAnchor="#reserva"
+>
+  <section class="cp-hero">
+    <div class="cp-hero-inner">
+      <div class="cp-hero-copy">
+        <span class="eyebrow">{hero.eyebrow}</span>
+        <h1>{hero.h1}</h1>
+        <p class="cp-subtitle">{hero.subtitle}</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#reserva">{t.heroBook}</a>
+        </div>
+        <ul class="cp-chips">{t.chips.map((chip) => <li>{chip}</li>)}</ul>
+      </div>
+
+      <div class="cp-triage" data-triage>
+        <span class="eyebrow">{t.triage.eyebrow}</span>
+        <h2>{t.triage.title}</h2>
+        <p class="muted">{t.triage.intro}</p>
+        <div class="cp-options" role="group" aria-label={t.triage.title}>
+          {t.triage.options.map((option, index) => (
+            <button type="button" class="cp-option" aria-pressed="false" aria-controls={`triage-${index}`} data-triage-option={index}>{option.label}</button>
+          ))}
+        </div>
+        {t.triage.options.map((option, index) => (
+          <div class="cp-triage-result" id={`triage-${index}`} data-triage-result={index} role="region" aria-label={option.label} hidden>
+            <p><strong>{t.triage.behindLabel}.</strong> {option.behind}</p>
+            <p><strong>{t.triage.firstLabel}.</strong> {option.first}</p>
+            <a class="btn btn-primary btn-small" href="#reserva">{t.triage.bookCta}</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {page.what && (
+    <section id="que-hago" class="section section-accent">
+      <div class="section-head">
+        <span class="eyebrow">{page.what.eyebrow}</span>
+        <h2>{page.what.title}</h2>
+        <p>{page.what.intro}</p>
+      </div>
+      <div class="cp-cards">
+        {page.what.items.map(([name, text]) => (
+          <article>
+            <h3>{name}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section id="como-trabajo" class="section">
+    <div class="section-head">
+      <span class="eyebrow">{page.how.eyebrow}</span>
+      <h2>{page.how.title}</h2>
+      <p>{page.how.intro}</p>
+    </div>
+    <ol class="cp-steps">
+      {t.steps.map((step) => (
+        <li class:list={[{ "has-price": Boolean(step.price) }]}>
+          <div class="cp-step-body">
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+            {(step.bullets || step.guarantee) && (
+              <ul class="cp-step-bullets">
+                {step.bullets?.map((bullet) => <li>{bullet}</li>)}
+                {step.guarantee && (
+                  <li class="cp-step-guarantee">
+                    {step.guarantee} <a href="#faq-garantia" data-faq-link aria-label={t.faq.guarantee[0]} title={t.faq.guarantee[0]}>*</a>
+                  </li>
+                )}
+              </ul>
+            )}
+          </div>
+          {step.price && <div class="cp-step-price"><strong>{step.price}</strong>{step.priceNote && <small>{step.priceNote}</small>}</div>}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section id="quien-esta-detras" class="section section-accent">
+    <div class="cp-authority">
+      <div>
+        <span class="eyebrow">{t.authority.eyebrow}</span>
+        <h2>{t.authority.title}</h2>
+        {t.authority.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        {page.extraWhy && (
+          <div class="cp-not-coach">
+            <h3>{page.extraWhy[0]}</h3>
+            <p>{page.extraWhy[1]}</p>
+          </div>
+        )}
+        <div class="cp-facts">
+          {t.authority.facts.map(([value, label]) => (
+            <div>
+              <strong>{value}</strong>
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-secondary btn-small" data-event="linkedin_click" data-link-id="authority-linkedin" href={siteConfig.linkedinUrl} target="_blank" rel="noopener">{t.authority.linkedin}</a>
+          <a class="btn btn-secondary btn-small" data-event="cv_click" data-link-id="authority-cv" href={withBase(cvHref)} target="_blank" rel="noopener">{t.authority.cv}</a>
+        </div>
+      </div>
+      <CampaignVideo {...video} marker={videoMarker} />
+    </div>
+  </section>
+
+  <section id="casos" class="section" data-carousel>
+    <div class="section-head">
+      <span class="eyebrow">{t.cases.eyebrow}</span>
+      <h2>{t.cases.title}</h2>
+      <p>{t.cases.intro}</p>
+    </div>
+    <div class="cc-wrap" data-carousel-wrap>
+      <div class="cc-track" data-carousel-track tabindex="0" role="region" aria-label={t.cases.title}>
+        {t.cases.cards.map((card) => (
+          <article class="cc-card" data-carousel-card>
+            <h3>{card.title}</h3>
+            <div class="cc-before"><span>{t.cases.beforeLabel}</span><p>{card.before}</p></div>
+            <div class="cc-after"><span>{t.cases.afterLabel}</span><p>{card.after}</p></div>
+            {card.href && <a class="btn btn-secondary btn-small" href={withBase(card.href)} target="_blank" rel="noopener">{t.cases.open}</a>}
+          </article>
+        ))}
+      </div>
+      <button class="cc-arrow cc-arrow-prev" type="button" data-carousel-prev aria-label={t.cases.prev}>←</button>
+      <button class="cc-arrow cc-arrow-next" type="button" data-carousel-next aria-label={t.cases.next}>→</button>
+    </div>
+    <p class="cc-count" data-carousel-count aria-live="polite"></p>
+  </section>
+
+  {shownTestimonials.length > 0 && (
+    <section id="testimonios" class="section section-accent">
+      <div class="section-head">
+        <span class="eyebrow">{t.testimonials.eyebrow}</span>
+        <h2>{t.testimonials.title}</h2>
+      </div>
+      <div class="cp-testimonials">
+        {shownTestimonials.map((item) =>
+          item.videoId ? (
+            <CampaignVideo
+              id={item.videoId}
+              title={`${item.name}, ${item.role}`}
+              caption={`${item.name} · ${item.role}${item.relation ? ` (${item.relation})` : ""}`}
+              playLabel={video.playLabel}
+            />
+          ) : (
+            <figure class="ct-card">
+              <blockquote><p>«{item.quote}»</p></blockquote>
+              <figcaption>
+                <strong>{item.name}</strong>
+                <span>{item.role}{item.relation ? ` (${item.relation})` : ""}</span>
+              </figcaption>
+            </figure>
+          ),
+        )}
+      </div>
+    </section>
+  )}
+
+  <section id="faq" class="section">
+    <div class="section-head">
+      <span class="eyebrow">{t.faq.eyebrow}</span>
+      <h2>{t.faq.title}</h2>
+    </div>
+    <div class="faq-list">
+      {page.faq.map(([question, answer]) => (
+        <details id={question === t.faq.guarantee[0] ? "faq-garantia" : undefined}>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <CampaignBooking lang={lang} calLink={cal[lang].link} calNamespace={cal[lang].namespace} />
+
+  <ContactForm
+    lang={lang}
+    compact
+    selectedService={page.formService}
+    title={t.form.title}
+    intro={t.form.intro}
+    choices={t.triage.options.map((option) => option.label)}
+    choiceLabel={t.form.choiceLabel}
+    choicePlaceholder={t.form.choicePlaceholder}
+    otherChoice={t.form.otherChoice}
+    explainLabel={t.form.explainLabel}
+    messageLabel={t.form.messageLabel}
+  />
+
+  {import.meta.env.DEV && (
+    <aside class="cp-dev-markers">
+      <strong>Pendiente de Pablo (solo se ve con npm run dev)</strong>
+      <ul>{pabloMarkers.map((marker) => <li>{marker}</li>)}</ul>
+    </aside>
+  )}
+</CampaignLayout>
+
+<script>
+  // «¿Cómo sé si esto es para mí?»: sin email ni envío; solo muestra el resultado de la opción elegida.
+  const triage = document.querySelector<HTMLElement>("[data-triage]");
+  if (triage) {
+    const buttons = [...triage.querySelectorAll<HTMLButtonElement>("[data-triage-option]")];
+    const results = [...triage.querySelectorAll<HTMLElement>("[data-triage-result]")];
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.triageOption;
+        buttons.forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
+        results.forEach((result) => {
+          result.hidden = result.dataset.triageResult !== id;
+        });
+      });
+    });
+  }
+
+  // El asterisco del paso 3 abre la pregunta de la garantía y baja hasta ella, sin cambiar la dirección de la página.
+  document.querySelectorAll<HTMLAnchorElement>("[data-faq-link]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const target = document.querySelector<HTMLDetailsElement>(link.getAttribute("href") || "");
+      if (!target) return;
+      event.preventDefault();
+      target.open = true;
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  });
+
+  // Carrusel de casos: flechas a los lados, difuminado en el borde donde hay más casos y contador. No avanza solo.
+  const carousel = document.querySelector<HTMLElement>("[data-carousel]");
+  if (carousel) {
+    const wrap = carousel.querySelector<HTMLElement>("[data-carousel-wrap]");
+    const track = carousel.querySelector<HTMLElement>("[data-carousel-track]");
+    const count = carousel.querySelector<HTMLElement>("[data-carousel-count]");
+    const cards = [...carousel.querySelectorAll<HTMLElement>("[data-carousel-card]")];
+    const step = () => (cards[0] ? cards[0].getBoundingClientRect().width + 16 : 320);
+
+    const update = () => {
+      if (!wrap || !track) return;
+      const max = track.scrollWidth - track.clientWidth;
+      wrap.classList.toggle("can-prev", track.scrollLeft > 4);
+      wrap.classList.toggle("can-next", track.scrollLeft < max - 4);
+      const visible = Math.max(1, Math.floor((track.clientWidth + 16) / step()));
+      const atEnd = track.scrollLeft >= max - 4;
+      const last = atEnd ? cards.length : Math.min(cards.length, Math.round(track.scrollLeft / step()) + visible);
+      const first = atEnd ? Math.max(1, cards.length - visible + 1) : Math.min(cards.length, Math.round(track.scrollLeft / step()) + 1);
+      if (count) count.textContent = first === last ? `${first} / ${cards.length}` : `${first}–${last} / ${cards.length}`;
+    };
+
+    carousel.querySelector("[data-carousel-prev]")?.addEventListener("click", () => track?.scrollBy({ left: -step(), behavior: "smooth" }));
+    carousel.querySelector("[data-carousel-next]")?.addEventListener("click", () => track?.scrollBy({ left: step(), behavior: "smooth" }));
+    track?.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+</script>
+
+<style>
+  section[id] { scroll-margin-top: 84px; }
+
+  .cp-hero {
+    padding: clamp(36px, 6vw, 84px) clamp(18px, 5vw, 56px) clamp(44px, 6vw, 80px);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--soft) 100%);
+  }
+
+  .cp-hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+    width: min(var(--max), 100%);
+    margin: 0 auto;
+  }
+
+  .cp-hero h1 {
+    margin-bottom: 20px;
+    font-size: clamp(2.2rem, 5vw, 3.7rem);
+    line-height: 1.05;
+  }
+
+  .cp-subtitle {
+    max-width: 620px;
+    margin-bottom: 0;
+    color: var(--ink);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  }
+
+  .cp-chips {
+    display: grid;
+    gap: 8px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--muted);
+    font-size: 0.98rem;
+  }
+
+  .cp-chips li::before {
+    content: "✓";
+    margin-right: 8px;
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  .cp-triage {
+    display: grid;
+    gap: 10px;
+    padding: clamp(18px, 3vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    box-shadow: var(--shadow);
+  }
+
+  .cp-triage h2 {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+    line-height: 1.15;
+  }
+
+  .cp-triage p { margin: 0; }
+
+  .cp-options {
+    display: grid;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .cp-option {
+    padding: 13px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease;
+  }
+
+  .cp-option:hover { border-color: var(--accent); }
+
+  .cp-option[aria-pressed="true"] {
+    border-color: var(--accent);
+    background: rgba(78, 229, 141, 0.1);
+  }
+
+  .cp-triage-result {
+    display: grid;
+    justify-items: start;
+    gap: 8px;
+    padding: 14px 16px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    background: rgba(78, 229, 141, 0.06);
+  }
+
+  .cp-triage-result p { color: var(--ink); font-size: 0.97rem; }
+
+  .cp-pains {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cp-pains li {
+    padding: 22px 20px;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--warn);
+    border-radius: var(--radius);
+    background: var(--paper);
+    font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+    font-weight: 750;
+    line-height: 1.25;
+  }
+
+  .cp-pains .cp-pain-note {
+    display: grid;
+    justify-items: start;
+    align-content: start;
+    gap: 10px;
+    border-color: var(--accent);
+    border-left-color: var(--accent);
+    background: rgba(78, 229, 141, 0.07);
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .cp-pain-note strong { font-size: 1.2rem; line-height: 1.25; }
+  .cp-pain-note span { color: var(--muted); }
+
+  /* Seis tarjetas: 2 filas de 3 en pantallas anchas, 3 filas de 2 en tabletas y una columna en móvil. */
+  .cp-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .cp-cards article {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+
+  .cp-cards h3, .cp-cards p { margin: 0; }
+  .cp-cards p { color: var(--muted); }
+
+  .cp-steps {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .cp-steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    column-gap: 14px;
+    align-items: start;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+
+  /* Pasos con precio: dos columnas, el texto a la izquierda y el precio grande y centrado a la derecha. */
+  .cp-steps li.has-price { grid-template-columns: 2.4rem minmax(0, 1fr) minmax(8rem, 11rem); }
+
+  .cp-steps li::before {
+    content: counter(step);
+    color: var(--accent);
+    font-size: 1.6rem;
+    font-weight: 850;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cp-step-body h3, .cp-step-body p { margin: 0; }
+  .cp-step-body p { color: var(--muted); margin-top: 6px; }
+
+  .cp-step-price {
+    display: grid;
+    gap: 6px;
+    align-self: center;
+    padding-left: 14px;
+    border-left: 1px solid var(--line);
+    text-align: center;
+  }
+
+  .cp-step-price strong {
+    color: var(--accent);
+    font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+    font-weight: 850;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+
+  .cp-step-price small {
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+
+  /* Puntos del paso, uno debajo de otro. El contador de pasos solo cuenta los <li> de primer nivel. */
+  .cp-steps .cp-step-bullets {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cp-steps .cp-step-bullets li {
+    display: block;
+    counter-increment: none;
+    margin: 0;
+    padding: 0 0 0 20px;
+    border: 0;
+    background: none;
+    color: var(--ink);
+    position: relative;
+  }
+
+  /* La garantía es lo que quita el riesgo: va destacada, con un asterisco que lleva a sus condiciones. */
+  .cp-steps .cp-step-bullets li.cp-step-guarantee {
+    padding: 10px 12px 10px 14px;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: rgba(78, 229, 141, 0.09);
+    font-weight: 750;
+  }
+
+  .cp-steps .cp-step-bullets li.cp-step-guarantee::before { display: none; }
+
+  .cp-step-guarantee a {
+    color: var(--accent);
+    font-size: 1.2em;
+    font-weight: 850;
+    text-decoration: none;
+  }
+
+  .cp-steps .cp-step-bullets li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 0.6em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    font-size: inherit;
+  }
+
+  .cp-not-coach {
+    display: grid;
+    gap: 8px;
+    margin-top: 20px;
+    padding: clamp(18px, 3vw, 28px);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    background: rgba(78, 229, 141, 0.07);
+  }
+
+  .cp-not-coach h3, .cp-not-coach p { margin: 0; }
+  .cp-not-coach { border-color: var(--line); background: var(--paper); }
+
+  .cp-authority {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+
+  .cp-authority > div:first-child > p { max-width: 62ch; }
+
+  .cp-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 20px 0 6px;
+  }
+
+  .cp-facts div {
+    display: grid;
+    align-content: start;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+
+  .cp-facts strong { font-size: 1.15rem; }
+  .cp-facts span { color: var(--muted); font-size: 0.92rem; }
+
+  .cc-track {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .cc-card {
+    flex: 0 0 min(340px, 86%);
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    scroll-snap-align: start;
+  }
+
+  .cc-card h3 { margin: 0; }
+  .cc-card .btn { justify-self: start; }
+
+  .cc-before, .cc-after {
+    padding: 12px 14px;
+    border-radius: var(--radius);
+  }
+
+  .cc-before span, .cc-after span {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+    font-weight: 850;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .cc-before p, .cc-after p { margin: 0; font-size: 0.98rem; }
+  .cc-before { border-left: 4px solid var(--warn); background: rgba(242, 166, 95, 0.08); }
+  .cc-before span { color: var(--warn); }
+  .cc-after { border-left: 4px solid var(--accent); background: rgba(78, 229, 141, 0.08); }
+  .cc-after span { color: var(--accent); }
+
+  /* Indicios de que se puede desplazar: flechas a los lados, difuminado en el borde con más casos y un contador. */
+  .cc-wrap { position: relative; }
+
+  .cc-wrap::before,
+  .cc-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 8px;
+    width: 64px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 160ms ease;
+    z-index: 1;
+  }
+
+  .cc-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg), rgba(32, 36, 44, 0)); }
+  .cc-wrap::after { right: 0; background: linear-gradient(270deg, var(--bg), rgba(32, 36, 44, 0)); }
+  .cc-wrap.can-prev::before,
+  .cc-wrap.can-next::after { opacity: 1; }
+
+  .cc-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #18211d;
+    font-size: 1.4rem;
+    font-weight: 850;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: opacity 160ms ease, background 160ms ease;
+  }
+
+  .cc-arrow:hover { background: var(--accent-dark); }
+  .cc-arrow-prev { left: 6px; }
+  .cc-arrow-next { right: 6px; }
+  .cc-wrap:not(.can-prev) .cc-arrow-prev,
+  .cc-wrap:not(.can-next) .cc-arrow-next { opacity: 0; pointer-events: none; }
+
+  .cc-count {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cp-testimonials {
+    display: grid;
+    align-items: start;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .ct-card {
+    display: grid;
+    align-content: start;
+    gap: 16px;
+    margin: 0;
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+
+  .ct-card blockquote { margin: 0; }
+  .ct-card blockquote p { margin: 0; color: var(--ink); font-size: 1.05rem; line-height: 1.5; }
+  .ct-card figcaption { display: grid; gap: 2px; }
+  .ct-card figcaption span { color: var(--muted); font-size: 0.92rem; }
+
+  .cp-dev-markers {
+    width: min(var(--max), calc(100% - 36px));
+    margin: 0 auto 40px;
+    padding: 16px 20px;
+    border: 1px dashed var(--warn);
+    border-radius: var(--radius);
+    color: var(--warn);
+    font-size: 0.9rem;
+  }
+
+  .cp-dev-markers ul { margin: 10px 0 0; padding-left: 20px; }
+
+  @media (max-width: 920px) {
+    .cp-hero-inner,
+    .cp-authority { grid-template-columns: 1fr; }
+    .cp-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 560px) {
+    .cp-cards { grid-template-columns: 1fr; }
+  }
+
+  /* En móvil el precio baja debajo del texto, en una línea propia. */
+  @media (max-width: 640px) {
+    .cp-steps li.has-price { grid-template-columns: 2.4rem minmax(0, 1fr); }
+    .cp-step-price { grid-column: 2; justify-self: start; margin-top: 10px; padding: 0; border-left: 0; text-align: left; }
+  }
+</style>

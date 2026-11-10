@@ -3,11 +3,12 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { DeleteCommand, DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { SendRawEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import { z } from "zod";
 import { bookingUrlFor } from "../../../src/config/booking";
 import { attributionSchema } from "../schemas";
+import { syncLeadToNotion } from "../notion";
 import { buildWebAuditEmail } from "./email";
 import { scoreWebAudit, type WebAuditAnswers, type WebAuditLanguage } from "./scoring";
 
@@ -129,6 +130,20 @@ export async function handler(event: APIGatewayProxyEventV2) {
     ...scoreResult,
   });
 
+  // Alta en el CRM de Notion en paralelo al email; se espera antes de responder (Lambda congela el proceso al
+  // responder). Nunca lanza ni impide que el email salga.
+  const notionSync = syncLeadToNotion(
+    {
+      action: "web-audit",
+      name: parsed.name,
+      email: parsed.email,
+      need: `Autoauditoría web (puntuación ${scoreResult.score}/100)`,
+      channel: "Lead magnet",
+      attribution: parsed.attribution,
+    },
+    { claim: claimNotionSubmission, release: releaseNotionSubmission },
+  );
+
   let emailMessageId = "";
   try {
     const attachment = await getExecutiveReport(parsed.language);
@@ -149,6 +164,7 @@ export async function handler(event: APIGatewayProxyEventV2) {
       emailSent: false,
       emailError: error instanceof Error ? error.message : "unknown",
     });
+    await notionSync;
     return json({ ok: false, message: "email_failed" }, 502, corsHeaders);
   }
 
@@ -160,6 +176,7 @@ export async function handler(event: APIGatewayProxyEventV2) {
     emailSent: true,
     emailMessageId,
   });
+  await notionSync;
 
   return json(
     {
@@ -238,6 +255,33 @@ async function saveAudit(item: Record<string, unknown>) {
       Item: item,
     }),
   );
+}
+
+// Reserva anti-duplicados del alta en Notion (misma lógica que store.ts, con la clave `id` de esta tabla).
+async function claimNotionSubmission(key: string, ttlSeconds: number) {
+  const nowSeconds = Math.floor(Date.now() / 1000);
+  try {
+    await ddb.send(
+      new PutCommand({
+        TableName: requiredEnv("TABLE_NAME"),
+        Item: { id: notionClaimId(key), entityType: "notion-claim", expiresAt: nowSeconds + ttlSeconds },
+        ConditionExpression: "attribute_not_exists(id) OR expiresAt < :now",
+        ExpressionAttributeValues: { ":now": nowSeconds },
+      }),
+    );
+    return true;
+  } catch (error) {
+    if (error instanceof Error && error.name === "ConditionalCheckFailedException") return false;
+    throw error;
+  }
+}
+
+async function releaseNotionSubmission(key: string) {
+  await ddb.send(new DeleteCommand({ TableName: requiredEnv("TABLE_NAME"), Key: { id: notionClaimId(key) } }));
+}
+
+function notionClaimId(key: string) {
+  return `notion-claim#${createHash("sha256").update(`${process.env.IP_HASH_SALT || "change-me"}:${key}`).digest("hex")}`;
 }
 
 async function getExecutiveReport(language: WebAuditLanguage) {

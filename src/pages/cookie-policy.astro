@@ -1,0 +1,206 @@
+---
+import LegalPage from "@/components/LegalPage.astro";
+import { siteConfig } from "@/config/site";
+// Versión en inglés de /politica-cookies/. Traducción del texto en español; el texto en español es el original.
+
+const hasPixel = Boolean(siteConfig.metaPixelId);
+---
+
+<LegalPage lang="en" title="Cookie policy" description="Cookie policy of Taller de Digitalización.">
+  <section>
+    <h2>1. What are cookies?</h2>
+    <p>Cookies are small files that are downloaded to the user's device when accessing certain web pages.</p>
+    <p>Cookies make it possible, among other things, for a website to work properly, remember certain preferences, obtain statistical information about browsing or make integration with third-party services easier.</p>
+    <p>Similar technologies may also be used, such as pixels, tags, browser local storage, identifiers or third-party scripts. In this policy, the term “cookies” is used broadly to include these technologies where applicable.</p>
+  </section>
+
+  <section>
+    <h2>2. Controller</h2>
+    <p>The party responsible for the use of cookies on this website is:</p>
+    <p>
+      Controller: Pablo Leone<br />
+      Tax ID (NIF): 41675399C<br />
+      Address: Numancia 4, Fuensalida, Spain<br />
+      Contact email: info@tallerdedigitalizacion.com<br />
+      Website: tallerdedigitalizacion.com
+    </p>
+  </section>
+
+  <section>
+    <h2>3. What types of cookies does this website use?</h2>
+    <p>This website may use first-party and third-party cookies for different purposes.</p>
+    <h3>3.1. Technical or necessary cookies</h3>
+    <p>These are the cookies needed for the website to work properly and to provide the services requested by the user.</p>
+    <p>They may be used, for example, to:</p>
+    <ul>
+      <li>allow browsing the website</li>
+      <li>remember technical preferences</li>
+      <li>keep the site secure</li>
+      <li>manage forms</li>
+      <li>remember basic settings</li>
+      <li>allow interactive elements to work</li>
+    </ul>
+    <p>These cookies do not require consent when they are strictly necessary to provide a service requested by the user or for the basic operation of the site.</p>
+
+    <h3>3.2. Analytics or measurement cookies</h3>
+    <p>These are cookies that provide information about how users use the website, which pages they visit, how long they stay, where they come from or what actions they take.</p>
+    <p>This website may use Google Analytics 4 to analyse the use of the website and to improve its content, navigation, performance and calls to action.</p>
+    <p>The information collected may include technical data such as IP address, browser, device, pages visited, interaction events, date, time and source of the visit.</p>
+    <p>Google tags (Google Analytics 4 and Google Ads measurement) are loaded on every visit, but with consent <strong>denied by default</strong> (Consent Mode v2). Until the user accepts the corresponding category, no Google cookie is written and Google only receives technical signals without cookies, such as the page visited, the source of the visit (for example, campaign parameters) and browser data, in addition to the IP address of any connection. Those signals are not linked to a persistent browser identifier and are used to measure in aggregate and to estimate conversions. If the user accepts analytics, Google Analytics starts using cookies; if the user accepts marketing, Google Ads does too.</p>
+
+    <h3>3.3. Marketing or advertising cookies</h3>
+    <p>These are cookies that make it possible to measure the results of the ads that Taller de Digitalización publishes on Google{hasPixel ? ", Facebook and Instagram" : ""} and to attribute to each ad the enquiries it generates{hasPixel ? ", and to show ads to people who have already visited the website" : ""}.</p>
+    <p>For Google ads, conversion measurement may store the ad click identifier in the <code>_gcl_aw</code> cookie. That cookie is only written if the user accepts the "Marketing" category in the cookie panel.</p>
+    {hasPixel && (
+      <>
+        <p>This website may use the Meta Pixel, a service of Meta Platforms Ireland Limited. The pixel records page visits and actions such as booking a call, writing on WhatsApp, calling, sending an email or completing a form, and links them to the browser through the <code>_fbp</code> and <code>_fbc</code> cookies.</p>
+        <p>The Meta Pixel is only loaded if the user accepts the "Marketing" category in the cookie panel.</p>
+      </>
+    )}
+
+    <h3>3.4. Third-party cookies</h3>
+    <p>This website may integrate or link to third-party services that may install cookies or similar technologies when the user interacts with them.</p>
+    <p>These services may include:</p>
+    <ul>
+      <li>Google Analytics and Google Ads, for web analytics and ad measurement.</li>
+      <li>Cal.com, for call bookings.</li>
+      <li>Chatbase, for the chatbot or automated assistant.</li>
+      {hasPixel && <li>Meta Pixel (Facebook and Instagram), to measure ads.</li>}
+      <li>WhatsApp, to make direct contact easier.</li>
+      <li>Technical services linked to custom forms or the site's own backend.</li>
+    </ul>
+    <p>Each of these services may use its own cookies and process data under its own policies.</p>
+  </section>
+
+  <section>
+    <h2>4. Cookies used on this website</h2>
+    <p>Below is an indicative table of the cookies or technologies that may be used on this website. The list may vary depending on the final configuration of the page, the services enabled or changes made by external providers.</p>
+    <div class="legal-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Type</th>
+            <th>Purpose</th>
+            <th>Approximate duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Taller de Digitalización (<code>td_cookie_consent</code>, local storage)</td>
+            <td>Technical (necessary)</td>
+            <td>Remember your cookie choice</td>
+            <td>12 months; then you are asked again</td>
+          </tr>
+          <tr>
+            <td>Google Analytics (<code>_ga</code>, <code>_ga_*</code>)</td>
+            <td>Analytics (requires consent)</td>
+            <td>Anonymous measurement of visits, events and browsing behaviour. Not written without consent.</td>
+            <td>Up to 2 years</td>
+          </tr>
+          <tr>
+            <td>Google Ads (<code>_gcl_aw</code>, <code>_gcl_*</code>)</td>
+            <td>Marketing (requires consent)</td>
+            <td>Measurement of conversions from Google ads. Not written without consent.</td>
+            <td>Up to 3 months</td>
+          </tr>
+          {hasPixel && (
+            <tr>
+              <td>Meta Pixel (<code>_fbp</code>, <code>_fbc</code>)</td>
+              <td>Marketing (requires consent)</td>
+              <td>Measurement of ads and conversions on Facebook and Instagram</td>
+              <td>Up to 3 months</td>
+            </tr>
+          )}
+          <tr>
+            <td>Chatbase</td>
+            <td>Third party (requires consent)</td>
+            <td>Operation of the help chat and analysis of interactions</td>
+            <td>Under Chatbase's policy</td>
+          </tr>
+          <tr>
+            <td>Cal.com</td>
+            <td>Third party (only when its booking page opens or the embedded calendar is shown)</td>
+            <td>Management of call bookings</td>
+            <td>Under Cal.com's policy</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The user can find specific information about third-party cookies in each provider's privacy and cookie policies.</p>
+  </section>
+
+  <section>
+    <h2>5. Google Analytics and Google Ads</h2>
+    <p>This website may use Google Analytics 4, a web analytics service provided by Google.</p>
+    <p>Google tags are loaded with consent denied by default and are updated according to the user's choice in the cookie panel. Without consent, Google only receives technical signals without cookies, as described in section 3.2.</p>
+    <p>Google Analytics makes it possible to analyse in aggregate how users browse the website, what content they read and what actions they take, in order to improve the site and measure its performance.</p>
+    <p>Google may process data on servers located outside the European Economic Area. Google's processing of data is governed by its own terms and policies.</p>
+    <p>The user can find more information in Google's privacy policy.</p>
+  </section>
+
+  <section>
+    <h2>6. Cal.com</h2>
+    <p>This website links to Cal.com to allow free 30-minute calls to be booked. On most pages, Cal.com is not loaded inside this website: its page only opens when the user presses a booking button. On the landing pages for the software development and automation services, the Cal.com calendar is shown inside the page itself: it only loads when the user accepts cookies or presses the "See available times" button.</p>
+    <p>When the user uses Cal.com, the user may enter data such as name, email, company, availability, comments or other information needed to manage the meeting.</p>
+    <p>Cal.com may use its own and third-party cookies to provide its service, remember preferences, manage sessions or analyse the use of its platform.</p>
+    <p>The use of Cal.com is also governed by its own terms and privacy policy.</p>
+  </section>
+
+  <section>
+    <h2>7. Chatbase</h2>
+    <p>This website uses Chatbase as a chatbot or automated assistant.</p>
+    <p>Chatbase may use cookies or similar technologies to make the chatbot work, keep conversations, analyse interactions or improve the service.</p>
+    <p>The chat is only loaded if the user accepts the "Help chat" category in the cookie panel.</p>
+    <p>The user should avoid entering sensitive or confidential information, credentials, business secrets, third-party data or unnecessary information into the chatbot.</p>
+    <p>The use of Chatbase is also governed by its own terms and privacy policy.</p>
+  </section>
+
+  <section>
+    <h2>8. WhatsApp</h2>
+    <p>This website includes links and a button to WhatsApp.</p>
+    <p>By clicking them, the user leaves the website and accesses external services, which may use their own cookies or similar technologies.</p>
+    <p>The owner of this website does not control the cookies installed by those third parties or their data processing policies.</p>
+  </section>
+
+  <section>
+    <h2>9. Consent</h2>
+    <p>Necessary technical cookies may be used without prior consent, as they are needed for the basic operation of the website.</p>
+    <p>Analytics, advertising or third-party cookies that are not strictly necessary generally require the user's prior consent under the applicable regulations.</p>
+    <p>On the first visit, the website shows a banner that lets you <strong>reject</strong>, <strong>configure</strong> by category (analytics, help chat and marketing) or <strong>accept all</strong> non-necessary cookies. Rejecting is as easy as accepting.</p>
+    <p>Google Analytics cookies, Google Ads cookies, {hasPixel ? "Meta cookies, " : ""}and Chatbase are not activated until the user gives consent for the corresponding category. Google tags are always loaded, with consent denied by default, and without consent they only send technical signals without cookies (section 3.2). The choice is kept for 12 months; after that, you are asked again.</p>
+  </section>
+
+  <section>
+    <h2>10. How to configure or disable cookies in your browser</h2>
+    <p>The user can allow, block or delete the cookies installed on their device through the settings of the browser they use.</p>
+    <p>Below are help links for the most common browsers:</p>
+    <ul>
+      <li>Google Chrome: the browser's privacy and security settings.</li>
+      <li>Mozilla Firefox: privacy and security options.</li>
+      <li>Safari: privacy preferences.</li>
+      <li>Microsoft Edge: cookie and site permission settings.</li>
+    </ul>
+    <p>Blocking certain cookies may affect how some features of the website or of integrated external services work.</p>
+  </section>
+
+  <section>
+    <h2>11. Withdrawing consent</h2>
+    <p>The user can change or withdraw consent at any time from the <a href="#" data-cookie-settings-open>Cookie settings</a> link, also available in the footer of every page, or by changing the browser settings. When analytics consent is withdrawn, the Google Analytics cookies of this domain are deleted, and when marketing consent is withdrawn, the Google Ads cookies{hasPixel ? " and the Meta cookies" : ""} are deleted.</p>
+    <p>Withdrawing consent does not affect the lawfulness of processing carried out before.</p>
+  </section>
+
+  <section>
+    <h2>12. International transfers</h2>
+    <p>Using third-party services such as Google Analytics, Google Ads, Cal.com, Chatbase{hasPixel ? ", Meta" : ""} or WhatsApp may involve international data transfers or processing carried out outside the European Economic Area.</p>
+    <p>That processing will be governed by the safeguards, conditions and privacy policies that apply at each provider.</p>
+  </section>
+
+  <section>
+    <h2>13. Updates to this policy</h2>
+    <p>This Cookie Policy may be modified when there are changes in the cookie configuration, the services used, the applicable regulations or the criteria of the competent authorities.</p>
+    <p>Users are advised to review this policy periodically.</p>
+    <p>Last updated: November 2026.</p>
+    <p>This is a translation of the Spanish version. If there is any discrepancy, the Spanish version prevails.</p>
+  </section>
+</LegalPage>

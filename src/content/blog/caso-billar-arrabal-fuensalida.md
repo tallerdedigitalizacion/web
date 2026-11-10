@@ -3,7 +3,7 @@ title: "Caso: la app del Billar El Arrabal de Fuensalida, rescatada y simplifica
 description: "Una aplicación a medias que no grababa bien las partidas, rescatada y simplificada con IA para el Billar El Arrabal de Fuensalida. Qué se hizo y qué aprendí."
 pubDate: 2026-11-03
 categoria: caso
-relatedService: "/herramientas-internas-medida/"
+relatedService: "/desarrollo-software-a-medida/"
 ---
 
 Hay un tipo de problema que veo mucho en negocios y asociaciones pequeñas: alguien hizo una aplicación, funcionaba "más o menos"... y un día esa persona deja de estar. La herramienta se queda a medias, nadie sabe tocarla y el equipo acaba volviendo al papel.
@@ -55,7 +55,7 @@ Y en el día a día:
 - **Donde antes había tres o cuatro herramientas y papel, ahora se abre una aplicación y está todo ahí.**
 - Y la mejor señal: **ahora me piden funciones nuevas** para meterlas en la aplicación. Cuando un equipo pasa de sufrir una herramienta a pedirle cosas, es que la herramienta ya forma parte de su día a día.
 
-Tener todo centralizado le da a Pedro una gestión mucho más sencilla. Y a mí me confirma algo que llevo viendo más de 15 años: la mayoría de los problemas no se arreglan añadiendo otra herramienta, sino juntando las que ya hay.
+Tener todo centralizado le da a Pedro una gestión mucho más sencilla. Y a mí me confirma algo que llevo viendo 18 años: la mayoría de los problemas no se arreglan añadiendo otra herramienta, sino juntando las que ya hay.
 
 ## La decisión más importante: decir que no a una parte
 
@@ -75,4 +75,4 @@ Para un negocio esto también es importante: si tu herramienta a medida depende 
 
 Si en tu empresa hay un programa que "más o menos funciona", que hizo alguien que ya no está o que obliga a tu equipo a apuntar cosas a mano "por si acaso", probablemente no haga falta tirarlo. Muchas veces se puede rescatar, simplificar y dejar funcionando en poco tiempo, sobre todo ahora que la inteligencia artificial acelera la parte técnica.
 
-Estoy en Fuensalida y trabajo con negocios de Torrijos, Toledo, La Sagra y el sur de Madrid. Cuéntame qué herramienta te está dando guerra en la página de [herramientas internas a medida](/herramientas-internas-medida/#contacto), o escríbeme por WhatsApp al 632 99 01 33, y lo miramos juntos.
+Estoy en Fuensalida y trabajo con negocios de Torrijos, Toledo, La Sagra y el sur de Madrid. Cuéntame qué herramienta te está dando guerra en la página de [herramientas internas a medida](/desarrollo-software-a-medida/#contacto), o escríbeme por WhatsApp al 632 99 01 33, y lo miramos juntos.

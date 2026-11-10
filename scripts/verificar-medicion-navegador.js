@@ -68,6 +68,13 @@
         .filter((n) => /googletagmanager|google-analytics|analytics\.google|googleadservices|doubleclick|facebook|chatbase/.test(n))
         .map((n) => n.split("?")[0]);
 
+      // Pings de GA4 con su estado de consentimiento: gcs=G100 (todo denegado, sin cookies) o G111 (concedido).
+      const pingsGA4 = performance
+        .getEntriesByType("resource")
+        .map((r) => r.name)
+        .filter((n) => /\/g\/collect/.test(n))
+        .map((n) => ({ evento: (n.match(/[&?]en=([^&]+)/) || [])[1], gcs: (n.match(/[&?]gcs=([^&]+)/) || [])[1] }));
+
       let storedAttribution = null;
       let consent = null;
       try {
@@ -89,6 +96,7 @@
         cookies: cookieNames,
         peticionesTerceros: [...new Set(remote)],
         gtag: typeof window.gtag,
+        pingsGA4,
         eventos: tdVerify.events(),
       };
     },

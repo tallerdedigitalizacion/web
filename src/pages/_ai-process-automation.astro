@@ -1,0 +1,11 @@
+---
+// APARCADA (el guion bajo hace que Astro la ignore). Ver src/config/launch.mjs para publicarla.
+// Landing de campaña de Google Ads. Contenido: src/data/campaigns.ts · plantilla: src/layouts/CampaignLayout.astro
+import CampaignPage from "@/components/CampaignPage.astro";
+import { campaignFor } from "@/data/campaigns";
+
+const page = campaignFor("/ai-process-automation/");
+if (!page) throw new Error("Falta la landing /ai-process-automation/ en campaigns.ts");
+---
+
+<CampaignPage page={page} />

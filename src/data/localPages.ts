@@ -70,7 +70,7 @@ export const localPages: LocalPage[] = [
     ],
     approachTitle: "Cómo trabajo",
     approach: [
-      ["Me cuentas el problema", "Por teléfono, email o en una llamada de 15 minutos. Si es urgente, lo miramos en el momento."],
+      ["Me cuentas el problema", "Por teléfono, email o en una llamada de 30 minutos. Si es urgente, lo miramos en el momento."],
       ["Presupuesto antes de tocar nada", "Te digo qué pasa, cuánto cuesta arreglarlo y si merece la pena. Sin sorpresas en la factura."],
       ["Lo resuelvo y te lo explico", "En lenguaje normal y dejando por escrito lo que he hecho, para que la próxima vez sea más rápido."],
       ["Mantenimiento", "Si los problemas se repiten, te propongo un mantenimiento con revisiones periódicas para prevenirlos."],
@@ -122,7 +122,7 @@ export const localPages: LocalPage[] = [
     ],
     approachTitle: "Cómo funciona",
     approach: [
-      ["Llamada de 15 minutos", "Me cuentas qué pasa y vemos si el diagnóstico te sirve. Si no veo cómo ayudarte, te lo digo."],
+      ["Llamada de 30 minutos", "Me cuentas qué pasa y vemos si el diagnóstico te sirve. Si no veo cómo ayudarte, te lo digo."],
       ["Visita", "Dos horas contigo y con quien usa las herramientas."],
       ["Resumen", "Lista priorizada con precios orientativos por correo."],
       ["Tú decides", "Puedes hacerlo por tu cuenta, contratarme un proyecto (descontando los 90 €) o dejarlo ahí."],
@@ -177,7 +177,7 @@ export const localPages: LocalPage[] = [
     approachTitle: "Cómo trabajamos juntos",
     approach: [
       ["Presentas al cliente", "Le comentas que puedo ayudarle y me pasas su contacto, o él me escribe diciendo que viene de tu parte."],
-      ["Diagnóstico o llamada", "Veo su caso en una llamada de 15 minutos o con el diagnóstico de 90 €."],
+      ["Diagnóstico o llamada", "Veo su caso en una llamada de 30 minutos o con el diagnóstico de 90 €."],
       ["Propuesta cerrada", "El cliente recibe un presupuesto claro antes de empezar. El precio es el mismo con o sin comisión."],
       ["Te mantengo al tanto", "Si hay que cuadrar datos con tu gestoría, lo hago contigo."],
     ],
@@ -194,7 +194,7 @@ export const localPages: LocalPage[] = [
       ["Diagnóstico en tu empresa", "/diagnostico-en-tu-empresa/"],
       ["Mantenimiento informático para empresas", "/mantenimiento-informatico-toledo/"],
     ],
-    finalCta: "¿Tienes clientes que necesitan un informático de confianza? Hablemos 15 minutos.",
+    finalCta: "¿Tienes clientes que necesitan un informático de confianza? Hablemos 30 minutos.",
     formService: "Otro",
   },
   {
@@ -390,7 +390,7 @@ export const localPages: LocalPage[] = [
     ],
     approachTitle: "El proceso",
     approach: [
-      ["Llamada gratuita", "15 minutos para entender la situación y ver si tiene sentido trabajar juntos."],
+      ["Llamada gratuita", "30 minutos para entender la situación y ver si tiene sentido trabajar juntos."],
       ["Diagnóstico", "Entrevistas, revisión de herramientas y procesos. Resultado: mapa de problemas, prioridades y hoja de ruta."],
       ["Implementación", "Cambios por fases, empezando por los de más impacto y menos esfuerzo."],
       ["Mantenimiento y seguimiento", "Acompañamiento mensual para que los cambios se queden y las herramientas sigan bien configuradas."],

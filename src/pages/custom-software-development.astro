@@ -1,0 +1,10 @@
+---
+// Landing de campaña de Google Ads. Contenido: src/data/campaigns.ts · plantilla: src/layouts/CampaignLayout.astro
+import CampaignPage from "@/components/CampaignPage.astro";
+import { campaignFor } from "@/data/campaigns";
+
+const page = campaignFor("/custom-software-development/");
+if (!page) throw new Error("Falta la landing /custom-software-development/ en campaigns.ts");
+---
+
+<CampaignPage page={page} />

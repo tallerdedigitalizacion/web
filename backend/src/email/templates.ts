@@ -92,7 +92,7 @@ export function webAuditEmail(input: WebAuditLeadInput, bookingUrl: string) {
         <tbody>${areaRows}</tbody>
       </table>
       <p>Tu reporte detallado está en camino. Esta autoauditoría no sustituye la Auditoría Web Técnica completa, pero ayuda a detectar señales de fuga.</p>
-      <p><a href="${bookingUrl}">Reservar llamada de 15 minutos</a></p>
+      <p><a href="${bookingUrl}">Reservar llamada de 30 minutos</a></p>
     `,
   };
 }
@@ -424,7 +424,7 @@ export function contactEmail(input: ContactLeadInput, bookingUrl: string) {
       "Tu mensaje:",
       input.message,
       "",
-      `Si prefieres, puedes reservar directamente una llamada gratuita de 15 minutos: ${bookingUrl}`,
+      `Si prefieres, puedes reservar directamente una llamada gratuita de 30 minutos: ${bookingUrl}`,
       "",
       "Pablo Leone · Taller de Digitalización",
     ].join("\n"),
@@ -433,7 +433,7 @@ export function contactEmail(input: ContactLeadInput, bookingUrl: string) {
       <p>Gracias por escribir. He recibido tu consulta sobre <strong>${escapeHtml(input.service)}</strong> y te responderé lo antes posible en horario de lunes a viernes de 9:00 a 18:00.</p>
       <p><strong>Tu mensaje:</strong></p>
       <blockquote>${escapeHtml(input.message).replace(/\n/g, "<br />")}</blockquote>
-      <p>Si prefieres, puedes <a href="${bookingUrl}">reservar directamente una llamada gratuita de 15 minutos</a>.</p>
+      <p>Si prefieres, puedes <a href="${bookingUrl}">reservar directamente una llamada gratuita de 30 minutos</a>.</p>
       <p>Pablo Leone · Taller de Digitalización</p>
     `,
   };

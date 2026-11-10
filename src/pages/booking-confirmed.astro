@@ -16,6 +16,8 @@ import { withBase } from "@/utils/paths";
 >
   <script is:inline>
     if (location.search) history.replaceState(null, "", location.pathname + location.hash);
+    // Dentro del calendario incrustado de una landing (iframe): sin cabecera ni pie, ver el <style> de abajo.
+    if (window.self !== window.top) document.documentElement.classList.add("in-frame");
   </script>
   <section class="section final-cta">
     <span class="eyebrow">Booking</span>
@@ -30,6 +32,12 @@ import { withBase } from "@/utils/paths";
         page_path: window.location.pathname,
         page_location: window.location.href,
       });
+      // Si esta página carga dentro del calendario incrustado de una landing, avisa para que muestre la confirmación.
+      if (window.parent !== window) window.parent.postMessage({ type: "td:booking-complete" }, window.location.origin);
     }
   </script>
+  <style is:global>
+    html.in-frame .site-header, html.in-frame .site-footer, html.in-frame .cookie-banner, html.in-frame .whatsapp-float, html.in-frame .cl-header, html.in-frame .cl-footer { display: none !important; }
+    html.in-frame .section { padding: 28px 0; }
+  </style>
 </BaseLayout>

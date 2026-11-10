@@ -190,7 +190,7 @@ export const casePages: CasePage[] = [
       privacyFaq,
     ],
     related: [
-      ["Software a medida para empresas", "/herramientas-internas-medida/"],
+      ["Software a medida para empresas", "/desarrollo-software-a-medida/"],
       ["Asistente de IA con los documentos de tu empresa", "/asistente-ia-empresa/"],
       ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
@@ -334,7 +334,7 @@ export const casePages: CasePage[] = [
     ],
     related: [
       ["Conectar tus programas (n8n, Make, Zapier, Holded, A3)", "/integracion-sistemas/"],
-      ["Software a medida para empresas", "/herramientas-internas-medida/"],
+      ["Software a medida para empresas", "/desarrollo-software-a-medida/"],
       ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿Alguien en tu empresa introduce facturas a mano? Veamos cómo automatizarlo.",
@@ -375,7 +375,6 @@ const caseByPath: Record<string, string> = {
   "/plan-operaciones-ia/": "conciliacion-proveedores",
   // Servicios
   "/integracion-sistemas/": "conciliacion-proveedores",
-  "/herramientas-internas-medida/": "entrada-facturas-automatica",
   "/oraculo-interno/": "dar-de-baja-software-historico",
   "/oraculo-externo/": "consulta-cobertura-ia",
   "/centralizacion-leads/": "consulta-cobertura-ia",

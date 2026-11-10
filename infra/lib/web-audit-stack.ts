@@ -50,6 +50,8 @@ export class WebAuditStack extends Stack {
         TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY || "",
         RECAPTCHA_SECRET_KEY: process.env.RECAPTCHA_SECRET_KEY || "",
         IP_HASH_SALT: process.env.IP_HASH_SALT || "change-me",
+        // Token de la integración de Notion (CRM · Prospectos). Se lee del entorno al desplegar; nunca va en el repo.
+        NOTION_TOKEN: process.env.NOTION_TOKEN || "",
         NODE_ENV: process.env.NODE_ENV || "production",
       },
     });

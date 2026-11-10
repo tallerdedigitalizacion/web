@@ -18,7 +18,7 @@ const seeds: ServiceSeed[] = [
   { group: "Automation & AI", label: "AI knowledge base for your company documents", href: "/ai-knowledge-base/", summary: "A chat that answers with your company documents, so the team stops asking the owner." },
   { group: "Operations & processes", label: "Operations audit with an action plan", href: "/digitalization-assessment/", summary: "A review of your processes and tools, with a prioritized report of what to change and in which order." },
   { group: "Operations & processes", label: "Zapier, Make and n8n integrations", href: "/systems-integration/", summary: "CRM, ERP, invoicing and email exchange data on their own, with no copy and paste." },
-  { group: "Operations & processes", label: "Custom internal tools: replace your spreadsheets", href: "/custom-internal-tools/", summary: "Dashboards, portals and automations built for how your team works." },
+  { group: "Operations & processes", label: "Custom software development for your business", href: "/custom-software-development/", summary: "Dashboards, portals and automations built for how your team works." },
   { group: "Web", label: "Website speed optimization", href: "/website-speed-optimization/", summary: "My website is slow: I speed it up without rebuilding it and show you the before and after. Free website report included." },
   { group: "Web", label: "Landing page design for ad campaigns", href: "/conversion-landing-pages/", summary: "A page focused on a single goal, with tracking, to turn campaign traffic into contacts." },
   { group: "IT & security", label: "Google Workspace setup & migration", href: "/google-workspace-reorganization/", summary: "Business email, users, groups and permissions set up so each person only accesses what they need." },

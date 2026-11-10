@@ -50,6 +50,8 @@ export class LeadsStack extends Stack {
         SMTP_SECURE: process.env.SMTP_SECURE || "true",
         SMTP_USER: process.env.SMTP_USER || "",
         SMTP_PASSWORD: process.env.SMTP_PASSWORD || "",
+        // Token de la integración de Notion (CRM · Prospectos). Se lee del entorno al desplegar; nunca va en el repo.
+        NOTION_TOKEN: process.env.NOTION_TOKEN || "",
         SITE_URL: process.env.PUBLIC_SITE_URL || "https://tallerdedigitalizacion.com",
         ALLOWED_ORIGINS:
           process.env.ALLOWED_ORIGINS || "https://tallerdedigitalizacion.com,http://localhost:4322,http://localhost:4323",

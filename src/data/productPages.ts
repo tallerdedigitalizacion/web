@@ -48,7 +48,7 @@ export const productPages: LocalPage[] = [
     ],
     approachTitle: "Cómo trabajamos",
     approach: [
-      ["Llamada gratuita", "15 minutos para entender cómo funciona hoy tu operación y si tiene sentido un diagnóstico."],
+      ["Llamada gratuita", "30 minutos para entender cómo funciona hoy tu operación y si tiene sentido un diagnóstico."],
       ["Diagnóstico", "Entrevistas, revisión de herramientas y mapa completo de la cadena."],
       ["Diseño y hoja de ruta", "La estructura objetivo y los cambios por fases, con prioridades claras."],
       ["Implantación y seguimiento", "Acompañamiento mensual para que los cambios se queden y la estructura no se vuelva a descuidar."],

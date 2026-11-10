@@ -45,21 +45,23 @@ const hasPixel = Boolean(siteConfig.metaPixelId);
     <p>Son cookies que permiten obtener información sobre cómo los usuarios utilizan la web, qué páginas visitan, cuánto tiempo permanecen, desde dónde llegan o qué acciones realizan.</p>
     <p>Este sitio web puede utilizar Google Analytics 4 para analizar el uso de la web y mejorar sus contenidos, navegación, rendimiento y llamadas a la acción.</p>
     <p>La información recogida puede incluir datos técnicos como dirección IP, navegador, dispositivo, páginas visitadas, eventos de interacción, fecha, hora y origen de la visita.</p>
+    <p>Las etiquetas de Google (Google Analytics 4 y la medición de Google Ads) se cargan en todas las visitas, pero con el consentimiento <strong>denegado por defecto</strong> (Consent Mode v2). Mientras el usuario no acepte la categoría correspondiente, no se escribe ninguna cookie de Google y Google solo recibe señales técnicas sin cookies, como la página visitada, el origen de la visita (por ejemplo, los parámetros de la campaña) y datos del navegador, además de la dirección IP propia de cualquier conexión. Esas señales no se asocian a un identificador persistente del navegador y sirven para medir de forma agregada y estimar conversiones. Si el usuario acepta la analítica, Google Analytics pasa a usar cookies; si acepta el marketing, Google Ads también.</p>
 
+    <h3>3.3. Cookies de marketing o publicidad</h3>
+    <p>Son cookies que permiten medir el resultado de los anuncios que Taller de Digitalización publique en Google{hasPixel ? ", Facebook e Instagram" : ""} y atribuir a cada anuncio las consultas que generan{hasPixel ? ", y mostrar anuncios a personas que ya han visitado la web" : ""}.</p>
+    <p>Para los anuncios de Google, la medición de conversiones puede guardar el identificador del clic del anuncio en la cookie <code>_gcl_aw</code>. Esa cookie solo se escribe si el usuario acepta la categoría "Marketing" en el panel de cookies.</p>
     {hasPixel && (
       <>
-        <h3>3.3. Cookies de marketing o publicidad</h3>
-        <p>Son cookies que permiten medir el resultado de los anuncios que Taller de Digitalización publique en Facebook e Instagram y mostrar anuncios a personas que ya han visitado la web.</p>
         <p>Este sitio web puede utilizar el Meta Pixel, un servicio de Meta Platforms Ireland Limited. El píxel registra visitas a páginas y acciones como reservar una llamada, escribir por WhatsApp, llamar, enviar un email o completar un formulario, y las asocia al navegador mediante las cookies <code>_fbp</code> y <code>_fbc</code>.</p>
         <p>El Meta Pixel solo se carga si el usuario acepta la categoría "Marketing" en el panel de cookies.</p>
       </>
     )}
 
-    <h3>{hasPixel ? "3.4." : "3.3."} Cookies de terceros</h3>
+    <h3>3.4. Cookies de terceros</h3>
     <p>Este sitio web puede integrar o enlazar servicios de terceros que pueden instalar cookies o tecnologías similares cuando el usuario interactúa con ellos.</p>
     <p>Entre estos servicios pueden estar:</p>
     <ul>
-      <li>Google Analytics, para analítica web.</li>
+      <li>Google Analytics y Google Ads, para analítica web y medición de anuncios.</li>
       <li>Cal.com, para la reserva de llamadas.</li>
       <li>Chatbase, para el chatbot o asistente automatizado.</li>
       {hasPixel && <li>Meta Pixel (Facebook e Instagram), para medir anuncios.</li>}
@@ -92,8 +94,14 @@ const hasPixel = Boolean(siteConfig.metaPixelId);
           <tr>
             <td>Google Analytics (<code>_ga</code>, <code>_ga_*</code>)</td>
             <td>Analítica (requiere consentimiento)</td>
-            <td>Medición anónima de visitas, eventos y comportamiento de navegación</td>
+            <td>Medición anónima de visitas, eventos y comportamiento de navegación. Sin consentimiento no se escriben.</td>
             <td>Hasta 2 años</td>
+          </tr>
+          <tr>
+            <td>Google Ads (<code>_gcl_aw</code>, <code>_gcl_*</code>)</td>
+            <td>Marketing (requiere consentimiento)</td>
+            <td>Medición de conversiones de los anuncios de Google. Sin consentimiento no se escriben.</td>
+            <td>Hasta 3 meses</td>
           </tr>
           {hasPixel && (
             <tr>
@@ -111,7 +119,7 @@ const hasPixel = Boolean(siteConfig.metaPixelId);
           </tr>
           <tr>
             <td>Cal.com</td>
-            <td>Terceros (solo al abrir su página de reservas)</td>
+            <td>Terceros (solo al abrir su página de reservas o al mostrar el calendario incrustado)</td>
             <td>Gestión de reservas de llamadas</td>
             <td>Según política de Cal.com</td>
           </tr>
@@ -122,8 +130,9 @@ const hasPixel = Boolean(siteConfig.metaPixelId);
   </section>
 
   <section>
-    <h2>5. Google Analytics</h2>
+    <h2>5. Google Analytics y Google Ads</h2>
     <p>Este sitio web puede utilizar Google Analytics 4, un servicio de analítica web prestado por Google.</p>
+    <p>Las etiquetas de Google se cargan con el consentimiento denegado por defecto y se actualizan según la elección del usuario en el panel de cookies. Sin consentimiento, Google solo recibe señales técnicas sin cookies, tal y como se describe en el apartado 3.2.</p>
     <p>Google Analytics permite analizar de forma agregada cómo los usuarios navegan por la web, qué contenidos consultan y qué acciones realizan, con el objetivo de mejorar el sitio y medir su rendimiento.</p>
     <p>Google puede tratar datos en servidores ubicados fuera del Espacio Económico Europeo. El tratamiento de datos por parte de Google se rige por sus propias condiciones y políticas.</p>
     <p>El usuario puede obtener más información en la política de privacidad de Google.</p>
@@ -131,7 +140,7 @@ const hasPixel = Boolean(siteConfig.metaPixelId);
 
   <section>
     <h2>6. Cal.com</h2>
-    <p>Este sitio web enlaza a Cal.com para permitir la reserva de llamadas gratuitas de 15 minutos. Cal.com no se carga dentro de esta web: solo se abre su página cuando el usuario pulsa un botón de reserva.</p>
+    <p>Este sitio web enlaza a Cal.com para permitir la reserva de llamadas gratuitas de 30 minutos. En la mayoría de las páginas, Cal.com no se carga dentro de esta web: solo se abre su página cuando el usuario pulsa un botón de reserva. En las páginas de aterrizaje de los servicios de desarrollo de software y de automatización, el calendario de Cal.com se muestra dentro de la propia página: solo se carga cuando el usuario acepta las cookies o pulsa el botón «Ver huecos disponibles».</p>
     <p>Cuando el usuario utiliza Cal.com, puede introducir datos como nombre, email, empresa, disponibilidad, comentarios u otra información necesaria para gestionar la reunión.</p>
     <p>Cal.com puede utilizar cookies propias y de terceros para prestar su servicio, recordar preferencias, gestionar sesiones o analizar el uso de su plataforma.</p>
     <p>El uso de Cal.com se rige también por sus propias condiciones y política de privacidad.</p>
@@ -157,8 +166,8 @@ const hasPixel = Boolean(siteConfig.metaPixelId);
     <h2>9. Consentimiento</h2>
     <p>Las cookies técnicas necesarias pueden utilizarse sin consentimiento previo, al ser necesarias para el funcionamiento básico del sitio web.</p>
     <p>Las cookies analíticas, publicitarias o de terceros que no sean estrictamente necesarias requieren, con carácter general, el consentimiento previo del usuario conforme a la normativa aplicable.</p>
-    <p>Al entrar por primera vez, la web muestra un banner que permite <strong>rechazar</strong>, <strong>configurar</strong> por categorías ({hasPixel ? "analíticas, chat de ayuda y marketing" : "analíticas y chat de ayuda"}) o <strong>aceptar todas</strong> las cookies no necesarias. Rechazar es tan sencillo como aceptar.</p>
-    <p>{hasPixel ? "Google Analytics, Chatbase y el Meta Pixel" : "Google Analytics y Chatbase"} no se cargan hasta que el usuario da su consentimiento para la categoría correspondiente. La elección se conserva durante 12 meses; pasado ese plazo, se vuelve a preguntar.</p>
+    <p>Al entrar por primera vez, la web muestra un banner que permite <strong>rechazar</strong>, <strong>configurar</strong> por categorías (analíticas, chat de ayuda y marketing) o <strong>aceptar todas</strong> las cookies no necesarias. Rechazar es tan sencillo como aceptar.</p>
+    <p>Las cookies de Google Analytics, las de Google Ads, {hasPixel ? "las de Meta, " : ""}y Chatbase no se activan hasta que el usuario da su consentimiento para la categoría correspondiente. Las etiquetas de Google se cargan siempre, con el consentimiento denegado por defecto, y sin consentimiento solo envían señales técnicas sin cookies (apartado 3.2). La elección se conserva durante 12 meses; pasado ese plazo, se vuelve a preguntar.</p>
   </section>
 
   <section>
@@ -176,13 +185,13 @@ const hasPixel = Boolean(siteConfig.metaPixelId);
 
   <section>
     <h2>11. Retirada del consentimiento</h2>
-    <p>El usuario puede cambiar o retirar su consentimiento en cualquier momento desde el enlace <a href="#" data-cookie-settings-open>Configurar cookies</a>, disponible también al pie de todas las páginas, o modificando la configuración de su navegador. Al retirar el consentimiento de analítica se eliminan las cookies de Google Analytics de este dominio{hasPixel ? ", y al retirar el de marketing, las de Meta" : ""}.</p>
+    <p>El usuario puede cambiar o retirar su consentimiento en cualquier momento desde el enlace <a href="#" data-cookie-settings-open>Configurar cookies</a>, disponible también al pie de todas las páginas, o modificando la configuración de su navegador. Al retirar el consentimiento de analítica se eliminan las cookies de Google Analytics de este dominio, y al retirar el de marketing, las de Google Ads{hasPixel ? " y las de Meta" : ""}.</p>
     <p>La retirada del consentimiento no afectará a la licitud del tratamiento realizado con anterioridad.</p>
   </section>
 
   <section>
     <h2>12. Transferencias internacionales</h2>
-    <p>El uso de servicios de terceros como Google Analytics, Cal.com, Chatbase{hasPixel ? ", Meta" : ""} o WhatsApp puede implicar transferencias internacionales de datos o tratamientos realizados fuera del Espacio Económico Europeo.</p>
+    <p>El uso de servicios de terceros como Google Analytics, Google Ads, Cal.com, Chatbase{hasPixel ? ", Meta" : ""} o WhatsApp puede implicar transferencias internacionales de datos o tratamientos realizados fuera del Espacio Económico Europeo.</p>
     <p>Dichos tratamientos se regirán por las garantías, condiciones y políticas de privacidad aplicables en cada proveedor.</p>
   </section>
 
@@ -190,6 +199,6 @@ const hasPixel = Boolean(siteConfig.metaPixelId);
     <h2>13. Actualizaciones de esta política</h2>
     <p>Esta Política de Cookies puede modificarse cuando se produzcan cambios en la configuración de cookies, servicios utilizados, normativa aplicable o criterios de las autoridades competentes.</p>
     <p>Se recomienda revisar periódicamente esta política.</p>
-    <p>Última actualización: mayo de 2026.</p>
+    <p>Última actualización: noviembre de 2026.</p>
   </section>
 </LegalPage>

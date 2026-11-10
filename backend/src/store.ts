@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from "node:crypto";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
+import { DeleteCommand, DynamoDBDocumentClient, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { config } from "./config";
 
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
@@ -54,4 +54,29 @@ export async function incrementRate(ip: string, action: string) {
   );
 
   return Number(result.Attributes?.count || 0);
+}
+
+// Reserva anti-duplicados para el alta en Notion (que no tiene clave única): true si la clave es nueva dentro de la
+// ventana; false si otro envío igual la reservó hace menos de `ttlSeconds`. `expiresAt` es el TTL de la tabla; como
+// DynamoDB borra con retraso, la condición también comprueba que haya caducado.
+export async function claimSubmission(key: string, ttlSeconds: number) {
+  const nowSeconds = Math.floor(Date.now() / 1000);
+  try {
+    await ddb.send(
+      new PutCommand({
+        TableName: config.tableName,
+        Item: { pk: `notion-claim#${hashValue(key)}`, sk: "claim", entityType: "notion-claim", expiresAt: nowSeconds + ttlSeconds },
+        ConditionExpression: "attribute_not_exists(pk) OR expiresAt < :now",
+        ExpressionAttributeValues: { ":now": nowSeconds },
+      }),
+    );
+    return true;
+  } catch (error) {
+    if (error instanceof Error && error.name === "ConditionalCheckFailedException") return false;
+    throw error;
+  }
+}
+
+export async function releaseSubmission(key: string) {
+  await ddb.send(new DeleteCommand({ TableName: config.tableName, Key: { pk: `notion-claim#${hashValue(key)}`, sk: "claim" } }));
 }

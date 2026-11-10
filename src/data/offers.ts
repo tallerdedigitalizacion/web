@@ -259,15 +259,28 @@ export const offers: Record<string, Offer> = {
     ],
     note: "El precio es por cada conexión entre dos sistemas.",
   },
-  "/herramientas-internas-medida/": {
-    price: 2500,
-    deadline: "3 a 6 semanas",
+  // Landings de campaña (diagnóstico → primera implementación → plan de 6 semanas). Detalle de precios en src/data/campaigns.ts.
+  "/desarrollo-software-a-medida/": {
+    price: 90,
+    fixed: true,
+    deadline: "El plazo se da al terminar el diagnóstico",
     includes: [
-      "Análisis de cómo trabaja tu equipo",
-      "Prototipo para validar antes de desarrollar",
-      "Aplicación hecha a medida",
-      "Formación y 30 días de soporte",
+      "Dos horas de reuniones para entender los problemas de tu empresa",
+      "Informe con la lista de problemas ordenada por impacto",
+      "Para cada uno: qué se resuelve, cómo, cuánto cuesta, cuánto tarda y qué impacto tiene",
     ],
+    note: "El diagnóstico se descuenta si sigues. Primera implementación: 490 € en total (400 € tras el diagnóstico). Plan de 6 semanas: 2.490 € en total.",
+  },
+  "/automatizacion-procesos-ia/": {
+    price: 90,
+    fixed: true,
+    deadline: "El plazo se da al terminar el diagnóstico",
+    includes: [
+      "Dos horas de reuniones para entender los problemas de tu empresa",
+      "Informe con la lista de problemas ordenada por impacto",
+      "Para cada uno: qué se resuelve, cómo, cuánto cuesta, cuánto tarda y qué impacto tiene",
+    ],
+    note: "El diagnóstico se descuenta si sigues. Primera implementación: 490 € en total (400 € tras el diagnóstico). Plan de 6 semanas: 2.490 € en total.",
   },
   "/caos-operativo-telecomunicaciones/": {
     price: 1000,
@@ -397,7 +410,9 @@ export const offersEn: Record<string, Offer> = {
     ],
     note: "The price is per connection between two systems.",
   },
-  "/custom-internal-tools/": {
+  // En esta versión los precios están en USD (público de EE. UU.). Las landings de campaña para Madrid
+  // (/custom-software-development/, /ai-process-automation/) muestran EUR: su precio está en campaigns.ts.
+  "/custom-software-development/": {
     price: 3000,
     deadline: "3 to 6 weeks",
     includes: [

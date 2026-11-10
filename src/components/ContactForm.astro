@@ -9,6 +9,17 @@ const {
   selectedService = "",
   title: titleProp,
   intro: introProp,
+  // Versión corta para las landings de campaña: el servicio va fijado (campo oculto), sin empresa ni datos de contacto
+  // alternativos, sin WhatsApp y con todos los campos en una sola columna.
+  compact = false,
+  // Solo con `compact`: opciones para elegir con un clic (en vez de describir el problema con texto libre) y observación opcional.
+  choices = [] as string[],
+  choiceLabel = "",
+  choicePlaceholder = "",
+  // Opción «ninguna de estas»: al elegirla aparece un campo obligatorio para explicarlo y desaparece el opcional.
+  otherChoice = "",
+  explainLabel = "",
+  messageLabel = "",
 } = Astro.props;
 const isEnglish = lang === "en";
 const t = isEnglish
@@ -73,7 +84,7 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
     <span class="eyebrow">{t.eyebrow}</span>
     <h2>{title}</h2>
     <p>{intro}</p>
-    {isEnglish ? (
+    {compact ? null : isEnglish ? (
       <p class="microcopy">
         <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a><br />
         <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn (Pablo Leone)</a> · <a href={siteConfig.linkedinCompanyUrl} target="_blank" rel="noreferrer">LinkedIn ({siteConfig.name})</a>
@@ -85,27 +96,47 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
         <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn de Pablo Leone</a> · <a href={siteConfig.linkedinCompanyUrl} target="_blank" rel="noreferrer">LinkedIn de la empresa</a>
       </p>
     )}
-    <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={isEnglish ? siteConfig.bookingUrlEn : siteConfig.bookingUrl} target="_blank" rel="noreferrer">{t.book}</a>
+    {compact ? null : (
+      <a class="btn btn-secondary" data-event="reservar_click" data-preserve-utm href={isEnglish ? siteConfig.bookingUrlEn : siteConfig.bookingUrl} target="_blank" rel="noreferrer">{t.book}</a>
+    )}
   </div>
-  <form class="compact-form contact-form" data-contact-form action={siteConfig.formEndpoint} method="post" novalidate>
-    <label>{t.service}
-      <select required name="servicio">
-        <option value="" disabled selected={!selectedService}>{t.select}</option>
-        {groups.map(({ group, labels }) => (
-          <optgroup label={group}>
-            {labels.map((label) => <option value={label} selected={label === selectedService}>{label}</option>)}
-          </optgroup>
-        ))}
-        <option value={t.other} selected={selectedService === t.other}>{t.other}</option>
-      </select>
-    </label>
+  <form class:list={["compact-form", "contact-form", { "is-compact": compact }]} data-contact-form action={siteConfig.formEndpoint} method="post" novalidate>
+    {compact ? (
+      <input type="hidden" name="servicio" value={selectedService} />
+    ) : (
+      <label>{t.service}
+        <select required name="servicio">
+          <option value="" disabled selected={!selectedService}>{t.select}</option>
+          {groups.map(({ group, labels }) => (
+            <optgroup label={group}>
+              {labels.map((label) => <option value={label} selected={label === selectedService}>{label}</option>)}
+            </optgroup>
+          ))}
+          <option value={t.other} selected={selectedService === t.other}>{t.other}</option>
+        </select>
+      </label>
+    )}
     <div class="form-grid">
       <label>{t.name}<input required name="nombre" autocomplete="name" /></label>
       <label>{t.email}<input required type="email" name="email" autocomplete="email" /></label>
-      <label>{t.company}<input name="empresa" autocomplete="organization" /><small>{t.optional}</small></label>
+      {!compact && <label>{t.company}<input name="empresa" autocomplete="organization" /><small>{t.optional}</small></label>}
       <label>{t.phone}<input type="tel" name="telefono" autocomplete="tel" /><small>{t.phoneHelp}</small></label>
     </div>
-    <label>{t.message}<textarea required name="mensaje" rows="4" minlength="5" maxlength="2000"></textarea></label>
+    {compact && choices.length > 0 ? (
+      <>
+        <label>{choiceLabel}
+          <select required name="opcion" data-choice>
+            <option value="" disabled selected>{choicePlaceholder}</option>
+            {choices.map((choice) => <option value={choice}>{choice}</option>)}
+            <option value="__otra__">{otherChoice}</option>
+          </select>
+        </label>
+        <label data-explain hidden>{explainLabel}<textarea name="explicacion" rows="4" minlength="5" maxlength="1500" disabled></textarea></label>
+        <label data-note>{messageLabel}<textarea name="mensaje" rows="3" maxlength="1500"></textarea></label>
+      </>
+    ) : (
+      <label>{t.message}<textarea required name="mensaje" rows="4" minlength="5" maxlength="2000"></textarea></label>
+    )}
     <label class="check"><input required type="checkbox" name="privacidad" /> <span>{t.privacyBefore} <a href={withBase(isEnglish ? "/privacy-policy" : "/politica-privacidad")}>{t.privacyLink}</a>.</span></label>
     <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
     <input type="hidden" name="started_at" data-started-at />
@@ -114,12 +145,34 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
   </form>
 </section>
 
-<script define:vars={{ formEndpoint: siteConfig.formEndpoint, contactEmail: siteConfig.contactEmail, msg: { sending: t.sending, sent: t.sent, failed: t.failed, unknown: t.unknown, fallback: t.fallback } }}>
+<script define:vars={{ formEndpoint: siteConfig.formEndpoint, contactEmail: siteConfig.contactEmail, otherLabel: otherChoice, msg: { sending: t.sending, sent: t.sent, failed: t.failed, unknown: t.unknown, fallback: t.fallback } }}>
   document.querySelectorAll("[data-contact-form]").forEach((form) => {
     if (!(form instanceof HTMLFormElement)) return;
     const status = form.querySelector("[data-contact-status]");
     const startedAt = form.querySelector("[data-started-at]");
     if (startedAt instanceof HTMLInputElement) startedAt.value = String(Date.now());
+
+    // Selector «¿Qué te pasa?»: con «ninguna de estas» se pide explicarlo (obligatorio) y se quita el campo opcional.
+    const choice = form.querySelector("[data-choice]");
+    const explain = form.querySelector("[data-explain]");
+    const note = form.querySelector("[data-note]");
+    if (choice instanceof HTMLSelectElement && explain instanceof HTMLElement && note instanceof HTMLElement) {
+      const explainField = explain.querySelector("textarea");
+      const noteField = note.querySelector("textarea");
+      const sync = () => {
+        const other = choice.value === "__otra__";
+        explain.hidden = !other;
+        note.hidden = other;
+        if (explainField instanceof HTMLTextAreaElement) {
+          explainField.disabled = !other;
+          explainField.required = other;
+        }
+        if (noteField instanceof HTMLTextAreaElement) noteField.disabled = other;
+      };
+      choice.addEventListener("change", sync);
+      // Tras enviar, el formulario se vacía: el selector vuelve al principio y los campos con él.
+      form.addEventListener("reset", () => setTimeout(sync, 0));
+    }
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -147,7 +200,10 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
             email: String(data.get("email") || ""),
             company: String(data.get("empresa") || ""),
             phone: String(data.get("telefono") || ""),
-            message: String(data.get("mensaje") || ""),
+            // Con opciones (landings de campaña): la opción elegida más la observación; con «ninguna de estas», la explicación.
+            message: String(data.get("opcion") || "") === "__otra__"
+              ? `${otherLabel.split(":")[0]}: ${String(data.get("explicacion") || "")}`
+              : [String(data.get("opcion") || ""), String(data.get("mensaje") || "")].filter(Boolean).join("\n\n"),
             privacyAccepted: data.get("privacidad") === "on",
             marketingAccepted: false,
             website: String(data.get("website") || ""),
@@ -172,3 +228,9 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
     });
   });
 </script>
+
+<style>
+  /* Landings de campaña: nombre, email, teléfono y comentario, uno debajo de otro. */
+  .is-compact .form-grid { grid-template-columns: 1fr; }
+  .is-compact textarea { min-height: 140px; resize: vertical; }
+</style>

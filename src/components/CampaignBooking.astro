@@ -1,0 +1,166 @@
+---
+// Reserva de la llamada DENTRO de la página, con el código oficial «inline embed» de Cal.com (script de incrustado).
+//
+// Consentimiento: el script y el calendario son de un tercero (Cal.com), así que no se cargan al abrir la página.
+//  - Si la persona ya aceptó las cookies (o las acepta mientras está en la página), el calendario aparece solo, sin botón.
+//  - Si no, ve un botón «Ver huecos disponibles»: al pulsarlo se carga. Sin autoplay de nada.
+// Medición: el botón y el enlace de respaldo disparan `reservar_click` (CookieBanner). Al completarse la reserva, Cal.com avisa
+// a la página (`bookingSuccessful`), que lanza `reserva_completada` y muestra la confirmación; no hace falta la página de gracias.
+// Atribución: `forwardQueryParams` reenvía los parámetros de la URL (utm_*, gclid…) a la reserva.
+import type { Lang } from "@/data/campaigns";
+import { shared } from "@/data/campaigns";
+
+interface Props {
+  lang: Lang;
+  calLink: string;
+  calNamespace: string;
+}
+
+const { lang, calLink, calNamespace } = Astro.props as Props;
+const copy = shared[lang].booking;
+const mountId = `cal-inline-${calNamespace}`;
+---
+
+<section id="reserva" class="section section-accent" data-booking data-cal-link={calLink} data-cal-ns={calNamespace} data-mount={mountId}>
+  <div class="section-head">
+    <span class="eyebrow">{copy.eyebrow}</span>
+    <h2>{copy.title}</h2>
+    <p>{copy.intro}</p>
+  </div>
+  <div class="cb-box">
+    <div class="cb-facade" data-booking-facade>
+      <button class="btn btn-primary" type="button" data-event="reservar_click" data-link-id="booking-embed-open" data-booking-open>{copy.openLabel}</button>
+      <p class="microcopy">{copy.consentNote}</p>
+      <a class="cb-fallback" data-event="reservar_click" data-link-id="booking-fallback" href={`https://cal.com/${calLink}`} target="_blank" rel="noreferrer">{copy.fallbackLabel}</a>
+    </div>
+    <p class="microcopy" data-booking-loading hidden>{copy.loadingLabel}</p>
+    <div class="cb-cal" id={mountId} data-booking-mount hidden></div>
+  </div>
+  <div class="cb-done" data-booking-done role="status" hidden>
+    <h3>{copy.confirmedTitle}</h3>
+    <p>{copy.confirmedText}</p>
+  </div>
+</section>
+
+<script>
+  type CalFn = ((...args: unknown[]) => void) & { ns?: Record<string, (...args: unknown[]) => void>; config?: Record<string, unknown> };
+  type TdWindow = Window & {
+    Cal?: CalFn;
+    tdConsent?: { analytics?: boolean; marketing?: boolean };
+    tdTrackEvent?: (name: string, params?: Record<string, unknown>) => void;
+  };
+  const w = window as TdWindow;
+
+  const root = document.querySelector<HTMLElement>("[data-booking]");
+  if (root) {
+    const facade = root.querySelector<HTMLElement>("[data-booking-facade]");
+    const loading = root.querySelector<HTMLElement>("[data-booking-loading]");
+    const mount = root.querySelector<HTMLElement>("[data-booking-mount]");
+    const done = root.querySelector<HTMLElement>("[data-booking-done]");
+    const open = root.querySelector<HTMLButtonElement>("[data-booking-open]");
+    let started = false;
+
+    function startCal() {
+      if (started || !root || !facade || !mount) return;
+      started = true;
+      const ns = root.dataset.calNs || "";
+      const link = root.dataset.calLink || "";
+      facade.hidden = true;
+      mount.hidden = false;
+      if (loading) loading.hidden = false;
+
+      // Código oficial de Cal.com (cargador del script de incrustado).
+      (function (C: any, A: string, L: string) {
+        const p = function (a: any, ar: any) { a.q.push(ar); };
+        const d = C.document;
+        C.Cal = C.Cal || function () {
+          const cal = C.Cal;
+          const ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement("script")).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api: any = function () { p(api, arguments); };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === "string") {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ["initNamespace", namespace]);
+            } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+
+      const Cal = w.Cal as CalFn;
+      Cal("init", ns, { origin: "https://app.cal.com" });
+      Cal.config = Cal.config || {};
+      Cal.config.forwardQueryParams = true;
+      const api = (Cal.ns as Record<string, (...args: unknown[]) => void>)[ns];
+      api("inline", {
+        elementOrSelector: `#${mount.id}`,
+        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true", theme: "dark" },
+        calLink: link,
+      });
+      api("ui", { theme: "dark", hideEventTypeDetails: false, layout: "month_view", styles: { branding: { brandColor: "#4ee58d" } } });
+      api("on", { action: "linkReady", callback: () => { if (loading) loading.hidden = true; } });
+      api("on", {
+        action: "bookingSuccessful",
+        callback: () => {
+          w.tdTrackEvent?.("reserva_completada", { page_path: window.location.pathname, page_location: window.location.href });
+          if (mount) mount.hidden = true;
+          if (loading) loading.hidden = true;
+          if (done) done.hidden = false;
+        },
+      });
+    }
+
+    open?.addEventListener("click", startCal);
+    // Con las cookies aceptadas (ya guardadas o aceptadas ahora) el calendario aparece solo.
+    if (w.tdConsent?.analytics || w.tdConsent?.marketing) startCal();
+    window.addEventListener("td:consent", (event) => {
+      const consent = (event as CustomEvent<{ analytics?: boolean; marketing?: boolean }>).detail;
+      if (consent?.analytics || consent?.marketing) startCal();
+    });
+  }
+</script>
+
+<style>
+  .cb-box {
+    display: grid;
+    justify-items: start;
+    gap: 12px;
+    max-width: 860px;
+  }
+
+  .cb-facade {
+    display: grid;
+    justify-items: start;
+    gap: 12px;
+  }
+
+  .cb-box .microcopy { margin: 0; }
+  .cb-fallback { color: var(--muted); font-size: 0.95rem; }
+  .cb-fallback:hover { color: var(--ink); }
+
+  .cb-cal {
+    width: 100%;
+    min-height: 560px;
+    overflow: auto;
+  }
+
+  .cb-done {
+    max-width: 860px;
+    padding: 22px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+
+  .cb-done h3, .cb-done p { margin: 0 0 8px; }
+</style>

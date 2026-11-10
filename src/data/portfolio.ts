@@ -24,9 +24,8 @@ export const billarArrabal = {
 
 // Páginas de servicio que, además del caso real, enseñan un proyecto del portfolio (con su vídeo si lo hay).
 // Clave: ruta de la página; valor: clave del vídeo en src/data/videos.ts.
-const portfolioByPath: Record<string, string> = {
-  "/herramientas-internas-medida/": "portfolio-billar-arrabal",
-};
+// (La landing /desarrollo-software-a-medida/ enseña el proyecto con su propia tarjeta, no con este componente.)
+const portfolioByPath: Record<string, string> = {};
 
 export const portfolioVideoKeyForPath = (path: string) => {
   const normalized = path === "/" ? "/" : `/${path.replace(/^\/+|\/+$/g, "")}/`;

@@ -1190,6 +1190,8 @@ export const quizzes: Quiz[] = [
 
 // Qué autoevaluación muestra cada página (ruta sin barra final). Las páginas que ya tienen su propio lead magnet
 // (informe web, plantilla de Drive, calculadora de leads, autoevaluación de caos operativo) no aparecen aquí.
+// Tampoco las landings de campaña (/desarrollo-software-a-medida, /custom-software-development, /automatizacion-procesos-ia,
+// /ai-process-automation): ya no llevan autoevaluación con email; su lead magnet es «¿Cómo sé si esto es para mí?», sin email (campaigns.ts).
 export const quizByPath: Record<string, string> = {
   // Español
   "/gestor-contrasenas-empresas": "passwords",
@@ -1203,7 +1205,6 @@ export const quizByPath: Record<string, string> = {
   "/mantenimiento-wordpress": "wordpress",
   "/soporte-remoto": "remote",
   "/integracion-sistemas": "integration",
-  "/herramientas-internas-medida": "tools",
   "/asistente-ia-empresa": "knowledge",
   "/agente-ia-atencion-cliente": "response",
   "/landing-page-campanas": "funnel",
@@ -1220,7 +1221,6 @@ export const quizByPath: Record<string, string> = {
   "/google-workspace-reorganization": "workspace",
   "/managed-website": "wordpress",
   "/systems-integration": "integration",
-  "/custom-internal-tools": "tools",
   "/ai-knowledge-base": "knowledge",
   "/ai-chatbot-small-business": "response",
   "/conversion-landing-pages": "funnel",

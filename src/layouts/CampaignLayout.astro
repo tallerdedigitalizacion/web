@@ -1,0 +1,256 @@
+---
+// Plantilla «landing de campaña» (Google Ads). Se apoya en BaseLayout en modo `minimal` y le añade:
+//  - cabecera mínima: logo sin enlace, selector «Español / English» y un CTA (reservar llamada);
+//  - pie mínimo con los avisos legales: Aviso legal (que lleva los datos del titular y el email de contacto que exige la LSSI),
+//    Política de privacidad y Política de cookies, más el acceso para cambiar las cookies. Sin email ni teléfono a la vista: la
+//    única entrada es la reserva o el formulario, para no perder la medición;
+//  - sin menú, sin el pie completo (zonas, listado de servicios), sin AnyDesk, sin «Otros servicios», sin botón flotante de
+//    WhatsApp ni chat. La salida permitida son los CTA de la propia página, las fichas de casos y los avisos legales.
+// Se mantienen el banner de cookies, Consent Mode v2, la atribución en enlaces, el texto de WhatsApp con (ref: …) y los
+// eventos: todo eso lo hacen BaseLayout y CookieBanner, que se montan igual que en el resto de páginas.
+//
+// El selector de idioma conserva la query string completa (UTM, gclid…). NO hay redirección automática por idioma del
+// navegador: un aviso discreto y descartable ofrece la otra versión cuando el idioma del navegador no coincide.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+import { shared, type Lang } from "@/data/campaigns";
+import { withBase } from "@/utils/paths";
+
+interface Props {
+  lang: Lang;
+  // Ruta de esta página y de la misma página en el otro idioma, con barra final.
+  path: string;
+  pairPath: string;
+  title: string;
+  description: string;
+  faq: [string, string][];
+  service: { name: string; serviceType: string; description: string; priceFrom?: number };
+  // Si la página tiene el calendario incrustado, el CTA de la cabecera baja hasta él (ancla) en vez de abrir Cal.com aparte.
+  bookingAnchor?: string;
+}
+
+const { lang, path, pairPath, title, description, faq, service, bookingAnchor } = Astro.props as Props;
+const ui = shared[lang];
+const otherLang: Lang = lang === "es" ? "en" : "es";
+const bookingHref = lang === "en" ? siteConfig.bookingUrlEn : siteConfig.bookingUrl;
+const pageUrl = new URL(path, siteConfig.publicUrl).toString();
+const businessId = `${siteConfig.publicUrl}/#business`;
+const founderId = `${siteConfig.publicUrl}/#founder`;
+
+// El campo `landing` de los leads y `page_path` de los eventos salen de la URL real; aquí solo el marcado estructurado.
+const extraSchema = [
+  {
+    "@type": "Service",
+    "@id": `${pageUrl}#service`,
+    name: service.name,
+    serviceType: service.serviceType,
+    description: service.description,
+    url: pageUrl,
+    inLanguage: lang === "en" ? "en" : "es-ES",
+    provider: [
+      { "@type": "Person", "@id": founderId, name: siteConfig.founder, url: siteConfig.publicUrl },
+      { "@type": "Organization", "@id": businessId, name: siteConfig.name, url: siteConfig.publicUrl },
+    ],
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "Comunidad de Madrid" },
+      { "@type": "Country", name: lang === "en" ? "Spain" : "España" },
+    ],
+    ...(service.priceFrom && {
+      offers: {
+        "@type": "Offer",
+        url: pageUrl,
+        priceCurrency: "EUR",
+        priceSpecification: { "@type": "PriceSpecification", minPrice: service.priceFrom, priceCurrency: "EUR", valueAddedTaxIncluded: false },
+      },
+    }),
+  },
+];
+
+const legalLinks = [
+  [ui.footer.legal, lang === "en" ? "/legal-notice/" : "/aviso-legal/"],
+  [ui.footer.privacy, lang === "en" ? "/privacy-policy/" : "/politica-privacidad/"],
+  [ui.footer.cookies, lang === "en" ? "/cookie-policy/" : "/politica-cookies/"],
+];
+---
+
+<BaseLayout
+  minimal
+  lang={lang}
+  title={title}
+  description={description}
+  canonicalPath={path}
+  showChatbase={false}
+  faq={faq}
+  extraSchema={extraSchema}
+>
+  <header slot="header" class="cl-header">
+    <img class="cl-logo" src={withBase("/logo-96.png")} alt={siteConfig.name} width="48" height="48" />
+    <div class="cl-actions">
+      <nav class="cl-lang" aria-label={ui.langNav}>
+        {(["es", "en"] as Lang[]).map((code) =>
+          code === lang ? (
+            <span class="cl-lang-current" aria-current="true" lang={code}>{shared[code].htmlLangName}</span>
+          ) : (
+            <a href={withBase(pairPath)} data-lang-switch hreflang={code} lang={code}>{shared[code].htmlLangName}</a>
+          ),
+        )}
+      </nav>
+      {bookingAnchor ? (
+        <a class="btn btn-small btn-primary" data-link-id="header-book" href={bookingAnchor}>{ui.headerBook}</a>
+      ) : (
+        <a class="btn btn-small btn-primary" data-event="reservar_click" data-link-id="header-book" href={bookingHref} target="_blank" rel="noreferrer">{ui.headerBook}</a>
+      )}
+    </div>
+    <div class="cl-hint" data-lang-hint data-browser-lang={otherLang} role="note" hidden>
+      <span>{ui.hint.text}</span>
+      <a href={withBase(pairPath)} data-lang-switch hreflang={otherLang} lang={otherLang}>{ui.hint.link}</a>
+      <button type="button" aria-label={ui.hint.dismiss} data-lang-hint-close>×</button>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer slot="footer" class="cl-footer">
+    <nav aria-label={ui.footer.nav}>
+      {legalLinks.map(([label, href]) => <a href={withBase(href)} target="_blank" rel="noopener">{label}</a>)}
+      <a href="#" data-cookie-settings-open>{ui.footer.cookieSettings}</a>
+    </nav>
+    <p class="cl-copy">{siteConfig.name} · {siteConfig.founder}</p>
+  </footer>
+</BaseLayout>
+
+<script>
+  // Selector de idioma: lleva a la página pareja conservando la query string (UTM, gclid…) y no redirige nunca por sí solo.
+  document.querySelectorAll<HTMLAnchorElement>("a[data-lang-switch]").forEach((link) => {
+    const url = new URL(link.href, window.location.href);
+    url.search = window.location.search;
+    link.href = url.toString();
+  });
+
+  // Aviso discreto: solo si el navegador está en español o inglés y no coincide con el idioma de la página.
+  const hint = document.querySelector<HTMLElement>("[data-lang-hint]");
+  const pageLang = document.documentElement.lang.slice(0, 2).toLowerCase();
+  const browserLang = (navigator.languages?.[0] || navigator.language || "").slice(0, 2).toLowerCase();
+  if (hint && browserLang !== pageLang && (browserLang === "es" || browserLang === "en") && hint.dataset.browserLang === browserLang) {
+    hint.hidden = false;
+    hint.querySelector("[data-lang-hint-close]")?.addEventListener("click", () => {
+      hint.hidden = true;
+    });
+  }
+</script>
+
+<style>
+  .cl-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px clamp(14px, 4vw, 44px);
+    border-bottom: 1px solid rgba(78, 229, 141, 0.16);
+    background: rgba(32, 36, 44, 0.94);
+    backdrop-filter: blur(14px);
+  }
+
+  .cl-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .cl-actions {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2vw, 22px);
+  }
+
+  .cl-lang {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    font-size: 0.92rem;
+  }
+
+  .cl-lang a,
+  .cl-lang-current {
+    padding: 8px 10px;
+  }
+
+  .cl-lang a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .cl-lang a:hover { color: var(--ink); }
+
+  .cl-lang-current {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--ink);
+    font-weight: 750;
+  }
+
+  /* Aviso de idioma: flota bajo la cabecera, sin empujar el contenido (no provoca saltos de diseño). */
+  .cl-hint {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: clamp(14px, 4vw, 44px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: calc(100vw - 28px);
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    font-size: 0.9rem;
+  }
+
+  .cl-hint a { color: var(--accent); font-weight: 750; }
+
+  .cl-hint button {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--muted);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .cl-footer {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    padding: 34px clamp(18px, 5vw, 56px) 40px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.92rem;
+    text-align: center;
+  }
+
+  .cl-footer p { margin: 0; }
+  .cl-footer a { color: var(--muted); }
+  .cl-footer a:hover { color: var(--ink); }
+
+  .cl-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 18px;
+  }
+
+  .cl-copy { font-size: 0.85rem; }
+
+  @media (max-width: 520px) {
+    .cl-logo { width: 38px; height: 38px; }
+    .cl-lang a, .cl-lang-current { padding: 6px 8px; font-size: 0.85rem; }
+  }
+</style>

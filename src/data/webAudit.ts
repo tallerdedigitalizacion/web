@@ -36,7 +36,7 @@ const es = {
     subtitle:
       "Audito la parte técnica, comercial y operativa de tu sitio web para detectar dónde estás perdiendo oportunidades: velocidad, SEO técnico, formularios, seguridad, infraestructura y trazabilidad.",
     primaryCta: "Hacer autoauditoría gratuita",
-    secondaryCta: "Reservar llamada de 15 minutos",
+    secondaryCta: "Reservar llamada de 30 minutos",
     note: "Si no veo margen claro de mejora, te lo diré.",
   },
   reveal: {
@@ -161,7 +161,7 @@ const en: typeof es = {
     subtitle:
       "I audit the technical, commercial and operational side of your website to find where opportunities are leaking: speed, technical SEO, forms, security, infrastructure and tracking.",
     primaryCta: "Run the free self-audit",
-    secondaryCta: "Book a 15-minute call",
+    secondaryCta: "Book a 30-minute call",
     note: "If I do not see a clear improvement opportunity, I will tell you.",
   },
   reveal: {
