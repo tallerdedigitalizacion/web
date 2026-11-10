@@ -1,6 +1,6 @@
 # Taller de Digitalización
 
-> Soporte informático, ciberseguridad, webs y digitalización para empresas, autónomos y PyMEs. Base en Fuensalida (Toledo, España). Trabajo presencial en un radio de 50 km y en remoto con toda España. Lo dirige Pablo Leone, con más de 15 años de experiencia resolviendo problemas técnicos para empresas, cientos de clientes atendidos y certificado como desarrollador de software.
+> Soporte informático, ciberseguridad, webs y digitalización para empresas, autónomos y PyMEs. Base en Fuensalida (Toledo, España). Trabajo presencial en un radio de 50 km y en remoto con toda España. Lo dirige Pablo Leone, con 18 años de experiencia resolviendo problemas técnicos para empresas, cientos de clientes atendidos y certificado como desarrollador de software.
 
 ## Datos de contacto
 
@@ -9,7 +9,7 @@
 - Teléfono y WhatsApp: +34 632 99 01 33
 - Email: info@tallerdedigitalizacion.com
 - Horario: Lunes a viernes, 9:00–18:00
-- Reservar llamada gratuita (15 min): https://cal.com/taller-de-digitalizacion/llamada-gratuita-de-15-minutos
+- Reservar llamada gratuita (30 min): https://cal.com/taller-de-digitalizacion/llamada-gratuita-de-minutos30
 - Soporte remoto: AnyDesk (https://tallerdedigitalizacion.com/soporte-remoto/)
 - Reseñas en Google: https://maps.app.goo.gl/iJYaupqoL8usLB6X7
 - LinkedIn de Pablo Leone: https://www.linkedin.com/in/pabloleone/
@@ -44,7 +44,7 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 - [Asesoramiento de digitalización](https://tallerdedigitalizacion.com/consultor-digitalizacion-toledo/): Sesiones para decidir qué cambiar, en qué orden y con qué herramientas. Desde 90 €/hora + IVA, plazo: Sesión en 1 semana.
 - [Consultor ERP independiente: elegir o cambiar de ERP](https://tallerdedigitalizacion.com/consultoria-erp-pymes/): Entiende el ERP que ya tienes o elige uno sin volver a equivocarte. Desde 490 € + IVA, plazo: 5 a 7 días laborables.
 - [Conectar tus programas (n8n, Make, Zapier, Holded, A3)](https://tallerdedigitalizacion.com/integracion-sistemas/): CRM, ERP, facturación y correo intercambian datos solos, sin copiar y pegar. Desde 590 € + IVA, plazo: 1 a 2 semanas.
-- [Software a medida para empresas](https://tallerdedigitalizacion.com/herramientas-internas-medida/): Paneles, portales y automatizaciones hechos para cómo trabaja tu equipo. Desde 2.500 € + IVA, plazo: 3 a 6 semanas.
+- [Software a medida para empresas](https://tallerdedigitalizacion.com/desarrollo-software-a-medida/): Paneles, portales y automatizaciones hechos para cómo trabaja tu equipo. 90 € + IVA (precio cerrado), plazo: El plazo se da al terminar el diagnóstico.
 - [Tus clientes necesitan un informático de confianza. Yo me ocupo y tú ganas tiempo](https://tallerdedigitalizacion.com/para-gestorias-y-asesorias/): Informático de la zona para los clientes de tu gestoría o asesoría: facturas que entran solas, programa de gestión, copias y seguridad. Programa de colaboración con comisión.
 - [Pyme Digital: una ayuda del 85 % para digitalizar tu pyme en la provincia de Toledo](https://tallerdedigitalizacion.com/ayudas-digitalizacion-camara-toledo/): Pyme Digital (Cámara de Comercio de Toledo): diagnóstico gratuito y ayuda del 85 % hasta 6.366,50 € para digitalizar tu pyme. Requisitos, plazos de 2026 y cómo preparar el proyecto.
 - [Informático en Fuensalida y Torrijos para empresas y autónomos](https://tallerdedigitalizacion.com/informatico-fuensalida-torrijos/): Informático en Fuensalida para empresas y autónomos de Torrijos, Novés, Portillo, Camarena, Méntrida y alrededores. Soporte cercano, en remoto o presencial.
@@ -61,7 +61,7 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 - [AI knowledge base for your company documents](https://tallerdedigitalizacion.com/ai-knowledge-base/): A chat that answers with your company documents, so the team stops asking the owner. From $1,200 (excl. taxes).
 - [Operations audit with an action plan](https://tallerdedigitalizacion.com/digitalization-assessment/): A review of your processes and tools, with a prioritized report of what to change and in which order. From $750 (excl. taxes).
 - [Zapier, Make and n8n integrations](https://tallerdedigitalizacion.com/systems-integration/): CRM, ERP, invoicing and email exchange data on their own, with no copy and paste. From $700 (excl. taxes).
-- [Custom internal tools: replace your spreadsheets](https://tallerdedigitalizacion.com/custom-internal-tools/): Dashboards, portals and automations built for how your team works. From $3,000 (excl. taxes).
+- [Custom software development for your business](https://tallerdedigitalizacion.com/custom-software-development/): Dashboards, portals and automations built for how your team works. From $3,000 (excl. taxes).
 - [Website speed optimization](https://tallerdedigitalizacion.com/website-speed-optimization/): My website is slow: I speed it up without rebuilding it and show you the before and after. Free website report included. From $300 (excl. taxes).
 - [Landing page design for ad campaigns](https://tallerdedigitalizacion.com/conversion-landing-pages/): A page focused on a single goal, with tracking, to turn campaign traffic into contacts. From $600 (excl. taxes).
 - [Google Workspace setup & migration](https://tallerdedigitalizacion.com/google-workspace-reorganization/): Business email, users, groups and permissions set up so each person only accesses what they need. From $350 (excl. taxes).
@@ -79,7 +79,7 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 
 ## Cómo trabaja
 
-- Primera llamada gratuita de 15 minutos; si no hay encaje, lo dice.
+- Primera llamada gratuita de 30 minutos; si no hay encaje, lo dice.
 - Presupuesto cerrado antes de empezar.
 - Proceso: llamada, propuesta cerrada, implementación y mantenimiento.
 - Explicaciones sin tecnicismos y sin vender servicios innecesarios.

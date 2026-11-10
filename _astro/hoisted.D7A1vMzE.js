@@ -1,1 +1,0 @@
-import"./hoisted.BmCOBgSu.js";const a=performance.getEntriesByType("navigation")[0];a?.type!=="reload"&&window.tdTrackEvent?.("reserva_completada",{page_path:window.location.pathname,page_location:window.location.href});
