@@ -5,7 +5,7 @@
 // El fichero no depende de config.ts a propósito: lo comparten la Lambda de la API de leads y la de la autoauditoría
 // web, que tienen entornos distintos.
 
-export type NotionChannel = "Formulario web" | "Lead magnet" | "Email" | "Otro";
+export type NotionChannel = "Formulario web" | "Lead magnet" | "Reserva de llamada" | "Email" | "Otro";
 
 export type NotionAttribution = {
   source?: string;
@@ -28,6 +28,12 @@ export type NotionLead = {
   need: string;
   channel: NotionChannel;
   attribution?: NotionAttribution;
+  /** Clave propia de idempotencia (p. ej. el id de una reserva); si falta, se usa acción + email. */
+  dedupeKey?: string;
+  /** Ventana de la reserva anti-duplicados; si falta, DUPLICATE_WINDOW_SECONDS. */
+  dedupeWindowSeconds?: number;
+  /** Origen a usar cuando la atribución no lo determina (p. ej. «Cal.com» para las reservas). */
+  fallbackOrigin?: string;
 };
 
 export type NotionSyncResult = "created" | "duplicate" | "skipped" | "failed";
@@ -139,7 +145,8 @@ export function buildNotionProperties(lead: NotionLead, now = new Date()) {
   properties["Estado"] = { status: { name: "Nuevo" } };
   properties["Primer contacto"] = { date: { start: todayInMadrid(now) } };
   properties["Canal de entrada"] = { select: { name: lead.channel } };
-  properties["Origen"] = { select: { name: notionOrigin(attribution) } };
+  const origin = notionOrigin(attribution);
+  properties["Origen"] = { select: { name: origin === "Otro" && lead.fallbackOrigin ? lead.fallbackOrigin : origin } };
   properties["Atribución"] = { select: { name: notionAttributionState(attribution) } };
   setText("Campaña", clean(attribution?.campaign));
   setText("Anuncio / variante", clean(attribution?.content));
@@ -151,6 +158,7 @@ export function buildNotionProperties(lead: NotionLead, now = new Date()) {
 }
 
 function idempotencyKey(lead: NotionLead) {
+  if (lead.dedupeKey) return `${lead.action}#${lead.dedupeKey}`;
   return `${lead.action}#${clean(lead.email).toLowerCase()}`;
 }
 
@@ -207,7 +215,7 @@ export async function syncLeadToNotion(
     if (deps.claim) {
       const key = idempotencyKey(lead);
       try {
-        if (!(await deps.claim(key, DUPLICATE_WINDOW_SECONDS))) return "duplicate";
+        if (!(await deps.claim(key, lead.dedupeWindowSeconds ?? DUPLICATE_WINDOW_SECONDS))) return "duplicate";
         claimedKey = key;
       } catch (error) {
         // Mejor una fila duplicada que perder el lead: se sigue sin reserva.

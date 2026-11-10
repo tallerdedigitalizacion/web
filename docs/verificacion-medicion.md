@@ -135,6 +135,28 @@ El backend crea una fila en Notion además de enviar el email. Hay dos comprobac
 Si Notion falla, en CloudWatch aparece una línea `NOTION_SYNC_FAILED {…}` con las propiedades completas para crear la fila a
 mano; si falta el token, `NOTION_SYNC_SKIPPED`.
 
+#### Reservas de Cal.com → Notion (webhook)
+
+Las reservas hechas en Cal.com (incrustadas en las landings o por el enlace directo) no pasan por el formulario, así que Cal.com
+avisa al backend con un webhook: `POST <API>/webhook/cal` (`backend/src/calWebhook.ts`). Solo atiende `BOOKING_CREATED`; el resto
+de eventos (cancelación, cambio de hora, `PING`) se ignoran con 200.
+
+- **Alta**: una fila con Nombre y Email del asistente (no los del organizador), Teléfono si lo hay, Canal de entrada = «Reserva de
+  llamada», Origen = «Cal.com» (o «Google Ads» si llega atribución), Estado = Nuevo y Necesidad declarada = «Reserva de llamada:
+  <fecha y hora en Madrid> · <evento>».
+- **Seguridad**: la firma HMAC-SHA256 del cuerpo en bruto (cabecera `X-Cal-Signature-256`) se comprueba con `CAL_WEBHOOK_SECRET`; sin
+  firma válida, 401 y no se escribe nada. Sin secreto configurado, todo se rechaza.
+- **Duplicados**: cada reserva se identifica por su `uid` (7 días); un reintento de Cal.com no crea otra fila. Si Notion falla se
+  responde 200 igualmente (para que Cal.com no reintente) y queda `NOTION_SYNC_FAILED` en CloudWatch.
+- **Reserva y formulario**: si la misma persona rellena el formulario y reserva, salen dos filas (Canal de entrada distinto). No se
+  fusionan.
+- **Atribución — pendiente de comprobar con una reserva real**: el webhook solo trae la atribución si Cal.com la guarda en
+  `metadata` o en un campo de la reserva (`utm_*`, `gclid`…). Si no llega, la fila queda «No atribuido»; la conversión de Google Ads
+  no depende de esto (la cuenta el evento `reserva_completada` del navegador).
+- **Prueba sin Cal.com real**: `node --import tsx scripts/verificar-cal-webhook.ts` (firma, un solo evento, mapeo, duplicados,
+  atribución y fallo de Notion). **De punta a punta**: haz una reserva de prueba y comprueba la fila; en Cal.com, Webhooks →
+  el webhook → «Ping test» debe dar 200.
+
 ## Eventos: cuáles son de conversión
 
 | Evento | Qué es | ¿Evento clave? |

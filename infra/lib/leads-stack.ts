@@ -52,6 +52,8 @@ export class LeadsStack extends Stack {
         SMTP_PASSWORD: process.env.SMTP_PASSWORD || "",
         // Token de la integración de Notion (CRM · Prospectos). Se lee del entorno al desplegar; nunca va en el repo.
         NOTION_TOKEN: process.env.NOTION_TOKEN || "",
+        // Secreto compartido con el webhook de Cal.com (Ajustes → Desarrolladores → Webhooks). Se lee del entorno al desplegar.
+        CAL_WEBHOOK_SECRET: process.env.CAL_WEBHOOK_SECRET || "",
         SITE_URL: process.env.PUBLIC_SITE_URL || "https://tallerdedigitalizacion.com",
         ALLOWED_ORIGINS:
           process.env.ALLOWED_ORIGINS || "https://tallerdedigitalizacion.com,http://localhost:4322,http://localhost:4323",
@@ -91,6 +93,7 @@ export class LeadsStack extends Stack {
     lead.addResource("web-audit-guide").addMethod("POST", integration);
     lead.addResource("resource").addMethod("POST", integration);
     lead.addResource("self-assessment").addMethod("POST", integration);
+    api.root.addResource("webhook").addResource("cal").addMethod("POST", integration);
     api.root.addResource("health").addMethod("GET", integration);
 
     new CfnOutput(this, "LeadsApiUrl", {

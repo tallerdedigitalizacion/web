@@ -11,6 +11,7 @@ import { contactLeadSchema, diagnosticLeadSchema, methodLeadSchema, resourceLead
 import { contactEmail, diagnosticEmail, methodEmail, notificationEmail, resourceEmail, selfAssessmentEmail, webAuditEmail, webAuditGuideEmail } from "./email/templates";
 import { sendEmail } from "./email/sender";
 import { assertAllowedOrigin, assertHoneypot, assertHumanTiming, assertPayloadSize, assertRateLimit, getClientIp, SecurityError } from "./security";
+import { notionLeadFromCalWebhook, verifyCalSignature, type CalWebhookBody } from "./calWebhook";
 import { syncLeadToNotion } from "./notion";
 import { notionLeadFromInput } from "./notionLead";
 import { claimSubmission, hashValue, releaseSubmission, saveLead } from "./store";
@@ -35,6 +36,34 @@ app.post("/lead/web-audit-guide", async (c) => handleLead(c, "web-audit-guide"))
 app.post("/lead/resource", async (c) => handleLead(c, "resource"));
 app.post("/lead/contact", async (c) => handleLead(c, "contact"));
 app.post("/lead/self-assessment", async (c) => handleLead(c, "self-assessment"));
+
+// Webhook de Cal.com: cada reserva nueva crea una fila en el CRM de Notion. Es una llamada de servidor a servidor, así
+// que no se comprueba el origen ni se limita por IP: la autenticación es la firma HMAC del cuerpo en bruto.
+app.post("/webhook/cal", async (c) => {
+  try {
+    const rawBody = await c.req.text();
+    assertPayloadSize(rawBody);
+    if (!verifyCalSignature(rawBody, c.req.header("x-cal-signature-256"), config.calWebhookSecret)) {
+      return c.json({ ok: false, error: "Firma no válida" }, 401);
+    }
+    let body: CalWebhookBody;
+    try {
+      body = JSON.parse(rawBody || "{}") as CalWebhookBody;
+    } catch {
+      return c.json({ ok: false, error: "JSON inválido" }, 400);
+    }
+    const result = notionLeadFromCalWebhook(body);
+    if (result.kind === "ignored") return c.json({ ok: true, ignored: result.reason });
+    // syncLeadToNotion nunca lanza: si Notion falla deja NOTION_SYNC_FAILED en los logs y aquí se responde 200 igualmente,
+    // para que Cal.com no reintente y duplique la reserva.
+    const outcome = await syncLeadToNotion(result.lead, { claim: claimSubmission, release: releaseSubmission });
+    return c.json({ ok: true, notion: outcome });
+  } catch (error) {
+    if (error instanceof SecurityError) return c.json({ ok: false, error: error.message }, error.status as ContentfulStatusCode);
+    console.error(error);
+    return c.json({ ok: false, error: "Error interno" }, 500);
+  }
+});
 
 type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact" | "self-assessment";
 

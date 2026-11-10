@@ -54,6 +54,9 @@ Complementan la sección anterior; no la sustituyen.
 - Cada lead también crea una fila en Notion («CRM · Prospectos») desde `backend/src/notion.ts`, en paralelo al email y sin
   que un fallo de Notion lo impida. Necesita `NOTION_TOKEN` al desplegar (`npm run cdk:deploy`); sin él se omite con un aviso en
   logs. Verificación: `node --import tsx scripts/verificar-notion.ts`.
+- Las reservas de Cal.com crean una fila en Notion (Canal de entrada «Reserva de llamada») por webhook: `POST /webhook/cal`
+  (`backend/src/calWebhook.ts`), firmado con `CAL_WEBHOOK_SECRET` (también se pasa al desplegar). Verificación:
+  `node --import tsx scripts/verificar-cal-webhook.ts`; detalle en `docs/verificacion-medicion.md` (F).
 - Las páginas `reserva-confirmada` y `booking-confirmed` son `noindex` y están fuera del sitemap; no enlazarlas desde la web.
 
 ### Brechas conocidas frente a los requisitos (a 7-nov-2026)

@@ -17,6 +17,8 @@ export const config = {
     .split(",")
     .map((origin) => origin.trim())
     .filter(Boolean),
+  // Secreto del webhook de Cal.com; sin él, la ruta /webhook/cal rechaza todo.
+  calWebhookSecret: process.env.CAL_WEBHOOK_SECRET || "",
   ipHashSalt: process.env.IP_HASH_SALT || "change-me",
   methodPdfFile: process.env.METHOD_PDF_FILE || "downloads/metodo-auditoria-caos-operativo.pdf",
   rateLimitMax: Number(process.env.RATE_LIMIT_MAX || "8"),
