@@ -32,6 +32,9 @@ const {
     : "Soporte informático, webs y digitalización para PyMEs en Toledo y alrededores de Fuensalida, presencial o en remoto.",
   schemaAreaServed = lang === "en" ? ["Remote"] : siteConfig.serviceAreas,
   alternates: alternatesProp = [],
+  // false en las landings de campaña: los datos estructurados del negocio no llevan email, teléfono, dirección, coordenadas,
+  // horario, mapa ni la lista de municipios; solo el área de servicio (Comunidad de Madrid y el país).
+  contactInSchema = true,
   faq = [],
   extraSchema = [],
 } = Astro.props;
@@ -59,7 +62,13 @@ const businessId = `${siteConfig.publicUrl}/#business`;
 const founderId = `${siteConfig.publicUrl}/#founder`;
 const isEnglish = lang === "en";
 // La versión en inglés se presenta como servicio 100 % remoto: sin dirección, coordenadas, horario ni radio presencial.
-const localBusinessFields = isEnglish
+const landingAreaServed = [
+  { "@type": "AdministrativeArea", name: "Comunidad de Madrid" },
+  { "@type": "Country", name: isEnglish ? "Spain" : "España" },
+];
+const localBusinessFields = !contactInSchema
+  ? { areaServed: landingAreaServed }
+  : isEnglish
   ? {
       areaServed: schemaAreaServed.map((name: string) => ({ "@type": "Place", name })),
     }
@@ -111,7 +120,7 @@ const schemaGraph: Record<string, unknown>[] = [
     url: siteConfig.publicUrl,
     logo: absoluteUrl(siteConfig.logo),
     image: ogImage,
-    email: siteConfig.contactEmail,
+    ...(contactInSchema && { email: siteConfig.contactEmail }),
     ...localBusinessFields,
     founder: { "@id": founderId },
     sameAs: [
