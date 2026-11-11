@@ -33,6 +33,9 @@ const t = isEnglish
       other: "Other",
       name: "Name",
       email: "Email",
+      // Formulario de las landings (`compact`): etiquetas en primera persona.
+      yourName: "Your name",
+      yourEmail: "Your email",
       company: "Company",
       optional: "Optional.",
       phone: "Phone",
@@ -57,6 +60,9 @@ const t = isEnglish
       other: "Otro",
       name: "Nombre",
       email: "Email",
+      // Formulario de las landings (`compact`): etiquetas en primera persona.
+      yourName: "Tu nombre",
+      yourEmail: "Tu email",
       company: "Empresa",
       optional: "Opcional.",
       phone: "Teléfono",
@@ -117,8 +123,8 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
       </label>
     )}
     <div class="form-grid">
-      <label>{t.name}<input required name="nombre" autocomplete="name" /></label>
-      <label>{t.email}<input required type="email" name="email" autocomplete="email" /></label>
+      <label>{compact ? t.yourName : t.name}<input required name="nombre" autocomplete="name" /></label>
+      <label>{compact ? t.yourEmail : t.email}<input required type="email" name="email" autocomplete="email" /></label>
       {!compact && <label>{t.company}<input name="empresa" autocomplete="organization" /><small>{t.optional}</small></label>}
       {!compact && <label>{t.phone}<input type="tel" name="telefono" autocomplete="tel" /><small>{t.phoneHelp}</small></label>}
     </div>
