@@ -236,7 +236,7 @@ export const shared: Record<Lang, Shared> = {
     cases: {
       eyebrow: "Casos reales",
       title: "Así era antes y así es ahora",
-      intro: "Trabajos ya hechos para empresas reales, sobre todo de telecomunicaciones.",
+      intro: "Trabajos ya hechos para empresas reales.",
       beforeLabel: "Antes",
       afterLabel: "Ahora",
       open: "Ver el caso completo",
@@ -422,7 +422,7 @@ export const shared: Record<Lang, Shared> = {
     cases: {
       eyebrow: "Real cases",
       title: "How it was before, and how it is now",
-      intro: "Work already done for real companies, mostly in telecoms.",
+      intro: "Work already done for real companies.",
       beforeLabel: "Before",
       afterLabel: "Now",
       open: "Read the full case (in Spanish)",
