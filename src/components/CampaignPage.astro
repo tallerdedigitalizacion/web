@@ -78,7 +78,7 @@ const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/
       <div class="section-head">
         <span class="eyebrow">{page.what.eyebrow}</span>
         <h2>{page.what.title}</h2>
-        <p>{page.what.intro}</p>
+        {page.what.intro && <p>{page.what.intro}</p>}
       </div>
       <div class="cp-cards">
         {page.what.items.map(([name, text]) => (

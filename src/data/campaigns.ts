@@ -57,7 +57,7 @@ export interface CampaignPage {
   seo: { title: string; description: string };
   hero: { eyebrow: string; h1: string; subtitle: string };
   painIds: PainId[];
-  what?: { eyebrow: string; title: string; intro: string; items: Pair[] };
+  what?: { eyebrow: string; title: string; intro?: string; items: Pair[] };
   how: { eyebrow: string; title: string; intro: string };
   extraWhy?: Pair;
   faq: Pair[];
@@ -552,7 +552,6 @@ export const campaignPages: CampaignPage[] = [
     what: {
       eyebrow: "Qué hago",
       title: "Software a medida para tu empresa",
-      intro: "Software a medida que se adapta a tu empresa.",
       items: [
         ["Aplicaciones a medida", "Un programa a medida, un panel de gestión o un portal interno hechos para cómo trabaja tu equipo."],
         ["Desarrollo web a medida", "Portales para tus clientes, formularios con reglas propias y apps web que se usan desde el navegador."],
@@ -594,7 +593,6 @@ export const campaignPages: CampaignPage[] = [
     what: {
       eyebrow: "What I do",
       title: "Custom software for your business",
-      intro: "Bespoke software that adapts to your business.",
       items: [
         ["Custom applications", "Bespoke software, a management dashboard or an internal portal built around how your team works."],
         ["Custom web development", "Portals for your customers, forms with their own rules and web apps that you use from the browser."],
