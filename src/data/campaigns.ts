@@ -132,7 +132,7 @@ export const shared: Record<Lang, Shared> = {
   es: {
     htmlLangName: "Español",
     langNav: "Idioma",
-    headerBook: "Reservar llamada gratis con Pablo",
+    headerBook: "Reservar llamada",
     heroBook: "Reservar llamada gratis con Pablo",
     chips: [
       "Llamada gratuita de 30 min, sin compromiso",
@@ -318,7 +318,7 @@ export const shared: Record<Lang, Shared> = {
   en: {
     htmlLangName: "English",
     langNav: "Language",
-    headerBook: "Book a free call with Pablo",
+    headerBook: "Book a call",
     heroBook: "Book a free call with Pablo",
     chips: [
       "Free 30-minute call, no strings",
