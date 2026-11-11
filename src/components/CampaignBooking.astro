@@ -6,7 +6,9 @@
 //  - Si no, ve un botón «Ver huecos disponibles»: al pulsarlo se carga. Sin autoplay de nada.
 // Medición: el botón y el enlace de respaldo disparan `reservar_click` (CookieBanner). Al completarse la reserva, Cal.com avisa
 // a la página (`bookingSuccessful`), que lanza `reserva_completada` y muestra la confirmación; no hace falta la página de gracias.
-// Atribución: `forwardQueryParams` reenvía los parámetros de la URL (utm_*, gclid…) a la reserva.
+// Atribución: la reserva se hace en un iframe de Cal.com, así que la atribución viaja con ella como `metadata[...]` (utm_*, gclid,
+// landing y ref) y Cal.com la devuelve en el payload del webhook BOOKING_CREATED, que la guarda en el CRM (backend/src/calWebhook.ts).
+// Sale de `window.tdAttribution()` (URL y, con consentimiento analítico, sessionStorage), igual que en los formularios.
 import type { Lang } from "@/data/campaigns";
 import { shared } from "@/data/campaigns";
 
@@ -21,7 +23,7 @@ const copy = shared[lang].booking;
 const mountId = `cal-inline-${calNamespace}`;
 ---
 
-<section id="reserva" class="section section-accent" data-booking data-cal-link={calLink} data-cal-ns={calNamespace} data-mount={mountId}>
+<section id="reserva" class="section section-accent" data-booking data-cal-link={calLink} data-cal-ns={calNamespace} data-mount={mountId} data-lang={lang}>
   <div class="section-head">
     <span class="eyebrow">{copy.eyebrow}</span>
     <h2>{copy.title}</h2>
@@ -48,6 +50,7 @@ const mountId = `cal-inline-${calNamespace}`;
     Cal?: CalFn;
     tdConsent?: { analytics?: boolean; marketing?: boolean };
     tdTrackEvent?: (name: string, params?: Record<string, unknown>) => void;
+    tdAttribution?: () => { source?: string; medium?: string; campaign?: string; content?: string; term?: string; clickId?: string; clickIdType?: string; landing?: string } | undefined;
   };
   const w = window as TdWindow;
 
@@ -59,6 +62,49 @@ const mountId = `cal-inline-${calNamespace}`;
     const done = root.querySelector<HTMLElement>("[data-booking-done]");
     const open = root.querySelector<HTMLButtonElement>("[data-booking-open]");
     let started = false;
+    let completed = false;
+
+    // Atribución de esta visita como metadata de la reserva. Cal.com admite hasta 500 caracteres por valor; un gclid cabe de sobra.
+    function bookingMetadata() {
+      const a = w.tdAttribution?.();
+      const metadata: Record<string, string> = {};
+      if (!a) return metadata;
+      const set = (key: string, value?: string) => { if (value) metadata[`metadata[${key}]`] = value.slice(0, 255); };
+      set("utm_source", a.source);
+      set("utm_medium", a.medium);
+      set("utm_campaign", a.campaign);
+      set("utm_content", a.content);
+      set("utm_term", a.term);
+      if (a.clickIdType === "gclid" || a.clickIdType === "gbraid" || a.clickIdType === "wbraid") set(a.clickIdType, a.clickId);
+      set("landing", a.landing);
+      // Mismo código que el texto prellenado de WhatsApp: <source>/<campaña>[/<anuncio>].
+      if (a.source && (a.medium || a.campaign || a.content || a.term)) {
+        set("ref", [a.source, a.campaign || a.medium, a.content].filter(Boolean).join("/").replace(/[^\w/.-]/g, "").slice(0, 60));
+      }
+      return metadata;
+    }
+
+    // Parámetros del evento: la atribución solo se añade con consentimiento (analítica o marketing).
+    function completionParams() {
+      const params: Record<string, unknown> = {
+        lead_type: "booking",
+        language: root?.dataset.lang || document.documentElement.lang || "es",
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+      };
+      if (w.tdConsent?.analytics || w.tdConsent?.marketing) {
+        const a = w.tdAttribution?.();
+        if (a) {
+          if (a.source) params.utm_source = a.source;
+          if (a.medium) params.utm_medium = a.medium;
+          if (a.campaign) params.utm_campaign = a.campaign;
+          if (a.content) params.utm_content = a.content;
+          if (a.term) params.utm_term = a.term;
+          if (a.clickIdType === "gclid" && a.clickId) params.gclid = a.clickId;
+        }
+      }
+      return params;
+    }
 
     function startCal() {
       if (started || !root || !facade || !mount) return;
@@ -104,7 +150,7 @@ const mountId = `cal-inline-${calNamespace}`;
       const api = (Cal.ns as Record<string, (...args: unknown[]) => void>)[ns];
       api("inline", {
         elementOrSelector: `#${mount.id}`,
-        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true", theme: "dark" },
+        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true", theme: "dark", ...bookingMetadata() },
         calLink: link,
       });
       api("ui", { theme: "dark", hideEventTypeDetails: false, layout: "month_view", styles: { branding: { brandColor: "#4ee58d" } } });
@@ -112,7 +158,11 @@ const mountId = `cal-inline-${calNamespace}`;
       api("on", {
         action: "bookingSuccessful",
         callback: () => {
-          w.tdTrackEvent?.("reserva_completada", { page_path: window.location.pathname, page_location: window.location.href });
+          // Una sola vez por reserva: Cal.com puede avisar más de una vez. No se lanza generate_lead (la reserva se cuenta aparte).
+          if (!completed) {
+            completed = true;
+            w.tdTrackEvent?.("reserva_completada", completionParams());
+          }
           if (mount) mount.hidden = true;
           if (loading) loading.hidden = true;
           if (done) done.hidden = false;

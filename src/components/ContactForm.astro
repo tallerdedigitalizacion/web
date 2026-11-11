@@ -120,7 +120,7 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
       <label>{t.name}<input required name="nombre" autocomplete="name" /></label>
       <label>{t.email}<input required type="email" name="email" autocomplete="email" /></label>
       {!compact && <label>{t.company}<input name="empresa" autocomplete="organization" /><small>{t.optional}</small></label>}
-      <label>{t.phone}<input type="tel" name="telefono" autocomplete="tel" /><small>{t.phoneHelp}</small></label>
+      {!compact && <label>{t.phone}<input type="tel" name="telefono" autocomplete="tel" /><small>{t.phoneHelp}</small></label>}
     </div>
     {compact && choices.length > 0 ? (
       <>
@@ -230,7 +230,7 @@ const groups: { group: string; labels: string[] }[] = (isEnglish ? serviceGroups
 </script>
 
 <style>
-  /* Landings de campaña: nombre, email, teléfono y comentario, uno debajo de otro. */
+  /* Landings de campaña: nombre, email y comentario, uno debajo de otro (sin teléfono: no se ofrecen llamadas al visitante). */
   .is-compact .form-grid { grid-template-columns: 1fr; }
   .is-compact textarea { min-height: 140px; resize: vertical; }
 </style>

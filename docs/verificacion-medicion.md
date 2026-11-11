@@ -150,9 +150,16 @@ de eventos (cancelación, cambio de hora, `PING`) se ignoran con 200.
   responde 200 igualmente (para que Cal.com no reintente) y queda `NOTION_SYNC_FAILED` en CloudWatch.
 - **Reserva y formulario**: si la misma persona rellena el formulario y reserva, salen dos filas (Canal de entrada distinto). No se
   fusionan.
-- **Atribución — pendiente de comprobar con una reserva real**: el webhook solo trae la atribución si Cal.com la guarda en
-  `metadata` o en un campo de la reserva (`utm_*`, `gclid`…). Si no llega, la fila queda «No atribuido»; la conversión de Google Ads
-  no depende de esto (la cuenta el evento `reserva_completada` del navegador).
+- **Atribución**: el embed de las landings (`CampaignBooking.astro`) pasa a Cal.com la atribución de la visita como `metadata[...]`
+  (`utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `gclid`/`gbraid`/`wbraid`, `landing` y `ref` = `google/<campaña>/<anuncio>`),
+  leída de `window.tdAttribution()` (URL y, con consentimiento analítico, sessionStorage). Cal.com la devuelve en `payload.metadata` del
+  webhook y el backend rellena Campaña, Anuncio / variante, Palabra clave, GCLID, Landing y Código de atribución. Con campaña o clic de
+  Google: Origen = «Google Ads» y Atribución = «Confirmada»; sin ellos: «Cal.com» y «No atribuido». Si el nombre o el email empiezan por
+  «PRUEBA» (o la campaña acaba en «-prueba»), el nombre lleva «[PRUEBA] ». La reserva por el enlace directo de Cal.com (sin la landing)
+  no lleva atribución. **Pendiente de comprobar con una reserva real**: que Cal.com conserve `metadata[...]` en el payload.
+- **Evento `reserva_completada`** (embed): `lead_type=booking`, `language`, `page_path`, `page_location` y, solo con consentimiento
+  (analítico o marketing), `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` y `gclid`. Una sola vez por reserva; no se
+  lanza `generate_lead`.
 - **Prueba sin Cal.com real**: `node --import tsx scripts/verificar-cal-webhook.ts` (firma, un solo evento, mapeo, duplicados,
   atribución y fallo de Notion). **De punta a punta**: haz una reserva de prueba y comprueba la fila; en Cal.com, Webhooks →
   el webhook → «Ping test» debe dar 200.

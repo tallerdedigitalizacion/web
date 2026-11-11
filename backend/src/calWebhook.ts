@@ -1,7 +1,7 @@
 // Webhook de Cal.com → CRM de Notion. Cada reserva nueva (BOOKING_CREATED) crea una fila «Reserva de llamada».
 // Funciones puras (firma y mapeo), sin depender de config.ts, para poder probarlas sin AWS.
 import { createHmac, timingSafeEqual } from "node:crypto";
-import type { NotionAttribution, NotionLead } from "./notion";
+import { isTestLead, notionOrigin, type NotionAttribution, type NotionLead } from "./notion";
 
 /** Una reserva solo se da de alta una vez: Cal.com reintenta los envíos fallidos y este margen cubre sus reintentos. */
 export const BOOKING_DEDUPE_SECONDS = 7 * 24 * 60 * 60;
@@ -65,6 +65,7 @@ function attributionFromBooking(payload: NonNullable<CalWebhookBody["payload"]>)
     }
     return "";
   };
+  // Los nombres llegan tal cual los guarda la web en `metadata[...]` (CampaignBooking.astro): utm_*, gclid, landing y ref.
   const gclid = pick("gclid");
   const gbraid = pick("gbraid");
   const wbraid = pick("wbraid");
@@ -95,9 +96,16 @@ export function notionLeadFromCalWebhook(body: CalWebhookBody): CalBookingResult
   const attendee = payload.attendees?.[0];
   const email = text(attendee?.email) || responseText(payload.responses, "email");
   if (!email) return { kind: "ignored", reason: "reserva sin email del asistente" };
-  const name = text(attendee?.name) || responseText(payload.responses, "name") || email;
+  const rawName = text(attendee?.name) || responseText(payload.responses, "name") || email;
   const phone = text(attendee?.phoneNumber) || responseText(payload.responses, "attendeePhoneNumber");
   const bookingId = text(payload.uid) || (payload.bookingId !== undefined ? String(payload.bookingId) : "");
+  const attribution = attributionFromBooking(payload);
+  // Con campaña o clic de Google la reserva viene de un anuncio; sin ellos solo se sabe que entró por Cal.com.
+  const fromAd = Boolean(attribution?.campaign || attribution?.clickId);
+  const detected = notionOrigin(attribution);
+  // Reservas de prueba: nombre o email que empiezan por PRUEBA. Si ya se marcan por la campaña, buildNotionProperties pone el prefijo.
+  const looksTest = /^prueba/i.test(rawName) || /^prueba/i.test(email);
+  const name = looksTest && !isTestLead(attribution) ? `[PRUEBA] ${rawName}` : rawName;
   const eventName = text(payload.eventTitle) || text(payload.title) || text(payload.type);
 
   return {
@@ -109,11 +117,12 @@ export function notionLeadFromCalWebhook(body: CalWebhookBody): CalBookingResult
       phone: phone || undefined,
       need: `Reserva de llamada: ${formatCallTime(payload.startTime)}${eventName ? ` · ${eventName}` : ""}`,
       channel: "Reserva de llamada",
-      attribution: attributionFromBooking(payload),
+      attribution,
+      origin: detected !== "Otro" ? detected : fromAd ? "Google Ads" : "Cal.com",
+      attributionState: fromAd ? "Confirmada" : "No atribuido",
       // Sin id de reserva se cae a email + hora, que sigue siendo único por cita.
       dedupeKey: bookingId || `${email.toLowerCase()}#${text(payload.startTime)}`,
       dedupeWindowSeconds: BOOKING_DEDUPE_SECONDS,
-      fallbackOrigin: "Cal.com",
     },
   };
 }

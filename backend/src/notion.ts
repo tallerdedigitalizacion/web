@@ -32,8 +32,9 @@ export type NotionLead = {
   dedupeKey?: string;
   /** Ventana de la reserva anti-duplicados; si falta, DUPLICATE_WINDOW_SECONDS. */
   dedupeWindowSeconds?: number;
-  /** Origen a usar cuando la atribución no lo determina (p. ej. «Cal.com» para las reservas). */
-  fallbackOrigin?: string;
+  /** Origen y estado de atribución ya decididos por quien crea el lead (p. ej. las reservas de Cal.com); sustituyen a los calculados. */
+  origin?: string;
+  attributionState?: "Confirmada" | "Probable" | "No atribuido";
 };
 
 export type NotionSyncResult = "created" | "duplicate" | "skipped" | "failed";
@@ -145,9 +146,8 @@ export function buildNotionProperties(lead: NotionLead, now = new Date()) {
   properties["Estado"] = { status: { name: "Nuevo" } };
   properties["Primer contacto"] = { date: { start: todayInMadrid(now) } };
   properties["Canal de entrada"] = { select: { name: lead.channel } };
-  const origin = notionOrigin(attribution);
-  properties["Origen"] = { select: { name: origin === "Otro" && lead.fallbackOrigin ? lead.fallbackOrigin : origin } };
-  properties["Atribución"] = { select: { name: notionAttributionState(attribution) } };
+  properties["Origen"] = { select: { name: lead.origin ?? notionOrigin(attribution) } };
+  properties["Atribución"] = { select: { name: lead.attributionState ?? notionAttributionState(attribution) } };
   setText("Campaña", clean(attribution?.campaign));
   setText("Anuncio / variante", clean(attribution?.content));
   setText("Palabra clave o término", clean(attribution?.term));

@@ -157,11 +157,43 @@ check("4. Cuerpo no JSON con firma válida → 400", res.status === 400, JSON.st
 // ---------- 5. Atribución en metadata ----------
 reset();
 res = await webhook(
-  booking({}, { metadata: { utm_source: "google", utm_medium: "cpc", utm_campaign: "C99-prueba", utm_content: "A", utm_term: "prueba", gclid: "TEST123", landing: "/desarrollo-software-a-medida/" } }),
+  booking({}, { metadata: { utm_source: "google", utm_medium: "cpc", utm_campaign: "C04-prueba", utm_content: "A", utm_term: "prueba", gclid: "TEST123", landing: "/desarrollo-software-a-medida/", ref: "google/C04-prueba/A" } }),
 );
 const attr = notionCalls[0]?.body?.properties ?? {};
-check("5. Con metadata: Origen Google Ads, Atribución Confirmada, GCLID", attr["Origen"]?.select?.name === "Google Ads" && attr["Atribución"]?.select?.name === "Confirmada" && text(attr["GCLID"]) === "TEST123", JSON.stringify(attr["Origen"]));
-check("5. Con metadata: campaña, anuncio, término, landing, código y [PRUEBA]", text(attr["Campaña"]) === "C99-prueba" && text(attr["Anuncio / variante"]) === "A" && text(attr["Palabra clave o término"]) === "prueba" && text(attr["Landing de entrada"]) === "/desarrollo-software-a-medida/" && text(attr["Código de atribución"]) === "(ref: google/C99-prueba/A)" && attr["Nombre"]?.title?.[0]?.text?.content === "[PRUEBA] Ana Prueba");
+check("5. Con metadata: Origen Google Ads, Atribución Confirmada, GCLID", attr["Origen"]?.select?.name === "Google Ads" && attr["Atribución"]?.select?.name === "Confirmada" && text(attr["GCLID"]) === "TEST123", JSON.stringify([attr["Origen"], attr["Atribución"]]));
+check("5. Con metadata: campaña, anuncio, término, landing y código", text(attr["Campaña"]) === "C04-prueba" && text(attr["Anuncio / variante"]) === "A" && text(attr["Palabra clave o término"]) === "prueba" && text(attr["Landing de entrada"]) === "/desarrollo-software-a-medida/" && text(attr["Código de atribución"]) === "(ref: google/C04-prueba/A)", JSON.stringify(attr));
+check("5. Campaña «-prueba» → un solo «[PRUEBA] »", attr["Nombre"]?.title?.[0]?.text?.content === "[PRUEBA] Ana Prueba", attr["Nombre"]?.title?.[0]?.text?.content);
+check("5. Canal sigue siendo Reserva de llamada", attr["Canal de entrada"]?.select?.name === "Reserva de llamada");
+
+// Solo gclid (sin utm): basta para Google Ads y Confirmada.
+reset();
+await webhook(booking({}, { uid: "u-gclid", metadata: { gclid: "ABC123" } }));
+let only = notionCalls[0]?.body?.properties ?? {};
+check("5. Solo gclid → Google Ads, Confirmada y GCLID", only["Origen"]?.select?.name === "Google Ads" && only["Atribución"]?.select?.name === "Confirmada" && text(only["GCLID"]) === "ABC123", JSON.stringify([only["Origen"], only["Atribución"]]));
+// Solo campaña (sin gclid ni source).
+reset();
+await webhook(booking({}, { uid: "u-camp", metadata: { utm_campaign: "C04-real" } }));
+only = notionCalls[0]?.body?.properties ?? {};
+check("5. Solo campaña → Google Ads y Confirmada, sin [PRUEBA]", only["Origen"]?.select?.name === "Google Ads" && only["Atribución"]?.select?.name === "Confirmada" && only["Nombre"]?.title?.[0]?.text?.content === "Ana Prueba", JSON.stringify(only["Nombre"]));
+// Sin nada: Cal.com y No atribuido.
+reset();
+await webhook(booking({}, { uid: "u-none", metadata: {} }));
+only = notionCalls[0]?.body?.properties ?? {};
+check("5. Sin atribución → Cal.com y No atribuido", only["Origen"]?.select?.name === "Cal.com" && only["Atribución"]?.select?.name === "No atribuido" && !("Campaña" in only) && !("GCLID" in only));
+
+// ---------- 5b. Prefijo [PRUEBA] por nombre o email ----------
+reset();
+await webhook(booking({}, { uid: "u-n1", attendees: [{ name: "PRUEBA Luis", email: "luis@example.com" }], responses: {} }));
+check("5b. Nombre que empieza por PRUEBA → «[PRUEBA] PRUEBA Luis»", notionCalls[0]?.body?.properties?.["Nombre"]?.title?.[0]?.text?.content === "[PRUEBA] PRUEBA Luis", notionCalls[0]?.body?.properties?.["Nombre"]?.title?.[0]?.text?.content);
+reset();
+await webhook(booking({}, { uid: "u-n2", attendees: [{ name: "Luis Real", email: "prueba+cal@example.com" }], responses: {} }));
+check("5b. Email que empieza por prueba → «[PRUEBA] Luis Real»", notionCalls[0]?.body?.properties?.["Nombre"]?.title?.[0]?.text?.content === "[PRUEBA] Luis Real");
+reset();
+await webhook(booking({}, { uid: "u-n3", attendees: [{ name: "PRUEBA Eva", email: "eva@example.com" }], responses: {}, metadata: { utm_campaign: "C04-prueba", utm_source: "google", utm_medium: "cpc" } }));
+check("5b. Nombre PRUEBA + campaña de prueba → prefijo una sola vez", notionCalls[0]?.body?.properties?.["Nombre"]?.title?.[0]?.text?.content === "[PRUEBA] PRUEBA Eva", notionCalls[0]?.body?.properties?.["Nombre"]?.title?.[0]?.text?.content);
+reset();
+await webhook(booking({}, { uid: "u-n4", attendees: [{ name: "Pruebas SL", email: "contacto@example.com" }], responses: {} }));
+check("5b. «Pruebas…» también cuenta (empieza por PRUEBA)", notionCalls[0]?.body?.properties?.["Nombre"]?.title?.[0]?.text?.content === "[PRUEBA] Pruebas SL");
 
 // ---------- 6. Notion caído ----------
 reset();
