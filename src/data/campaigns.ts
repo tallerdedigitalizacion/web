@@ -304,7 +304,7 @@ export const shared: Record<Lang, Shared> = {
     },
     form: {
       title: "O cuéntame tu caso",
-      intro: "Elige lo que más se parece a lo tuyo, o cuéntamelo con tus palabras, y si quieres añade una observación. Te respondo en menos de 24 horas.",
+      intro: "Elige el que más se parece al tuyo, o cuéntamelo. Te respondo en menos de 24 horas.",
       choiceLabel: "¿Qué te pasa?",
       choicePlaceholder: "Elige una opción…",
       otherChoice: "Ninguna de estas: te lo explico",
@@ -489,7 +489,7 @@ export const shared: Record<Lang, Shared> = {
     },
     form: {
       title: "Or tell me your case",
-      intro: "Pick what looks most like yours, or tell me in your own words, and add a note if you want. I reply within 24 hours.",
+      intro: "Pick the one that looks most like yours, or tell me about it. I reply within 24 hours.",
       choiceLabel: "What's going on?",
       choicePlaceholder: "Pick an option…",
       otherChoice: "None of these: let me explain",
