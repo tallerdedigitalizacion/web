@@ -7,9 +7,8 @@
 // Sufijo de URL final: utm_source=google&utm_medium=cpc&utm_campaign=C04-software (producto) o C05-automatizacion (método)
 // &utm_content={creative}&utm_term={keyword}.
 //
-// Escalera de precios (fija, sin fechas): diagnóstico 90 € · primera implementación 490 € (400 € tras el diagnóstico) ·
-// plan de 6 semanas 2.490 € en total (2.000 € tras las dos primeras). Una implementación suelta posterior cuesta 990 €.
-// Los precios son totales acumulados: cada paso cobra la diferencia con lo ya pagado.
+// Escalera de precios (fija, sin fechas, sin descuentos): diagnóstico 90 € · primera implementación 400 € · plan de 6 semanas 2.000 €.
+// Cada paso cuesta lo que pone, sin restar lo anterior. Siempre se empieza por el diagnóstico.
 //
 // Lo que Pablo debe completar o confirmar va como [PABLO: …] (comentarios y `pabloMarkers`). Solo se ve con `npm run dev`.
 
@@ -133,13 +132,13 @@ export const shared: Record<Lang, Shared> = {
   es: {
     htmlLangName: "Español",
     langNav: "Idioma",
-    headerBook: "Reservar llamada",
-    heroBook: "Reservar llamada gratuita de 30 min con Pablo",
+    headerBook: "Reservar llamada gratis con Pablo",
+    heroBook: "Reservar llamada gratis con Pablo",
     chips: [
       "Llamada gratuita de 30 min, sin compromiso",
       "Hablas con un técnico, no con un comercial",
-      "Diagnóstico por 90 €, que se descuenta si seguimos",
-      "Garantía de devolución en la primera implementación",
+      "Garantía de devolución",
+      "Precio cerrado desde el principio",
       "Te respondo en menos de 24 horas",
     ],
     triage: {
@@ -148,7 +147,7 @@ export const shared: Record<Lang, Shared> = {
       intro: "Elige lo que más se parece a tu empresa y te cuento qué suele haber detrás y por dónde empezaría. No hace falta dejar tu email.",
       behindLabel: "Qué suele haber detrás",
       firstLabel: "Primer paso",
-      bookCta: "Reservar llamada gratuita",
+      bookCta: "Reservar llamada gratis con Pablo",
       options: [
         {
           label: "Mi empresa depende demasiado de las personas que sostienen los procesos",
@@ -202,25 +201,20 @@ export const shared: Record<Lang, Shared> = {
         bullets: [
           "Para cada problema: qué voy a resolver, cómo, cuánto cuesta, cuánto tarda y qué impacto tiene.",
           "Necesito que me enseñes cómo trabajas hoy.",
-          "Es de pago y se descuenta si sigues.",
         ],
       },
       {
         title: "Primera implementación",
-        price: "400 €*",
-        priceNote: "* Si ya has pagado el diagnóstico",
+        price: "400 €",
         text: "Prototipo del problema de mayor impacto, con revisiones según avanza.",
-        bullets: [
-          "Incluye desarrollo, puesta en marcha y formación.",
-          "Ya has pagado 90 € en el diagnóstico: pagas 400 €.",
-        ],
+        bullets: ["Incluye desarrollo, puesta en marcha y formación."],
         guarantee: "Si no estás conforme en los 30 días siguientes a la entrega, te devuelvo el dinero sin preguntas.",
       },
       {
         title: "Plan de 6 semanas",
-        price: "2.490 €",
+        price: "2.000 €",
         text: "En 6 semanas implementamos al menos 3 problemas de la lista del diagnóstico.",
-        bullets: ["Sumando la primera implementación, son al menos 4 en total.", "Ya has pagado 490 €: solo pagas 2.000 €."],
+        bullets: ["Sumando la primera implementación, son al menos 4 en total."],
       },
       { title: "Después del plan", text: "Podemos seguir trabajando juntos como partners. La forma la hablamos entonces, según lo que necesite tu empresa." },
     ],
@@ -324,13 +318,13 @@ export const shared: Record<Lang, Shared> = {
   en: {
     htmlLangName: "English",
     langNav: "Language",
-    headerBook: "Book a call",
-    heroBook: "Book a free 30-minute call with Pablo",
+    headerBook: "Book a free call with Pablo",
+    heroBook: "Book a free call with Pablo",
     chips: [
       "Free 30-minute call, no strings",
       "You talk to a technician, not a salesperson",
-      "Diagnosis for €90, deducted if we continue",
-      "Money-back guarantee on the first implementation",
+      "Money-back guarantee",
+      "Fixed price from the start",
       "I reply within 24 hours",
     ],
     triage: {
@@ -339,7 +333,7 @@ export const shared: Record<Lang, Shared> = {
       intro: "Pick what looks most like your business and I'll tell you what is usually behind it and where I would start. No email needed.",
       behindLabel: "What is usually behind it",
       firstLabel: "First step",
-      bookCta: "Book a free call",
+      bookCta: "Book a free call with Pablo",
       options: [
         {
           label: "My business depends too much on the people who hold the processes together",
@@ -393,25 +387,20 @@ export const shared: Record<Lang, Shared> = {
         bullets: [
           "For each problem: what I will solve, how, what it costs, how long it takes and what impact it has.",
           "I need you to show me how you work today.",
-          "It is paid and is deducted if you continue.",
         ],
       },
       {
         title: "First implementation",
-        price: "€400*",
-        priceNote: "* If you have already paid the diagnosis",
+        price: "€400",
         text: "A prototype of the highest-impact problem, with reviews as it moves forward.",
-        bullets: [
-          "It includes development, launch and training.",
-          "You already paid €90 for the diagnosis: you pay €400.",
-        ],
+        bullets: ["It includes development, launch and training."],
         guarantee: "If you are not happy within 30 days of delivery, I refund your money, no questions asked.",
       },
       {
         title: "6-week plan",
-        price: "€2,490",
+        price: "€2,000",
         text: "In 6 weeks we implement at least 3 problems from the diagnosis list.",
-        bullets: ["Adding the first implementation, that is at least 4 in total.", "You already paid €490: you only pay €2,000."],
+        bullets: ["Adding the first implementation, that is at least 4 in total."],
       },
       { title: "After the plan", text: "We can keep working together as partners. We agree how then, depending on what your business needs." },
     ],

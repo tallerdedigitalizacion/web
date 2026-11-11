@@ -234,8 +234,8 @@ automática por idioma del navegador. Sufijo de URL final: `utm_source=google&ut
 - Estructura: hero con «¿Cómo sé si esto es para mí?» (lead magnet sin email, no envía datos ni eventos) · dolores · qué hago (solo
   producto) · cómo trabajo con la escalera de precios y la garantía · quién está detrás (con el vídeo de Pablo) · casos con «antes /
   ahora» en carrusel · testimonios en vídeo (solo se muestran cuando hay vídeo) · preguntas · reserva en la página · formulario.
-- Precios (fijos, sin fechas): diagnóstico 90 €, primera implementación 490 € (400 € tras el diagnóstico), plan de 6 semanas 2.490 €
-  en total (2.000 € tras las dos primeras), implementación suelta 990 €. Siempre se empieza por el diagnóstico.
+- Precios (fijos, sin fechas, sin descuentos): diagnóstico 90 €, primera implementación 400 €, plan de 6 semanas 2.000 €.
+  Siempre se empieza por el diagnóstico.
 - La plantilla no tiene menú ni pie completo ni WhatsApp (ni botón ni enlace); el pie mínimo lleva Aviso legal (con los datos del titular y el
   email de contacto), Política de privacidad, Política de cookies y «Configurar cookies». Sin email ni teléfono a la vista, para que
   todo contacto entre por la reserva o por el formulario y se mida. Sin AnyDesk, sin «Otros servicios», sin chat.

@@ -269,7 +269,7 @@ export const offers: Record<string, Offer> = {
       "Informe con la lista de problemas ordenada por impacto",
       "Para cada uno: qué se resuelve, cómo, cuánto cuesta, cuánto tarda y qué impacto tiene",
     ],
-    note: "El diagnóstico se descuenta si sigues. Primera implementación: 490 € en total (400 € tras el diagnóstico). Plan de 6 semanas: 2.490 € en total.",
+    note: "Primera implementación: 400 €. Plan de 6 semanas: 2.000 €.",
   },
   "/automatizacion-procesos-ia/": {
     price: 90,
@@ -280,7 +280,7 @@ export const offers: Record<string, Offer> = {
       "Informe con la lista de problemas ordenada por impacto",
       "Para cada uno: qué se resuelve, cómo, cuánto cuesta, cuánto tarda y qué impacto tiene",
     ],
-    note: "El diagnóstico se descuenta si sigues. Primera implementación: 490 € en total (400 € tras el diagnóstico). Plan de 6 semanas: 2.490 € en total.",
+    note: "Primera implementación: 400 €. Plan de 6 semanas: 2.000 €.",
   },
   "/caos-operativo-telecomunicaciones/": {
     price: 1000,
