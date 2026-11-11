@@ -151,7 +151,12 @@ const legalLinks = [
     gap: 16px;
     padding: 12px clamp(14px, 4vw, 44px);
     border-bottom: 1px solid rgba(78, 229, 141, 0.16);
-    background: rgba(32, 36, 44, 0.94);
+    /* Fondo sutil: un resplandor verde en la esquina del logotipo y una trama de puntos muy tenue sobre el color base. */
+    background-color: rgba(32, 36, 44, 0.94);
+    background-image:
+      radial-gradient(70% 240% at 0% 0%, rgba(78, 229, 141, 0.13), transparent 62%),
+      radial-gradient(rgba(247, 248, 247, 0.075) 1px, transparent 1.2px);
+    background-size: auto, 16px 16px;
     backdrop-filter: blur(14px);
   }
 
@@ -232,6 +237,12 @@ const legalLinks = [
     gap: 10px;
     padding: 34px clamp(18px, 5vw, 56px) 40px;
     border-top: 1px solid var(--line);
+    /* Mismo fondo sutil que la cabecera, con el resplandor abajo y sobre un tono más oscuro. */
+    background-color: var(--dark);
+    background-image:
+      radial-gradient(75% 170% at 50% 100%, rgba(78, 229, 141, 0.11), transparent 65%),
+      radial-gradient(rgba(247, 248, 247, 0.06) 1px, transparent 1.2px);
+    background-size: auto, 16px 16px;
     color: var(--muted);
     font-size: 0.92rem;
     text-align: center;

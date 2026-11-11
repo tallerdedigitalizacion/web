@@ -308,7 +308,10 @@ const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/
 
   .cp-hero {
     padding: clamp(36px, 6vw, 84px) clamp(18px, 5vw, 56px) clamp(44px, 6vw, 80px);
-    background: linear-gradient(180deg, var(--bg) 0%, var(--soft) 100%);
+    /* El mismo fondo que la cabecera de la home: la textura sobre un degradado oscuro. */
+    background:
+      linear-gradient(90deg, rgba(32, 36, 44, 0.98) 0%, rgba(32, 36, 44, 0.9) 58%, rgba(32, 36, 44, 0.72) 100%),
+      url("/hero-texture.svg") center / cover no-repeat;
   }
 
   .cp-hero-inner {
