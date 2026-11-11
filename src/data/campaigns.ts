@@ -294,7 +294,7 @@ export const shared: Record<Lang, Shared> = {
     booking: {
       eyebrow: "Reserva",
       title: "Elige hueco para tu llamada gratuita",
-      intro: "30 minutos, sin guion comercial. Eliges día y hora aquí mismo, sin salir de la página.",
+      intro: "30 minutos, sin guion comercial. Eliges día y hora aquí mismo.",
       openLabel: "Ver huecos disponibles",
       loadingLabel: "Cargando el calendario…",
       fallbackLabel: "Abrir el calendario en otra pestaña",
@@ -479,7 +479,7 @@ export const shared: Record<Lang, Shared> = {
     booking: {
       eyebrow: "Book",
       title: "Pick a time for your free call",
-      intro: "30 minutes, no sales script. You choose the day and time right here, without leaving the page.",
+      intro: "30 minutes, no sales script. You choose the day and time right here.",
       openLabel: "See available times",
       loadingLabel: "Loading the calendar…",
       fallbackLabel: "Open the calendar in a new tab",
