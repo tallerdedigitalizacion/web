@@ -144,7 +144,7 @@ export const shared: Record<Lang, Shared> = {
     triage: {
       eyebrow: "¿Es para ti?",
       title: "¿Cómo sé si esto es para mí?",
-      intro: "Elige lo que más se parece a tu empresa y te cuento qué suele haber detrás y por dónde empezaría. No hace falta dejar tu email.",
+      intro: "Elige lo que más se parece a tu empresa y te cuento qué suele haber detrás y por dónde empezaría.",
       behindLabel: "Qué suele haber detrás",
       firstLabel: "Primer paso",
       bookCta: "Reservar llamada gratis con Pablo",
@@ -222,13 +222,13 @@ export const shared: Record<Lang, Shared> = {
       eyebrow: "Quién está detrás",
       title: "Contratas a una persona, no a una agencia",
       paragraphs: [
-        "Soy Pablo Leone y llevo 18 años desarrollando software. He sido tech lead, he liderado equipos de desarrollo en fintech, salud y telecomunicaciones, y fundé en 2015 PDG Solutions, una agencia de desarrollo que funcionó hasta 2019, con clientes en Reino Unido, Irlanda, Alemania y Latinoamérica. Trabajo en remoto para empresas internacionales.",
+        "Soy Pablo Leone y llevo 18 años desarrollando software. He liderado equipos de desarrollo de startups de fintech, salud y telecomunicaciones en España, Reino Unido, Irlanda, Alemania, EE. UU. y Latinoamérica.",
         "Cuando me contratas, hablas conmigo: yo entiendo tu problema, yo lo construyo y yo respondo del resultado. No hay un comercial en medio ni un equipo al que derivarte.",
       ],
       facts: [
         ["18 años", "desarrollando software para empresas europeas de fintech, salud y telecomunicaciones"],
-        ["Ex tech lead", "de equipos de desarrollo de aplicaciones web distribuidas para startups"],
-        ["PDG Solutions", "agencia de desarrollo que fundé en 2015 y que funcionó hasta 2019, con clientes en Reino Unido, Irlanda, Alemania y Latinoamérica"],
+        ["Líder técnico", "de equipos de desarrollo de software distribuido para startups"],
+        ["Emprendedor", "Fundador de PDG Solutions en 2015, una agencia de desarrollo de software deslocalizada geográficamente para clientes de todo el mundo."],
       ],
       linkedin: "LinkedIn de Pablo Leone",
       cv: "CV (PDF)",
@@ -330,7 +330,7 @@ export const shared: Record<Lang, Shared> = {
     triage: {
       eyebrow: "Is it for you?",
       title: "How do I know if this is for me?",
-      intro: "Pick what looks most like your business and I'll tell you what is usually behind it and where I would start. No email needed.",
+      intro: "Pick what looks most like your business and I'll tell you what is usually behind it and where I would start.",
       behindLabel: "What is usually behind it",
       firstLabel: "First step",
       bookCta: "Book a free call with Pablo",
@@ -408,13 +408,13 @@ export const shared: Record<Lang, Shared> = {
       eyebrow: "Who is behind this",
       title: "You hire a person, not an agency",
       paragraphs: [
-        "I'm Pablo Leone and I have been developing software for 18 years. I have been a tech lead, I have led development teams in fintech, health and telecom, and I founded PDG Solutions in 2015, a development agency that ran until 2019, with clients in the UK, Ireland, Germany and Latin America. I work remotely for international companies.",
+        "I'm Pablo Leone and I have been developing software for 18 years. I have led development teams at fintech, health and telecom startups in Spain, the UK, Ireland, Germany, the US and Latin America.",
         "When you hire me, you talk to me: I understand your problem, I build it and I answer for the result. There is no salesperson in the middle and no team to hand you off to.",
       ],
       facts: [
         ["18 years", "building software for European companies in fintech, health and telecom"],
-        ["Former tech lead", "of development teams building distributed web applications for startups"],
-        ["PDG Solutions", "development agency I founded in 2015 and that ran until 2019, with clients in the UK, Ireland, Germany and Latin America"],
+        ["Tech lead", "of distributed software development teams for startups"],
+        ["Entrepreneur", "Founder of PDG Solutions in 2015, a geographically distributed software development agency serving clients worldwide."],
       ],
       linkedin: "Pablo Leone on LinkedIn",
       cv: "CV (PDF)",
