@@ -76,7 +76,7 @@ type PainId = "p1" | "p3" | "p4" | "p5" | "p6" | "p7" | "p12";
 // Mientras `id` esté vacío, la sección muestra la foto de Pablo y no hay ningún marcador visible.
 export const campaignVideos: Record<Lang, { id?: string; title: string; poster: string; posterAlt: string; caption: string; playLabel: string }> = {
   es: {
-    id: undefined,
+    id: "https://www.youtube.com/watch?v=YKxejqXWp00",
     title: "Vídeo: quién es Pablo Leone y cómo trabaja",
     poster: "/pablo-leone.jpeg",
     posterAlt: "Pablo Leone, líder técnico",
@@ -94,9 +94,9 @@ export const campaignVideos: Record<Lang, { id?: string; title: string; poster: 
 };
 
 // Lista de lo que Pablo debe completar o confirmar. Se muestra solo en `npm run dev`.
+// (El vídeo ES ya está publicado: campaignVideos.es.)
 export const pabloMarkers = [
-  "[PABLO: vídeo ES de 60-90 s para «Contratas a una persona, no a una agencia» (en método, explicando el caso de Nimbus) + póster 1280×720 si quieres uno distinto de la foto] → campaignVideos.es en src/data/campaigns.ts",
-  "[PABLO: vídeo EN de 60-90 s, mismo mensaje] → campaignVideos.en",
+  "[PABLO: vídeo EN de 60-90 s, mismo mensaje que el ES] → campaignVideos.en",
 ];
 
 // ---------------------------------------------------------------------------------------------------------------------

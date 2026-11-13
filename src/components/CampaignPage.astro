@@ -22,7 +22,7 @@ const { page } = Astro.props as Props;
 const { lang, hero } = page;
 const t = shared[lang];
 const video = campaignVideos[lang];
-const videoMarker = lang === "es" ? pabloMarkers[0] : pabloMarkers[1];
+const videoMarker = lang === "es" ? undefined : pabloMarkers[0];
 // Testimonios: los de vídeo y los escritos aprobados por su autor. Los borradores sin aprobar solo se ven en `npm run dev`.
 const publishedTestimonials = t.testimonials.list.filter((item) => item.videoId || (item.quote && item.approved));
 const draftTestimonials = import.meta.env.DEV ? t.testimonials.list.filter((item) => item.quote && !item.approved && !item.videoId) : [];
