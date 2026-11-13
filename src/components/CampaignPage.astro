@@ -197,8 +197,15 @@ const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/
             <figure class="ct-card">
               <blockquote><p>«{item.quote}»</p></blockquote>
               <figcaption>
-                <strong>{item.name}</strong>
-                <span>{item.role}{item.relation ? ` (${item.relation})` : ""}</span>
+                {item.logo && (
+                  <div class="ct-logo">
+                    <img src={item.logo} alt="" width="56" height="56" loading="lazy" decoding="async" />
+                  </div>
+                )}
+                <div class="ct-who">
+                  <strong>{item.name}</strong>
+                  <span>{item.role}{item.relation ? ` (${item.relation})` : ""}</span>
+                </div>
               </figcaption>
             </figure>
           ),
@@ -735,8 +742,21 @@ const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/
 
   .ct-card blockquote { margin: 0; }
   .ct-card blockquote p { margin: 0; color: var(--ink); font-size: 1.05rem; line-height: 1.5; }
-  .ct-card figcaption { display: grid; gap: 2px; }
-  .ct-card figcaption span { color: var(--muted); font-size: 0.92rem; }
+  .ct-card figcaption { display: flex; align-items: center; gap: 14px; }
+  .ct-who { display: grid; gap: 2px; min-width: 0; }
+  .ct-who span { color: var(--muted); font-size: 0.92rem; }
+  .ct-logo {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+  .ct-logo img { width: 78%; height: 78%; object-fit: contain; }
 
   .cp-dev-markers {
     width: min(var(--max), calc(100% - 36px));

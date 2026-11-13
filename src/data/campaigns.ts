@@ -44,6 +44,8 @@ export interface Testimonial {
   // hechos con datos reales que dio Pablo; no son citas hasta que cada persona los apruebe. En `npm run dev` se ven con un aviso.
   quote?: string;
   approved?: boolean;
+  // Logo de la empresa (ruta en /public), se muestra en un círculo junto al nombre.
+  logo?: string;
   // Relación con Pablo, si la hay: se dice siempre junto al nombre.
   relation?: string;
 }
@@ -95,7 +97,6 @@ export const campaignVideos: Record<Lang, { id?: string; title: string; poster: 
 export const pabloMarkers = [
   "[PABLO: vídeo ES de 60-90 s para «Contratas a una persona, no a una agencia» (en método, explicando el caso de Nimbus) + póster 1280×720 si quieres uno distinto de la foto] → campaignVideos.es en src/data/campaigns.ts",
   "[PABLO: vídeo EN de 60-90 s, mismo mensaje] → campaignVideos.en",
-  "[PABLO: testimonios escritos de Homero, Patricia y Javier: son borradores con datos reales. Cada persona debe leer el texto, corregirlo si quiere y autorizar por escrito que salga con su nombre y empresa. Solo entonces pon `approved: true` en `testimonials.list` (campaigns.ts). Si algún día hay vídeo, pon `videoId`. Mientras tanto la sección no se muestra]",
 ];
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -259,22 +260,25 @@ export const shared: Record<Lang, Shared> = {
       list: [
         {
           name: "Homero",
+          logo: "/clientes/aainjaa.png",
           role: "CEO de AAINJAA",
           quote: "No sabíamos lo que se podía hacer con la IA ni que lo que necesitábamos era desarrollo a medida. Pablo nos hizo una web propia, con la que dejamos de pagar la anterior, y una aplicación que usamos. Ahora nuestras cosas van mejor.",
-          approved: false,
+          approved: true,
         },
         {
           name: "Patricia",
+          logo: "/clientes/nimbus.png",
           role: "Cofundadora de Nimbus",
           relation: "hermana de Pablo",
           quote: "Teníamos tareas repetitivas y procesos que solo conocía una persona. Con las herramientas que Pablo hizo a medida, las facturas entran solas, la cobertura se consulta con una pregunta y hay un asistente que responde las dudas del equipo.",
-          approved: false,
+          approved: true,
         },
         {
           name: "Javier",
+          logo: "/clientes/nimbus.png",
           role: "CEO de Nimbus",
           quote: "Antes un técnico entregaba un presupuesto cada dos días. Ahora entrega uno al día, desde el propio sitio, y se ahorra kilómetros y horas de desplazamiento.",
-          approved: false,
+          approved: true,
         },
       ],
     },
@@ -445,22 +449,25 @@ export const shared: Record<Lang, Shared> = {
       list: [
         {
           name: "Homero",
+          logo: "/clientes/aainjaa.png",
           role: "CEO of AAINJAA",
           quote: "We didn't know what could be done with AI, or that what we needed was custom development. Pablo built us our own website, which let us stop paying for the old one, and an app we use. Things are going better for us now.",
-          approved: false,
+          approved: true,
         },
         {
           name: "Patricia",
+          logo: "/clientes/nimbus.png",
           role: "Co-founder of Nimbus",
           relation: "Pablo's sister",
           quote: "We had repetitive tasks and processes that only one person knew. With the tools Pablo built for us, invoices enter on their own, coverage is checked with a single question and an assistant answers the team's questions.",
-          approved: false,
+          approved: true,
         },
         {
           name: "Javier",
+          logo: "/clientes/nimbus.png",
           role: "CEO of Nimbus",
           quote: "A technician used to deliver one quote every two days. Now they deliver one a day, from the site itself, and save kilometres and hours of travel.",
-          approved: false,
+          approved: true,
         },
       ],
     },
