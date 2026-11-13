@@ -84,7 +84,7 @@ export const campaignVideos: Record<Lang, { id?: string; title: string; poster: 
     playLabel: "Reproducir el vídeo de presentación",
   },
   en: {
-    id: undefined,
+    id: "https://www.youtube.com/watch?v=kpflfpFE26Y",
     title: "Video: who Pablo Leone is and how he works",
     poster: "/pablo-leone.jpeg",
     posterAlt: "Pablo Leone, tech lead",
@@ -94,10 +94,8 @@ export const campaignVideos: Record<Lang, { id?: string; title: string; poster: 
 };
 
 // Lista de lo que Pablo debe completar o confirmar. Se muestra solo en `npm run dev`.
-// (El vídeo ES ya está publicado: campaignVideos.es.)
-export const pabloMarkers = [
-  "[PABLO: vídeo EN de 60-90 s, mismo mensaje que el ES] → campaignVideos.en",
-];
+// (Los vídeos ES y EN ya están publicados: campaignVideos.)
+export const pabloMarkers: string[] = [];
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Textos comunes por idioma

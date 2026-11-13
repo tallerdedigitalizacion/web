@@ -22,7 +22,7 @@ const { page } = Astro.props as Props;
 const { lang, hero } = page;
 const t = shared[lang];
 const video = campaignVideos[lang];
-const videoMarker = lang === "es" ? undefined : pabloMarkers[0];
+const videoMarker = undefined;
 // Testimonios: los de vídeo y los escritos aprobados por su autor. Los borradores sin aprobar solo se ven en `npm run dev`.
 const publishedTestimonials = t.testimonials.list.filter((item) => item.videoId || (item.quote && item.approved));
 const draftTestimonials = import.meta.env.DEV ? t.testimonials.list.filter((item) => item.quote && !item.approved && !item.videoId) : [];
@@ -245,7 +245,7 @@ const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/
     messageLabel={t.form.messageLabel}
   />
 
-  {import.meta.env.DEV && (
+  {import.meta.env.DEV && pabloMarkers.length > 0 && (
     <aside class="cp-dev-markers">
       <strong>Pendiente de Pablo (solo se ve con npm run dev)</strong>
       <ul>{pabloMarkers.map((marker) => <li>{marker}</li>)}</ul>
