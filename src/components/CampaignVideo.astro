@@ -21,15 +21,26 @@ interface Props {
   caption: string;
   playLabel: string;
   marker?: string;
+  // Vídeo vertical (Short): marco 9:16 y póster vertical. Por defecto el marco es 16:9.
+  vertical?: boolean;
 }
 
-const { id, title, poster, posterAlt, caption, playLabel, marker } = Astro.props as Props;
+const { id, title, poster, posterAlt, caption, playLabel, marker, vertical } = Astro.props as Props;
 const videoId = youtubeId(id);
 ---
 
-<figure class:list={["campaign-video", { "has-video": Boolean(videoId) }]}>
+<figure class:list={["campaign-video", { "has-video": Boolean(videoId), "is-vertical": Boolean(vertical) }]}>
   <div class="cv-frame" data-video-id={videoId} data-video-title={title}>
-    {poster && <img src={withBase(poster)} alt={posterAlt ?? ""} width="400" height="400" fetchpriority="high" decoding="async" />}
+    {poster && (
+      <img
+        src={withBase(poster)}
+        alt={posterAlt ?? ""}
+        width={vertical ? 270 : 400}
+        height={vertical ? 480 : 400}
+        fetchpriority="high"
+        decoding="async"
+      />
+    )}
     {videoId && (
       <button class="cv-play" type="button" aria-label={playLabel}>
         <svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30"><path fill="currentColor" d="M8 5.14v13.72a1 1 0 0 0 1.52.85l11.1-6.86a1 1 0 0 0 0-1.7L9.52 4.29A1 1 0 0 0 8 5.14Z" /></svg>
@@ -83,6 +94,14 @@ const videoId = youtubeId(id);
     aspect-ratio: 16 / 9;
   }
 
+  .has-video.is-vertical .cv-frame,
+  .is-vertical .cv-frame {
+    max-width: 320px;
+    aspect-ratio: 9 / 16;
+  }
+
+  .is-vertical figcaption { max-width: 320px; }
+
   .cv-frame img {
     width: 100%;
     height: 100%;
@@ -112,15 +131,23 @@ const videoId = youtubeId(id);
     cursor: pointer;
   }
 
+  /* Círculo exacto (72×72) con el triángulo centrado por su centroide y fondo semitransparente para que se lea el texto del póster. */
   .cv-play svg {
-    box-sizing: content-box;
-    padding: 20px 20px 20px 24px;
+    box-sizing: border-box;
+    width: 72px;
+    height: 72px;
+    padding: 22px;
     border-radius: 50%;
-    background: var(--accent);
+    background: rgba(78, 229, 141, 0.7);
+    background: color-mix(in srgb, var(--accent) 70%, transparent);
     transition: transform 160ms ease, background 160ms ease;
   }
 
-  .cv-play:hover svg { background: var(--accent-dark); transform: scale(1.05); }
+  .cv-play:hover svg {
+    background: rgba(50, 200, 117, 0.85);
+    background: color-mix(in srgb, var(--accent-dark) 85%, transparent);
+    transform: scale(1.05);
+  }
 
   figcaption {
     max-width: 420px;

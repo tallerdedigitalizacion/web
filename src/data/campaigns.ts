@@ -74,19 +74,22 @@ type PainId = "p1" | "p3" | "p4" | "p5" | "p6" | "p7" | "p12";
 //  contigo directamente; en método, explicando el caso de Nimbus), subirlo a YouTube y pegar aquí el enlace o el ID. Lo mismo con el EN.
 //  Si quieres un póster distinto de la foto, un JPG 1280×720 en /public.]
 // Mientras `id` esté vacío, la sección muestra la foto de Pablo y no hay ningún marcador visible.
-export const campaignVideos: Record<Lang, { id?: string; title: string; poster: string; posterAlt: string; caption: string; playLabel: string }> = {
+// Son vídeos verticales (Shorts de YouTube): el marco es 9:16 y el póster es el primer fotograma del vídeo, también vertical.
+export const campaignVideos: Record<Lang, { id?: string; title: string; poster: string; posterAlt: string; caption: string; playLabel: string; vertical?: boolean }> = {
   es: {
     id: "https://www.youtube.com/watch?v=YKxejqXWp00",
+    vertical: true,
     title: "Vídeo: quién es Pablo Leone y cómo trabaja",
-    poster: "/pablo-leone.jpeg",
+    poster: "/video-presentacion-es.jpg",
     posterAlt: "Pablo Leone, líder técnico",
     caption: "Pablo Leone · líder técnico con 18 años de experiencia",
     playLabel: "Reproducir el vídeo de presentación",
   },
   en: {
     id: "https://www.youtube.com/watch?v=kpflfpFE26Y",
+    vertical: true,
     title: "Video: who Pablo Leone is and how he works",
-    poster: "/pablo-leone.jpeg",
+    poster: "/video-presentacion-en.jpg",
     posterAlt: "Pablo Leone, tech lead",
     caption: "Pablo Leone · tech lead with 18 years of experience",
     playLabel: "Play the introduction video",
