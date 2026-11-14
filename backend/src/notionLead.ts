@@ -65,7 +65,7 @@ export function processQuizBody(input: ProcessQuizLeadInput): NotionBodyBlock[] 
     { type: "heading_3", text: "Cuestionario «¿Dónde estás tú?» · Campaña C05" },
     { type: "paragraph", text: `Idioma: ${input.language === "en" ? "inglés (EN)" : "español (ES)"}` },
     { type: "paragraph", text: `Punto de partida: ${result.code} · ${result.title}` },
-    { type: "paragraph", text: `Suscrito al mini-curso: ${input.courseSubscription ? "SÍ (casilla marcada)" : "no"}` },
+    { type: "paragraph", text: `Suscrito al mini-curso: ${input.courseSubscription ? "SÍ (formulario del minicurso)" : "no"}` },
     { type: "heading_3", text: "Respuestas" },
   ];
   for (const question of quizQuestions) {
