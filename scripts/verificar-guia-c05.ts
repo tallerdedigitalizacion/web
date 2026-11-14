@@ -6,7 +6,7 @@
 //   node --import tsx scripts/verificar-guia-c05.ts
 //
 // Comprueba: las reglas A–E del resultado en ES y EN, el mapeo a «CRM · Prospectos» (propiedades, opciones y cuerpo de la
-// página con respuestas, idioma y suscripción), el email 1 (asunto, enlace a la guía, resultado, reserva, idioma), el aviso
+// página con respuestas, idioma y suscripción), el email de bienvenida al minicurso (asunto, qué recibirá, baja y responsable, idioma), el aviso
 // con toda la atribución (term y clickId incluidos), el antiduplicados, el honeypot y que un esquema inválido se rechaza.
 import { DeleteCommand, DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { SESClient } from "@aws-sdk/client-ses";
@@ -188,10 +188,10 @@ check("1. Responde ok y con el envío del email", res.status === 200 && res.json
 check("1. Llega el email al lead y el aviso", emails.length === 2 && emails.some((m) => m.to.includes("ana.guia@example.com")) && emails.some((m) => m.to.includes("aviso@example.test")), JSON.stringify(emails.map((m) => m.to)));
 const leadMail = emails.find((m) => m.to.includes("ana.guia@example.com"))!;
 const leadText = decodedBody(leadMail.body);
-check("1. Email 1: asunto «Tu guía y tu punto de partida»", decodedSubject(leadMail.subject) === "Tu guía y tu punto de partida", decodedSubject(leadMail.subject));
-check("1. Email 1: enlace a la guía ES (no adjunto)", leadText.includes("https://tallerdedigitalizacion.com/downloads/guia-automatizacion-procesos-ia.pdf") && !/Content-Disposition: attachment/i.test(leadMail.body));
-check("1. Email 1: «Hola, Ana:» y título del resultado", leadText.includes("Hola, Ana:") && leadText.includes("Tu punto de partida: cierra la fase 1 y prueba la fase 2 con un solo proceso"));
-check("1. Email 1: enlace de reserva en español y firma", leadText.includes("llamada-gratuita") && leadText.includes("Taller de Digitalización") && leadText.includes("Si no pediste este correo"));
+check("1. Email de bienvenida: asunto «Bienvenido al minicurso gratuito»", decodedSubject(leadMail.subject) === "Bienvenido al minicurso gratuito", decodedSubject(leadMail.subject));
+check("1. Email de bienvenida: «Hola, Ana:», 6 emails (uno por semana) con plantillas y explicaciones", leadText.includes("Hola, Ana:") && leadText.includes("6 emails, uno por semana") && leadText.includes("plantillas y explicaciones"), leadText);
+check("1. Email de bienvenida: baja, responsable y política de privacidad (el texto legal va en el email)", leadText.includes("darte de baja") && leadText.includes("info@tallerdedigitalizacion.com") && leadText.includes("Responsable: Pablo Ezequiel Leone Signetti") && leadText.includes("https://tallerdedigitalizacion.com/politica-privacidad/"), leadText);
+check("1. Email de bienvenida: sin guía, sin resultado y sin adjuntos (la guía va en su sección)", !leadText.includes(".pdf") && !leadText.includes("punto de partida") && !/Content-Disposition: attachment/i.test(leadMail.body), leadText);
 const notice = decodedBody(emails.find((m) => m.to.includes("aviso@example.test"))!.body);
 check("1. Aviso: atribución completa (term y clickId incluidos)", notice.includes("Término (utm_term): prueba") && notice.includes("ID de clic (gclid): TEST123") && notice.includes("Campaña (utm_campaign): C99-prueba") && notice.includes("Contenido (utm_content): A"));
 check("1. Aviso: punto de partida y mini-curso", notice.includes("Punto de partida: fase-2-pequeno") && notice.includes("Mini-curso: SÍ"));
@@ -218,8 +218,8 @@ res = await post(body({ email: "bob.guide@example.com", name: "", language: "en"
 check("3. EN sin nombre: responde ok", res.status === 200 && res.json.ok === true, JSON.stringify(res));
 const enMail = emails.find((m) => m.to.includes("bob.guide@example.com"))!;
 const enText = decodedBody(enMail.body);
-check("3. EN: asunto «Your guide and your starting point»", decodedSubject(enMail.subject) === "Your guide and your starting point", decodedSubject(enMail.subject));
-check("3. EN: enlace a la guía EN, «Hello:» sin nombre, resultado EN y reserva EN", enText.includes("https://tallerdedigitalizacion.com/downloads/ai-process-automation-guide.pdf") && enText.includes("Hello:") && enText.includes("Your starting point: phase 1") && enText.includes("free-30-min-call"), "");
+check("3. EN: asunto «Welcome to the free mini-course»", decodedSubject(enMail.subject) === "Welcome to the free mini-course", decodedSubject(enMail.subject));
+check("3. EN: «Hello:» sin nombre, 6 emails, baja y política en inglés, sin guía", enText.includes("Hello:") && enText.includes("6 emails, one per week") && enText.includes("unsubscribe") && enText.includes("https://tallerdedigitalizacion.com/privacy-policy/") && !enText.includes(".pdf"), enText);
 const enProps = notionCalls[0]?.body?.properties ?? {};
 const enChildren = (notionCalls[0]?.body?.children ?? []).map((c: any) => c[c.type]?.rich_text?.[0]?.text?.content).join("\n");
 check("3. EN en Notion: título = email (sin nombre), idioma EN y mini-curso «no»", enProps["Nombre"]?.title?.[0]?.text?.content === "[PRUEBA] bob.guide@example.com" && enChildren.includes("Idioma: inglés (EN)") && enChildren.includes("Suscrito al mini-curso: no"), enChildren);

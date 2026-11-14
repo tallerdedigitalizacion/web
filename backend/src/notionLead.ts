@@ -46,7 +46,7 @@ function describeNeed(action: LeadAction, input: LeadInput) {
     case "process-quiz": {
       const quiz = input as ProcessQuizLeadInput;
       const result = quizResult(quiz.answers as QuizAnswers, "es");
-      return `Guía C05 «Cómo automatizar un proceso con IA» (${quiz.language.toUpperCase()}): punto de partida ${result.code} · mini-curso: ${quiz.courseSubscription ? "sí" : "no"}`;
+      return `Minicurso C05 tras el cuestionario «¿Dónde estás tú?» (${quiz.language.toUpperCase()}): punto de partida ${result.code} · mini-curso: ${quiz.courseSubscription ? "sí" : "no"}`;
     }
     case "self-assessment": {
       const assessment = input as SelfAssessmentLeadInput;

@@ -289,7 +289,7 @@ async function processLead(c: Context, action: LeadAction, input: ReturnType<typ
     });
     const leadDelivery = await trySendEmail(
       quizInput.email,
-      processQuizEmail(quizInput, config.siteUrl, quizInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
+      processQuizEmail(quizInput, config.siteUrl),
     );
     if (config.notifyEmail) {
       const deliveryNote = leadDelivery.ok
@@ -300,7 +300,7 @@ async function processLead(c: Context, action: LeadAction, input: ReturnType<typ
         notificationEmail(
           "process-quiz",
           quizInput,
-          `Guía C05 (${quizInput.language}). Punto de partida: ${quizParams.punto_partida}. Situaciones: ${quizParams.num_situaciones}. Mini-curso: ${quizInput.courseSubscription ? "SÍ" : "no"}. Lead id: ${saved.id}\n${deliveryNote}`,
+          `Minicurso C05 (${quizInput.language}). Punto de partida: ${quizParams.punto_partida}. Situaciones: ${quizParams.num_situaciones}. Mini-curso: ${quizInput.courseSubscription ? "SÍ" : "no"}. Lead id: ${saved.id}\n${deliveryNote}`,
         ),
       );
     }
@@ -309,7 +309,7 @@ async function processLead(c: Context, action: LeadAction, input: ReturnType<typ
       ok: true,
       leadId: saved.id,
       emailDelivered: leadDelivery.ok,
-      message: leadDelivery.ok ? "Te enviamos la guía y tu resultado por email." : "Recibimos tu solicitud. El envío por email no está disponible ahora mismo.",
+      message: leadDelivery.ok ? "Te has suscrito al minicurso. Te enviamos un email de bienvenida." : "Recibimos tu suscripción. El envío por email no está disponible ahora mismo.",
     });
   }
 

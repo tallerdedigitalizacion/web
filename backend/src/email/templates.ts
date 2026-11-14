@@ -1,6 +1,6 @@
 import { assessmentAreas } from "../assessment";
 import type { ContactLeadInput, DiagnosticLeadInput, MethodLeadInput, ProcessQuizLeadInput, ResourceLeadInput, SelfAssessmentLeadInput, WebAuditGuideLeadInput, WebAuditLeadInput } from "../schemas";
-import { quizEmailParts, quizGuide, quizResult, type QuizAnswers } from "../../../src/data/processQuiz";
+import { quizEmailParts } from "../../../src/data/processQuiz";
 import type { scoreAssessment } from "../assessment";
 
 type DiagnosticScore = ReturnType<typeof scoreAssessment>;
@@ -503,36 +503,35 @@ export function selfAssessmentEmail(input: SelfAssessmentLeadInput, bookingUrl: 
   };
 }
 
-// Email 1 de la guía de C05 (obligatorio, desde info@): enlace a la guía (no adjunta), punto de partida y llamada de 30 min.
-// El mini-curso solo registra la suscripción: no se envía nada hasta que existan los emails.
-export function processQuizEmail(input: ProcessQuizLeadInput, siteUrl: string, bookingUrl: string) {
+// Email de bienvenida al minicurso de C05 (desde info@): texto simple con qué recibirá y cómo darse de baja. No lleva la guía (está
+// en la sección «Nuestro método» de la landing) ni el resultado. El minicurso se envía aparte, cuando existan los emails.
+export function processQuizEmail(input: ProcessQuizLeadInput, siteUrl: string) {
   const lang = input.language;
-  const result = quizResult(input.answers as QuizAnswers, lang);
-  const guideLink = `${siteUrl.replace(/\/$/, "")}${quizGuide[lang].path}`;
-  const email = quizEmailParts(lang, input.name, result, guideLink, bookingUrl);
+  const privacyLink = `${siteUrl.replace(/\/$/, "")}${lang === "en" ? "/privacy-policy/" : "/politica-privacidad/"}`;
+  const email = quizEmailParts(lang, input.name, privacyLink);
   return {
     subject: email.subject,
     text: [
-      `${email.greeting} ${email.guideIntro} ${email.guideLink}`,
+      email.greeting,
       "",
-      `${email.startIntro} ${email.resultTitle}`,
-      email.resultText,
-      "",
-      `${email.bookIntro} ${email.bookingLink}`,
-      "",
-      email.ignore,
+      email.body,
+      email.reply,
       "",
       email.bye,
       email.signer,
       email.signature,
+      "",
+      "--",
+      `${email.legalIntro} ${email.unsubscribe}`,
+      `${email.controller} ${email.privacyIntro} ${email.privacyLink}`,
     ].join("\n"),
     html: `
-      <p>${escapeHtml(email.greeting)} ${escapeHtml(email.guideIntro)} <a href="${escapeAttribute(email.guideLink)}">${escapeHtml(email.guideLink)}</a></p>
-      <p>${escapeHtml(email.startIntro)} <strong>${escapeHtml(email.resultTitle)}</strong></p>
-      <p>${escapeHtml(email.resultText)}</p>
-      <p>${escapeHtml(email.bookIntro)} <a href="${escapeAttribute(email.bookingLink)}">${escapeHtml(email.bookingLink)}</a></p>
-      <p>${escapeHtml(email.ignore)}</p>
+      <p>${escapeHtml(email.greeting)}</p>
+      <p>${escapeHtml(email.body)}</p>
+      <p>${escapeHtml(email.reply)}</p>
       <p>${escapeHtml(email.bye)}<br />${escapeHtml(email.signer)}<br />${escapeHtml(email.signature)}</p>
+      <hr />
+      <p style="color:#666;font-size:12px">${escapeHtml(email.legalIntro)} ${escapeHtml(email.unsubscribe)}<br />${escapeHtml(email.controller)} ${escapeHtml(email.privacyIntro)} <a href="${escapeAttribute(email.privacyLink)}">${escapeHtml(email.privacyLink)}</a></p>
     `,
   };
 }
