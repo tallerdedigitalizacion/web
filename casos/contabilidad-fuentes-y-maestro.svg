@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1340 684" width="1340" height="684" role="img" aria-label="Por dentro de Fuentes y Maestro: de la fuente validada a los pasos 1 a 4 con script, y el ciclo de excepciones 5, 5b, 6 y 7 que se repite"><style>
+:root{--surface:#ffffff;--fg:#15222c;--muted:#566774;--line:#c3cfd8;--lane:#eaeff3;--bg:#f4f6f8;
+--f:#0b7a72;--fb:#dff1ef;--m:#2a5db3;--mb:#e3ebf9;--c:#9a5d0a;--cb:#f8ecd6;--loop:#c43d24}
+text{font-family:'Source Sans 3',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.lane{fill:var(--lane);stroke:var(--line);stroke-width:1}
+.ln{font-size:12px;font-weight:700;letter-spacing:.08em;fill:var(--fg)}
+.lft{fill:var(--f)}.lmt{fill:var(--m)}.lct{fill:var(--c)}
+.n{stroke-width:1.4;fill:var(--surface)}
+.nf{stroke:var(--f);fill:var(--fb)}.nm{stroke:var(--m);fill:var(--mb)}.nc{stroke:var(--c);fill:var(--cb)}
+.nx{stroke:var(--muted);fill:var(--surface);stroke-dasharray:4 3}
+.t1{font-size:13px;font-weight:700;fill:var(--fg)}.t1s{font-size:12px;font-weight:700;fill:var(--fg)}
+.t2{font-size:11px;fill:var(--muted)}.t3{font-size:11px;fill:var(--muted)}
+.lbl{font-size:11px;font-style:italic;fill:var(--loop)}
+.a{fill:none;stroke:var(--fg);stroke-width:1.5;opacity:.75}
+.al{fill:none;stroke:var(--loop);stroke-width:1.6;stroke-dasharray:6 4}
+.pl{fill:none;stroke:var(--fg);stroke-width:1.5;opacity:.75}
+.mk{fill:var(--fg);opacity:.75}.mkl{fill:var(--loop)}
+.badge{fill:var(--fg)}.bt{font-size:11px;font-weight:700;fill:var(--surface)}
+.vmark{fill:var(--surface);stroke:var(--fg);stroke-width:1.2}.vt{font-size:9.5px;font-weight:700;fill:var(--fg)}
+</style><rect width="1340" height="684" fill="#ffffff"/><defs>
+<marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="mk"/></marker>
+<marker id="al2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="mkl"/></marker>
+</defs>
+<rect x="10" y="6" width="1320" height="206" rx="8" class="lane lf"/>
+<text x="24" y="28" class="ln lft" text-anchor="start">FUENTES</text>
+<rect x="10" y="226" width="1320" height="122" rx="8" class="lane lm"/>
+<text x="24" y="248" class="ln lmt" text-anchor="start">MAESTRO · pasos con script</text>
+<rect x="10" y="356" width="1320" height="282" rx="8" class="lane lm"/>
+<text x="24" y="378" class="ln lmt" text-anchor="start">MAESTRO · excepciones</text>
+<rect x="150" y="56" width="190" height="58" rx="6" class="n nf"/>
+<text x="245.0" y="75.0" class="t1" text-anchor="middle">Catálogo de fuentes</text>
+<text x="245.0" y="89.0" class="t2" text-anchor="middle">Tareas · «Fuentes del cierre»</text>
+<text x="245.0" y="103.0" class="t2" text-anchor="middle">desde · hasta · prueba</text>
+<rect x="380" y="56" width="170" height="58" rx="6" class="n nf"/>
+<text x="465.0" y="75.0" class="t1" text-anchor="middle">Checklist del trimestre</text>
+<text x="465.0" y="89.0" class="t2" text-anchor="middle">comando «checklist del NT»</text>
+<text x="465.0" y="103.0" class="t2" text-anchor="middle">se genera del catálogo</text>
+<rect x="590" y="56" width="210" height="58" rx="6" class="n nf"/>
+<text x="695.0" y="75.0" class="t1" text-anchor="middle">Buscar, descargar, validar</text>
+<text x="695.0" y="89.0" class="t2" text-anchor="middle">comando «fuentes del NT»</text>
+<text x="695.0" y="103.0" class="t2" text-anchor="middle">IA con navegador y correo</text>
+<rect x="850" y="56" width="200" height="58" rx="6" class="n nf"/>
+<text x="950.0" y="75.0" class="t1" text-anchor="middle">Paso 0 · Fuentes validadas</text>
+<text x="950.0" y="89.0" class="t2" text-anchor="middle">originales en la raíz y en</text>
+<text x="950.0" y="103.0" class="t2" text-anchor="middle">AAAA/AAAA-NT · fila en FICHEROS</text>
+<rect x="590" y="138" width="210" height="46" rx="6" class="n nx"/>
+<text x="695.0" y="158.0" class="t1" text-anchor="middle">Personas</text>
+<text x="695.0" y="172.0" class="t2" text-anchor="middle">banco · tarjetas · certificado digital</text>
+<rect x="1090" y="56" width="230" height="58" rx="6" class="n nx"/>
+<text x="1205.0" y="75.0" class="t1" text-anchor="middle">Aviso: falta o está mal</text>
+<text x="1205.0" y="89.0" class="t2" text-anchor="middle">una fuente (asesor, Administración,</text>
+<text x="1205.0" y="103.0" class="t2" text-anchor="middle">el cierre)</text>
+<path d="M340,85 L380,85" class="a" marker-end="url(#ar2)"/>
+<path d="M550,85 L590,85" class="a" marker-end="url(#ar2)"/>
+<path d="M800,85 L850,85" class="a" marker-end="url(#ar2)"/>
+<path d="M695,138 L695,114" class="a" marker-end="url(#ar2)"/>
+<text x="705" y="131" class="t2" text-anchor="start">aportan lo que la IA no alcanza</text>
+<path d="M1205,56 L1205,26 L695,26 L695,56" class="al" marker-end="url(#al2)"/>
+<text x="720" y="20" class="lbl" text-anchor="start">versión nueva: se guarda como _v2 y se avisa</text>
+<path d="M950,114 L950,200 L225,200 L225,256" class="a" marker-end="url(#ar2)"/>
+<text x="240" y="194" class="t2" text-anchor="start">paso 0 hecho</text>
+<text x="240" y="216" class="lbl" text-anchor="start">cada fuente nueva o corregida repite del 1 al 4</text>
+<rect x="150" y="256" width="160" height="64" rx="6" class="n nm"/>
+<text x="230.0" y="278.0" class="t1" text-anchor="middle">1 · Convertir</text>
+<text x="230.0" y="292.0" class="t2" text-anchor="middle">originales → CSV crudos</text>
+<text x="230.0" y="306.0" class="t2" text-anchor="middle">uno por tipo de fuente</text>
+<circle cx="308" cy="254" r="8.5" class="vmark"/>
+<text x="308" y="257.2" class="vt" text-anchor="middle">V</text>
+<rect x="340" y="256" width="160" height="64" rx="6" class="n nm"/>
+<text x="420.0" y="278.0" class="t1" text-anchor="middle">2 · Recortar</text>
+<text x="420.0" y="292.0" class="t2" text-anchor="middle">solo las filas del trimestre</text>
+<text x="420.0" y="306.0" class="t2" text-anchor="middle">las de fuera, aparte</text>
+<circle cx="498" cy="254" r="8.5" class="vmark"/>
+<text x="498" y="257.2" class="vt" text-anchor="middle">V</text>
+<rect x="530" y="256" width="160" height="64" rx="6" class="n nm"/>
+<text x="610.0" y="278.0" class="t1" text-anchor="middle">3 · Normalizar</text>
+<text x="610.0" y="292.0" class="t2" text-anchor="middle">una tabla, mismo esquema</text>
+<text x="610.0" y="306.0" class="t2" text-anchor="middle">una fila por documento</text>
+<circle cx="688" cy="254" r="8.5" class="vmark"/>
+<text x="688" y="257.2" class="vt" text-anchor="middle">V</text>
+<rect x="720" y="256" width="160" height="64" rx="6" class="n nm"/>
+<text x="800.0" y="278.0" class="t1" text-anchor="middle">4 · Casar</text>
+<text x="800.0" y="292.0" class="t2" text-anchor="middle">reglas DOC · PAGO · LIQ</text>
+<text x="800.0" y="306.0" class="t2" text-anchor="middle">da MAESTRO_v1</text>
+<circle cx="878" cy="254" r="8.5" class="vmark"/>
+<text x="878" y="257.2" class="vt" text-anchor="middle">V</text>
+<path d="M310,288 L340,288" class="a" marker-end="url(#ar2)"/>
+<path d="M500,288 L530,288" class="a" marker-end="url(#ar2)"/>
+<path d="M690,288 L720,288" class="a" marker-end="url(#ar2)"/>
+<path d="M870,288 L910,288" class="a" marker-end="url(#ar2)"/>
+<rect x="910" y="256" width="230" height="64" rx="6" class="n nm"/>
+<text x="1025.0" y="278.0" class="t1" text-anchor="middle">Informe visual del cruce</text>
+<text x="1025.0" y="292.0" class="t2" text-anchor="middle">casado por script, excepciones</text>
+<text x="1025.0" y="306.0" class="t2" text-anchor="middle">por fuente y por motivo</text>
+<path d="M795,320 L795,342 L250,342 L250,410" class="a" marker-end="url(#ar2)"/>
+<text x="268" y="337" class="t2" text-anchor="start">lo que el script no casa: excepciones</text>
+<rect x="150" y="410" width="200" height="70" rx="6" class="n nm"/>
+<text x="250.0" y="435.0" class="t1" text-anchor="middle">5 · Revisar excepciones</text>
+<text x="250.0" y="449.0" class="t2" text-anchor="middle">IA propone con certeza</text>
+<text x="250.0" y="463.0" class="t2" text-anchor="middle">media → 7 · baja → tarea</text>
+<rect x="390" y="410" width="190" height="70" rx="6" class="n nm"/>
+<text x="485.0" y="435.0" class="t1" text-anchor="middle">5b · Investigar tareas</text>
+<text x="485.0" y="449.0" class="t2" text-anchor="middle">IA con navegador y conectores</text>
+<text x="485.0" y="463.0" class="t2" text-anchor="middle">cierra lo que un documento prueba</text>
+<rect x="620" y="410" width="190" height="70" rx="6" class="n nm"/>
+<text x="715.0" y="435.0" class="t1" text-anchor="middle">6 · Resolver tareas</text>
+<text x="715.0" y="449.0" class="t2" text-anchor="middle">personas</text>
+<text x="715.0" y="463.0" class="t2" text-anchor="middle">lo que el 5b no cierra</text>
+<rect x="850" y="410" width="190" height="70" rx="6" class="n nm"/>
+<text x="945.0" y="435.0" class="t1" text-anchor="middle">7 · Aplicar resoluciones</text>
+<text x="945.0" y="449.0" class="t2" text-anchor="middle">script · se repite con cada</text>
+<text x="945.0" y="463.0" class="t2" text-anchor="middle">respuesta nueva</text>
+<circle cx="1038" cy="408" r="8.5" class="vmark"/>
+<text x="1038" y="411.2" class="vt" text-anchor="middle">V</text>
+<path d="M350,445 L390,445" class="a" marker-end="url(#ar2)"/>
+<path d="M580,445 L620,445" class="a" marker-end="url(#ar2)"/>
+<path d="M810,445 L850,445" class="a" marker-end="url(#ar2)"/>
+<path d="M1040,445 L1080,445" class="a" marker-end="url(#ar2)"/>
+<rect x="1080" y="398" width="240" height="94" rx="6" class="n nm"/>
+<text x="1200.0" y="428.0" class="t1" text-anchor="middle">Resultado</text>
+<text x="1200.0" y="442.0" class="t2" text-anchor="middle">MAESTRO_AAAA-NT.csv</text>
+<text x="1200.0" y="456.0" class="t2" text-anchor="middle">RESOLUCIONES_AAAA-NT.csv</text>
+<text x="1200.0" y="470.0" class="t2" text-anchor="middle">RESIDUO_AAAA-NT.csv</text>
+<rect x="390" y="520" width="420" height="44" rx="6" class="n nx"/>
+<text x="600.0" y="539.0" class="t1" text-anchor="middle">Tareas · «Incidencias del cierre»</text>
+<text x="600.0" y="553.0" class="t2" text-anchor="middle">una tarea por grupo de casos, con sus filas</text>
+<path d="M485,480 L485,520" class="a" marker-end="url(#ar2)"/>
+<text x="493" y="505" class="t2" text-anchor="start">abre y cierra</text>
+<path d="M715,480 L715,520" class="pl"/>
+<text x="723" y="505" class="t2" text-anchor="start">responden aquí</text>
+<path d="M1200,492 L1200,540" class="a" marker-end="url(#ar2)"/>
+<text x="1200" y="556" class="t2" text-anchor="middle">lo leen los proyectos lectores</text>
+<path d="M945,480 L945,598 L250,598 L250,480" class="al" marker-end="url(#al2)"/>
+<text x="600" y="590" class="lbl" text-anchor="middle">mientras bajen las excepciones se repite 5 → 5b → 6 → 7 · el 7 no espera al 6: se ejecuta con cada respuesta nueva</text>
+<circle cx="40" cy="662" r="8.5" class="vmark"/><text x="40" y="665.2" class="vt" text-anchor="middle">V</text>
+<text x="56" y="666" class="t2" text-anchor="start">verificación independiente: un agente que no ha visto el script rehace la operación y compara</text>
+</svg>
