@@ -329,66 +329,82 @@ export const quizGuide: Record<QuizLang, { path: string; title: string }> = {
   en: { path: "/downloads/ai-process-automation-guide.pdf", title: "How to automate a process with AI" },
 };
 
-// Email 1 (obligatorio; se envía desde info@). El mini-curso solo registra la suscripción: no se envía nada hasta la tarea 4.
-export function quizEmailParts(lang: QuizLang, name: string, result: Pick<QuizResult, "title" | "text">, guideLink: string, bookingLink: string) {
+// Email de bienvenida al minicurso (se envía desde info@ al suscribirse). Texto simple: qué recibirá y cómo darse de baja. El texto
+// legal (responsable y baja) va aquí y no en la pantalla del formulario. El minicurso (6 emails, uno por semana, con plantillas y
+// explicaciones) se envía aparte: este email solo da la bienvenida.
+export function quizEmailParts(lang: QuizLang, name: string, privacyLink: string) {
   const first = name.trim().split(/\s+/)[0] || "";
   if (lang === "en") {
     return {
-      subject: "Your guide and your starting point",
+      subject: "Welcome to the free mini-course",
       greeting: `Hello${first ? `, ${first}` : ""}:`,
-      guideIntro: `here is the guide «${quizGuide.en.title}»:`,
-      guideLink,
-      startIntro: "Your starting point according to the questionnaire:",
-      resultTitle: result.title,
-      resultText: result.text,
-      bookIntro: "If you would like to talk it over, you can book a free 30-minute call:",
-      bookingLink,
-      ignore: "If you didn't ask for this email, you can ignore it.",
+      body: "Thank you for subscribing to the free mini-course. It is 6 emails, one per week. Each one comes with templates and explanations so your business can work through the phases of bringing AI in by itself.",
+      reply: "If you have any question, just reply to this email.",
       bye: "Best wishes,",
       signer: "Pablo Leone",
       signature: "Taller de Digitalización",
+      legalIntro: "You are receiving this email because you subscribed to the mini-course at tallerdedigitalizacion.com.",
+      unsubscribe: "You can unsubscribe at any time by replying to this email or writing to info@tallerdedigitalizacion.com.",
+      controller: "Controller: Pablo Ezequiel Leone Signetti (Taller de Digitalización).",
+      privacyIntro: "More information in the privacy policy:",
+      privacyLink,
     };
   }
   return {
-    subject: "Tu guía y tu punto de partida",
+    subject: "Bienvenido al minicurso gratuito",
     greeting: `Hola${first ? `, ${first}` : ""}:`,
-    guideIntro: `aquí tienes la guía «${quizGuide.es.title}»:`,
-    guideLink,
-    startIntro: "Tu punto de partida según el cuestionario:",
-    resultTitle: result.title,
-    resultText: result.text,
-    bookIntro: "Si quieres comentarlo, puedes reservar una llamada gratuita de 30 minutos:",
-    bookingLink,
-    ignore: "Si no pediste este correo, puedes ignorarlo.",
+    body: "Gracias por suscribirte al minicurso gratuito. Son 6 emails, uno por semana. Cada uno trae plantillas y explicaciones para que tu empresa recorra por sí misma las fases de implementación de la IA.",
+    reply: "Si tienes cualquier duda, responde a este correo.",
     bye: "Un saludo,",
     signer: "Pablo Leone",
     signature: "Taller de Digitalización",
+    legalIntro: "Recibes este correo porque te suscribiste al minicurso en tallerdedigitalizacion.com.",
+    unsubscribe: "Puedes darte de baja cuando quieras respondiendo a este correo o escribiendo a info@tallerdedigitalizacion.com.",
+    controller: "Responsable: Pablo Ezequiel Leone Signetti (Taller de Digitalización).",
+    privacyIntro: "Más información en la política de privacidad:",
+    privacyLink,
   };
 }
 
-// TEXTO LEGAL: pendiente de que Pablo lo valide antes de publicar. `privacyLead`/`privacyTail` rodean el enlace a la política.
+// Consentimiento del formulario del minicurso: una sola casilla, corta. Las condiciones y responsabilidades están en la política de
+// privacidad; el texto de baja va en el email de bienvenida.
 export const quizConsent = {
+  es: { required: ["He leído la ", "política de privacidad", " y acepto recibir el minicurso gratuito por email."] },
+  en: { required: ["I have read the ", "privacy policy", " and agree to receive the free mini-course by email."] },
+} as const;
+
+// Sección «Nuestro método» de las landings de método: resumen breve (las tres fases de la guía) y el botón para descargarla.
+export const quizMethod: Record<
+  QuizLang,
+  { eyebrow: string; title: string; intro: string; phases: { name: string; text: string }[]; button: string; note: string; linkId: string }
+> = {
   es: {
-    required: ["He leído la ", "política de privacidad", " y acepto recibir por email el minicurso gratuito (4-5 correos), la guía y mi resultado. Puedo darme de baja cuando quiera."],
-    privacy: [
-      "Responsable: Pablo Ezequiel Leone Signetti (Taller de Digitalización). Finalidad: enviarte el minicurso gratuito por email, la guía y tu resultado. Base legal: tu consentimiento. Puedes retirarlo y darte de baja cuando quieras escribiendo a ",
-      "info@tallerdedigitalizacion.com",
-      ". Más información en la ",
-      "política de privacidad",
-      ".",
+    eyebrow: "Nuestro método",
+    title: "Automatizar un proceso con IA, en tres fases",
+    intro: "Así trabajo con cada empresa, en resumen. La guía lo explica paso a paso.",
+    phases: [
+      { name: "1 · Documentar", text: "Dejar por escrito quién hace qué, en qué orden y con qué excepciones. Lo que no está escrito no se puede automatizar, ni por una persona ni por una IA." },
+      { name: "2 · Automatizar con supervisión", text: "Dar un proceso pequeño a una IA, con una persona que lo supervisa, y aprender de cada pasada." },
+      { name: "3 · Dejarlo trabajar con trazabilidad", text: "Poder reconstruir quién hizo qué y cuándo, para dejar el proceso desatendido con confianza." },
     ],
+    button: "Descargar la guía paso a paso (PDF)",
+    note: "Gratis y sin dejar tus datos.",
+    linkId: "guia-metodo",
   },
   en: {
-    required: ["I have read the ", "privacy policy", " and agree to receive the free mini-course by email (4-5 emails), the guide and my result. I can unsubscribe at any time."],
-    privacy: [
-      "Controller: Pablo Ezequiel Leone Signetti (Taller de Digitalización). Purpose: to send you the free mini-course by email, the guide and your result. Legal basis: your consent. You can withdraw it and unsubscribe at any time by writing to ",
-      "info@tallerdedigitalizacion.com",
-      ". More information in the ",
-      "privacy policy",
-      ".",
+    eyebrow: "Our method",
+    title: "Automating a process with AI, in three phases",
+    intro: "This is how I work with every business, in short. The guide explains it step by step.",
+    phases: [
+      { name: "1 · Document", text: "Write down who does what, in which order and with which exceptions. What isn't written down can't be automated, by a person or by an AI." },
+      { name: "2 · Automate under supervision", text: "Hand a small process to an AI, with a person supervising it, and learn from every run." },
+      { name: "3 · Let it run with traceability", text: "Be able to reconstruct who did what, and when, so you can leave the process unattended with confidence." },
     ],
+    button: "Download the step-by-step guide (PDF)",
+    note: "Free, and no details needed.",
+    linkId: "guia-metodo",
   },
-} as const;
+};
 
 // Rótulos de la interfaz (no son texto aprobado en Notion: microcopy mínima para los botones y los títulos).
 export const quizUi: Record<
@@ -408,12 +424,9 @@ export const quizUi: Record<
     resultEyebrow: string;
     haveTitle: string;
     missTitle: string;
-    guideButton: string;
-    guideNote: (phase: number, page: number) => string;
     nextHeading: string;
     bookCta: string;
     courseCta: string;
-    courseLine: string;
     courseTitle: string;
     courseIntro: string;
     backToResult: string;
@@ -425,7 +438,6 @@ export const quizUi: Record<
     sentTitle: string;
     sentText: string;
     sentNoEmail: string;
-    download: string;
     restart: string;
     error: string;
     consentRequired: string;
@@ -446,24 +458,20 @@ export const quizUi: Record<
     resultEyebrow: "Tu resultado",
     haveTitle: "Lo que ya tienes",
     missTitle: "Lo que te falta",
-    guideButton: "Descargar la guía paso a paso (PDF)",
-    guideNote: (phase, page) => `Nuestro proceso para automatizar con IA. Se abre en la fase ${phase} (pág. ${page}), la que te corresponde.`,
     nextHeading: "Siguientes pasos",
     bookCta: "¿Lo vemos en una llamada gratuita de 30 min?",
-    courseCta: "Suscribirme al minicurso gratuito",
-    courseLine: "El minicurso es gratuito: unos correos que te guían, paso a paso, en la implementación de la inteligencia artificial en tu empresa. Si te suscribes, te enviamos también tu resultado y la guía.",
+    courseCta: "Recibir un minicurso gratuito",
     courseTitle: "Minicurso gratuito por email",
-    courseIntro: "Un minicurso a base de correos, completamente gratuito, para ayudarte y guiarte en la implementación de la inteligencia artificial en tu empresa. Déjanos tu nombre y tu email: te lo enviamos y, además, te mandamos tu resultado y la guía a tu correo.",
+    courseIntro: "Son 6 emails gratuitos, uno por semana. Cada uno trae plantillas y explicaciones para que tu empresa recorra por sí misma las fases de implementación de la IA.",
     backToResult: "Volver a mi resultado",
     name: "Nombre (opcional)",
     nameHint: "",
     email: "Email",
-    send: "Suscribirme y recibir la guía",
+    send: "Suscribirme",
     sending: "Enviando…",
     sentTitle: "Ya estás suscrito",
-    sentText: "Te hemos enviado la guía y tu resultado por email y te hemos suscrito al minicurso (mira en spam si no llega). También puedes descargar la guía aquí.",
-    sentNoEmail: "Hemos recibido tu solicitud, pero ahora mismo no hemos podido enviarte el email. Puedes descargar la guía aquí.",
-    download: "Descargar la guía (PDF)",
+    sentText: "Te hemos enviado un email de bienvenida (mira en spam si no llega). Recibirás el minicurso, un email por semana.",
+    sentNoEmail: "Hemos recibido tu suscripción, pero ahora mismo no hemos podido enviarte el email de bienvenida. Recibirás igualmente el minicurso.",
     restart: "Repetir el cuestionario",
     error: "No se pudo enviar. Inténtalo de nuevo en un momento.",
     consentRequired: "Para suscribirte hay que aceptar la política de privacidad.",
@@ -483,24 +491,20 @@ export const quizUi: Record<
     resultEyebrow: "Your result",
     haveTitle: "What you already have",
     missTitle: "What is missing",
-    guideButton: "Download the step-by-step guide (PDF)",
-    guideNote: (phase, page) => `Our process for automating with AI. It opens at phase ${phase} (p. ${page}), the one that applies to you.`,
     nextHeading: "Next steps",
     bookCta: "Shall we look at it on a free 30-minute call?",
-    courseCta: "Subscribe to the free mini-course",
-    courseLine: "The mini-course is free: a few emails that guide you, step by step, in bringing artificial intelligence into your business. If you subscribe, we also email you your result and the guide.",
+    courseCta: "Get a free mini-course",
     courseTitle: "Free mini-course by email",
-    courseIntro: "A free mini-course made of emails to help and guide you in bringing artificial intelligence into your business. Leave your name and email: we'll send it to you and, on top of that, email you your result and the guide.",
+    courseIntro: "It is 6 free emails, one per week. Each one comes with templates and explanations so your business can work through the phases of bringing AI in by itself.",
     backToResult: "Back to my result",
     name: "Name (optional)",
     nameHint: "",
     email: "Email",
-    send: "Subscribe and get the guide",
+    send: "Subscribe",
     sending: "Sending…",
     sentTitle: "You are subscribed",
-    sentText: "We have emailed you the guide and your result and subscribed you to the mini-course (check your spam folder if it doesn't arrive). You can also download the guide here.",
-    sentNoEmail: "We have received your request, but we could not email you right now. You can download the guide here.",
-    download: "Download the guide (PDF)",
+    sentText: "We have sent you a welcome email (check your spam folder if it doesn't arrive). You will receive the mini-course, one email per week.",
+    sentNoEmail: "We have received your subscription, but we could not send the welcome email right now. You will still receive the mini-course.",
     restart: "Take the questionnaire again",
     error: "It could not be sent. Please try again in a moment.",
     consentRequired: "To subscribe you need to accept the privacy policy.",

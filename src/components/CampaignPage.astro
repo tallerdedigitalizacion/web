@@ -3,7 +3,8 @@
 // la plantilla (cabecera, pie, meta, schema) es CampaignLayout.astro.
 //
 // Orden: hero (promesa y garantía; a la derecha, «¿Cómo sé si esto es para mí?» en las landings de producto y el cuestionario
-// «¿Dónde estás tú?», el lead magnet con guía y minicurso, en las de método) · qué desarrollo (solo producto) ·
+// «¿Dónde estás tú?», el lead magnet con minicurso, en las de método) · qué desarrollo (solo producto) · nuestro método con la
+// guía en PDF (solo método) ·
 // cómo trabajo (cinco pasos, precios y garantía) · quién está detrás (con el vídeo de Pablo) · casos reales con antes y ahora ·
 // testimonios en vídeo (solo cuando haya vídeos) · preguntas · reserva dentro de la página y formulario por botones.
 // Sin menú ni WhatsApp: la salida es reservar, escribir o leer un caso.
@@ -13,6 +14,7 @@ import CampaignBooking from "@/components/CampaignBooking.astro";
 import SoftwareCatalog from "@/components/SoftwareCatalog.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import ProcessQuiz from "@/components/ProcessQuiz.astro";
+import MethodGuide from "@/components/MethodGuide.astro";
 import { siteConfig } from "@/config/site";
 import { cal, campaignVideos, pabloMarkers, shared, type CampaignPage } from "@/data/campaigns";
 import { withBase } from "@/utils/paths";
@@ -81,6 +83,8 @@ const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/
   </section>
 
   {page.offer === "producto" && <SoftwareCatalog lang={lang} />}
+
+  {page.offer === "metodo" && <MethodGuide lang={lang} />}
 
   <section id="como-trabajo" class="section">
     <div class="section-head">

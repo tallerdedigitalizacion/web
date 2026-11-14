@@ -17,7 +17,7 @@ URL de prueba (sustituye la ruta por la de la landing):
 | Envío de leads (campo `attribution` del JSON de cada formulario) | cada formulario llama a `window.tdAttribution()` |
 | Esquema y email de aviso | `backend/src/schemas.ts`, `backend/src/email/templates.ts` |
 | Página de gracias de Cal.com (`reserva_completada`) | `src/pages/reserva-confirmada.astro`, `src/pages/booking-confirmed.astro` |
-| Cuestionario «¿Dónde estás tú?» y guía en PDF de C05 (en el hero de las landings de método, a la derecha, donde en C04 va «¿Cómo sé si esto es para mí?») | `src/components/ProcessQuiz.astro`, textos y reglas en `src/data/processQuiz.ts` (los usa también el backend) |
+| Cuestionario «¿Dónde estás tú?» de C05 (hero de las landings de método, a la derecha, donde en C04 va «¿Cómo sé si esto es para mí?») y sección «Nuestro método» con la guía en PDF | `src/components/ProcessQuiz.astro`, `src/components/MethodGuide.astro`; textos y reglas en `src/data/processQuiz.ts` (los usa también el backend) |
 | Ayudas de verificación | `scripts/verificar-medicion-navegador.js`, `scripts/verificar-medicion.ts`, `scripts/verificar-guia-c05.ts` |
 
 **Sobre los «campos ocultos».** Los formularios se envían por `fetch` con JSON, no como formulario HTML. Los campos de
@@ -194,8 +194,8 @@ personales; los valores internos son iguales en ES y EN):
 |---|---|---|
 | `quiz_start` | Primera respuesta de cada intento (no al ver el bloque). Las cinco preguntas de respuesta única avanzan solas al elegir | `idioma` |
 | `quiz_complete` | Al pulsar «Ver mi resultado» | `idioma`, `doc_procesos` (`si`/`parcial`/`no`/`nose`), `automatizacion_previa` (`varias`/`alguna`/`ninguna`/`nose`), `infraestructura` (`equipo`/`externo`/`cerrada`/`nose`), `dependencia_persona` (`otro`/`retraso`/`para`), `trazabilidad` (`si`/`esfuerzo`/`no`), `punto_partida` (`fase-1`/`fase-1-calma`/`fase-2-pequeno`/`fase-2-limitada`/`fase-2`), `num_situaciones` (0–6; «ninguna» no cuenta) |
-| `descarga_lead_magnet` | Clic en un enlace a la guía: el botón «Descargar la guía paso a paso» del resultado (`link_id` `guia-resultado-fase-1` o `-fase-2`; **sin dar ningún dato**) o el de descarga tras suscribirse (`guia-descarga`) | `idioma`, `link_url`, `link_text`, `link_id`, `page_path`, `page_location` |
-| `suscripcion_curso` | Tras el envío correcto del formulario del minicurso (siempre: ese formulario **es** la suscripción) | `idioma` |
+| `descarga_lead_magnet` | Clic en «Descargar la guía paso a paso (PDF)» de la sección «Nuestro método» (`link_id` `guia-metodo`; **sin dar ningún dato**). Ya no hay botón de la guía en el resultado del cuestionario ni tras suscribirse | `idioma`, `link_url`, `link_text`, `link_id`, `page_path`, `page_location` |
+| `suscripcion_curso` | Tras el envío correcto del formulario del minicurso (nombre, email y una casilla; ese formulario **es** la suscripción). El backend envía un email de bienvenida (sin guía ni resultado; con la baja y el responsable) | `idioma` |
 | `generate_lead` | Tras el envío correcto del formulario del minicurso (paso opcional tras el resultado); **uno por envío**. Descargar la guía directamente **no** es un lead | `lead_type` = `guia_automatizacion`, `idioma` |
 
 ## Eventos: cuáles son de conversión

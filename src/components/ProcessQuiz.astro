@@ -5,17 +5,18 @@
 // Flujo (sin pedir ningún dato hasta el final y solo si la persona quiere):
 //  1. Seis preguntas, una por pantalla. Las cinco de respuesta única avanzan solas al elegir; la última es de selección múltiple
 //     y lleva el botón «Ver mi resultado».
-//  2. Resultado en pantalla: punto de partida, «lo que ya tienes» (verde) y «lo que te falta» (rojo). Debajo, dos columnas:
-//     bajo «Siguientes pasos», a la izquierda descargar la guía directamente (sin datos) y a la derecha reservar la llamada o
-//     suscribirse al minicurso; debajo, una línea que explica el minicurso. «Repetir el cuestionario» va arriba a la derecha.
-//  3. Solo si elige el minicurso, formulario con nombre y email. Envía a POST /lead/process-quiz: guía + resultado por email y
-//     suscripción al minicurso.
-// Textos, reglas y valores: src/data/processQuiz.ts (el backend usa el mismo fichero para calcular el resultado del email).
+//  2. Resultado en pantalla: punto de partida, «lo que ya tienes» (verde) y «lo que te falta» (rojo). Debajo, «Siguientes pasos»:
+//     reservar la llamada o recibir el minicurso. «Repetir el cuestionario» va arriba a la derecha, con un icono. La guía en PDF
+//     no está aquí: va en su propia sección «Nuestro método» (MethodGuide.astro).
+//  3. Solo si elige el minicurso, formulario corto (nombre, email y una casilla). Envía a POST /lead/process-quiz: suscripción al
+//     minicurso y email de bienvenida. Las condiciones están en la política de privacidad y la baja, en el email.
+// Textos, reglas y valores: src/data/processQuiz.ts (el backend usa el mismo fichero para calcular el resultado).
 //
-// Eventos GA4 (todos secundarios, ninguno es evento clave): quiz_start, quiz_complete, descarga_lead_magnet, suscripcion_curso,
+// Eventos GA4 (todos secundarios, ninguno es evento clave): quiz_start, quiz_complete y suscripcion_curso.
 // Decisión de Pablo (2026-11-14): hacer el cuestionario o pedir la guía NO es un lead, así que no se emite generate_lead.
-// Los leads siguen siendo reserva (Cal.com) o formulario de contacto. Ver docs/verificacion-medicion.md.
-import { quizConsent, quizGuide, quizQuestions, quizUi, type QuizLang } from "@/data/processQuiz";
+// Los leads siguen siendo reserva (Cal.com) o formulario de contacto. La descarga de la guía (descarga_lead_magnet) es de la
+// sección «Nuestro método». Ver docs/verificacion-medicion.md.
+import { quizConsent, quizQuestions, quizUi, type QuizLang } from "@/data/processQuiz";
 import { siteConfig } from "@/config/site";
 import { withBase } from "@/utils/paths";
 
@@ -26,12 +27,11 @@ interface Props {
 const { lang = "es" } = Astro.props as Props;
 const t = quizUi[lang];
 const consent = quizConsent[lang];
-const guideHref = withBase(quizGuide[lang].path);
 const privacyHref = withBase(lang === "en" ? "/privacy-policy" : "/politica-privacidad");
 const total = quizQuestions.length;
 ---
 
-<div id="donde-estas-tu" class="pq" data-pq data-lang={lang} data-endpoint={siteConfig.formEndpoint} data-guide={guideHref}>
+<div id="donde-estas-tu" class="pq" data-pq data-lang={lang} data-endpoint={siteConfig.formEndpoint}>
   <div class="pq-head">
     <span class="eyebrow">{t.eyebrow}</span>
     <h2>{t.title}</h2>
@@ -70,7 +70,10 @@ const total = quizQuestions.length;
   <div data-pq-result hidden>
     <div class="pq-result-top">
       <span class="eyebrow">{t.resultEyebrow}</span>
-      <button type="button" class="btn btn-secondary btn-small" data-pq-restart>{t.restart}</button>
+      <button type="button" class="btn btn-secondary btn-small pq-restart-btn" data-pq-restart>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7" /><path d="M3 4v5h5" /></svg>
+        {t.restart}
+      </button>
     </div>
     <h3 tabindex="-1" data-pq-result-title></h3>
     <p data-pq-result-text></p>
@@ -87,17 +90,9 @@ const total = quizQuestions.length;
 
     <div class="pq-next">
       <h4 class="pq-next-title">{t.nextHeading}</h4>
-      <div class="pq-next-col">
-        <a class="btn btn-secondary" data-pq-guide data-link-id="guia-resultado" href={guideHref} target="_blank" rel="noopener" data-pq-result-guide>{t.guideButton}</a>
-        <p class="muted" data-pq-guide-note></p>
-      </div>
-      <div class="pq-next-col">
-        <a class="btn btn-primary" href="#reserva">{t.bookCta}</a>
-        <button type="button" class="btn btn-secondary" data-pq-open-course>{t.courseCta}</button>
-      </div>
+      <a class="btn btn-primary" href="#reserva">{t.bookCta}</a>
+      <button type="button" class="btn btn-secondary" data-pq-open-course>{t.courseCta}</button>
     </div>
-
-    <p class="pq-course-line muted">{t.courseLine}</p>
   </div>
 
   <div data-pq-course hidden>
@@ -111,9 +106,6 @@ const total = quizQuestions.length;
         <input required type="checkbox" name="privacidad" />
         <span>{consent.required[0]}<a href={privacyHref} target="_blank" rel="noopener">{consent.required[1]}</a>{consent.required[2]}</span>
       </label>
-      <p class="pq-legal muted">
-        {consent.privacy[0]}<a href={`mailto:${consent.privacy[1]}`}>{consent.privacy[1]}</a>{consent.privacy[2]}<a href={privacyHref} target="_blank" rel="noopener">{consent.privacy[3]}</a>{consent.privacy[4]}
-      </p>
       <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
       <button class="btn btn-primary" type="submit" data-pq-send>{t.send}</button>
       <p class="form-help" role="status" aria-live="polite" data-pq-status></p>
@@ -122,7 +114,6 @@ const total = quizQuestions.length;
     <div class="pq-sent" data-pq-sent hidden>
       <h4 tabindex="-1" data-pq-sent-title>{t.sentTitle}</h4>
       <p data-pq-sent-text></p>
-      <a class="btn btn-primary" data-pq-guide data-link-id="guia-descarga" href={guideHref} target="_blank" rel="noopener">{t.download}</a>
     </div>
 
     <p class="pq-restart"><button type="button" class="btn btn-secondary btn-small" data-pq-course-back>{t.backToResult}</button></p>
@@ -229,11 +220,12 @@ const total = quizQuestions.length;
         started = true;
         track("quiz_start", { idioma: lang });
       }
-      updateNext();
       const input = event.target as HTMLInputElement;
-      if (quizQuestions[step].multiple || input.type !== "radio" || step >= total - 1) return;
-      if (arrowNav) {
-        arrowNav = false;
+      const advances = !quizQuestions[step].multiple && input.type === "radio" && step < total - 1 && !arrowNav;
+      arrowNav = false;
+      // Si va a pasar sola a la siguiente pregunta, «Siguiente» no se muestra ni un instante (antes parpadeaba durante la pausa).
+      if (!advances) {
+        updateNext();
         return;
       }
       // Una pausa corta para que se vea la opción elegida antes de pasar a la siguiente pregunta.
@@ -281,30 +273,11 @@ const total = quizQuestions.length;
       fillList(q("[data-pq-have-list]"), q("[data-pq-have]"), result.items.filter((item) => item.status === "have").map((item) => item.text));
       fillList(q("[data-pq-miss-list]"), q("[data-pq-miss]"), result.items.filter((item) => item.status === "missing").map((item) => item.text));
       q("[data-pq-note]").textContent = result.items.find((item) => item.status === "note")?.text ?? "";
-      const phase = result.guidePhase;
-      const guideLink = q<HTMLAnchorElement>("[data-pq-result-guide]");
-      guideLink.href = `${root.dataset.guide}#page=${result.guidePage}`;
-      guideLink.dataset.linkId = `guia-resultado-fase-${phase}`;
-      q("[data-pq-guide-note]").textContent = t.guideNote(phase, result.guidePage);
       showView("result");
       track("quiz_complete", quizCompleteParams(answers, lang));
       q("[data-pq-result-title]").focus({ preventScroll: true });
       root.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
-
-    // descarga_lead_magnet: clic en cualquier enlace a la guía (el del resultado o el botón de descarga tras el envío).
-    root.addEventListener("click", (event) => {
-      const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[data-pq-guide]") : null;
-      if (!link) return;
-      track("descarga_lead_magnet", {
-        idioma: lang,
-        link_url: link.href,
-        link_text: link.textContent?.trim().replace(/\s+/g, " ").slice(0, 120),
-        link_id: link.dataset.linkId,
-        page_path: window.location.pathname,
-        page_location: window.location.href,
-      });
-    });
 
     // Paso opcional: formulario del minicurso.
     q("[data-pq-open-course]").addEventListener("click", () => {
@@ -343,7 +316,7 @@ const total = quizQuestions.length;
             language: lang,
             answers,
             privacyAccepted: data.get("privacidad") === "on",
-            // Este formulario es la suscripción al minicurso: aceptar el texto de la casilla incluye recibirlo.
+            // Este formulario es la suscripción al minicurso: aceptar la casilla incluye recibirlo.
             marketingAccepted: true,
             courseSubscription: true,
             website: String(data.get("website") || ""),
@@ -521,9 +494,12 @@ const total = quizQuestions.length;
 
   .pq-result-top .eyebrow { margin: 0; }
 
+  .pq-restart-btn { display: inline-flex; align-items: center; gap: 8px; }
+  .pq-restart-btn svg { flex: none; }
+
   .pq-note { margin: 14px 0 0 !important; font-size: 0.92rem; }
 
-  /* «Siguientes pasos»: la guía directa (sin datos) a la izquierda; la llamada y el minicurso a la derecha. */
+  /* «Siguientes pasos»: dos botones, la llamada y el minicurso. */
   .pq-next {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -533,19 +509,14 @@ const total = quizQuestions.length;
     border-top: 1px solid var(--line);
   }
 
-  .pq-next-col { display: grid; align-content: start; gap: 10px; }
-  .pq-next-col .btn { width: 100%; text-align: center; white-space: normal; line-height: 1.25; }
-  .pq-next-col p { margin: 0 !important; font-size: 0.86rem; line-height: 1.4; }
+  .pq-next .btn { width: 100%; text-align: center; white-space: normal; line-height: 1.25; }
 
   .pq-next-title { grid-column: 1 / -1; margin: 0 !important; font-size: 1.05rem; }
-
-  .pq-course-line { margin: 14px 0 0 !important; font-size: 0.88rem; line-height: 1.45; }
 
   .pq-restart { margin: 18px 0 0 !important; }
 
   /* Formulario del minicurso */
   .pq-form { margin-top: 6px; }
-  .pq-legal { margin: 0; font-size: 0.85rem; line-height: 1.45; }
 
   .pq-sent {
     display: grid;

@@ -1,0 +1,90 @@
+---
+// Sección «Nuestro método» de las landings de método (C05), en español y en inglés: un resumen muy breve de las tres fases y el botón
+// para descargar la guía en PDF, sin pedir ningún dato. Textos: `quizMethod` en src/data/processQuiz.ts.
+//
+// Medición: `descarga_lead_magnet` (secundario, no es evento clave) al pulsar el botón, con el `link_id` `guia-metodo`.
+import { quizGuide, quizMethod, type QuizLang } from "@/data/processQuiz";
+import { withBase } from "@/utils/paths";
+
+interface Props {
+  lang?: QuizLang;
+}
+
+const { lang = "es" } = Astro.props as Props;
+const t = quizMethod[lang];
+const guideHref = withBase(quizGuide[lang].path);
+---
+
+<section id="nuestro-metodo" class="section section-accent mg" data-mg data-lang={lang}>
+  <div class="section-head">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h2>{t.title}</h2>
+    <p>{t.intro}</p>
+  </div>
+
+  <ol class="mg-phases">
+    {t.phases.map((phase) => (
+      <li>
+        <h3>{phase.name}</h3>
+        <p>{phase.text}</p>
+      </li>
+    ))}
+  </ol>
+
+  <div class="mg-download">
+    <a class="btn btn-primary" data-mg-guide data-link-id={t.linkId} href={guideHref} download>{t.button}</a>
+    <p class="muted">{t.note}</p>
+  </div>
+</section>
+
+<script>
+  // Un solo evento por clic en el botón de la guía. Sin datos personales.
+  const section = document.querySelector<HTMLElement>("[data-mg]");
+  section?.addEventListener("click", (event) => {
+    const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[data-mg-guide]") : null;
+    if (!link) return;
+    window.tdTrackEvent?.("descarga_lead_magnet", {
+      idioma: section.dataset.lang || document.documentElement.lang || "",
+      link_url: link.href,
+      link_text: link.textContent?.trim().replace(/\s+/g, " ").slice(0, 120),
+      link_id: link.dataset.linkId,
+      page_path: window.location.pathname,
+      page_location: window.location.href,
+    });
+  });
+</script>
+
+<style>
+  .mg-phases {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mg-phases li {
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+  }
+
+  .mg-phases h3 { margin: 0 0 8px; color: var(--accent); font-size: 1.05rem; }
+  .mg-phases p { margin: 0; color: var(--muted); }
+
+  .mg-download {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    margin-top: 26px;
+    text-align: center;
+  }
+
+  .mg-download p { margin: 0; font-size: 0.92rem; }
+
+  @media (max-width: 760px) {
+    .mg-phases { grid-template-columns: 1fr; }
+  }
+</style>
