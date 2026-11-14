@@ -196,6 +196,17 @@ export const offers: Record<string, Offer> = {
     ],
     note: "El coste de la IA se paga aparte, según el uso.",
   },
+  "/casos/web-empresa-sin-coste/": {
+    price: 1500,
+    deadline: "3 a 4 semanas",
+    includes: [
+      "Web en formato funnel: páginas de aterrizaje con lead magnets",
+      "Contenido con SEO y GEO (buscadores de IA)",
+      "Web estática, sin hosting de pago y con despliegue automático",
+      "Skills y plantillas para ampliarla con ayuda de la IA",
+    ],
+    note: "El dominio se paga aparte, directamente al registrador.",
+  },
   "/casos/consulta-cobertura-ia/": {
     price: 1200,
     deadline: "2 a 3 semanas",

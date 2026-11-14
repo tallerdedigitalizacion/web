@@ -410,6 +410,76 @@ export const casePages: CasePage[] = [
     finalCta: "¿Tus técnicos vuelven a la oficina solo para hacer el presupuesto? Lo hacemos desde el sitio.",
     formService: "Presupuestos con IA conectada al ERP",
   },
+  {
+    slug: "web-empresa-sin-coste",
+    title: "Web de empresa en formato funnel, hecha con IA y sin cuota mensual | Taller de Digitalización",
+    description:
+      "Sustituyo la web que pagas a una agencia cada mes por una web propia, estática y en formato funnel, hecha con IA, con SEO y sin hosting de pago. Desde 1.500 € + IVA.",
+    eyebrow: "Caso práctico",
+    h1: "¿Pagas cada mes por una web que nadie sabe si te trae clientes?",
+    intro:
+      "Muchas empresas pagan una cuota mensual a una agencia por «llevar» la web y el SEO, sin ninguna medición de lo que eso les devuelve. Se convierte en un gasto fijo que nadie cuestiona. Hay otra forma: una web propia, enfocada a captar contactos, que se mantiene con IA y no tiene cuota.",
+    summary: "Cambiar la cuota mensual de la agencia por una web propia en formato funnel, hecha con IA, con SEO y sin hosting de pago.",
+    practical: [
+      "Una empresa pagaba 240 € al mes a una agencia externa que decía llevar el SEO y el mantenimiento de la web, y además pagaba el servidor. Sumaba más de 2.800 € al año, y nadie podía decir qué recibía a cambio: no había ninguna medición de retorno. Era, en la práctica, un impuesto.",
+      "Lo que hicimos fue identificar ese gasto sin retorno y proponer otra web, pensada como un funnel: una serie de páginas de aterrizaje con lead magnets para captar contactos, con el contenido actualizado y con SEO y optimización para buscadores de IA. La hicimos con IA, para ir rápido, y es estática, así que no necesita un hosting de pago: se aloja en la infraestructura que ya gestiona la propia empresa. El gasto pasó de más de 2.800 € al año a 0 €; solo queda el dominio.",
+      "Además, dejamos a la empresa skills, plantillas y formatos para que cualquiera pueda ampliar la web con ayuda de la IA, con un despliegue automático. Todo es de la empresa: no depende de nadie.",
+    ],
+    schemaService: "Web de empresa estática en formato funnel, creada con IA, con SEO y sin cuota mensual",
+    painTitle: "¿Te pasa algo de esto?",
+    pains: [
+      "Pagas una cuota mensual por el «mantenimiento y SEO» de la web y no sabes qué recibes a cambio.",
+      "Nadie mide cuántos contactos o clientes trae la web.",
+      "Para cambiar un texto o añadir una página dependes de que la agencia tenga un hueco.",
+      "Pagas un hosting y un panel de administración que casi nadie usa y que hay que mantener seguros.",
+      "La web no es tuya del todo: no sabrías moverla a otro sitio si quisieras.",
+    ],
+    builtTitle: "Qué se monta",
+    built: [
+      ["Una web en formato funnel", "Una serie de páginas de aterrizaje, cada una con un objetivo claro y un formulario o un lead magnet para captar contactos."],
+      ["Contenido actualizado y con SEO", "Textos pensados para lo que busca tu cliente, con SEO para Google y para los buscadores de IA (GEO)."],
+      ["Hecha con IA, estática y sin cuota", "La IA acelera mucho el trabajo. Al ser estática no necesita base de datos ni panel de administración, y se aloja en tu infraestructura sin pagar hosting."],
+      ["Despliegue automático y seguro", "Cada cambio se publica solo. Sin base de datos ni panel de administración, casi no hay nada que atacar."],
+      ["Skills, plantillas y formatos", "Para que cualquiera de tu equipo pueda ampliar la web con ayuda de la IA, sin depender de mí ni de una agencia."],
+    ],
+    resultTitle: "Qué cambia",
+    result: [
+      "Se pasa de pagar más de 2.800 € al año por una web sin retorno medible a 0 €. El único gasto anual que queda es el dominio.",
+      "La web es tuya de principio a fin: el código, el contenido y el despliegue. Puedes ampliarla con ayuda de la IA y no hay una cuota mensual esperándote.",
+    ],
+    offersTitle: "Cómo se puede empezar",
+    offers: [
+      {
+        name: "Web de empresa en formato funnel, con IA",
+        price: 1500,
+        text: "Monto la web como una serie de páginas de aterrizaje con lead magnets, SEO y GEO, el despliegue automático y las skills y plantillas para ampliarla. El precio final depende de cuántas páginas y lead magnets haya; te lo doy cerrado tras ver tu web actual y lo que pagas hoy.",
+      },
+    ],
+    planText: "Si quieres que alguien siga cuidando la web, mejorando el contenido y midiendo qué trae, el plan mensual de Operaciones e IA lo hace; es opcional.",
+    planPrice: 99,
+    needsTitle: "Qué necesito de tu lado",
+    needs: [
+      ["Lo que pagas hoy", "Qué cuesta la web, el hosting y el SEO, y qué te dice la agencia que hace por ese precio."],
+      ["El acceso a tu dominio", "Para apuntarlo a la web nueva cuando esté lista."],
+      ["Qué quieres que haga la web", "Qué contactos quieres captar y con qué oferta o recurso (la guía, el presupuesto, la llamada…)."],
+      ["Un sitio donde alojarla", "Una cuenta o una infraestructura de tu empresa. Al ser estática, no hace falta un servidor de pago."],
+    ],
+    faq: [
+      ["¿Cuánto cuesta?", "Desde 1.500 € + IVA, una sola vez. Depende de cuántas páginas y lead magnets haya. Tras ver tu web actual y lo que pagas, te doy el precio cerrado."],
+      ["¿Y si necesito una tienda online o muchas funciones?", "Una web estática es ideal para captar contactos, pero no para todo. Una tienda online o un portal con usuarios son otro proyecto y se presupuestan aparte; lo vemos en la primera llamada."],
+      ["¿Es segura?", "Al ser estática no tiene base de datos ni panel de administración que atacar, que es por donde entran la mayoría de los ataques a una web. Ningún sitio es invulnerable, pero la superficie de ataque es mínima."],
+      ["¿Qué pasa con el posicionamiento que ya tengo?", "Se cuida: se conservan las direcciones que ya funcionan o se redirigen, y se mide antes y después. Nadie puede prometer una posición en Google, pero sí no perder lo que ya tienes."],
+      ["¿Quién la mantiene después?", "Tú. Te dejo skills, plantillas y formatos para ampliar la web con ayuda de la IA y un despliegue automático. Si prefieres que lo haga otra persona, existe el plan mensual."],
+      peopleFaq,
+    ],
+    related: [
+      ["Creación de páginas web", "/diseno-web-toledo/"],
+      ["Landing page para campañas", "/landing-page-campanas/"],
+      ["Optimización de velocidad web", "/optimizacion-velocidad-web/"],
+    ],
+    finalCta: "¿Pagas una cuota por una web sin retorno? Hagamos las cuentas.",
+    formService: "Web de empresa en formato funnel, con IA",
+  },
 ];
 
 // 1800 -> "1.800" (el formato es-ES de Intl no separa los miles de cuatro cifras).
@@ -432,12 +502,12 @@ const caseByPath: Record<string, string> = {
   "/diagnostico-en-tu-empresa/": "entrada-facturas-automatica",
   "/ciberseguridad-empresas-toledo/": "conciliacion-proveedores",
   "/google-workspace-empresas-toledo/": "conciliacion-proveedores",
-  "/diseno-web-toledo/": "consulta-cobertura-ia",
+  "/diseno-web-toledo/": "web-empresa-sin-coste",
   // Páginas de producto
   "/caos-operativo-telecomunicaciones/": "conciliacion-proveedores",
   "/gestor-contrasenas-empresas/": "conciliacion-proveedores",
-  "/mantenimiento-wordpress/": "dar-de-baja-software-historico",
-  "/landing-page-campanas/": "consulta-cobertura-ia",
+  "/mantenimiento-wordpress/": "web-empresa-sin-coste",
+  "/landing-page-campanas/": "web-empresa-sin-coste",
   "/consultoria-erp-pymes/": "presupuestos-desde-el-sitio",
   "/gestion-leads-crm/": "consulta-cobertura-ia",
   "/agente-ia-atencion-cliente/": "consulta-cobertura-ia",
@@ -451,12 +521,12 @@ const caseByPath: Record<string, string> = {
   "/gestion-centralizada-accesos/": "conciliacion-proveedores",
   "/reestructuracion-google-drive/": "dar-de-baja-software-historico",
   "/reorganizacion-google-workspace/": "conciliacion-proveedores",
-  "/landing-pages-conversion/": "consulta-cobertura-ia",
+  "/landing-pages-conversion/": "web-empresa-sin-coste",
   // Diagnósticos, web y soporte
   "/diagnostico-caos-operativo/": "conciliacion-proveedores",
   "/diagnostico-digitalizacion/": "entrada-facturas-automatica",
   "/informe-gratuito-web/": "consulta-cobertura-ia",
-  "/optimizacion-velocidad-web/": "consulta-cobertura-ia",
+  "/optimizacion-velocidad-web/": "web-empresa-sin-coste",
   "/soporte-remoto/": "dar-de-baja-software-historico",
 };
 
