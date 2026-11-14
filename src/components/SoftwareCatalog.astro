@@ -1,0 +1,133 @@
+---
+// Bloque «Qué desarrollo» (C04): diez desplegables nativos (<details>) en dos columnas, cerrados por defecto y legibles sin JavaScript.
+// Cada uno lleva arriba a la derecha, en la línea del título, el rótulo «Qué es y ver ejemplo» y la flecha animada.
+// Medición: tipo_software_click { tipo, idioma, landing } solo al ABRIR un ítem (no al cerrarlo). Evento secundario.
+import { softwareCatalog } from "@/data/softwareCatalog";
+import { shared, type Lang } from "@/data/campaigns";
+import { withBase } from "@/utils/paths";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props as Props;
+const catalog = softwareCatalog[lang];
+const t = shared[lang];
+---
+
+<section id="que-desarrollo" class="section section-accent sw-catalog" data-sw-catalog data-lang={lang}>
+  <div class="section-head">
+    <span class="eyebrow">{catalog.eyebrow}</span>
+    <h2>{catalog.title}</h2>
+    <p>{catalog.intro}</p>
+  </div>
+  <div class="faq-list sw-list">
+    {catalog.items.map((item) => (
+      <details data-sw-item={item.tipo}>
+        <summary>
+          <span class="sw-title">{item.title}</span>
+          <span class="sw-toggle"><span class="sw-toggle-label">{catalog.toggleLabel}</span><span class="sw-arrow" aria-hidden="true"></span></span>
+        </summary>
+        <div class="sw-body">
+          <p>{item.text}</p>
+          <p class="sw-example"><strong>{catalog.exampleLabel}:</strong> {item.example}</p>
+          {item.link && <a class="sw-link" href={withBase(item.link.href)} data-link-id={`catalogo-${item.tipo}`}>{item.link.label} →</a>}
+        </div>
+      </details>
+    ))}
+  </div>
+  <div class="sw-closing">
+    <p>{catalog.closing}</p>
+    <a class="btn btn-primary" href="#reserva">{t.heroBook}</a>
+  </div>
+</section>
+
+<script>
+  // Un clic al ABRIR un ítem. El evento `toggle` no burbujea: se escucha en cada <details>. Se envía una vez por apertura
+  // (cerrar y volver a abrir cuenta otra vez). Sin datos personales: solo el tipo, el idioma y la ruta de la landing.
+  const catalog = document.querySelector<HTMLElement>("[data-sw-catalog]");
+  if (catalog) {
+    const idioma = catalog.dataset.lang || document.documentElement.lang || "";
+    catalog.querySelectorAll<HTMLDetailsElement>("details[data-sw-item]").forEach((item) => {
+      item.addEventListener("toggle", () => {
+        if (!item.open) return;
+        window.tdTrackEvent?.("tipo_software_click", {
+          tipo: item.dataset.swItem,
+          idioma,
+          landing: window.location.pathname,
+        });
+      });
+    });
+  }
+</script>
+
+<style>
+  /* Diez ítems = cinco filas de dos columnas. `align-items: start` evita que al abrir uno se estire el de al lado. */
+  .sw-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  .sw-list summary {
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 1.02rem;
+    line-height: 1.35;
+  }
+
+  /* La flecha va con el rótulo, a la derecha; la de la izquierda (global) se quita. */
+  .sw-list summary::before { display: none; }
+
+  .sw-title { flex: 1 1 11ch; min-width: 0; }
+
+  .sw-toggle {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .sw-arrow {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 160ms ease;
+  }
+
+  details[open] .sw-arrow { transform: rotate(225deg) translate(-2px, -1px); }
+
+  @media (max-width: 760px) {
+    .sw-list { grid-template-columns: 1fr; }
+  }
+
+  .sw-body { display: grid; gap: 10px; padding: 0 18px 18px; }
+  .sw-body p { margin: 0; padding: 0; color: var(--muted); }
+  .sw-body .sw-example { color: var(--ink); }
+  .sw-body .sw-example strong { color: var(--accent); }
+
+  .sw-link {
+    justify-self: start;
+    color: var(--accent);
+    font-weight: 750;
+  }
+
+  .sw-closing {
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    margin-top: 28px;
+    text-align: center;
+  }
+
+  .sw-closing p { margin: 0; font-size: 1.1rem; font-weight: 750; }
+</style>

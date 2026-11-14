@@ -1,0 +1,567 @@
+---
+// Cuestionario «¿Dónde estás tú?» de la campaña C05 (automatización de procesos con IA), en español y en inglés. Es el lead magnet
+// del hero de las landings de método: ocupa el sitio del antiguo «¿Cómo sé si esto es para mí?».
+//
+// Flujo (sin pedir ningún dato hasta el final y solo si la persona quiere):
+//  1. Seis preguntas, una por pantalla. Las cinco de respuesta única avanzan solas al elegir; la última es de selección múltiple
+//     y lleva el botón «Ver mi resultado».
+//  2. Resultado en pantalla: punto de partida, «lo que ya tienes» (verde) y «lo que te falta» (rojo). Debajo, dos columnas:
+//     bajo «Siguientes pasos», a la izquierda descargar la guía directamente (sin datos) y a la derecha reservar la llamada o
+//     suscribirse al minicurso; debajo, una línea que explica el minicurso. «Repetir el cuestionario» va arriba a la derecha.
+//  3. Solo si elige el minicurso, formulario con nombre y email. Envía a POST /lead/process-quiz: guía + resultado por email y
+//     suscripción al minicurso.
+// Textos, reglas y valores: src/data/processQuiz.ts (el backend usa el mismo fichero para calcular el resultado del email).
+//
+// Eventos GA4 (todos secundarios, ninguno es evento clave): quiz_start, quiz_complete, descarga_lead_magnet, suscripcion_curso,
+// más generate_lead (lead_type guia_automatizacion) solo al enviar el formulario. Ver docs/verificacion-medicion.md.
+import { quizConsent, quizGuide, quizQuestions, quizUi, type QuizLang } from "@/data/processQuiz";
+import { siteConfig } from "@/config/site";
+import { withBase } from "@/utils/paths";
+
+interface Props {
+  lang?: QuizLang;
+}
+
+const { lang = "es" } = Astro.props as Props;
+const t = quizUi[lang];
+const consent = quizConsent[lang];
+const guideHref = withBase(quizGuide[lang].path);
+const privacyHref = withBase(lang === "en" ? "/privacy-policy" : "/politica-privacidad");
+const total = quizQuestions.length;
+---
+
+<div id="donde-estas-tu" class="pq" data-pq data-lang={lang} data-endpoint={siteConfig.formEndpoint} data-guide={guideHref}>
+  <div class="pq-head">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h2>{t.title}</h2>
+    <p class="muted">{t.intro}</p>
+  </div>
+
+  <div data-pq-flow>
+    <div class="pq-progress" role="progressbar" aria-label={t.progress} aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-pq-progress>
+      <i data-pq-bar></i>
+    </div>
+    <p class="pq-step muted" data-pq-step aria-live="polite">{t.questionOf(1, total)}</p>
+
+    <form data-pq-form novalidate>
+      {quizQuestions.map((question, index) => (
+        <fieldset class="pq-question" data-pq-question={index} hidden={index !== 0}>
+          <legend tabindex="-1" data-pq-legend>{question.title[lang]}</legend>
+          {question.multiple && <p class="muted pq-hint">{t.multipleHint}</p>}
+          <div class="pq-options">
+            {question.options.map((option) => (
+              <label class="pq-option">
+                <input type={question.multiple ? "checkbox" : "radio"} name={`pq-${question.key}`} value={option.value} data-pq-input={question.key} />
+                <span>{option.label[lang]}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ))}
+      <p class="pq-error" role="alert" data-pq-error hidden></p>
+      <div class="pq-actions">
+        <button type="button" class="btn btn-secondary" data-pq-back hidden>{t.back}</button>
+        <button type="button" class="btn btn-primary" data-pq-next hidden>{t.next}</button>
+      </div>
+    </form>
+  </div>
+
+  <div data-pq-result hidden>
+    <div class="pq-result-top">
+      <span class="eyebrow">{t.resultEyebrow}</span>
+      <button type="button" class="btn btn-secondary btn-small" data-pq-restart>{t.restart}</button>
+    </div>
+    <h3 tabindex="-1" data-pq-result-title></h3>
+    <p data-pq-result-text></p>
+
+    <div class="pq-group pq-have" data-pq-have hidden>
+      <h4>{t.haveTitle}</h4>
+      <ul class="pq-list" data-pq-have-list></ul>
+    </div>
+    <div class="pq-group pq-miss" data-pq-miss hidden>
+      <h4>{t.missTitle}</h4>
+      <ul class="pq-list" data-pq-miss-list></ul>
+    </div>
+    <p class="pq-note muted" data-pq-note></p>
+
+    <div class="pq-next">
+      <h4 class="pq-next-title">{t.nextHeading}</h4>
+      <div class="pq-next-col">
+        <a class="btn btn-secondary" data-pq-guide data-link-id="guia-resultado" href={guideHref} target="_blank" rel="noopener" data-pq-result-guide>{t.guideButton}</a>
+        <p class="muted" data-pq-guide-note></p>
+      </div>
+      <div class="pq-next-col">
+        <a class="btn btn-primary" href="#reserva">{t.bookCta}</a>
+        <button type="button" class="btn btn-secondary" data-pq-open-course>{t.courseCta}</button>
+      </div>
+    </div>
+
+    <p class="pq-course-line muted">{t.courseLine}</p>
+  </div>
+
+  <div data-pq-course hidden>
+    <h3 tabindex="-1" data-pq-course-title>{t.courseTitle}</h3>
+    <p>{t.courseIntro}</p>
+
+    <form class="pq-form compact-form" data-pq-lead novalidate>
+      <label>{t.name}<input name="nombre" autocomplete="name" maxlength="120" /></label>
+      <label>{t.email}<input required type="email" name="email" autocomplete="email" maxlength="180" /></label>
+      <label class="check">
+        <input required type="checkbox" name="privacidad" />
+        <span>{consent.required[0]}<a href={privacyHref} target="_blank" rel="noopener">{consent.required[1]}</a>{consent.required[2]}</span>
+      </label>
+      <p class="pq-legal muted">
+        {consent.privacy[0]}<a href={`mailto:${consent.privacy[1]}`}>{consent.privacy[1]}</a>{consent.privacy[2]}<a href={privacyHref} target="_blank" rel="noopener">{consent.privacy[3]}</a>{consent.privacy[4]}
+      </p>
+      <label class="honeypot" aria-hidden="true">Web<input tabindex="-1" autocomplete="off" name="website" /></label>
+      <button class="btn btn-primary" type="submit" data-pq-send>{t.send}</button>
+      <p class="form-help" role="status" aria-live="polite" data-pq-status></p>
+    </form>
+
+    <div class="pq-sent" data-pq-sent hidden>
+      <h4 tabindex="-1" data-pq-sent-title>{t.sentTitle}</h4>
+      <p data-pq-sent-text></p>
+      <a class="btn btn-primary" data-pq-guide data-link-id="guia-descarga" href={guideHref} target="_blank" rel="noopener">{t.download}</a>
+    </div>
+
+    <p class="pq-restart"><button type="button" class="btn btn-secondary btn-small" data-pq-course-back>{t.backToResult}</button></p>
+  </div>
+</div>
+
+<script>
+  import { quizCompleteParams, quizQuestions, quizResult, quizUi, type QuizAnswers, type QuizLang } from "@/data/processQuiz";
+
+  const root = document.querySelector<HTMLElement>("[data-pq]");
+  if (root) init(root);
+
+  function init(root: HTMLElement) {
+    const lang = (root.dataset.lang === "en" ? "en" : "es") as QuizLang;
+    const t = quizUi[lang];
+    const track = (name: string, params: Record<string, unknown> = {}) => (window as any).tdTrackEvent?.(name, params);
+    const q = <T extends HTMLElement>(selector: string) => root.querySelector<T>(selector)!;
+
+    const head = q(".pq-head");
+    const flow = q("[data-pq-flow]");
+    const form = q<HTMLFormElement>("[data-pq-form]");
+    const resultBox = q("[data-pq-result]");
+    const courseBox = q("[data-pq-course]");
+    const bar = q("[data-pq-bar]");
+    const progress = q("[data-pq-progress]");
+    const stepLabel = q("[data-pq-step]");
+    const errorBox = q("[data-pq-error]");
+    const back = q<HTMLButtonElement>("[data-pq-back]");
+    const next = q<HTMLButtonElement>("[data-pq-next]");
+    const questions = [...root.querySelectorAll<HTMLElement>("[data-pq-question]")];
+    const total = quizQuestions.length;
+    const pageLoadedAt = Date.now();
+
+    let step = 0;
+    let started = false;
+    let answers: QuizAnswers | null = null;
+    let leadSent = false;
+    let sending = false;
+    let advanceTimer: number | undefined;
+    let arrowNav = false;
+
+    function selected(key: string) {
+      return [...form.querySelectorAll<HTMLInputElement>(`input[data-pq-input="${key}"]:checked`)].map((input) => input.value);
+    }
+
+    function showError(message = "") {
+      errorBox.textContent = message;
+      errorBox.hidden = !message;
+    }
+
+    // Una sola vista a la vez: preguntas, resultado o formulario del minicurso. La cabecera (título e intro) solo con las preguntas.
+    function showView(view: "flow" | "result" | "course") {
+      flow.hidden = view !== "flow";
+      head.hidden = view !== "flow";
+      resultBox.hidden = view !== "result";
+      courseBox.hidden = view !== "course";
+    }
+
+    // «Siguiente» solo hace falta en la pregunta de selección múltiple o al volver a una ya contestada (las demás avanzan solas).
+    function updateNext() {
+      const question = quizQuestions[step];
+      next.hidden = !question.multiple && selected(question.key).length === 0;
+    }
+
+    function showStep(index: number, moveFocus = true) {
+      window.clearTimeout(advanceTimer);
+      step = Math.max(0, Math.min(index, total - 1));
+      questions.forEach((fieldset, i) => (fieldset.hidden = i !== step));
+      const percent = Math.round((step / total) * 100);
+      bar.style.width = `${percent}%`;
+      progress.setAttribute("aria-valuenow", String(percent));
+      stepLabel.textContent = t.questionOf(step + 1, total);
+      back.hidden = step === 0;
+      next.textContent = step === total - 1 ? t.seeResult : t.next;
+      updateNext();
+      showError();
+      if (moveFocus) questions[step].querySelector<HTMLElement>("[data-pq-legend]")?.focus();
+    }
+
+    function collect(): QuizAnswers {
+      return {
+        doc_procesos: selected("doc_procesos")[0] ?? "",
+        automatizacion_previa: selected("automatizacion_previa")[0] ?? "",
+        infraestructura: selected("infraestructura")[0] ?? "",
+        dependencia_persona: selected("dependencia_persona")[0] ?? "",
+        trazabilidad: selected("trazabilidad")[0] ?? "",
+        situaciones: selected("situaciones"),
+      };
+    }
+
+    // Con las flechas del teclado el navegador cambia la opción marcada: ahí no se avanza solo (se avanzaría sin querer); con
+    // Intro, o con «Siguiente», sí. Un clic o la barra espaciadora sobre una opción avanzan solos.
+    form.addEventListener("keydown", (event) => {
+      arrowNav = event.key.startsWith("Arrow");
+    });
+    form.addEventListener("pointerdown", () => {
+      arrowNav = false;
+    });
+
+    form.addEventListener("change", (event) => {
+      showError();
+      // quiz_start: una vez por intento, en la primera respuesta (no al ver la sección).
+      if (!started) {
+        started = true;
+        track("quiz_start", { idioma: lang });
+      }
+      updateNext();
+      const input = event.target as HTMLInputElement;
+      if (quizQuestions[step].multiple || input.type !== "radio" || step >= total - 1) return;
+      if (arrowNav) {
+        arrowNav = false;
+        return;
+      }
+      // Una pausa corta para que se vea la opción elegida antes de pasar a la siguiente pregunta.
+      window.clearTimeout(advanceTimer);
+      advanceTimer = window.setTimeout(() => showStep(step + 1), 260);
+    });
+
+    back.addEventListener("click", () => showStep(step - 1));
+
+    next.addEventListener("click", () => {
+      const key = quizQuestions[step].key;
+      if (selected(key).length === 0) {
+        showError(quizQuestions[step].multiple ? t.pickSome : t.pickOne);
+        return;
+      }
+      if (step < total - 1) {
+        showStep(step + 1);
+        return;
+      }
+      finish();
+    });
+
+    // Intro en una opción avanza, como el botón «Siguiente».
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      next.click();
+    });
+
+    function fillList(list: HTMLElement, group: HTMLElement, texts: string[]) {
+      list.replaceChildren(
+        ...texts.map((text) => {
+          const item = document.createElement("li");
+          item.textContent = text;
+          return item;
+        }),
+      );
+      group.hidden = texts.length === 0;
+    }
+
+    function finish() {
+      answers = collect();
+      const result = quizResult(answers, lang);
+      q("[data-pq-result-title]").textContent = result.title;
+      q("[data-pq-result-text]").textContent = result.text;
+      fillList(q("[data-pq-have-list]"), q("[data-pq-have]"), result.items.filter((item) => item.status === "have").map((item) => item.text));
+      fillList(q("[data-pq-miss-list]"), q("[data-pq-miss]"), result.items.filter((item) => item.status === "missing").map((item) => item.text));
+      q("[data-pq-note]").textContent = result.items.find((item) => item.status === "note")?.text ?? "";
+      const phase = result.guidePhase;
+      const guideLink = q<HTMLAnchorElement>("[data-pq-result-guide]");
+      guideLink.href = `${root.dataset.guide}#page=${result.guidePage}`;
+      guideLink.dataset.linkId = `guia-resultado-fase-${phase}`;
+      q("[data-pq-guide-note]").textContent = t.guideNote(phase, result.guidePage);
+      showView("result");
+      track("quiz_complete", quizCompleteParams(answers, lang));
+      q("[data-pq-result-title]").focus({ preventScroll: true });
+      root.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    // descarga_lead_magnet: clic en cualquier enlace a la guía (el del resultado o el botón de descarga tras el envío).
+    root.addEventListener("click", (event) => {
+      const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[data-pq-guide]") : null;
+      if (!link) return;
+      track("descarga_lead_magnet", {
+        idioma: lang,
+        link_url: link.href,
+        link_text: link.textContent?.trim().replace(/\s+/g, " ").slice(0, 120),
+        link_id: link.dataset.linkId,
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+      });
+    });
+
+    // Paso opcional: formulario del minicurso.
+    q("[data-pq-open-course]").addEventListener("click", () => {
+      showView("course");
+      q("[data-pq-course-title]").focus({ preventScroll: true });
+      root.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+    q("[data-pq-course-back]").addEventListener("click", () => {
+      showView("result");
+      q("[data-pq-result-title]").focus({ preventScroll: true });
+    });
+
+    // Formulario del minicurso. El lead se envía con o sin consentimiento de cookies; los eventos solo cuentan si hay consentimiento.
+    const lead = q<HTMLFormElement>("[data-pq-lead]");
+    const status = q("[data-pq-status]");
+    const sendButton = q<HTMLButtonElement>("[data-pq-send]");
+    lead.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (leadSent || sending || !answers) return;
+      if (!lead.checkValidity()) {
+        lead.reportValidity();
+        return;
+      }
+      const data = new FormData(lead);
+      sending = true;
+      sendButton.disabled = true;
+      status.textContent = t.sending;
+      try {
+        const base = String(root.dataset.endpoint || "").replace(/\/$/, "");
+        const response = await fetch(`${base}/lead/process-quiz`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            name: String(data.get("nombre") || ""),
+            email: String(data.get("email") || ""),
+            language: lang,
+            answers,
+            privacyAccepted: data.get("privacidad") === "on",
+            // Este formulario es la suscripción al minicurso: aceptar el texto de la casilla incluye recibirlo.
+            marketingAccepted: true,
+            courseSubscription: true,
+            website: String(data.get("website") || ""),
+            startedAt: pageLoadedAt,
+            pageUrl: window.location.href,
+            attribution: (window as any).tdAttribution?.(),
+            userAgent: navigator.userAgent,
+          }),
+        });
+        const body = await response.json().catch(() => ({}));
+        if (!response.ok || body.ok === false) throw new Error(body.error || t.error);
+        leadSent = true;
+        // Exactamente un generate_lead por envío, y la suscripción al minicurso que lleva.
+        track("generate_lead", { lead_type: "guia_automatizacion", idioma: lang });
+        track("suscripcion_curso", { idioma: lang });
+        lead.hidden = true;
+        const sent = q("[data-pq-sent]");
+        q("[data-pq-sent-text]").textContent = body.emailDelivered === false ? t.sentNoEmail : t.sentText;
+        sent.hidden = false;
+        q("[data-pq-sent-title]").focus();
+      } catch (error) {
+        status.textContent = error instanceof Error && error.message ? error.message : t.error;
+        sendButton.disabled = false;
+      } finally {
+        sending = false;
+      }
+    });
+
+    q("[data-pq-restart]").addEventListener("click", () => {
+      form.reset();
+      lead.reset();
+      lead.hidden = false;
+      q("[data-pq-sent]").hidden = true;
+      status.textContent = "";
+      sendButton.disabled = false;
+      leadSent = false;
+      started = false;
+      answers = null;
+      showView("flow");
+      showStep(0, false);
+      root.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+
+    showView("flow");
+    showStep(0, false);
+  }
+</script>
+
+<style is:global>
+  /* La tarjeta del hero: mismo aspecto que la antigua «¿Cómo sé si esto es para mí?». */
+  .pq {
+    --pq-miss: #ff7b72;
+    scroll-margin-top: 84px;
+    display: grid;
+    gap: 10px;
+    padding: clamp(18px, 3vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    box-shadow: var(--shadow);
+  }
+
+  .pq [hidden] { display: none !important; }
+
+  .pq-head { display: grid; gap: 6px; }
+  .pq-head h2 { margin: 0; font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.15; }
+  .pq-head p { margin: 0; }
+
+  .pq-progress {
+    height: 8px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--line);
+  }
+
+  .pq-progress i {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--accent);
+    transition: width 200ms ease;
+  }
+
+  .pq-step { margin: 10px 0 14px; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+
+  .pq-question { margin: 0; padding: 0; border: 0; min-width: 0; }
+
+  .pq-question legend {
+    padding: 0;
+    margin-bottom: 14px;
+    font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .pq-question legend:focus { outline: none; }
+  .pq-hint { margin: -6px 0 12px; }
+
+  .pq-options { display: grid; gap: 8px; }
+
+  .pq-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--ink);
+    font-weight: 650;
+    line-height: 1.35;
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease;
+  }
+
+  .pq-option:hover { border-color: var(--accent); }
+  .pq-option input { flex: none; width: 20px; height: 20px; min-height: 0; margin: 1px 0 0; accent-color: var(--accent); }
+  .pq-option:has(input:checked) { border-color: var(--accent); background: rgba(78, 229, 141, 0.1); }
+  .pq-option:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .pq-error { margin: 12px 0 0; color: var(--warn); font-weight: 700; }
+
+  .pq-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .pq-actions:not(:has(.btn:not([hidden]))) { display: none; }
+  .pq-actions [data-pq-next] { margin-left: auto; }
+
+  /* Resultado */
+  [data-pq-result] h3, [data-pq-course] h3 { margin: 6px 0 10px; font-size: clamp(1.35rem, 2.6vw, 1.75rem); line-height: 1.2; }
+  [data-pq-result] h3:focus, [data-pq-course] h3:focus, [data-pq-sent] h4:focus { outline: none; }
+  [data-pq-result] p, [data-pq-course] p { margin: 0 0 12px; }
+
+  .pq-group h4 { margin: 18px 0 8px; font-size: 1.05rem; }
+
+  .pq-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+
+  .pq-list li {
+    position: relative;
+    padding: 10px 14px 10px 40px;
+    border-left: 3px solid var(--pq-line);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: var(--pq-bg);
+  }
+
+  /* Marca ✓ / ✕ además del color, para que no dependa solo de él. */
+  .pq-list li::before {
+    position: absolute;
+    left: 13px;
+    top: 10px;
+    color: var(--pq-line);
+    font-weight: 900;
+  }
+
+  .pq-have { --pq-line: var(--accent); --pq-bg: rgba(78, 229, 141, 0.08); }
+  .pq-have h4 { color: var(--accent); }
+  .pq-have .pq-list li::before { content: "✓"; }
+
+  .pq-miss { --pq-line: var(--pq-miss); --pq-bg: rgba(255, 123, 114, 0.09); }
+  .pq-miss h4 { color: var(--pq-miss); }
+  .pq-miss .pq-list li::before { content: "✕"; }
+
+  .pq-result-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .pq-result-top .eyebrow { margin: 0; }
+
+  .pq-note { margin: 14px 0 0 !important; font-size: 0.92rem; }
+
+  /* «Siguientes pasos»: la guía directa (sin datos) a la izquierda; la llamada y el minicurso a la derecha. */
+  .pq-next {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .pq-next-col { display: grid; align-content: start; gap: 10px; }
+  .pq-next-col .btn { width: 100%; text-align: center; white-space: normal; line-height: 1.25; }
+  .pq-next-col p { margin: 0 !important; font-size: 0.86rem; line-height: 1.4; }
+
+  .pq-next-title { grid-column: 1 / -1; margin: 0 !important; font-size: 1.05rem; }
+
+  .pq-course-line { margin: 14px 0 0 !important; font-size: 0.88rem; line-height: 1.45; }
+
+  .pq-restart { margin: 18px 0 0 !important; }
+
+  /* Formulario del minicurso */
+  .pq-form { margin-top: 6px; }
+  .pq-legal { margin: 0; font-size: 0.85rem; line-height: 1.45; }
+
+  .pq-sent {
+    display: grid;
+    justify-items: start;
+    gap: 10px;
+    margin-top: 6px;
+    padding: 16px 18px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    background: rgba(78, 229, 141, 0.06);
+  }
+
+  .pq-sent h4, .pq-sent p { margin: 0; }
+
+  @media (max-width: 560px) {
+    .pq-next { grid-template-columns: 1fr; }
+    .pq-next-title { grid-column: auto; }
+  }
+</style>

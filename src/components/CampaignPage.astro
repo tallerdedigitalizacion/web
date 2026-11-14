@@ -2,14 +2,17 @@
 // Cuerpo de una landing de campaña (producto o método, en español o en inglés). El contenido sale de src/data/campaigns.ts;
 // la plantilla (cabecera, pie, meta, schema) es CampaignLayout.astro.
 //
-// Orden: hero (promesa, garantía y «¿Cómo sé si esto es para mí?», un lead magnet sin email) · qué hago (solo producto) ·
+// Orden: hero (promesa y garantía; a la derecha, «¿Cómo sé si esto es para mí?» en las landings de producto y el cuestionario
+// «¿Dónde estás tú?», el lead magnet con guía y minicurso, en las de método) · qué desarrollo (solo producto) ·
 // cómo trabajo (cinco pasos, precios y garantía) · quién está detrás (con el vídeo de Pablo) · casos reales con antes y ahora ·
 // testimonios en vídeo (solo cuando haya vídeos) · preguntas · reserva dentro de la página y formulario por botones.
 // Sin menú ni WhatsApp: la salida es reservar, escribir o leer un caso.
 import CampaignLayout from "@/layouts/CampaignLayout.astro";
 import CampaignVideo from "@/components/CampaignVideo.astro";
 import CampaignBooking from "@/components/CampaignBooking.astro";
+import SoftwareCatalog from "@/components/SoftwareCatalog.astro";
 import ContactForm from "@/components/ContactForm.astro";
+import ProcessQuiz from "@/components/ProcessQuiz.astro";
 import { siteConfig } from "@/config/site";
 import { cal, campaignVideos, pabloMarkers, shared, type CampaignPage } from "@/data/campaigns";
 import { withBase } from "@/utils/paths";
@@ -42,7 +45,7 @@ const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/
   bookingAnchor="#reserva"
 >
   <section class="cp-hero">
-    <div class="cp-hero-inner">
+    <div class:list={["cp-hero-inner", { "cp-hero-inner--quiz": page.offer === "metodo" }]}>
       <div class="cp-hero-copy">
         <span class="eyebrow">{hero.eyebrow}</span>
         <h1>{hero.h1}</h1>
@@ -53,43 +56,31 @@ const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/
         <ul class="cp-chips">{t.chips.map((chip) => <li>{chip}</li>)}</ul>
       </div>
 
-      <div class="cp-triage" data-triage>
-        <span class="eyebrow">{t.triage.eyebrow}</span>
-        <h2>{t.triage.title}</h2>
-        <p class="muted">{t.triage.intro}</p>
-        <div class="cp-options" role="group" aria-label={t.triage.title}>
+      {page.offer === "metodo" ? (
+        <ProcessQuiz lang={lang} />
+      ) : (
+        <div class="cp-triage" data-triage>
+          <span class="eyebrow">{t.triage.eyebrow}</span>
+          <h2>{t.triage.title}</h2>
+          <p class="muted">{t.triage.intro}</p>
+          <div class="cp-options" role="group" aria-label={t.triage.title}>
+            {t.triage.options.map((option, index) => (
+              <button type="button" class="cp-option" aria-pressed="false" aria-controls={`triage-${index}`} data-triage-option={index}>{option.label}</button>
+            ))}
+          </div>
           {t.triage.options.map((option, index) => (
-            <button type="button" class="cp-option" aria-pressed="false" aria-controls={`triage-${index}`} data-triage-option={index}>{option.label}</button>
+            <div class="cp-triage-result" id={`triage-${index}`} data-triage-result={index} role="region" aria-label={option.label} hidden>
+              <p><strong>{t.triage.behindLabel}.</strong> {option.behind}</p>
+              <p><strong>{t.triage.firstLabel}.</strong> {option.first}</p>
+              <a class="btn btn-primary btn-small" href="#reserva">{t.triage.bookCta}</a>
+            </div>
           ))}
         </div>
-        {t.triage.options.map((option, index) => (
-          <div class="cp-triage-result" id={`triage-${index}`} data-triage-result={index} role="region" aria-label={option.label} hidden>
-            <p><strong>{t.triage.behindLabel}.</strong> {option.behind}</p>
-            <p><strong>{t.triage.firstLabel}.</strong> {option.first}</p>
-            <a class="btn btn-primary btn-small" href="#reserva">{t.triage.bookCta}</a>
-          </div>
-        ))}
-      </div>
+      )}
     </div>
   </section>
 
-  {page.what && (
-    <section id="que-hago" class="section section-accent">
-      <div class="section-head">
-        <span class="eyebrow">{page.what.eyebrow}</span>
-        <h2>{page.what.title}</h2>
-        {page.what.intro && <p>{page.what.intro}</p>}
-      </div>
-      <div class="cp-cards">
-        {page.what.items.map(([name, text]) => (
-          <article>
-            <h3>{name}</h3>
-            <p>{text}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  )}
+  {page.offer === "producto" && <SoftwareCatalog lang={lang} />}
 
   <section id="como-trabajo" class="section">
     <div class="section-head">
@@ -329,6 +320,9 @@ const cvHref = lang === "en" ? "/downloads/pablo-leone-cv-en.pdf" : "/downloads/
     width: min(var(--max), 100%);
     margin: 0 auto;
   }
+
+  /* Con el cuestionario en el hero la columna derecha necesita más ancho: dos botones lado a lado en el resultado. */
+  .cp-hero-inner--quiz { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 
   .cp-hero h1 {
     margin-bottom: 20px;

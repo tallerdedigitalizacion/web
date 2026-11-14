@@ -59,7 +59,6 @@ export interface CampaignPage {
   seo: { title: string; description: string };
   hero: { eyebrow: string; h1: string; subtitle: string };
   painIds: PainId[];
-  what?: { eyebrow: string; title: string; intro?: string; items: Pair[] };
   how: { eyebrow: string; title: string; intro: string };
   extraWhy?: Pair;
   faq: Pair[];
@@ -555,18 +554,6 @@ export const campaignPages: CampaignPage[] = [
       subtitle: "Tu equipo deja de depender de un Excel y de una sola persona: te construyo la aplicación a medida que encaja con cómo trabajas.",
     },
     painIds: ["p1", "p3", "p4", "p5", "p6"],
-    what: {
-      eyebrow: "Qué hago",
-      title: "Software a medida para tu empresa",
-      items: [
-        ["Aplicaciones a medida", "Un programa a medida, un panel de gestión o un portal interno hechos para cómo trabaja tu equipo."],
-        ["Desarrollo web a medida", "Portales para tus clientes, formularios con reglas propias y apps web que se usan desde el navegador."],
-        ["Automatizaciones a medida", "Rutinas y tareas programadas que juntas forman una solución a medida, adaptada a tu empresa y no al revés."],
-        ["Integraciones entre plataformas", "Conecto tu web, CRM, ERP y facturación para que los datos se muevan solos."],
-        ["Optimización de procesos", "Documento cómo trabajas, lo ordeno y lo automatizo."],
-        ["IA integrada en tus procesos", "IA en el trabajo de cada departamento para agilizarlo: copilotos, consultas a tus datos, lectura de facturas."],
-      ],
-    },
     how: {
       eyebrow: "Cómo trabajo",
       title: "Cinco pasos, cada uno con su precio y lo que incluye",
@@ -596,18 +583,6 @@ export const campaignPages: CampaignPage[] = [
       subtitle: "Your team stops depending on one spreadsheet and one person: I build the application that fits how you actually work.",
     },
     painIds: ["p1", "p3", "p4", "p5", "p6"],
-    what: {
-      eyebrow: "What I do",
-      title: "Custom software for your business",
-      items: [
-        ["Custom applications", "Bespoke software, a management dashboard or an internal portal built around how your team works."],
-        ["Custom web development", "Portals for your customers, forms with their own rules and web apps that you use from the browser."],
-        ["Custom automations", "Routines and scheduled tasks that together make up a custom solution, adapted to your business and not the other way round."],
-        ["Integrations between platforms", "I connect your website, CRM, ERP and invoicing so data moves on its own."],
-        ["Process optimisation", "I document how you work, organise it and automate it."],
-        ["AI built into your processes", "AI in each department's work to speed it up: copilots, questions to your data, invoice reading."],
-      ],
-    },
     how: {
       eyebrow: "How I work",
       title: "Five steps, each with its price and what it includes",
