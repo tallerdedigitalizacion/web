@@ -226,14 +226,13 @@ eventos nuevos son secundarios: ninguno es evento clave (el único evento clave 
 Por acción de lead, hoy salen: contacto → `formulario_contacto` + `generate_lead`; método → `descarga_metodo` +
 `generate_lead`; guía web → `download_web_audit_pdf` + `generate_lead`; auditoría web →
 `submit_web_audit_self_assessment` + `generate_lead` + `web_audit_api_success`; guía de C05 → `quiz_start` + `quiz_complete` (+
-`descarga_lead_magnet` si pulsa la guía) + `generate_lead` (`lead_type=guia_automatizacion`) + `suscripcion_curso` (solo si completa el formulario del minicurso);
+`descarga_lead_magnet` si pulsa la guía) + `suscripcion_curso` (solo si completa el formulario del minicurso);
 resto → `generate_lead`. Siempre exactamente un `generate_lead`.
 
-> **Decisión pendiente (marketing manager / Pablo):** `generate_lead` es evento clave y se importa a Google Ads. La guía emite uno
-> (`lead_type=guia_automatizacion`), como el resto de lead magnets, porque `CLAUDE.md` exige uno por acción de lead; pero la tarea de
-> C05 dice que el lead sigue siendo reserva o formulario y que cuestionario, descarga y suscripción se miden aparte. Si no deben
-> contar como conversión principal, hay que excluir ese `lead_type` en GA4 antes de importar, o quitar el `generate_lead` de la guía
-> (`track("generate_lead", …)` en `ProcessQuiz.astro`).
+> **Decisión de Pablo (2026-11-14):** hacer el cuestionario o pedir la guía **no es un lead**. La guía de C05 **no emite
+> `generate_lead`**; se mide con `quiz_start`, `quiz_complete`, `descarga_lead_magnet` y `suscripcion_curso` (todos secundarios).
+> Los leads siguen siendo la reserva (Cal.com) y el formulario de contacto. El envío del formulario de la guía sí crea la fila en
+> el CRM (canal «Lead magnet») y manda el email; eso es registro, no conversión de Ads.
 
 ## Configuración externa (no está en el código)
 

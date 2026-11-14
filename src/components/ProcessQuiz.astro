@@ -13,7 +13,8 @@
 // Textos, reglas y valores: src/data/processQuiz.ts (el backend usa el mismo fichero para calcular el resultado del email).
 //
 // Eventos GA4 (todos secundarios, ninguno es evento clave): quiz_start, quiz_complete, descarga_lead_magnet, suscripcion_curso,
-// más generate_lead (lead_type guia_automatizacion) solo al enviar el formulario. Ver docs/verificacion-medicion.md.
+// Decisión de Pablo (2026-11-14): hacer el cuestionario o pedir la guía NO es un lead, así que no se emite generate_lead.
+// Los leads siguen siendo reserva (Cal.com) o formulario de contacto. Ver docs/verificacion-medicion.md.
 import { quizConsent, quizGuide, quizQuestions, quizUi, type QuizLang } from "@/data/processQuiz";
 import { siteConfig } from "@/config/site";
 import { withBase } from "@/utils/paths";
@@ -355,8 +356,7 @@ const total = quizQuestions.length;
         const body = await response.json().catch(() => ({}));
         if (!response.ok || body.ok === false) throw new Error(body.error || t.error);
         leadSent = true;
-        // Exactamente un generate_lead por envío, y la suscripción al minicurso que lleva.
-        track("generate_lead", { lead_type: "guia_automatizacion", idioma: lang });
+        // Este formulario es la suscripción al minicurso: un solo evento por envío correcto.
         track("suscripcion_curso", { idioma: lang });
         lead.hidden = true;
         const sent = q("[data-pq-sent]");

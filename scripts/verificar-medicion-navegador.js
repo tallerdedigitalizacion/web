@@ -8,7 +8,7 @@
 //   tdVerify.driveQuiz(respuestas?) -> (solo C05) rellena el cuestionario «¿Dónde estás tú?» como lo haría una persona, abre el
 //                                   resultado y devuelve título y líneas. Sin argumento usa una combinación de ejemplo
 //   tdVerify.quiz()              -> (solo C05) comprueba los eventos del cuestionario y la guía: OK / FALLA por punto
-//                                   (quiz_start, quiz_complete, descarga_lead_magnet, suscripcion_curso, un solo generate_lead)
+//                                   (quiz_start, quiz_complete, descarga_lead_magnet, suscripcion_curso; ningún generate_lead)
 //
 // Procedimiento completo en docs/verificacion-medicion.md. No modifica la web: solo lee y, si se pide, intercepta fetch.
 (() => {
@@ -66,7 +66,7 @@
       check("quiz_complete: idioma y los 6 parámetros del resultado", complete.length >= 1 && has(complete[0].params, ["idioma", "doc_procesos", "automatizacion_previa", "infraestructura", "dependencia_persona", "trazabilidad", "punto_partida", "num_situaciones"]), JSON.stringify(complete.map((e) => e.params)));
       check("quiz_complete: punto_partida es uno de los 5 valores", complete.length > 0 && ["fase-1", "fase-1-calma", "fase-2-pequeno", "fase-2-limitada", "fase-2"].includes(complete[0].params.punto_partida), complete[0] ? complete[0].params.punto_partida : "(no hay)");
       check("descarga_lead_magnet (si se ha pulsado un enlace a la guía): link_url, link_text, link_id, page_path, page_location, idioma", downloads.length === 0 || downloads.every((event) => has(event.params, ["link_url", "link_text", "link_id", "page_path", "page_location", "idioma"])), downloads.length === 0 ? "ninguno todavía: pulsa el enlace del resultado o el botón de descarga" : JSON.stringify(downloads.map((e) => e.params.link_id)));
-      check("generate_lead (si ya se ha enviado el formulario): exactamente uno, lead_type guia_automatizacion", leads.length <= 1, `${leads.length} (si es 0, aún no se ha enviado el formulario)`);
+      check("generate_lead NO se emite con el cuestionario ni con la guía (no es un lead)", leads.length === 0, `${leads.length} (debe ser 0)`);
       const flat = JSON.stringify(events.filter((event) => ["quiz_start", "quiz_complete", "descarga_lead_magnet", "suscripcion_curso", "generate_lead"].includes(event.name)).map((event) => event.params));
       check("sin datos personales (email, @, nombre) en los parámetros", !/@/.test(flat) && !/"(email|name|nombre|phone|telefono)"/i.test(flat));
       return { eventosDelCuestionario: events.filter((event) => ["quiz_start", "quiz_complete", "descarga_lead_magnet", "suscripcion_curso", "generate_lead"].includes(event.name)), comprobaciones: results };
