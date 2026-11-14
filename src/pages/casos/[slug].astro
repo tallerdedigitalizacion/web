@@ -78,6 +78,31 @@ const navItems = [
       {page.practical.map((paragraph) => <p>{paragraph}</p>)}
     </div>
     <VideoEmbed videoId={videoIdFor(page.slug)} title={`Vídeo: ${page.h1}`} />
+    {page.diagrams && page.diagrams.length > 0 && (
+      <div class="case-diagrams">
+        {page.diagrams.slice(0, 1).map((diagram) => (
+          <figure>
+            <div class="diagram-scroll">
+              <img src={diagram.src} alt={diagram.alt} width={diagram.width} height={diagram.height} loading="lazy" decoding="async" />
+            </div>
+            <figcaption>{diagram.caption}</figcaption>
+          </figure>
+        ))}
+        {page.diagrams.length > 1 && (
+          <details class="diagram-more">
+            <summary>Ver el detalle por dentro</summary>
+            {page.diagrams.slice(1).map((diagram) => (
+              <figure>
+                <div class="diagram-scroll">
+                  <img src={diagram.src} alt={diagram.alt} width={diagram.width} height={diagram.height} loading="lazy" decoding="async" />
+                </div>
+                <figcaption>{diagram.caption}</figcaption>
+              </figure>
+            ))}
+          </details>
+        )}
+      </div>
+    )}
   </section>
 
   <section class="section section-split">
@@ -202,4 +227,49 @@ const navItems = [
   .case-related {
     margin-top: 22px;
   }
+
+  .case-diagrams {
+    display: grid;
+    gap: 22px;
+    margin-top: 26px;
+  }
+
+  .case-diagrams figure {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+  }
+
+  /* Los esquemas son anchos: en el móvil se desliza hacia los lados en vez de encoger el texto. */
+  .diagram-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    padding: 6px;
+  }
+
+  .diagram-scroll img {
+    display: block;
+    width: 100%;
+    min-width: 940px;
+    height: auto;
+  }
+
+  .case-diagrams figcaption {
+    max-width: 760px;
+    font-size: 0.95rem;
+  }
+
+  .diagram-more {
+    display: grid;
+    gap: 22px;
+  }
+
+  .diagram-more summary {
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
 </style>

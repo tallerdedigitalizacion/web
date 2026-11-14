@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 506" width="1280" height="506" role="img" aria-label="Por dentro del Cierre contable: A y B no necesitan el maestro; C a F sí, y la E devuelve preguntas a asesor o fallos al maestro"><style>
+:root{--surface:#ffffff;--fg:#15222c;--muted:#566774;--line:#c3cfd8;--lane:#eaeff3;--bg:#f4f6f8;
+--f:#0b7a72;--fb:#dff1ef;--m:#2a5db3;--mb:#e3ebf9;--c:#9a5d0a;--cb:#f8ecd6;--loop:#c43d24}
+text{font-family:'Source Sans 3',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.lane{fill:var(--lane);stroke:var(--line);stroke-width:1}
+.ln{font-size:12px;font-weight:700;letter-spacing:.08em;fill:var(--fg)}
+.lft{fill:var(--f)}.lmt{fill:var(--m)}.lct{fill:var(--c)}
+.n{stroke-width:1.4;fill:var(--surface)}
+.nf{stroke:var(--f);fill:var(--fb)}.nm{stroke:var(--m);fill:var(--mb)}.nc{stroke:var(--c);fill:var(--cb)}
+.nx{stroke:var(--muted);fill:var(--surface);stroke-dasharray:4 3}
+.t1{font-size:13px;font-weight:700;fill:var(--fg)}.t1s{font-size:12px;font-weight:700;fill:var(--fg)}
+.t2{font-size:11px;fill:var(--muted)}.t3{font-size:11px;fill:var(--muted)}
+.lbl{font-size:11px;font-style:italic;fill:var(--loop)}
+.a{fill:none;stroke:var(--fg);stroke-width:1.5;opacity:.75}
+.al{fill:none;stroke:var(--loop);stroke-width:1.6;stroke-dasharray:6 4}
+.pl{fill:none;stroke:var(--fg);stroke-width:1.5;opacity:.75}
+.mk{fill:var(--fg);opacity:.75}.mkl{fill:var(--loop)}
+.badge{fill:var(--fg)}.bt{font-size:11px;font-weight:700;fill:var(--surface)}
+.vmark{fill:var(--surface);stroke:var(--fg);stroke-width:1.2}.vt{font-size:9.5px;font-weight:700;fill:var(--fg)}
+</style><rect width="1280" height="506" fill="#ffffff"/><defs>
+<marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="mk"/></marker>
+<marker id="al3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="mkl"/></marker>
+</defs>
+<rect x="20" y="30" width="200" height="60" rx="6" class="n nx"/>
+<text x="120.0" y="50.0" class="t1" text-anchor="middle">El asesor presentó</text>
+<text x="120.0" y="64.0" class="t2" text-anchor="middle">modelos 303 · 349 · 115</text>
+<text x="120.0" y="78.0" class="t2" text-anchor="middle">y libros de IVA</text>
+<rect x="270" y="30" width="210" height="66" rx="6" class="n nc"/>
+<text x="375.0" y="53.0" class="t1" text-anchor="middle">A · Autocotejo del asesor</text>
+<text x="375.0" y="67.0" class="t2" text-anchor="middle">script · libros contra modelos</text>
+<text x="375.0" y="81.0" class="t2" text-anchor="middle">sin maestro</text>
+<circle cx="478" cy="28" r="8.5" class="vmark"/>
+<text x="478" y="31.2" class="vt" text-anchor="middle">V</text>
+<rect x="270" y="140" width="210" height="66" rx="6" class="n nc"/>
+<text x="375.0" y="163.0" class="t1" text-anchor="middle">B · Categorías y reglas</text>
+<text x="375.0" y="177.0" class="t2" text-anchor="middle">IA propone · persona valida</text>
+<text x="375.0" y="191.0" class="t2" text-anchor="middle">una vez; después crece</text>
+<rect x="20" y="270" width="200" height="64" rx="6" class="n nx"/>
+<text x="120.0" y="299.0" class="t1" text-anchor="middle">Maestro final</text>
+<text x="120.0" y="313.0" class="t2" text-anchor="middle">y RESIDUO del trimestre</text>
+<rect x="270" y="270" width="210" height="88" rx="6" class="n nc"/>
+<text x="375.0" y="297.0" class="t1" text-anchor="middle">C · Categorizar</text>
+<text x="375.0" y="311.0" class="t2" text-anchor="middle">script + IA marca dudas</text>
+<text x="375.0" y="325.0" class="t2" text-anchor="middle">personas firman cada línea</text>
+<text x="375.0" y="339.0" class="t2" text-anchor="middle">necesita: maestro final + B</text>
+<circle cx="478" cy="268" r="8.5" class="vmark"/>
+<text x="478" y="271.2" class="vt" text-anchor="middle">V</text>
+<rect x="520" y="270" width="180" height="88" rx="6" class="n nc"/>
+<text x="610.0" y="297.0" class="t1" text-anchor="middle">D · Calcular</text>
+<text x="610.0" y="311.0" class="t2" text-anchor="middle">script · 303, 349, 115</text>
+<text x="610.0" y="325.0" class="t2" text-anchor="middle">casilla a casilla</text>
+<text x="610.0" y="339.0" class="t2" text-anchor="middle">necesita: C firmado entero</text>
+<circle cx="698" cy="268" r="8.5" class="vmark"/>
+<text x="698" y="271.2" class="vt" text-anchor="middle">V</text>
+<rect x="740" y="270" width="190" height="88" rx="6" class="n nc"/>
+<text x="835.0" y="297.0" class="t1" text-anchor="middle">E · Cotejar</text>
+<text x="835.0" y="311.0" class="t2" text-anchor="middle">script + IA · al céntimo</text>
+<text x="835.0" y="325.0" class="t2" text-anchor="middle">diferencias → preguntas</text>
+<text x="835.0" y="339.0" class="t2" text-anchor="middle">necesita: D y A</text>
+<circle cx="928" cy="268" r="8.5" class="vmark"/>
+<text x="928" y="271.2" class="vt" text-anchor="middle">V</text>
+<rect x="970" y="270" width="190" height="88" rx="6" class="n nc"/>
+<text x="1065.0" y="297.0" class="t1" text-anchor="middle">F · Informe visual</text>
+<text x="1065.0" y="311.0" class="t2" text-anchor="middle">para la dirección</text>
+<text x="1065.0" y="325.0" class="t2" text-anchor="middle">cifras desde un script</text>
+<text x="1065.0" y="339.0" class="t2" text-anchor="middle">necesita: E</text>
+<circle cx="1158" cy="268" r="8.5" class="vmark"/>
+<text x="1158" y="271.2" class="vt" text-anchor="middle">V</text>
+<path d="M220,60 L270,60" class="a" marker-end="url(#ar3)"/>
+<path d="M245,60 L245,173 L270,173" class="a" marker-end="url(#ar3)"/>
+<path d="M220,302 L270,302" class="a" marker-end="url(#ar3)"/>
+<path d="M375,206 L375,270" class="a" marker-end="url(#ar3)"/>
+<text x="383" y="244" class="t2" text-anchor="start">categorías</text>
+<path d="M480,314 L520,314" class="a" marker-end="url(#ar3)"/>
+<path d="M700,314 L740,314" class="a" marker-end="url(#ar3)"/>
+<path d="M930,314 L970,314" class="a" marker-end="url(#ar3)"/>
+<path d="M480,63 L835,63 L835,270" class="a" marker-end="url(#ar3)"/>
+<text x="500" y="57" class="t2" text-anchor="start">A se hace antes y E lo usa</text>
+<path d="M800,358 L800,384 L720,384 L720,410" class="al" marker-end="url(#al3)"/>
+<path d="M880,358 L880,410" class="al" marker-end="url(#al3)"/>
+<rect x="620" y="410" width="200" height="44" rx="6" class="n nx"/>
+<text x="720.0" y="429.0" class="t1" text-anchor="middle">Pregunta al asesor</text>
+<text x="720.0" y="443.0" class="t2" text-anchor="middle">PREGUNTAS_ASESOR_AAAA-NT.md</text>
+<rect x="860" y="410" width="240" height="44" rx="6" class="n nx"/>
+<text x="980.0" y="429.0" class="t1" text-anchor="middle">Falla o falta algo en el maestro</text>
+<text x="980.0" y="443.0" class="t2" text-anchor="middle">se apunta en los aprendizajes</text>
+<text x="620" y="472" class="lbl" text-anchor="start">→ El asesor contesta con un documento:</text>
+<text x="620" y="486" class="lbl" text-anchor="start">vuelve a Fuentes (versión _v2)</text>
+<text x="860" y="472" class="lbl" text-anchor="start">→ se corrige en el proyecto Maestro,</text>
+<text x="860" y="486" class="lbl" text-anchor="start">nunca desde el Cierre</text>
+<text x="870" y="130" class="lbl" text-anchor="start">Si cambia la entrada de un paso hecho</text>
+<text x="870" y="144" class="lbl" text-anchor="start">(maestro final, reglas o categorizado),</text>
+<text x="870" y="158" class="lbl" text-anchor="start">ese paso y los siguientes vuelven a pendiente.</text>
+<text x="870" y="186" class="lbl" text-anchor="start">A se rehace cuando llega el libro definitivo</text>
+<text x="870" y="200" class="lbl" text-anchor="start">del asesor.</text>
+</svg>
