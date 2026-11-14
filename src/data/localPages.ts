@@ -187,7 +187,7 @@ export const localPages: LocalPage[] = [
       ["¿Con qué programas trabajas?", "Con Holded y A3, y con otros programas de gestión. Antes de proponer nada reviso cómo entran las facturas y qué permite el programa."],
       ["¿Me quitas trabajo?", "No. Las facturas llegan a tiempo y sin errores, así que dedicas menos tiempo a perseguir datos y más a asesorar."],
       ["¿Haces la contabilidad o la asesoría fiscal?", "No. Esa parte sigue siendo de la gestoría. Yo me ocupo de la informática y la automatización."],
-      ["¿Cuánto cuesta automatizar las facturas de un cliente?", "Desde 2.500 € + IVA, con precio cerrado antes de empezar, según cómo le lleguen las facturas y qué programa use."],
+      ["¿Cuánto cuesta automatizar las facturas de un cliente?", "Desde 990 € + IVA, con precio cerrado antes de empezar, según cómo le lleguen las facturas y qué programa use."],
     ],
     related: [
       ["Automatizar facturas de proveedores", "/casos/entrada-facturas-automatica/"],

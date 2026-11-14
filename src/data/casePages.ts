@@ -33,8 +33,6 @@ export type CasePage = {
   result: string[];
   offersTitle: string;
   offers: CaseOffer[];
-  planText: string;
-  planPrice: number;
   // Opcional: esquemas del caso (SVG en public/). El primero se ve siempre; el resto, dentro de «Ver el detalle».
   // En el SVG no pueden aparecer nombres de personas, empresas ni programas de terceros.
   diagrams?: { src: string; alt: string; caption: string; width: number; height: number }[];
@@ -110,8 +108,6 @@ export const casePages: CasePage[] = [
         text: "Lo mismo, pero repetido solo y con aviso por correo cuando aparece una discrepancia. El precio final depende de cuántos proveedores y sistemas haya que cruzar.",
       },
     ],
-    planText: "Si los portales o los sistemas cambian, el proceso hay que adaptarlo. El plan mensual de Operaciones e IA lo vigila y lo mantiene.",
-    planPrice: 99,
     needsTitle: "Qué necesito de tu lado",
     needs: [
       ["Los listados del proveedor", "Las facturas o el acceso de consulta a su portal, con el permiso que corresponda."],
@@ -127,7 +123,6 @@ export const casePages: CasePage[] = [
     ],
     related: [
       ["Conectar tus programas (n8n, Make, Zapier, Holded, A3)", "/integracion-sistemas/"],
-      ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
       ["Diagnóstico de caos operativo", "/diagnostico-caos-operativo/"],
     ],
     finalCta: "¿Quieres saber cuánto estás pagando por lo que no tienes? Lo cruzamos.",
@@ -137,7 +132,7 @@ export const casePages: CasePage[] = [
     slug: "dar-de-baja-software-historico",
     title: "Migrar datos de un programa antiguo y cancelar la licencia, con consulta por IA | Taller de Digitalización",
     description:
-      "Rescato los datos de un programa que solo mantienes por el histórico y los dejo consultables con IA, sin interfaz ni licencia. Desde 900 € + IVA.",
+      "Rescato los datos de un programa que solo mantienes por el histórico y los dejo consultables con IA, sin interfaz ni licencia. Desde 990 € + IVA.",
     eyebrow: "Caso práctico",
     h1: "¿Pagas una licencia solo para consultar datos antiguos?",
     intro:
@@ -173,12 +168,10 @@ export const casePages: CasePage[] = [
     offers: [
       {
         name: "Rescate del histórico + consulta con IA",
-        price: 900,
+        price: 990,
         text: "Extraigo los datos, los dejo en una base de datos propia, los reviso y monto la consulta con IA. El precio final depende de cuánta información haya y de cómo se pueda sacar; te lo doy cerrado tras una primera revisión.",
       },
     ],
-    planText: "Si quieres que lo mantenga, lo amplíe o le conecte nuevas fuentes, está el plan mensual de Operaciones e IA.",
-    planPrice: 39,
     needsTitle: "Qué necesito de tu lado",
     needs: [
       ["Acceso de consulta al programa", "Un usuario con permiso para ver el histórico, y el permiso de su proveedor si hace falta."],
@@ -186,7 +179,7 @@ export const casePages: CasePage[] = [
       ["Una cuenta donde guardarlo", "Un espacio de tu empresa donde alojar la base de datos y los documentos."],
     ],
     faq: [
-      ["¿Cuánto cuesta?", "Desde 900 € + IVA. Depende de cuánta información haya y de cómo se pueda extraer. Tras una primera revisión te doy el precio cerrado."],
+      ["¿Cuánto cuesta?", "Desde 990 € + IVA. Depende de cuánta información haya y de cómo se pueda extraer. Tras una primera revisión te doy el precio cerrado."],
       ["¿Y si el programa no deja exportar los datos?", "Depende de cada programa. A veces se pueden sacar con scripts desde la propia interfaz y otras hay que pedir una copia de la base de datos al proveedor, que suele darla al tramitar la baja. Lo reviso antes de comprometerme."],
       ["¿Pierdo facturas o datos al dar de baja?", "No si se hace en orden: primero se extrae y se comprueba, y solo después se da de baja. Las facturas se guardan el tiempo que marque la ley."],
       peopleFaq,
@@ -195,7 +188,6 @@ export const casePages: CasePage[] = [
     related: [
       ["Software a medida para empresas", "/desarrollo-software-a-medida/"],
       ["Asistente de IA con los documentos de tu empresa", "/asistente-ia-empresa/"],
-      ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿Hay un programa que solo pagas por el histórico? Veamos si se puede dar de baja.",
     formService: "Migrar datos de un programa antiguo y cancelar la licencia",
@@ -205,7 +197,7 @@ export const casePages: CasePage[] = [
     clientName: "Nimbus Telecom",
     title: "Consulta de cobertura con IA: pregunta por una dirección y te dice si llega | Taller de Digitalización",
     description:
-      "Un conector que permite preguntar a la IA si hay cobertura en una dirección y a qué distancia está la más cercana. Desde 1.200 € + IVA.",
+      "Un conector que permite preguntar a la IA si hay cobertura en una dirección y a qué distancia está la más cercana. Desde 990 € + IVA.",
     eyebrow: "Caso práctico",
     h1: "Pregunta a la IA si hay cobertura en una dirección.",
     intro:
@@ -240,12 +232,10 @@ export const casePages: CasePage[] = [
     offers: [
       {
         name: "Consulta por IA sobre tus datos de ubicación",
-        price: 1200,
+        price: 990,
         text: "Monto el conector sobre tus datos (cobertura, zonas, reparto…) para que se consulte por dirección. El precio final depende de cuántas fuentes de datos haya y de su calidad; te lo doy cerrado tras ver los datos.",
       },
     ],
-    planText: "Los datos de cobertura cambian. El plan mensual de Operaciones e IA mantiene el conector y lo actualiza cuando se renuevan las fuentes.",
-    planPrice: 99,
     needsTitle: "Qué necesito de tu lado",
     needs: [
       ["Tus datos de ubicación", "Los archivos o bases de datos con coordenadas: cobertura, zonas, puntos de servicio."],
@@ -253,7 +243,7 @@ export const casePages: CasePage[] = [
       ["Una cuenta donde alojarlo", "Un servidor o espacio en la nube de tu empresa para el conector."],
     ],
     faq: [
-      ["¿Cuánto cuesta?", "Desde 1.200 € + IVA. Depende de cuántas fuentes de datos haya y de su estado. Tras ver los datos te doy el precio cerrado."],
+      ["¿Cuánto cuesta?", "Desde 990 € + IVA. Depende de cuántas fuentes de datos haya y de su estado. Tras ver los datos te doy el precio cerrado."],
       ["¿Sirve para algo que no sea cobertura?", "Sí. Cualquier dato con coordenadas sirve: zonas de reparto, zonas de servicio, delegaciones, puntos de recogida."],
       ["¿Qué tan fiable es la respuesta?", "La respuesta sale de tus datos, no de la imaginación de la IA: la IA localiza la dirección y consulta tu base de datos. Es tan buena como lo sean tus datos, y por eso reviso su calidad antes."],
       peopleFaq,
@@ -271,7 +261,7 @@ export const casePages: CasePage[] = [
     slug: "entrada-facturas-automatica",
     title: "Automatizar facturas de proveedores: que entren solas en Holded, A3 o tu programa | Taller de Digitalización",
     description:
-      "Las facturas entran solas en tu programa de gestión y una persona las valida. De una semana de revisión cada trimestre a una mañana. Desde 2.500 € + IVA.",
+      "Las facturas entran solas en tu programa de gestión y una persona las valida. De una semana de revisión cada trimestre a una mañana. Desde 990 € + IVA.",
     eyebrow: "Caso práctico",
     h1: "Automatizar facturas de proveedores: que entren solas en tu programa.",
     intro:
@@ -309,18 +299,15 @@ export const casePages: CasePage[] = [
     offers: [
       {
         name: "Automatizar facturas de proveedores",
-        price: 2500,
+        price: 990,
         text: "Un trabajo a medida de tu flujo de facturas: cómo entran, quién las introduce y en qué programa o programas hay que introducirlas. El precio final depende de ese flujo; te lo doy cerrado tras la primera llamada. Incluye un mes de desarrollo y tres meses de observación.",
       },
     ],
-    planText: "Después de los tres meses de observación empieza el mantenimiento mensual: las facturas cambian y la IA no es determinista, así que hay que seguir controlando los errores.",
-    planPrice: 99,
     timelineTitle: "Cuánto se tarda y cómo sigue",
     timeline: [
       ["Llamada gratuita", "Entiendo el flujo de tus facturas y te digo si se puede hacer en tu caso."],
       ["Un mes de desarrollo", "Construyo la entrada automática a medida de tu flujo y de tu programa."],
       ["Tres meses de observación", "Reviso cómo se comporta con tus facturas reales y corrijo los errores que aparezcan."],
-      ["Mantenimiento mensual", "Desde ahí, plan mensual para controlar errores y adaptar lo que cambie."],
     ],
     needsTitle: "Qué necesito de tu lado",
     needs: [
@@ -329,16 +316,15 @@ export const casePages: CasePage[] = [
       ["Quién las valida", "La persona que revisa cada factura antes de cerrarla."],
     ],
     faq: [
-      ["¿Cuánto cuesta?", "Desde 2.500 € + IVA. Es un trabajo específico para el flujo de facturas de tu empresa, así que el precio final depende de ese flujo. Te lo doy cerrado tras la primera llamada."],
+      ["¿Cuánto cuesta?", "Desde 990 € + IVA. Es un trabajo específico para el flujo de facturas de tu empresa, así que el precio final depende de ese flujo. Te lo doy cerrado tras la primera llamada."],
       ["¿Se puede hacer en mi caso?", "Hay que estudiarlo. Depende del flujo de tus facturas y, sobre todo, de la seguridad del programa donde hay que introducirlas, que a veces es un impedimento. Por eso la primera llamada es gratuita: lo miramos y te digo si se puede."],
-      ["¿Cuánto se tarda?", "Un mes de desarrollo y tres meses de observación, en los que reviso cómo se comporta con tus facturas reales. Después empieza el mantenimiento mensual."],
-      ["¿Puede equivocarse con un importe?", "Sí. La IA no es determinista: no siempre llegan las mismas facturas, no todas se leen bien y no siempre entran por el mismo cauce. Por eso hay tres meses de observación, una persona que valida cada factura y un mantenimiento mensual para controlar los errores."],
+      ["¿Cuánto se tarda?", "Un mes de desarrollo y tres meses de observación, en los que reviso cómo se comporta con tus facturas reales."],
+      ["¿Puede equivocarse con un importe?", "Sí. La IA no es determinista: no siempre llegan las mismas facturas, no todas se leen bien y no siempre entran por el mismo cauce. Por eso hay tres meses de observación, y una persona que valida cada factura antes de cerrarla."],
       ["¿Mis datos salen de mi empresa?", "No. Lo único que está en tránsito son las facturas. No sale ningún otro dato de tu empresa."],
     ],
     related: [
       ["Conectar tus programas (n8n, Make, Zapier, Holded, A3)", "/integracion-sistemas/"],
       ["Software a medida para empresas", "/desarrollo-software-a-medida/"],
-      ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿Alguien en tu empresa introduce facturas a mano? Veamos cómo automatizarlo.",
     formService: "Automatizar facturas de proveedores",
@@ -347,7 +333,7 @@ export const casePages: CasePage[] = [
     slug: "presupuestos-desde-el-sitio",
     title: "Presupuestos desde el propio sitio con IA conectada a tu ERP | Taller de Digitalización",
     description:
-      "Tus técnicos describen el trabajo y la IA monta el presupuesto con existencias, costes de proveedor y margen, y lo envía al cliente desde el propio sitio. Desde 3.000 € + IVA.",
+      "Tus técnicos describen el trabajo y la IA monta el presupuesto con existencias, costes de proveedor y margen, y lo envía al cliente desde el propio sitio. Desde 990 € + IVA.",
     eyebrow: "Caso práctico",
     h1: "Haz el presupuesto en el sitio, no dos días después en la oficina.",
     intro:
@@ -384,12 +370,10 @@ export const casePages: CasePage[] = [
     offers: [
       {
         name: "Presupuestos con IA conectada a tu ERP",
-        price: 3000,
-        text: "Monto la skill de presupuestos, el conector con tu ERP (con el robot si no tiene una API completa) y el envío al cliente. Cuesta desde 3.000 € + IVA, y el final depende de tu ERP, de cuántos tipos de trabajo haya que cubrir y de si hay que mirar webs de proveedores. Te lo doy cerrado cuando vea cómo presupuestáis hoy.",
+        price: 990,
+        text: "Monto la skill de presupuestos, el conector con tu ERP (con el robot si no tiene una API completa) y el envío al cliente. Cuesta desde 990 € + IVA, y el final depende de tu ERP, de cuántos tipos de trabajo haya que cubrir y de si hay que mirar webs de proveedores. Te lo doy cerrado cuando vea cómo presupuestáis hoy.",
       },
     ],
-    planText: "Hay una pega y te la digo ya: el robot depende de cómo sea el ERP por dentro. Si el ERP cambia sus pantallas, hay que ajustarlo, y los precios y márgenes también cambian. El plan mensual de Operaciones e IA lo vigila y lo mantiene.",
-    planPrice: 99,
     needsTitle: "Qué necesito de tu lado",
     needs: [
       ["Cómo presupuestáis hoy", "Un par de presupuestos reales y quién los hace, para recoger artículos, márgenes y desplazamientos."],
@@ -398,10 +382,10 @@ export const casePages: CasePage[] = [
       ["Un técnico para probarlo", "Alguien que lo use con trabajos reales las primeras semanas y diga qué falla."],
     ],
     faq: [
-      ["¿Cuánto cuesta?", "Desde 3.000 € + IVA. Depende de tu ERP, de cuántos tipos de trabajo haya y de si hay que mirar webs de proveedores. Cuando vea cómo presupuestáis hoy te doy el precio cerrado."],
+      ["¿Cuánto cuesta?", "Desde 990 € + IVA. Depende de tu ERP, de cuántos tipos de trabajo haya y de si hay que mirar webs de proveedores. Cuando vea cómo presupuestáis hoy te doy el precio cerrado."],
       ["¿Funciona si mi ERP no tiene API?", "Sí, ese es justo el caso práctico. Si no la tiene, el conector trabaja en sus pantallas como lo haría una persona, con un usuario solo para la IA."],
       ["¿Puede equivocarse con un precio?", "Puede, y por eso el técnico lo revisa y no sale nada al cliente sin su visto bueno. Eso sí, las existencias y los costes salen de tu ERP y de las webs de tus proveedores, no de la imaginación de la IA."],
-      ["¿Qué pasa si el ERP cambia?", "Que el conector hay que adaptarlo. Es la pega de este sistema y no te la voy a esconder. El plan mensual de Operaciones e IA lo vigila para que no se rompa sin que nadie se entere."],
+      ["¿Qué pasa si el ERP cambia?", "Que el conector hay que adaptarlo. Es la pega de este sistema y no te la voy a esconder. Si pasa, se ajusta."],
       ["¿Sirve para otro tipo de empresa?", "Sí, para cualquiera que presupueste fuera de la oficina: instalaciones, reparaciones, mantenimiento, reformas. La idea es que quien ve el trabajo pueda dar el presupuesto allí mismo."],
       peopleFaq,
       privacyFaq,
@@ -409,7 +393,6 @@ export const casePages: CasePage[] = [
     related: [
       ["Consultor ERP independiente", "/consultoria-erp-pymes/"],
       ["Conectar tus programas (n8n, Make, Zapier, Holded, A3)", "/integracion-sistemas/"],
-      ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿Tus técnicos vuelven a la oficina solo para hacer el presupuesto? Lo hacemos desde el sitio.",
     formService: "Presupuestos con IA conectada al ERP",
@@ -418,7 +401,7 @@ export const casePages: CasePage[] = [
     slug: "web-empresa-sin-coste",
     title: "Web de empresa en formato funnel, hecha con IA y sin cuota mensual | Taller de Digitalización",
     description:
-      "Sustituyo la web que pagas a una agencia cada mes por una web propia, estática y en formato funnel, hecha con IA, con SEO y sin hosting de pago. Desde 1.500 € + IVA.",
+      "Sustituyo la web que pagas a una agencia cada mes por una web propia, estática y en formato funnel, hecha con IA, con SEO y sin hosting de pago. Desde 400 € + IVA.",
     eyebrow: "Caso práctico",
     h1: "Pagas cada mes por una web y nadie mide qué te devuelve.",
     intro:
@@ -455,12 +438,10 @@ export const casePages: CasePage[] = [
     offers: [
       {
         name: "Web de empresa en formato funnel, con IA",
-        price: 1500,
-        text: "Monto la web como una serie de páginas de aterrizaje con su guía gratis, el contenido pensado para buscadores, el despliegue automático y las skills y plantillas para ampliarla. Cuesta desde 1.500 € + IVA una sola vez, y el final depende de cuántas páginas y guías haya. Te lo doy cerrado cuando vea tu web actual y lo que pagas hoy.",
+        price: 400,
+        text: "Monto la web como una serie de páginas de aterrizaje con su guía gratis, el contenido pensado para buscadores, el despliegue automático y las skills y plantillas para ampliarla. Cuesta desde 400 € + IVA una sola vez, y el final depende de cuántas páginas y guías haya. Te lo doy cerrado cuando vea tu web actual y lo que pagas hoy.",
       },
     ],
-    planText: "Si quieres que alguien siga cuidando la web, mejorando el contenido y midiendo qué trae, para eso está el plan mensual de Operaciones e IA. Es opcional: la web funciona sin él.",
-    planPrice: 99,
     needsTitle: "Qué necesito de tu lado",
     needs: [
       ["Lo que pagas hoy", "Qué cuesta la web, el hosting y el SEO, y qué te dice la agencia que hace por ese precio."],
@@ -469,11 +450,11 @@ export const casePages: CasePage[] = [
       ["Un sitio donde alojarla", "Una cuenta o una infraestructura de tu empresa. Al ser estática, no hace falta un servidor de pago."],
     ],
     faq: [
-      ["¿Cuánto cuesta?", "Desde 1.500 € + IVA, una sola vez. Depende de cuántas páginas y guías gratis haya. Cuando vea tu web actual y lo que pagas, te doy el precio cerrado."],
+      ["¿Cuánto cuesta?", "Desde 400 € + IVA, una sola vez. Depende de cuántas páginas y guías gratis haya. Cuando vea tu web actual y lo que pagas, te doy el precio cerrado."],
       ["¿Y si necesito una tienda online o muchas funciones?", "Una web estática es ideal para captar contactos, pero no sirve para todo. Una tienda online o un portal con usuarios es otro proyecto y se presupuesta aparte. Lo vemos en la primera llamada, y si no encaja, te lo digo."],
       ["¿Es segura?", "Al ser estática no tiene base de datos ni panel de administración, que es por donde entran la mayoría de los ataques a una web. Ningún sitio es invulnerable... pero casi no hay nada que atacar."],
       ["¿Qué pasa con el posicionamiento que ya tengo?", "Se cuida: se conservan las direcciones que ya funcionan o se redirigen, y se mide antes y después. Nadie puede prometerte una posición en Google, pero sí que no pierdas lo que ya tienes."],
-      ["¿Quién la mantiene después?", "Tú. Te dejo skills, plantillas y formatos para ampliar la web con ayuda de la IA y un despliegue automático. Y si prefieres que lo haga otra persona, existe el plan mensual."],
+      ["¿Quién la mantiene después?", "Tú. Te dejo skills, plantillas y formatos para ampliar la web con ayuda de la IA y un despliegue automático."],
       peopleFaq,
     ],
     related: [
@@ -488,7 +469,7 @@ export const casePages: CasePage[] = [
     slug: "cerebro-ia-empresa",
     title: "Un cerebro con IA para tu empresa: procesos documentados y respuestas para el equipo | Taller de Digitalización",
     description:
-      "Documento los procesos de tu empresa y los conecto a una IA a la que todo el equipo puede preguntar, para que dejes de ser el cuello de botella. Desde 2.000 € + IVA.",
+      "Documento los procesos de tu empresa y los conecto a una IA a la que todo el equipo puede preguntar, para que dejes de ser el cuello de botella. Desde 400 € + IVA.",
     eyebrow: "Caso práctico",
     h1: "Si todo depende de ti, el problema no eres tú... es cómo está montado.",
     intro:
@@ -526,12 +507,10 @@ export const casePages: CasePage[] = [
     offers: [
       {
         name: "Cerebro con IA para tu empresa",
-        price: 2000,
-        text: "Documento tus procesos, monto la base de conocimiento, conecto las herramientas que ya usáis y dejo la IA al servicio del equipo, con formación. Cuesta desde 2.000 € + IVA, y el final depende de cuántos procesos y herramientas haya. Te lo doy cerrado después de una primera llamada.",
+        price: 400,
+        text: "Documento tus procesos, monto la base de conocimiento, conecto las herramientas que ya usáis y dejo la IA al servicio del equipo, con formación. Cuesta desde 400 € + IVA, y el final depende de cuántos procesos y herramientas haya. Te lo doy cerrado después de una primera llamada.",
       },
     ],
-    planText: "Una pega que conviene saber: los procesos cambian, y la documentación se queda vieja si nadie la cuida. El plan mensual de Operaciones e IA la mantiene al día y corrige a la IA cuando se equivoca.",
-    planPrice: 99,
     needsTitle: "Qué necesito de tu lado",
     needs: [
       ["Tiempo tuyo al principio", "Unas sesiones para contarme cómo funciona la empresa. Es lo que más cuesta... y lo que más valor tiene."],
@@ -540,7 +519,7 @@ export const casePages: CasePage[] = [
       ["Alguien que mantenga el cerebro", "Una persona que diga «esto ya no se hace así» cuando algo cambie."],
     ],
     faq: [
-      ["¿Cuánto cuesta?", "Desde 2.000 € + IVA. Depende de cuántos procesos haya que documentar y de cuántas herramientas haya que conectar. Después de una primera llamada te doy el precio cerrado."],
+      ["¿Cuánto cuesta?", "Desde 400 € + IVA. Depende de cuántos procesos haya que documentar y de cuántas herramientas haya que conectar. Después de una primera llamada te doy el precio cerrado."],
       ["¿Y si la documentación sale incompleta?", "Es lo normal, y es parte del trabajo: al documentar aparecen procesos que nadie había formalizado. Esos huecos los decide una persona de tu empresa, no la IA."],
       ["¿Puede equivocarse la IA?", "Puede. Contesta con lo que está documentado, así que depende de lo bien hecha que esté la documentación. Cuando no lo sabe tiene que decirlo en vez de inventar, y por eso hace falta una persona que mantenga la base."],
       ["¿Hace falta que todo el equipo lo use?", "No, pero funciona mucho mejor si sí. Cuando todos le preguntan a la IA y no a ti, la dependencia del dueño baja de verdad."],
@@ -551,7 +530,6 @@ export const casePages: CasePage[] = [
     related: [
       ["Asistente de IA con los documentos de tu empresa", "/asistente-ia-empresa/"],
       ["Diagnóstico de caos operativo", "/diagnostico-caos-operativo/"],
-      ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿Todo pasa por ti? Saquémoslo de tu cabeza y pongámoslo al alcance del equipo.",
     formService: "Cerebro con IA para tu empresa",
@@ -560,7 +538,7 @@ export const casePages: CasePage[] = [
     slug: "contabilidad-cuadrada-con-ia",
     title: "Cuadrar tu contabilidad con IA: facturas, banco y asesor, con trazabilidad | Taller de Digitalización",
     description:
-      "Rehago tu contabilidad desde las fuentes y la cuadro con el banco mediante procesos de IA versionados y auditables, para que sepas cuánta precisión tiene la que te presentan. Desde 4.000 € + IVA.",
+      "Rehago tu contabilidad desde las fuentes y la cuadro con el banco mediante procesos de IA versionados y auditables, para que sepas cuánta precisión tiene la que te presentan. Desde 990 € + IVA.",
     eyebrow: "Caso práctico",
     h1: "Cada trimestre te presentan los números y no puedes comprobarlos.",
     intro:
@@ -621,12 +599,10 @@ export const casePages: CasePage[] = [
     offers: [
       {
         name: "Contabilidad cuadrada con IA",
-        price: 4000,
-        text: "Recojo las fuentes, monto el maestro contable, cuadro un trimestre contra el banco y lo comparo con lo que te presentan, con el registro de todo el proceso. Cuesta desde 4.000 € + IVA y no es barato porque no es un trabajo simple: el final depende de cuántos sistemas, bancos y tipos de documento haya. Te lo doy cerrado cuando vea tus fuentes.",
+        price: 990,
+        text: "Recojo las fuentes, monto el maestro contable, cuadro un trimestre contra el banco y lo comparo con lo que te presentan, con el registro de todo el proceso. Cuesta desde 990 € + IVA, y el final depende de cuántos sistemas, bancos y tipos de documento haya. Te lo doy cerrado cuando vea tus fuentes.",
       },
     ],
-    planText: "Cada trimestre trae documentos nuevos y los sistemas cambian, así que los scripts hay que cuidarlos. El plan mensual de Operaciones e IA los mantiene, repite el cierre y te avisa de lo que no cuadra.",
-    planPrice: 99,
     needsTitle: "Qué necesito de tu lado",
     needs: [
       ["Acceso a tus fuentes", "Los sistemas de facturación, los extractos de los bancos y lo que te entrega el asesor, con los permisos que correspondan."],
@@ -635,10 +611,11 @@ export const casePages: CasePage[] = [
       ["Un interlocutor para las diferencias", "Alguien que decida qué se corrige y dónde: en tu empresa, con el asesor o en los dos sitios."],
     ],
     faq: [
-      ["¿Cuánto cuesta?", "Desde 4.000 € + IVA. Es un proyecto complejo y el precio depende de cuántos sistemas, bancos y tipos de documento haya. Cuando vea tus fuentes te doy el precio cerrado."],
+      ["¿Cuánto cuesta?", "Desde 990 € + IVA. Es un proyecto complejo y el precio depende de cuántos sistemas, bancos y tipos de documento haya. Cuando vea tus fuentes te doy el precio cerrado."],
       ["¿Esto sustituye a mi asesor contable?", "Eso lo decides tú, no yo. Lo que te da el proceso es control sobre tus números y una forma de comprobar lo que te presentan. Presentar y firmar las declaraciones tiene responsabilidad legal, así que antes de cambiar nada lo hablas con tu asesor."],
       ["¿Y si el asesor lo hace bien?", "Es posible, y en el caso real así fue. Saberlo con datos también vale: dejas de dudar, y si hay diferencias, las ves y las hablas con los números delante."],
       ["¿Puede equivocarse la IA con una cifra?", "El cuadre no lo decide la IA cada vez: lo hace un algoritmo que da el mismo resultado con los mismos datos. Cada paso queda registrado, se contrasta con el banco y las diferencias las revisa una persona."],
+      ["¿Y el trimestre siguiente?", "Los scripts se reutilizan, pero cada trimestre trae documentos nuevos y los sistemas cambian, así que hay que revisarlos. Te lo explico antes de empezar."],
       ["¿Hace falta ser una empresa grande?", "No, pero sí tener varias fuentes (facturación, bancos, el asesor) que hoy se cruzan a mano. Cuantas más fuentes, más valor tiene."],
       peopleFaq,
       privacyFaq,
@@ -646,7 +623,6 @@ export const casePages: CasePage[] = [
     related: [
       ["Auditoría de gastos de proveedores", "/casos/conciliacion-proveedores/"],
       ["Automatizar facturas de proveedores", "/casos/entrada-facturas-automatica/"],
-      ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
     ],
     finalCta: "¿No sabes si tus números son exactos? Rehagámoslos y comprobémoslo.",
     formService: "Contabilidad cuadrada con IA",

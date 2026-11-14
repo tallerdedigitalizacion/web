@@ -156,7 +156,7 @@ export const offers: Record<string, Offer> = {
     note: "El coste de la plataforma y del uso de la IA se paga aparte, según el uso.",
   },
   "/casos/entrada-facturas-automatica/": {
-    price: 2500,
+    price: 990,
     deadline: "3 a 4 semanas",
     includes: [
       "Lectura automática de las facturas que te llegan",
@@ -176,7 +176,7 @@ export const offers: Record<string, Offer> = {
     ],
   },
   "/casos/dar-de-baja-software-historico/": {
-    price: 900,
+    price: 990,
     deadline: "2 a 3 semanas",
     includes: [
       "Extracción de los datos del programa antiguo",
@@ -186,7 +186,7 @@ export const offers: Record<string, Offer> = {
     ],
   },
   "/casos/presupuestos-desde-el-sitio/": {
-    price: 3000,
+    price: 990,
     deadline: "4 a 6 semanas",
     includes: [
       "Habilidad de presupuestos de la IA, con tus artículos, márgenes y desplazamientos",
@@ -197,7 +197,7 @@ export const offers: Record<string, Offer> = {
     note: "El coste de la IA se paga aparte, según el uso.",
   },
   "/casos/web-empresa-sin-coste/": {
-    price: 1500,
+    price: 400,
     deadline: "3 a 4 semanas",
     includes: [
       "Web en formato funnel: páginas de aterrizaje con lead magnets",
@@ -208,7 +208,7 @@ export const offers: Record<string, Offer> = {
     note: "El dominio se paga aparte, directamente al registrador.",
   },
   "/casos/cerebro-ia-empresa/": {
-    price: 2000,
+    price: 400,
     deadline: "4 a 6 semanas",
     includes: [
       "Tus procesos documentados, con los huecos detectados y cerrados",
@@ -219,7 +219,7 @@ export const offers: Record<string, Offer> = {
     note: "El coste de la plataforma y del uso de la IA se paga aparte, según el uso.",
   },
   "/casos/contabilidad-cuadrada-con-ia/": {
-    price: 4000,
+    price: 990,
     deadline: "6 a 8 semanas",
     includes: [
       "Recolección de fuentes: facturación, bancos y sistema del asesor",
@@ -230,7 +230,7 @@ export const offers: Record<string, Offer> = {
     note: "No incluye la presentación de impuestos ni sustituye el asesoramiento fiscal.",
   },
   "/casos/consulta-cobertura-ia/": {
-    price: 1200,
+    price: 990,
     deadline: "2 a 3 semanas",
     includes: [
       "Tus datos de cobertura conectados a la IA",
