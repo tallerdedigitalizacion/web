@@ -5,11 +5,12 @@
 // Uso:
 //   npx tsx scripts/verificar-medicion.ts                    # con la carga de ejemplo (URL de prueba estándar)
 //   npx tsx scripts/verificar-medicion.ts payload.json       # con la carga real copiada de la pestaña Red
+//                                                            # (formulario de contacto o guía de C05: /lead/process-quiz)
 //
 // `payload.json` es el cuerpo de la petición POST /lead/contact (o el que devuelva
 // `tdVerify.interceptLeads()` en la consola; ver docs/verificacion-medicion.md).
 import { readFileSync } from "node:fs";
-import { contactLeadSchema } from "../backend/src/schemas";
+import { contactLeadSchema, processQuizLeadSchema } from "../backend/src/schemas";
 import { notificationEmail } from "../backend/src/email/templates";
 
 const expected = {
@@ -42,9 +43,11 @@ const file = process.argv[2];
 const payload: unknown = file ? JSON.parse(readFileSync(file, "utf8")) : sample;
 const useExpected = !file;
 
-const parsed = contactLeadSchema.parse(payload);
+// El cuerpo de la guía de C05 (POST /lead/process-quiz) lleva `answers.doc_procesos`; el resto de formularios, el de contacto.
+const isProcessQuiz = Boolean((payload as { answers?: { doc_procesos?: unknown } })?.answers?.doc_procesos);
+const parsed = isProcessQuiz ? processQuizLeadSchema.parse(payload) : contactLeadSchema.parse(payload);
 const { website: _website, ...row } = parsed;
-const email = notificationEmail("contact", parsed, "Lead id: (simulado)");
+const email = notificationEmail(isProcessQuiz ? "process-quiz" : "contact", parsed, "Lead id: (simulado)");
 
 const results: [string, boolean, string][] = [];
 const check = (label: string, ok: boolean, detail = "") => results.push([label, ok, detail]);
@@ -75,7 +78,7 @@ const longClickId = "Cj0KCQjw".padEnd(180, "x");
 const longPayload = { ...(payload as object), attribution: { ...attribution, clickId: longClickId }, pageUrl: `https://tallerdedigitalizacion.com/?gclid=${longClickId}&${"utm_term=a&".repeat(30)}` };
 let longOk = false;
 try {
-  longOk = contactLeadSchema.parse(longPayload).attribution?.clickId === longClickId;
+  longOk = (isProcessQuiz ? processQuizLeadSchema : contactLeadSchema).parse(longPayload).attribution?.clickId === longClickId;
 } catch {
   longOk = false;
 }

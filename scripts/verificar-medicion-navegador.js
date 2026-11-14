@@ -5,6 +5,10 @@
 //   tdVerify.interceptLeads()    -> desde ahora los formularios NO se envían: el cuerpo de cada POST queda en
 //                                   tdVerify.leads (así se prueba un envío sin crear un lead real)
 //   tdVerify.events()            -> eventos enviados a GA4 (nombre y parámetros) desde que se cargó la página
+//   tdVerify.driveQuiz(respuestas?) -> (solo C05) rellena el cuestionario «¿Dónde estás tú?» como lo haría una persona, abre el
+//                                   resultado y devuelve título y líneas. Sin argumento usa una combinación de ejemplo
+//   tdVerify.quiz()              -> (solo C05) comprueba los eventos del cuestionario y la guía: OK / FALLA por punto
+//                                   (quiz_start, quiz_complete, descarga_lead_magnet, suscripcion_curso, un solo generate_lead)
 //
 // Procedimiento completo en docs/verificacion-medicion.md. No modifica la web: solo lee y, si se pide, intercepta fetch.
 (() => {
@@ -26,6 +30,46 @@
         .map((entry) => Array.from(entry))
         .filter((entry) => entry[0] === "event")
         .map(([, name, params]) => ({ name, params }));
+    },
+
+    // Cuestionario de C05. Respuestas = { doc_procesos, automatizacion_previa, infraestructura, dependencia_persona, trazabilidad,
+    // situaciones: [..] } con los valores internos (si, parcial, no, nose, varias, alguna, ninguna, equipo, externo, cerrada, otro,
+    // retraso, para, esfuerzo, facturas, clientes, datos, informes, pedidos, persona). Termina en el resultado (no envía nada).
+    async driveQuiz(answers = { doc_procesos: "si", automatizacion_previa: "ninguna", infraestructura: "externo", dependencia_persona: "retraso", trazabilidad: "esfuerzo", situaciones: ["facturas", "clientes"] }) {
+      const root = document.querySelector("[data-pq]");
+      if (!root) return "esta página no tiene el cuestionario (solo /automatizacion-procesos-ia/ y /ai-process-automation/)";
+      const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      for (const key of ["doc_procesos", "automatizacion_previa", "infraestructura", "dependencia_persona", "trazabilidad", "situaciones"]) {
+        [].concat(answers[key]).forEach((value) => root.querySelector(`input[data-pq-input="${key}"][value="${value}"]`).click());
+        await wait(40);
+        root.querySelector("[data-pq-next]").click();
+        await wait(60);
+      }
+      return {
+        titulo: root.querySelector("[data-pq-result-title]").textContent,
+        enlaceGuia: root.querySelector("[data-pq-result-guide]").textContent + " -> " + root.querySelector("[data-pq-result-guide]").getAttribute("href"),
+        lineas: [...root.querySelectorAll("[data-pq-result-lines] li")].map((li) => li.textContent),
+      };
+    },
+
+    quiz() {
+      const events = tdVerify.events();
+      const named = (name) => events.filter((event) => event.name === name);
+      const results = [];
+      const check = (label, ok, detail = "") => results.push({ punto: label, resultado: ok ? "OK" : "FALLA", detalle: detail });
+      const has = (params, keys) => keys.every((key) => params && params[key] !== undefined && params[key] !== "");
+      const start = named("quiz_start");
+      const complete = named("quiz_complete");
+      const downloads = named("descarga_lead_magnet");
+      const leads = named("generate_lead").filter((event) => event.params && event.params.lead_type === "guia_automatizacion");
+      check("quiz_start: uno por intento, con idioma", start.length === 1 && has(start[0].params, ["idioma"]), JSON.stringify(start.map((e) => e.params)));
+      check("quiz_complete: idioma y los 6 parámetros del resultado", complete.length >= 1 && has(complete[0].params, ["idioma", "doc_procesos", "automatizacion_previa", "infraestructura", "dependencia_persona", "trazabilidad", "punto_partida", "num_situaciones"]), JSON.stringify(complete.map((e) => e.params)));
+      check("quiz_complete: punto_partida es uno de los 5 valores", complete.length > 0 && ["fase-1", "fase-1-calma", "fase-2-pequeno", "fase-2-limitada", "fase-2"].includes(complete[0].params.punto_partida), complete[0] ? complete[0].params.punto_partida : "(no hay)");
+      check("descarga_lead_magnet (si se ha pulsado un enlace a la guía): link_url, link_text, link_id, page_path, page_location, idioma", downloads.length === 0 || downloads.every((event) => has(event.params, ["link_url", "link_text", "link_id", "page_path", "page_location", "idioma"])), downloads.length === 0 ? "ninguno todavía: pulsa el enlace del resultado o el botón de descarga" : JSON.stringify(downloads.map((e) => e.params.link_id)));
+      check("generate_lead (si ya se ha enviado el formulario): exactamente uno, lead_type guia_automatizacion", leads.length <= 1, `${leads.length} (si es 0, aún no se ha enviado el formulario)`);
+      const flat = JSON.stringify(events.filter((event) => ["quiz_start", "quiz_complete", "descarga_lead_magnet", "suscripcion_curso", "generate_lead"].includes(event.name)).map((event) => event.params));
+      check("sin datos personales (email, @, nombre) en los parámetros", !/@/.test(flat) && !/"(email|name|nombre|phone|telefono)"/i.test(flat));
+      return { eventosDelCuestionario: events.filter((event) => ["quiz_start", "quiz_complete", "descarga_lead_magnet", "suscripcion_curso", "generate_lead"].includes(event.name)), comprobaciones: results };
     },
 
     interceptLeads() {
@@ -103,5 +147,5 @@
   };
 
   window.tdVerify = tdVerify;
-  console.log("tdVerify listo. Prueba: tdVerify.report() · tdVerify.interceptLeads() · tdVerify.events()");
+  console.log("tdVerify listo. Prueba: tdVerify.report() · tdVerify.interceptLeads() · tdVerify.events() · (C05) tdVerify.driveQuiz() · tdVerify.quiz()");
 })();

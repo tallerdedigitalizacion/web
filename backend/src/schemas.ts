@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { quizAnswerValues, quizSituationValues } from "../../src/data/processQuiz";
 
 const optionalText = z
   .string()
@@ -148,6 +149,23 @@ export const selfAssessmentLeadSchema = baseLeadSchema.extend({
     .max(10),
 });
 
+// Guía de la campaña C05 («Cómo automatizar un proceso con IA») tras el cuestionario «¿Dónde estás tú?». El nombre es opcional
+// y el resultado (punto de partida) se calcula en el servidor con las mismas reglas que la web (src/data/processQuiz.ts).
+export const processQuizLeadSchema = baseLeadSchema.extend({
+  name: z.string().trim().max(120).optional().default(""),
+  language: z.enum(["es", "en"]).optional().default("es"),
+  // La web lo envía siempre a true (el formulario es la suscripción al minicurso); por defecto false. Solo registra la suscripción.
+  courseSubscription: z.boolean().optional().default(false),
+  answers: z.object({
+    doc_procesos: z.enum(quizAnswerValues.doc_procesos),
+    automatizacion_previa: z.enum(quizAnswerValues.automatizacion_previa),
+    infraestructura: z.enum(quizAnswerValues.infraestructura),
+    dependencia_persona: z.enum(quizAnswerValues.dependencia_persona),
+    trazabilidad: z.enum(quizAnswerValues.trazabilidad),
+    situaciones: z.array(z.enum(quizSituationValues)).min(1).max(quizSituationValues.length),
+  }),
+});
+
 export type DiagnosticLeadInput = z.infer<typeof diagnosticLeadSchema>;
 export type MethodLeadInput = z.infer<typeof methodLeadSchema>;
 export type ContactLeadInput = z.infer<typeof contactLeadSchema>;
@@ -155,3 +173,4 @@ export type WebAuditLeadInput = z.infer<typeof webAuditLeadSchema>;
 export type WebAuditGuideLeadInput = z.infer<typeof webAuditGuideLeadSchema>;
 export type ResourceLeadInput = z.infer<typeof resourceLeadSchema>;
 export type SelfAssessmentLeadInput = z.infer<typeof selfAssessmentLeadSchema>;
+export type ProcessQuizLeadInput = z.infer<typeof processQuizLeadSchema>;

@@ -17,7 +17,8 @@ URL de prueba (sustituye la ruta por la de la landing):
 | Envío de leads (campo `attribution` del JSON de cada formulario) | cada formulario llama a `window.tdAttribution()` |
 | Esquema y email de aviso | `backend/src/schemas.ts`, `backend/src/email/templates.ts` |
 | Página de gracias de Cal.com (`reserva_completada`) | `src/pages/reserva-confirmada.astro`, `src/pages/booking-confirmed.astro` |
-| Ayudas de verificación | `scripts/verificar-medicion-navegador.js`, `scripts/verificar-medicion.ts` |
+| Cuestionario «¿Dónde estás tú?» y guía en PDF de C05 (en el hero de las landings de método, a la derecha, donde en C04 va «¿Cómo sé si esto es para mí?») | `src/components/ProcessQuiz.astro`, textos y reglas en `src/data/processQuiz.ts` (los usa también el backend) |
+| Ayudas de verificación | `scripts/verificar-medicion-navegador.js`, `scripts/verificar-medicion.ts`, `scripts/verificar-guia-c05.ts` |
 
 **Sobre los «campos ocultos».** Los formularios se envían por `fetch` con JSON, no como formulario HTML. Los campos de
 atribución (`source`, `medium`, `campaign`, `content`, `term`, `clickId`, `clickIdType`, `landing`) más `pageUrl` viajan en
@@ -164,6 +165,39 @@ de eventos (cancelación, cambio de hora, `PING`) se ignoran con 200.
   atribución y fallo de Notion). **De punta a punta**: haz una reserva de prueba y comprueba la fila; en Cal.com, Webhooks →
   el webhook → «Ping test» debe dar 200.
 
+### G. Cuestionario y guía de C05 (`/automatizacion-procesos-ia/` y `/ai-process-automation/`)
+
+El bloque «¿Dónde estás tú?» / «Where are you?» (6 pantallas) va tras el hero y antes de «Cómo trabajo». El resultado se enseña en
+pantalla antes de pedir el email; el formulario (`POST /lead/process-quiz`) manda la guía por email y, si se marca la casilla, registra
+la suscripción al mini-curso. Repite todo en **ES y EN**, con la URL de prueba, **aceptando y rechazando** las cookies:
+
+1. Carga las ayudas y `tdVerify.interceptLeads()` (así no sale ningún lead real: el endpoint de `siteConfig` es el de producción).
+2. `await tdVerify.driveQuiz()` (o responde a mano; hay combinaciones por regla en `scripts/verificar-guia-c05.ts`). Debe aparecer el
+   título del resultado, las 6 líneas y el enlace a la guía (fase 1 → pág. 3 en la guía ES de 6 págs. y pág. 4 en la EN de 7 págs.;
+   fase 2 → 4 y 5).
+3. Pulsa el enlace de la guía del resultado, rellena el formulario (nombre opcional; **la 2.ª casilla sin marcar por defecto**), envía
+   y pulsa «Descargar la guía». `tdVerify.quiz()` da OK / FALLA por punto. `tdVerify.leads[0].body` debe llevar `language`,
+   `answers`, `courseSubscription`, `marketingAccepted`, `pageUrl` y `attribution` completo (con `term` y `clickId`), **también con
+   cookies rechazadas**.
+4. Servidor, sin AWS ni Notion: `node --import tsx scripts/verificar-guia-c05.ts` (reglas A–E, email 1 ES/EN, aviso con atribución
+   completa, fila de Notion con cuerpo, antiduplicados, honeypot y datos inválidos) y
+   `node --import tsx scripts/verificar-medicion.ts payload.json` con el cuerpo de `tdVerify.leads[0].body`.
+5. De punta a punta (tras desplegar el backend con `NOTION_TOKEN`): una guía de prueba con la URL de prueba → email 1 recibido con
+   el enlace a la guía y el resultado; en «CRM · Prospectos» una fila «[PRUEBA] …», Canal de entrada = Lead magnet, Atribución =
+   Confirmada, GCLID = TEST123 y en el cuerpo de la página: campaña C05, idioma, punto de partida, las 6 respuestas y «Suscrito al
+   mini-curso». Sin cambiar el esquema de la base.
+
+Eventos del cuestionario (**todos secundarios: no marcar como evento clave ni importar como conversión principal**; sin datos
+personales; los valores internos son iguales en ES y EN):
+
+| Evento | Cuándo | Parámetros |
+|---|---|---|
+| `quiz_start` | Primera respuesta de cada intento (no al ver el bloque). Las cinco preguntas de respuesta única avanzan solas al elegir | `idioma` |
+| `quiz_complete` | Al pulsar «Ver mi resultado» | `idioma`, `doc_procesos` (`si`/`parcial`/`no`/`nose`), `automatizacion_previa` (`varias`/`alguna`/`ninguna`/`nose`), `infraestructura` (`equipo`/`externo`/`cerrada`/`nose`), `dependencia_persona` (`otro`/`retraso`/`para`), `trazabilidad` (`si`/`esfuerzo`/`no`), `punto_partida` (`fase-1`/`fase-1-calma`/`fase-2-pequeno`/`fase-2-limitada`/`fase-2`), `num_situaciones` (0–6; «ninguna» no cuenta) |
+| `descarga_lead_magnet` | Clic en un enlace a la guía: el botón «Descargar la guía paso a paso» del resultado (`link_id` `guia-resultado-fase-1` o `-fase-2`; **sin dar ningún dato**) o el de descarga tras suscribirse (`guia-descarga`) | `idioma`, `link_url`, `link_text`, `link_id`, `page_path`, `page_location` |
+| `suscripcion_curso` | Tras el envío correcto del formulario del minicurso (siempre: ese formulario **es** la suscripción) | `idioma` |
+| `generate_lead` | Tras el envío correcto del formulario del minicurso (paso opcional tras el resultado); **uno por envío**. Descargar la guía directamente **no** es un lead | `lead_type` = `guia_automatizacion`, `idioma` |
+
 ## Eventos: cuáles son de conversión
 
 | Evento | Qué es | ¿Evento clave? |
@@ -175,6 +209,8 @@ de eventos (cancelación, cambio de hora, `PING`) se ignoran con 200.
 | `reservar_click` | Intención de reservar | No como principal: cuenta a la vez que `reserva_completada` |
 | `email_click` | Intención de escribir | Opcional |
 | `linkedin_click`, `cv_click` | Clic en LinkedIn o en el CV (PDF) de «Quién está detrás» de las landings de campaña; `link_id` `authority-linkedin` y `authority-cv` | **No** (medir quién investiga a Pablo) |
+| `tipo_software_click` | Se abre uno de los 10 ítems (dos columnas) del bloque «Qué desarrollo» / «What I build» de las landings C04 (`/desarrollo-software-a-medida/`, `/custom-software-development/`). Solo al **abrir** (no al cerrar). Parámetros: `tipo` (`crm`, `gestion-erp`, `portales`, `web-apps`, `integraciones`, `paneles`, `automatizacion-ia`, `apps-moviles`, `modernizacion`, `bbdd-backoffice`; iguales en ES y EN), `idioma` (`es`/`en`), `landing` (ruta sin parámetros). Sin datos personales. Código: `src/components/SoftwareCatalog.astro` | **No** (secundario: no marcar como evento clave ni importar como conversión principal) |
+| `quiz_start`, `quiz_complete`, `descarga_lead_magnet`, `suscripcion_curso` | Cuestionario y guía de C05 (ver G): inicio, finalización con las respuestas y el punto de partida, descarga de la guía y suscripción opcional al mini-curso | **No** (secundarios: no marcar como evento clave ni importar como conversión principal) |
 | `formulario_contacto` | Diagnóstico del formulario de contacto | **No** (duplica `generate_lead`) |
 | `descarga_metodo` | Diagnóstico de la descarga del método | **No** (duplica `generate_lead`) |
 | `download_web_audit_pdf` | Diagnóstico de la guía de auditoría web | **No** (duplica `generate_lead`) |
@@ -184,8 +220,15 @@ de eventos (cancelación, cambio de hora, `PING`) se ignoran con 200.
 
 Por acción de lead, hoy salen: contacto → `formulario_contacto` + `generate_lead`; método → `descarga_metodo` +
 `generate_lead`; guía web → `download_web_audit_pdf` + `generate_lead`; auditoría web →
-`submit_web_audit_self_assessment` + `generate_lead` + `web_audit_api_success`; resto → `generate_lead`. Siempre exactamente
-un `generate_lead`.
+`submit_web_audit_self_assessment` + `generate_lead` + `web_audit_api_success`; guía de C05 → `quiz_start` + `quiz_complete` (+
+`descarga_lead_magnet` si pulsa la guía) + `generate_lead` (`lead_type=guia_automatizacion`) + `suscripcion_curso` (solo si completa el formulario del minicurso);
+resto → `generate_lead`. Siempre exactamente un `generate_lead`.
+
+> **Decisión pendiente (marketing manager / Pablo):** `generate_lead` es evento clave y se importa a Google Ads. La guía emite uno
+> (`lead_type=guia_automatizacion`), como el resto de lead magnets, porque `CLAUDE.md` exige uno por acción de lead; pero la tarea de
+> C05 dice que el lead sigue siendo reserva o formulario y que cuestionario, descarga y suscripción se miden aparte. Si no deben
+> contar como conversión principal, hay que excluir ese `lead_type` en GA4 antes de importar, o quitar el `generate_lead` de la guía
+> (`track("generate_lead", …)` en `ProcessQuiz.astro`).
 
 ## Configuración externa (no está en el código)
 
@@ -231,7 +274,7 @@ automática por idioma del navegador. Sufijo de URL final: `utm_source=google&ut
 - Contenido de las cuatro: `src/data/campaigns.ts` (textos comunes en `shared`, lo propio de cada página en `campaignPages`). Cuerpo:
   `src/components/CampaignPage.astro`. Plantilla (cabecera, pie, meta, schema): `src/layouts/CampaignLayout.astro`, sobre `BaseLayout`
   en modo `minimal`. Todo lo pendiente de Pablo está en `pabloMarkers` y como `[PABLO: …]`; solo se ve con `npm run dev`.
-- Estructura: hero con «¿Cómo sé si esto es para mí?» (lead magnet sin email, no envía datos ni eventos) · dolores · qué hago (solo
+- Estructura: hero con «¿Cómo sé si esto es para mí?» (lead magnet sin email, no envía datos ni eventos) · **solo C05: cuestionario «¿Dónde estás tú?» y guía en PDF (ver G)** · dolores · qué hago (solo
   producto) · cómo trabajo con la escalera de precios y la garantía · quién está detrás (con el vídeo de Pablo) · casos con «antes /
   ahora» en carrusel · testimonios en vídeo (solo se muestran cuando hay vídeo) · preguntas · reserva en la página · formulario.
 - Precios (fijos, sin fechas, sin descuentos): diagnóstico 90 €, primera implementación 400 €, plan de 6 semanas 2.000 €.
@@ -264,5 +307,6 @@ C. Rechazar              OK / FALLA
 D. Formulario/BD/email   OK / FALLA   (salida de verificar-medicion.ts)
 E. Cal.com + gracias     OK / FALLA
 F. Alta en Notion        OK / FALLA
+G. Cuestionario + guía   OK / FALLA   (solo C05; salida de tdVerify.quiz() y de verificar-guia-c05.ts)
 Notas:
 ```

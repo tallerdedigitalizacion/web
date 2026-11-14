@@ -1,5 +1,6 @@
 import { assessmentAreas } from "../assessment";
-import type { ContactLeadInput, DiagnosticLeadInput, MethodLeadInput, ResourceLeadInput, SelfAssessmentLeadInput, WebAuditGuideLeadInput, WebAuditLeadInput } from "../schemas";
+import type { ContactLeadInput, DiagnosticLeadInput, MethodLeadInput, ProcessQuizLeadInput, ResourceLeadInput, SelfAssessmentLeadInput, WebAuditGuideLeadInput, WebAuditLeadInput } from "../schemas";
+import { quizEmailParts, quizGuide, quizResult, type QuizAnswers } from "../../../src/data/processQuiz";
 import type { scoreAssessment } from "../assessment";
 
 type DiagnosticScore = ReturnType<typeof scoreAssessment>;
@@ -502,6 +503,40 @@ export function selfAssessmentEmail(input: SelfAssessmentLeadInput, bookingUrl: 
   };
 }
 
+// Email 1 de la guía de C05 (obligatorio, desde info@): enlace a la guía (no adjunta), punto de partida y llamada de 30 min.
+// El mini-curso solo registra la suscripción: no se envía nada hasta que existan los emails.
+export function processQuizEmail(input: ProcessQuizLeadInput, siteUrl: string, bookingUrl: string) {
+  const lang = input.language;
+  const result = quizResult(input.answers as QuizAnswers, lang);
+  const guideLink = `${siteUrl.replace(/\/$/, "")}${quizGuide[lang].path}`;
+  const email = quizEmailParts(lang, input.name, result, guideLink, bookingUrl);
+  return {
+    subject: email.subject,
+    text: [
+      `${email.greeting} ${email.guideIntro} ${email.guideLink}`,
+      "",
+      `${email.startIntro} ${email.resultTitle}`,
+      email.resultText,
+      "",
+      `${email.bookIntro} ${email.bookingLink}`,
+      "",
+      email.ignore,
+      "",
+      email.bye,
+      email.signer,
+      email.signature,
+    ].join("\n"),
+    html: `
+      <p>${escapeHtml(email.greeting)} ${escapeHtml(email.guideIntro)} <a href="${escapeAttribute(email.guideLink)}">${escapeHtml(email.guideLink)}</a></p>
+      <p>${escapeHtml(email.startIntro)} <strong>${escapeHtml(email.resultTitle)}</strong></p>
+      <p>${escapeHtml(email.resultText)}</p>
+      <p>${escapeHtml(email.bookIntro)} <a href="${escapeAttribute(email.bookingLink)}">${escapeHtml(email.bookingLink)}</a></p>
+      <p>${escapeHtml(email.ignore)}</p>
+      <p>${escapeHtml(email.bye)}<br />${escapeHtml(email.signer)}<br />${escapeHtml(email.signature)}</p>
+    `,
+  };
+}
+
 type AttributionOrigin = {
   source?: string;
   medium?: string;
@@ -537,8 +572,8 @@ function attributionRows(input: AttributionInput): [string, string][] {
 }
 
 export function notificationEmail(
-  action: "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact" | "self-assessment",
-  input: DiagnosticLeadInput | MethodLeadInput | WebAuditLeadInput | WebAuditGuideLeadInput | ResourceLeadInput | ContactLeadInput | SelfAssessmentLeadInput,
+  action: "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact" | "self-assessment" | "process-quiz",
+  input: DiagnosticLeadInput | MethodLeadInput | WebAuditLeadInput | WebAuditGuideLeadInput | ResourceLeadInput | ContactLeadInput | SelfAssessmentLeadInput | ProcessQuizLeadInput,
   extra = "",
 ) {
   const contact = "service" in input ? input : undefined;
@@ -546,7 +581,7 @@ export function notificationEmail(
     subject: `Nuevo lead: ${contact ? contact.service : action} - ${input.email}`,
     text: [
       `Acción: ${action}`,
-      `Nombre: ${input.name}`,
+      `Nombre: ${input.name || "-"}`,
       `Email: ${input.email}`,
       `Empresa: ${input.company || "-"}`,
       `Cargo: ${input.role || "-"}`,
@@ -560,7 +595,7 @@ export function notificationEmail(
       <h1>Nuevo lead</h1>
       <ul>
         <li><strong>Acción:</strong> ${action}</li>
-        <li><strong>Nombre:</strong> ${escapeHtml(input.name)}</li>
+        <li><strong>Nombre:</strong> ${escapeHtml(input.name || "-")}</li>
         <li><strong>Email:</strong> ${escapeHtml(input.email)}</li>
         <li><strong>Empresa:</strong> ${escapeHtml(input.company || "-")}</li>
         <li><strong>Cargo:</strong> ${escapeHtml(input.role || "-")}</li>

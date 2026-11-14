@@ -18,6 +18,9 @@ export type NotionAttribution = {
   landing?: string;
 };
 
+/** Bloque del cuerpo de la página (debajo de las propiedades): títulos, párrafos y viñetas de texto plano. */
+export type NotionBodyBlock = { type: "heading_3" | "paragraph" | "bulleted_list_item"; text: string };
+
 export type NotionLead = {
   /** Acción del formulario ("contact", "method", …): forma parte de la clave de idempotencia. */
   action: string;
@@ -28,6 +31,8 @@ export type NotionLead = {
   need: string;
   channel: NotionChannel;
   attribution?: NotionAttribution;
+  /** Cuerpo de la página (p. ej. las respuestas de un cuestionario). Sin cambiar el esquema de la base. */
+  body?: NotionBodyBlock[];
   /** Clave propia de idempotencia (p. ej. el id de una reserva); si falta, se usa acción + email. */
   dedupeKey?: string;
   /** Ventana de la reserva anti-duplicados; si falta, DUPLICATE_WINDOW_SECONDS. */
@@ -138,7 +143,8 @@ export function buildNotionProperties(lead: NotionLead, now = new Date()) {
     if (value) properties[name] = richText(value);
   };
 
-  const title = `${isTestLead(attribution) ? "[PRUEBA] " : ""}${clean(lead.name)}`;
+  // El nombre es opcional en algunos formularios (p. ej. la guía de C05): sin nombre, el título es el email.
+  const title = `${isTestLead(attribution) ? "[PRUEBA] " : ""}${clean(lead.name) || clean(lead.email)}`;
   properties["Nombre"] = { title: [{ type: "text", text: { content: clip(title) } }] };
   properties["Email"] = { email: clean(lead.email) };
   if (clean(lead.phone)) properties["Teléfono"] = { phone_number: clean(lead.phone) };
@@ -157,6 +163,14 @@ export function buildNotionProperties(lead: NotionLead, now = new Date()) {
   return properties;
 }
 
+/** Bloques `children` de la página. Notion admite 100 por petición y 2000 caracteres por fragmento. */
+export function buildNotionChildren(lead: NotionLead) {
+  return (lead.body ?? [])
+    .filter((block) => clean(block.text))
+    .slice(0, 100)
+    .map((block) => ({ object: "block", type: block.type, [block.type]: { rich_text: [{ type: "text", text: { content: clip(clean(block.text)) } }] } }));
+}
+
 function idempotencyKey(lead: NotionLead) {
   if (lead.dedupeKey) return `${lead.action}#${lead.dedupeKey}`;
   return `${lead.action}#${clean(lead.email).toLowerCase()}`;
@@ -166,7 +180,7 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 type AttemptResult = { ok: true } | { ok: false; retry: boolean; status?: number; message: string };
 
-async function attemptCreate(settings: NotionSettings, properties: Record<string, unknown>, timeoutMs: number): Promise<AttemptResult> {
+async function attemptCreate(settings: NotionSettings, properties: Record<string, unknown>, children: unknown[], timeoutMs: number): Promise<AttemptResult> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
@@ -177,7 +191,7 @@ async function attemptCreate(settings: NotionSettings, properties: Record<string
         "notion-version": settings.version,
         "content-type": "application/json",
       },
-      body: JSON.stringify({ parent: { type: "data_source_id", data_source_id: settings.dataSourceId }, properties }),
+      body: JSON.stringify({ parent: { type: "data_source_id", data_source_id: settings.dataSourceId }, properties, ...(children.length > 0 ? { children } : {}) }),
       signal: controller.signal,
     });
     if (response.ok) return { ok: true };
@@ -211,6 +225,7 @@ export async function syncLeadToNotion(
   let claimedKey = "";
   try {
     const properties = buildNotionProperties(lead, deps.now);
+    const children = buildNotionChildren(lead);
 
     if (deps.claim) {
       const key = idempotencyKey(lead);
@@ -230,7 +245,7 @@ export async function syncLeadToNotion(
       const remaining = deadline - Date.now();
       if (remaining <= 0) break;
       attempts = attempt;
-      last = await attemptCreate(settings, properties, Math.min(ATTEMPT_TIMEOUT_MS, remaining));
+      last = await attemptCreate(settings, properties, children, Math.min(ATTEMPT_TIMEOUT_MS, remaining));
       if (last.ok) return "created";
       if (!last.retry || attempt === MAX_ATTEMPTS) break;
       await sleep(Math.min(BACKOFF_MS[attempt - 1] ?? 1000, Math.max(0, deadline - Date.now())));
@@ -246,6 +261,7 @@ export async function syncLeadToNotion(
         reason: last.ok ? undefined : last.message,
         // Lo necesario para crear la fila a mano en Notion (sin el token).
         properties,
+        ...(children.length > 0 ? { children } : {}),
       })}`,
     );
     return "failed";

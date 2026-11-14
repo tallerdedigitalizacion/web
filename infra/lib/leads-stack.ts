@@ -93,6 +93,7 @@ export class LeadsStack extends Stack {
     lead.addResource("web-audit-guide").addMethod("POST", integration);
     lead.addResource("resource").addMethod("POST", integration);
     lead.addResource("self-assessment").addMethod("POST", integration);
+    lead.addResource("process-quiz").addMethod("POST", integration);
     api.root.addResource("webhook").addResource("cal").addMethod("POST", integration);
     api.root.addResource("health").addMethod("GET", integration);
 

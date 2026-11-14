@@ -7,13 +7,14 @@ import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { z } from "zod";
 import { scoreAssessment } from "./assessment";
 import { config } from "./config";
-import { contactLeadSchema, diagnosticLeadSchema, methodLeadSchema, resourceLeadSchema, selfAssessmentLeadSchema, webAuditGuideLeadSchema, webAuditLeadSchema } from "./schemas";
-import { contactEmail, diagnosticEmail, methodEmail, notificationEmail, resourceEmail, selfAssessmentEmail, webAuditEmail, webAuditGuideEmail } from "./email/templates";
+import { contactLeadSchema, diagnosticLeadSchema, methodLeadSchema, processQuizLeadSchema, resourceLeadSchema, selfAssessmentLeadSchema, webAuditGuideLeadSchema, webAuditLeadSchema } from "./schemas";
+import { contactEmail, diagnosticEmail, methodEmail, notificationEmail, processQuizEmail, resourceEmail, selfAssessmentEmail, webAuditEmail, webAuditGuideEmail } from "./email/templates";
 import { sendEmail } from "./email/sender";
 import { assertAllowedOrigin, assertHoneypot, assertHumanTiming, assertPayloadSize, assertRateLimit, getClientIp, SecurityError } from "./security";
 import { notionLeadFromCalWebhook, verifyCalSignature, type CalWebhookBody } from "./calWebhook";
 import { syncLeadToNotion } from "./notion";
 import { notionLeadFromInput } from "./notionLead";
+import { quizCompleteParams, quizResult, type QuizAnswers } from "../../src/data/processQuiz";
 import { claimSubmission, hashValue, releaseSubmission, saveLead } from "./store";
 
 const app = new Hono();
@@ -36,6 +37,7 @@ app.post("/lead/web-audit-guide", async (c) => handleLead(c, "web-audit-guide"))
 app.post("/lead/resource", async (c) => handleLead(c, "resource"));
 app.post("/lead/contact", async (c) => handleLead(c, "contact"));
 app.post("/lead/self-assessment", async (c) => handleLead(c, "self-assessment"));
+app.post("/lead/process-quiz", async (c) => handleLead(c, "process-quiz"));
 
 // Webhook de Cal.com: cada reserva nueva crea una fila en el CRM de Notion. Es una llamada de servidor a servidor, así
 // que no se comprueba el origen ni se limita por IP: la autenticación es la firma HMAC del cuerpo en bruto.
@@ -65,7 +67,7 @@ app.post("/webhook/cal", async (c) => {
   }
 });
 
-type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact" | "self-assessment";
+type LeadAction = "diagnostic" | "method" | "web-audit" | "web-audit-guide" | "resource" | "contact" | "self-assessment" | "process-quiz";
 
 async function handleLead(c: Context, action: LeadAction) {
   try {
@@ -275,6 +277,42 @@ async function processLead(c: Context, action: LeadAction, input: ReturnType<typ
     });
   }
 
+  if (action === "process-quiz") {
+    const quizInput = processQuizLeadSchema.parse(input);
+    const result = quizResult(quizInput.answers as QuizAnswers, quizInput.language);
+    const quizParams = quizCompleteParams(quizInput.answers as QuizAnswers, quizInput.language);
+    const saved = await saveLead("process-quiz", {
+      ...cleanLead(quizInput),
+      ipHash: hashValue(ip),
+      startingPoint: result.code,
+      courseSubscription: quizInput.courseSubscription,
+    });
+    const leadDelivery = await trySendEmail(
+      quizInput.email,
+      processQuizEmail(quizInput, config.siteUrl, quizInput.language === "en" ? config.bookingUrlEn : config.bookingUrl),
+    );
+    if (config.notifyEmail) {
+      const deliveryNote = leadDelivery.ok
+        ? "Email al lead: enviado."
+        : `Email al lead: no enviado. Motivo: ${leadDelivery.message}`;
+      await trySendEmail(
+        config.notifyEmail,
+        notificationEmail(
+          "process-quiz",
+          quizInput,
+          `Guía C05 (${quizInput.language}). Punto de partida: ${quizParams.punto_partida}. Situaciones: ${quizParams.num_situaciones}. Mini-curso: ${quizInput.courseSubscription ? "SÍ" : "no"}. Lead id: ${saved.id}\n${deliveryNote}`,
+        ),
+      );
+    }
+
+    return c.json({
+      ok: true,
+      leadId: saved.id,
+      emailDelivered: leadDelivery.ok,
+      message: leadDelivery.ok ? "Te enviamos la guía y tu resultado por email." : "Recibimos tu solicitud. El envío por email no está disponible ahora mismo.",
+    });
+  }
+
   const resourceInput = resourceLeadSchema.parse(input);
   const saved = await saveLead("resource", {
     ...cleanLead(resourceInput),
@@ -316,6 +354,7 @@ function parseLead(action: LeadAction, parsedJson: unknown) {
   if (action === "web-audit-guide") return webAuditGuideLeadSchema.parse(parsedJson);
   if (action === "contact") return contactLeadSchema.parse(parsedJson);
   if (action === "self-assessment") return selfAssessmentLeadSchema.parse(parsedJson);
+  if (action === "process-quiz") return processQuizLeadSchema.parse(parsedJson);
   return resourceLeadSchema.parse(parsedJson);
 }
 
