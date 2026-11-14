@@ -218,6 +218,17 @@ export const offers: Record<string, Offer> = {
     ],
     note: "El coste de la plataforma y del uso de la IA se paga aparte, según el uso.",
   },
+  "/casos/contabilidad-cuadrada-con-ia/": {
+    price: 4000,
+    deadline: "6 a 8 semanas",
+    includes: [
+      "Recolección de fuentes: facturación, bancos y sistema del asesor",
+      "Maestro contable cuadrado con el banco, con scripts versionados",
+      "Registro de qué script hizo qué, sobre qué fichero y cuándo",
+      "Comparación con la contabilidad que te presentan, con informe de diferencias",
+    ],
+    note: "No incluye la presentación de impuestos ni sustituye el asesoramiento fiscal.",
+  },
   "/casos/consulta-cobertura-ia/": {
     price: 1200,
     deadline: "2 a 3 semanas",

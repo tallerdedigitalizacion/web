@@ -552,6 +552,78 @@ export const casePages: CasePage[] = [
     finalCta: "¿Todo pasa por ti? Saquémoslo de tu cabeza y pongámoslo al alcance del equipo.",
     formService: "Cerebro con IA para tu empresa",
   },
+  {
+    slug: "contabilidad-cuadrada-con-ia",
+    title: "Cuadrar tu contabilidad con IA: facturas, banco y asesor, con trazabilidad | Taller de Digitalización",
+    description:
+      "Rehago tu contabilidad desde las fuentes y la cuadro con el banco mediante procesos de IA versionados y auditables, para que sepas cuánta precisión tiene la que te presentan. Desde 4.000 € + IVA.",
+    eyebrow: "Caso práctico",
+    h1: "¿Sabes si la contabilidad que te presentan es exacta?",
+    intro:
+      "Muchos directores reciben cada trimestre unos números que no pueden comprobar. No saben si están bien, y esa falta de control genera frustración. Hay una forma de comprobarlo: rehacer la contabilidad desde cero con IA, a partir de las fuentes y cuadrada con el banco, y compararla con la que te presentan.",
+    summary: "Rehacer la contabilidad desde las fuentes, cuadrarla con el banco y compararla con la del asesor, con trazabilidad completa de cada paso.",
+    practical: [
+      "El director de una empresa quería saber qué precisión tenía la contabilidad que le presentaba su asesor. Se partió de la sospecha de que el asesor no trabajaba bien o no lo comunicaba bien, y esa falta de control le generaba frustración.",
+      "Para saberlo había que rehacer la contabilidad desde cero, entendiendo el proceso contable y las particularidades de la empresa. Lo hicimos en tres pasos. Primero, la recolección de fuentes: un proceso asistido con IA para listar qué había que recoger (los distintos sistemas de facturación, los bancos, el sistema del asesor…), qué se había recogido y contrastarlo con lo que no miente, el banco. Segundo, el maestro contable: una serie de scripts creados por la IA, uno por cada tipo de documento, que ponen todo en el mismo formato y las mismas columnas, lo recortan al trimestre y cuadran el resultado. Y tercero, el cierre contable: con los asientos resueltos, un algoritmo determinista, también creado por IA, produce los documentos contables de la empresa.",
+      "Todo queda registrado: qué script hizo qué, sobre qué fichero y cuándo. Hay trazabilidad y se puede auditar cada paso.",
+    ],
+    schemaService: "Reconstrucción y cuadre de la contabilidad con IA, con trazabilidad y auditoría",
+    painTitle: "¿Te pasa algo de esto?",
+    pains: [
+      "Recibes la contabilidad cada trimestre y no tienes forma de comprobar si es exacta.",
+      "Tus datos están repartidos en varios sistemas de facturación, bancos y el programa del asesor, y nadie los cruza.",
+      "Sientes que no controlas tus propios números.",
+      "Cuadrar el programa de gestión, la gestoría y el banco te lleva una semana de trabajo manual y nunca queda del todo seguro.",
+      "Decides con números que llegan tarde y de los que no estás seguro.",
+    ],
+    builtTitle: "Qué se monta",
+    built: [
+      ["Recolección de fuentes", "Un listado de todo lo que hay que recoger (sistemas de facturación, bancos, el sistema del asesor…), lo ya recogido y lo que falta, contrastado con el banco."],
+      ["Un maestro contable", "Un script por tipo de documento que normaliza los datos: mismo formato, mismas columnas, recortados a las fechas del trimestre, y que cuadra el resultado."],
+      ["Algoritmos escritos por IA y versionados", "El cuadre no lo improvisa la IA cada vez: es un algoritmo que se escribe una vez, se versiona y siempre hace lo mismo."],
+      ["Un registro de todo lo que ocurre", "Qué script se ejecutó, sobre qué fichero y cuándo. Trazabilidad y auditoría de todo el proceso."],
+      ["El cierre contable", "Con los asientos resueltos, otro algoritmo determinista produce los documentos contables de la empresa."],
+    ],
+    resultTitle: "Qué cambia",
+    result: [
+      "Se pasa de una semana de cruzar datos a mano, de forma imprecisa y entre al menos tres sistemas y el banco, a una contabilidad completa y precisa en una hora, a partir de las fuentes.",
+      "En el caso real, al cerrar los trimestres salieron: un error de 2 céntimos en una declaración, una factura de más de 650 € sin contabilizar, una deuda que se reclamaba pero estaba cobrada en parte y problemas en cómo entraban las facturas en los sistemas de la propia empresa.",
+      "La sospecha inicial, que el asesor trabajaba mal, no se confirmó: los errores eran pequeños y varios estaban dentro de la propia empresa. Pero el director pasó a tener control total de sus números, una forma de auditar a su asesor cuando quiera y todos los datos para decidir mejor.",
+    ],
+    offersTitle: "Cómo se puede empezar",
+    offers: [
+      {
+        name: "Contabilidad cuadrada con IA",
+        price: 4000,
+        text: "Recojo las fuentes, monto el maestro contable, cuadro un trimestre contra el banco y lo comparo con la contabilidad que te presentan, con el registro de todo el proceso. El precio final depende de cuántos sistemas, bancos y tipos de documento haya; te lo doy cerrado tras ver tus fuentes.",
+      },
+    ],
+    planText: "Cada trimestre trae documentos nuevos y los sistemas cambian. El plan mensual de Operaciones e IA mantiene los scripts, repite el cierre y te avisa de lo que no cuadra.",
+    planPrice: 99,
+    needsTitle: "Qué necesito de tu lado",
+    needs: [
+      ["Acceso a tus fuentes", "Los sistemas de facturación, los extractos de los bancos y lo que te entrega el asesor, con los permisos que corresponda."],
+      ["Un trimestre para empezar", "Se prueba con un trimestre ya cerrado, para poder comparar con lo que presentó el asesor."],
+      ["Alguien que conozca la empresa", "Una persona que explique las particularidades de la contabilidad de tu empresa, que son las que más cuestan."],
+      ["Un interlocutor para las diferencias", "Alguien que decida qué se corrige y dónde: en tu empresa, con el asesor o en ambos sitios."],
+    ],
+    faq: [
+      ["¿Cuánto cuesta?", "Desde 4.000 € + IVA. Es un proyecto complejo y el precio depende de cuántos sistemas, bancos y tipos de documento haya. Tras ver tus fuentes te doy el precio cerrado."],
+      ["¿Esto sustituye a mi asesor contable?", "Esa decisión es tuya. Lo que da el proceso es control sobre tus números y una forma de auditar la contabilidad que te presentan. La presentación de impuestos y las responsabilidades legales hay que revisarlas con tu asesor antes de cambiar nada; este proyecto no lo decide por ti."],
+      ["¿Y si el asesor lo hace bien?", "Es posible y, en el caso real, así fue. Saberlo con datos también vale: dejas de dudar y de sospechar, y si hay diferencias, las ves y las hablas con números delante."],
+      ["¿Puede equivocarse la IA con una cifra?", "El cuadre no lo decide la IA cada vez: lo hace un algoritmo determinista que da el mismo resultado con los mismos datos. Cada paso queda registrado y se contrasta con el banco, y las diferencias las revisa una persona."],
+      ["¿Hace falta ser una empresa grande?", "No, pero sí tener varias fuentes de datos (facturación, bancos, el asesor) que hoy se cruzan a mano. Cuantas más fuentes, más valor."],
+      peopleFaq,
+      privacyFaq,
+    ],
+    related: [
+      ["Auditoría de gastos de proveedores", "/casos/conciliacion-proveedores/"],
+      ["Automatizar facturas de proveedores", "/casos/entrada-facturas-automatica/"],
+      ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
+    ],
+    finalCta: "¿No sabes si tus números son exactos? Rehagámoslos y comprobémoslo.",
+    formService: "Contabilidad cuadrada con IA",
+  },
 ];
 
 // 1800 -> "1.800" (el formato es-ES de Intl no separa los miles de cuatro cifras).
@@ -570,7 +642,7 @@ const caseByPath: Record<string, string> = {
   "/informatico-fuensalida-torrijos/": "dar-de-baja-software-historico",
   "/informatico-illescas-la-sagra/": "dar-de-baja-software-historico",
   "/informatico-navalcarnero-mostoles/": "dar-de-baja-software-historico",
-  "/consultor-digitalizacion-toledo/": "entrada-facturas-automatica",
+  "/consultor-digitalizacion-toledo/": "contabilidad-cuadrada-con-ia",
   "/diagnostico-en-tu-empresa/": "entrada-facturas-automatica",
   "/ciberseguridad-empresas-toledo/": "conciliacion-proveedores",
   "/google-workspace-empresas-toledo/": "conciliacion-proveedores",
@@ -596,7 +668,7 @@ const caseByPath: Record<string, string> = {
   "/landing-pages-conversion/": "web-empresa-sin-coste",
   // Diagnósticos, web y soporte
   "/diagnostico-caos-operativo/": "cerebro-ia-empresa",
-  "/diagnostico-digitalizacion/": "entrada-facturas-automatica",
+  "/diagnostico-digitalizacion/": "contabilidad-cuadrada-con-ia",
   "/informe-gratuito-web/": "consulta-cobertura-ia",
   "/optimizacion-velocidad-web/": "web-empresa-sin-coste",
   "/soporte-remoto/": "dar-de-baja-software-historico",

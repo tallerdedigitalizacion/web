@@ -251,7 +251,7 @@ export const shared: Record<Lang, Shared> = {
         { title: "Saber si una dirección tiene cobertura", before: "Había que consultar 3 sistemas y se tardaba unos 10 minutos en saber si había cobertura y qué precio ofrecer.", after: "Se pregunta a una IA y responde en segundos.", href: caseHref("consulta-cobertura-ia") },
         { title: "Cruce de proveedores", before: "Los costes se arrastraban durante meses y llegaron a acumular unos cuantos cientos de euros.", after: "El sistema lo previene: compara y avisa de lo que no cuadra, y el goteo de pérdida queda en 0 €.", href: caseHref("conciliacion-proveedores") },
         { title: "Un «cerebro» con IA para la empresa", before: "Si el CEO no estaba, nadie sabía hacer los procesos: se frenaba el equipo, se perdía tiempo y el CEO vivía con estrés.", after: "Un cerebro con IA responde cualquier pregunta, reduce el estrés del CEO y desbloquea el trabajo. En administración había 3 personas y ahora hace falta 1: las otras 2 pasaron a ventas y atención al cliente.", href: caseHref("cerebro-ia-empresa") },
-        { title: "Cuadrar el programa de gestión, la gestoría y el banco", before: "Una semana de espeleología cruzando datos manuales de forma imprecisa entre al menos 3 sistemas y el banco.", after: "Se alimenta a la IA con la información y cruza los datos para obtener una contabilidad completa y precisa en una hora." },
+        { title: "Cuadrar el programa de gestión, la gestoría y el banco", before: "Una semana de espeleología cruzando datos manuales de forma imprecisa entre al menos 3 sistemas y el banco.", after: "Se alimenta a la IA con la información y cruza los datos para obtener una contabilidad completa y precisa en una hora.", href: caseHref("contabilidad-cuadrada-con-ia") },
       ],
     },
     testimonials: {
@@ -439,7 +439,7 @@ export const shared: Record<Lang, Shared> = {
         { title: "Checking coverage for an address", before: "3 systems to check, about 10 minutes to know whether there was coverage and what price to offer.", after: "You ask an AI and it answers in seconds.", href: caseHref("consulta-cobertura-ia") },
         { title: "Supplier cross-check", before: "Costs dragged on for months and added up to a few hundred euros in losses.", after: "The system prevents it: it compares and flags what doesn't add up, and the leak is down to €0.", href: caseHref("conciliacion-proveedores") },
         { title: "An AI «brain» for the company", before: "When the CEO was away, nobody knew how to run the processes: the team slowed down, time was lost and the CEO was under stress.", after: "An AI brain answers any question, lowers the CEO's stress and unblocks the work. Administration had 3 people and now needs 1: the other 2 moved to sales and customer service.", href: caseHref("cerebro-ia-empresa") },
-        { title: "Reconciling the internal system, the accountant and the bank", before: "A week of digging through data by hand, imprecisely, across at least 3 systems and the bank.", after: "The AI is fed the information and cross-checks the data to produce complete, accurate accounts in one hour." },
+        { title: "Reconciling the internal system, the accountant and the bank", before: "A week of digging through data by hand, imprecisely, across at least 3 systems and the bank.", after: "The AI is fed the information and cross-checks the data to produce complete, accurate accounts in one hour.", href: caseHref("contabilidad-cuadrada-con-ia") },
       ],
     },
     testimonials: {
