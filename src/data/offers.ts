@@ -207,6 +207,17 @@ export const offers: Record<string, Offer> = {
     ],
     note: "El dominio se paga aparte, directamente al registrador.",
   },
+  "/casos/cerebro-ia-empresa/": {
+    price: 2000,
+    deadline: "4 a 6 semanas",
+    includes: [
+      "Tus procesos documentados, con los huecos detectados y cerrados",
+      "Una base de conocimiento con la información de la empresa",
+      "Tus herramientas externas conectadas a la IA",
+      "Acceso para todo el equipo y formación",
+    ],
+    note: "El coste de la plataforma y del uso de la IA se paga aparte, según el uso.",
+  },
   "/casos/consulta-cobertura-ia/": {
     price: 1200,
     deadline: "2 a 3 semanas",
