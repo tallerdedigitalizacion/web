@@ -211,6 +211,11 @@ personales; los valores internos son iguales en ES y EN):
 | `linkedin_click`, `cv_click` | Clic en LinkedIn o en el CV (PDF) de «Quién está detrás» de las landings de campaña; `link_id` `authority-linkedin` y `authority-cv` | **No** (medir quién investiga a Pablo) |
 | `tipo_software_click` | Se abre uno de los 10 ítems (dos columnas) del bloque «Qué desarrollo» / «What I build» de las landings C04 (`/desarrollo-software-a-medida/`, `/custom-software-development/`). Solo al **abrir** (no al cerrar). Parámetros: `tipo` (`crm`, `gestion-erp`, `portales`, `web-apps`, `integraciones`, `paneles`, `automatizacion-ia`, `apps-moviles`, `modernizacion`, `bbdd-backoffice`; iguales en ES y EN), `idioma` (`es`/`en`), `landing` (ruta sin parámetros). Sin datos personales. Código: `src/components/SoftwareCatalog.astro` | **No** (secundario: no marcar como evento clave ni importar como conversión principal) |
 | `quiz_start`, `quiz_complete`, `descarga_lead_magnet`, `suscripcion_curso` | Cuestionario y guía de C05 (ver G): inicio, finalización con las respuestas y el punto de partida, descarga de la guía y suscripción opcional al mini-curso | **No** (secundarios: no marcar como evento clave ni importar como conversión principal) |
+
+**Dimensiones personalizadas registradas en GA4** (propiedad «Taller de digitalización», 2026-11-14; ámbito evento): `link_id`, `tipo`
+(`tipo_software_click`), `idioma` (catálogo y cuestionario), `punto_partida` (`quiz_complete`) y `lead_type` (`generate_lead`). Sin
+registrar, estos parámetros llegan a GA4 pero no se pueden usar en informes. Los datos aparecen desde el registro, no hacia atrás. Los
+eventos nuevos son secundarios: ninguno es evento clave (el único evento clave de lead sigue siendo `generate_lead`).
 | `formulario_contacto` | Diagnóstico del formulario de contacto | **No** (duplica `generate_lead`) |
 | `descarga_metodo` | Diagnóstico de la descarga del método | **No** (duplica `generate_lead`) |
 | `download_web_audit_pdf` | Diagnóstico de la guía de auditoría web | **No** (duplica `generate_lead`) |
