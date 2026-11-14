@@ -340,6 +340,76 @@ export const casePages: CasePage[] = [
     finalCta: "¿Alguien en tu empresa introduce facturas a mano? Veamos cómo automatizarlo.",
     formService: "Automatizar facturas de proveedores",
   },
+  {
+    slug: "presupuestos-desde-el-sitio",
+    title: "Presupuestos desde el propio sitio con IA conectada a tu ERP | Taller de Digitalización",
+    description:
+      "Tus técnicos describen el trabajo y la IA monta el presupuesto con existencias, costes de proveedor y margen, y lo envía al cliente desde el propio sitio. Desde 3.000 € + IVA.",
+    eyebrow: "Caso práctico",
+    h1: "Presupuestos desde el propio sitio, sin volver a la oficina.",
+    intro:
+      "Un técnico ve el trabajo, pero el presupuesto se hace después, en la oficina, peleando con el ERP: buscar cada artículo, mirar si hay existencias, pedir precio al proveedor, calcular el margen. Con la IA conectada a tu ERP, el técnico describe el trabajo en el sitio y el presupuesto sale en el momento.",
+    summary: "El técnico describe el trabajo y la IA monta el presupuesto con existencias, costes y margen, y lo envía al cliente desde el propio sitio.",
+    practical: [
+      "Los técnicos de una empresa de instalaciones hacían los presupuestos en el ERP, que era torpe para buscar los artículos, comprobar existencias, estimar costes según el proveedor, aplicar márgenes o sumar desplazamientos. El técnico veía el trabajo, volvía a la oficina y allí hacía todas las averiguaciones. Salía a un presupuesto cada dos días por técnico.",
+      "Lo que hicimos fue darle a la IA una habilidad para presupuestar y conectarla al ERP. Como el ERP no ofrece una API completa, montamos un servidor con Playwright que entra en el ERP igual que lo haría una persona, y le dimos también acceso a la web para consultar precios. Ahora el técnico escribe qué trabajo es y qué cree que debe llevar el presupuesto, y la IA lo construye al momento con los artículos y un precio estimado. Le dice si hay existencias o si hay que pedir, a qué precio y con qué margen. Cuando el técnico está conforme, el presupuesto se crea en el ERP y se envía por correo al cliente. Todo en tiempo real, desde el propio sitio.",
+    ],
+    schemaService: "Presupuestos con IA conectada al ERP, desde el lugar del trabajo",
+    painTitle: "¿Te pasa algo de esto?",
+    pains: [
+      "Tus técnicos ven el trabajo pero el presupuesto se hace después, en la oficina.",
+      "Buscar artículos en el ERP, comprobar existencias y calcular costes y márgenes es lento y se hace a mano.",
+      "El cliente espera días por un presupuesto que podría tener antes de que el técnico se vaya.",
+      "Cada presupuesto exige volver, con los kilómetros y las horas de desplazamiento que eso cuesta.",
+      "Tu ERP no tiene una API completa, así que conectarlo con nada parece imposible.",
+    ],
+    builtTitle: "Qué se monta",
+    built: [
+      ["Una habilidad de presupuestos para la IA", "Reúne cómo presupuestáis vosotros: qué lleva cada tipo de trabajo, cómo se calculan los márgenes, cuándo se suma el desplazamiento."],
+      ["Un conector con tu ERP", "Un servidor MCP conecta la IA con el ERP. Como el ERP no ofrece una API completa, el servidor usa Playwright y trabaja en el ERP igual que lo haría una persona."],
+      ["Acceso a la web", "Para consultar precios y disponibilidad de proveedores que no están en el ERP."],
+      ["Un presupuesto que el técnico revisa", "La IA propone los artículos, las existencias, el coste y el margen. El técnico lo ajusta hasta que está conforme."],
+      ["El envío al cliente", "Con el visto bueno del técnico, el presupuesto se crea en el ERP y se envía por correo al cliente, sin pasar por la oficina."],
+    ],
+    resultTitle: "Qué cambia",
+    result: [
+      "De un presupuesto cada dos días por técnico se pasó a uno al día, y el cliente lo recibe en el momento. Además, los técnicos hacen menos kilómetros y pierden menos horas de desplazamiento.",
+      "La IA no decide el precio: lo propone, y es el técnico quien lo confirma. Se sabe en el momento si hay existencias o hay que hacer un pedido, y a qué precio y con qué margen.",
+    ],
+    offersTitle: "Cómo se puede empezar",
+    offers: [
+      {
+        name: "Presupuestos con IA conectada a tu ERP",
+        price: 3000,
+        text: "Monto la habilidad de presupuestos, el conector con tu ERP (con Playwright si no tiene una API completa) y el envío al cliente. El precio final depende de tu ERP, de cuántos tipos de trabajo haya que cubrir y de si hace falta consultar webs de proveedores; te lo doy cerrado tras ver cómo presupuestáis hoy.",
+      },
+    ],
+    planText: "Si el ERP cambia sus pantallas, el conector hay que adaptarlo, y los precios y los márgenes también cambian. El plan mensual de Operaciones e IA lo mantiene y lo vigila.",
+    planPrice: 99,
+    needsTitle: "Qué necesito de tu lado",
+    needs: [
+      ["Cómo presupuestáis hoy", "Un par de presupuestos reales y quién los hace, para recoger los artículos, los márgenes y los desplazamientos."],
+      ["Un acceso a tu ERP", "Un usuario específico para la IA, con los permisos justos para consultar y crear presupuestos."],
+      ["Los proveedores que consultáis", "A cuáles se les pide precio y dónde se mira, para que la IA haga el mismo recorrido."],
+      ["Un técnico para probarlo", "Una persona que lo use con trabajos reales las primeras semanas y diga qué falla."],
+    ],
+    faq: [
+      ["¿Cuánto cuesta?", "Desde 3.000 € + IVA. Depende de tu ERP, de cuántos tipos de trabajo haya que presupuestar y de si hay que consultar webs de proveedores. Tras ver cómo presupuestáis hoy te doy el precio cerrado."],
+      ["¿Funciona si mi ERP no tiene API?", "Sí, es el caso práctico. Si el ERP no ofrece una API completa, el conector trabaja en sus pantallas igual que una persona, con un usuario propio para la IA."],
+      ["¿Puede equivocarse con un precio?", "Puede. Por eso el técnico revisa el presupuesto antes de enviarlo y no se envía nada sin su visto bueno. Además, las existencias y los costes salen de tu ERP y de las webs de tus proveedores, no de la imaginación de la IA."],
+      ["¿Qué pasa si el ERP cambia?", "Si cambia sus pantallas, el conector se tiene que adaptar. El plan mensual de Operaciones e IA lo vigila y lo mantiene para que no se rompa sin que nadie se entere."],
+      ["¿Sirve para otro tipo de empresa?", "Sí, para cualquiera que presupueste fuera de la oficina: instalaciones, reparaciones, mantenimiento, reformas. La idea es que quien ve el trabajo pueda dar el presupuesto allí mismo."],
+      peopleFaq,
+      privacyFaq,
+    ],
+    related: [
+      ["Consultor ERP independiente", "/consultoria-erp-pymes/"],
+      ["Conectar tus programas (n8n, Make, Zapier, Holded, A3)", "/integracion-sistemas/"],
+      ["Plan mensual de operaciones e IA", "/plan-operaciones-ia/"],
+    ],
+    finalCta: "¿Tus técnicos vuelven a la oficina solo para hacer el presupuesto? Lo hacemos desde el sitio.",
+    formService: "Presupuestos con IA conectada al ERP",
+  },
 ];
 
 // 1800 -> "1.800" (el formato es-ES de Intl no separa los miles de cuatro cifras).
@@ -368,13 +438,13 @@ const caseByPath: Record<string, string> = {
   "/gestor-contrasenas-empresas/": "conciliacion-proveedores",
   "/mantenimiento-wordpress/": "dar-de-baja-software-historico",
   "/landing-page-campanas/": "consulta-cobertura-ia",
-  "/consultoria-erp-pymes/": "entrada-facturas-automatica",
+  "/consultoria-erp-pymes/": "presupuestos-desde-el-sitio",
   "/gestion-leads-crm/": "consulta-cobertura-ia",
   "/agente-ia-atencion-cliente/": "consulta-cobertura-ia",
   "/asistente-ia-empresa/": "dar-de-baja-software-historico",
   "/plan-operaciones-ia/": "conciliacion-proveedores",
   // Servicios
-  "/integracion-sistemas/": "conciliacion-proveedores",
+  "/integracion-sistemas/": "presupuestos-desde-el-sitio",
   "/oraculo-interno/": "dar-de-baja-software-historico",
   "/oraculo-externo/": "consulta-cobertura-ia",
   "/centralizacion-leads/": "consulta-cobertura-ia",

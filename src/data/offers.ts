@@ -185,6 +185,17 @@ export const offers: Record<string, Offer> = {
       "Tú decides cuándo cancelar la licencia",
     ],
   },
+  "/casos/presupuestos-desde-el-sitio/": {
+    price: 3000,
+    deadline: "4 a 6 semanas",
+    includes: [
+      "Habilidad de presupuestos de la IA, con tus artículos, márgenes y desplazamientos",
+      "Conector con tu ERP, aunque no tenga una API completa",
+      "Existencias y costes de proveedor en el momento",
+      "El técnico revisa y el presupuesto se envía al cliente desde el propio sitio",
+    ],
+    note: "El coste de la IA se paga aparte, según el uso.",
+  },
   "/casos/consulta-cobertura-ia/": {
     price: 1200,
     deadline: "2 a 3 semanas",
