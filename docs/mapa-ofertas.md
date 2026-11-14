@@ -15,10 +15,10 @@ Todos los precios sin IVA, como en la web actual.
 
 | Nombre de comprador | Frases que puede escribir | Resultado | Precio | Plazo |
 |---|---|---|---|---|
-| Auditoría de facturas de proveedores | "revisar facturas de proveedores", "cobros duplicados proveedores", "conciliación de proveedores" | Sabes qué pagas sin tener ni deber | ✔ 490 € cerrado | FALTA |
-| Dar de baja el software antiguo sin perder el histórico | "migrar datos de programa antiguo", "recuperar datos software obsoleto", "dejar de pagar licencia programa" | Cancelas la licencia y consultas el histórico con IA | ✔ desde 900 € | FALTA |
-| Automatizar la entrada de facturas | "automatizar facturas proveedores", "OCR facturas", "contabilizar facturas automáticamente" | Las facturas entran solas, una persona valida | ✔ desde 2.500 € | FALTA |
-| Consulta de cobertura por IA | "comprobar cobertura fibra por dirección" | Respuesta inmediata por dirección | ✔ desde 1.200 € | FALTA |
+| Sincronización de plataformas de proveedores | "revisar facturas de proveedores", "cobros duplicados proveedores", "conciliación de proveedores" | Sabes qué pagas sin tener ni deber | ✔ desde 990 € | FALTA |
+| Dar de baja el software antiguo sin perder el histórico | "migrar datos de programa antiguo", "recuperar datos software obsoleto", "dejar de pagar licencia programa" | Cancelas la licencia y consultas el histórico con IA | ✔ desde 990 € | FALTA |
+| Automatizar la entrada de facturas | "automatizar facturas proveedores", "OCR facturas", "contabilizar facturas automáticamente" | Las facturas entran solas, una persona valida | ✔ desde 990 € | FALTA |
+| Consulta de cobertura por IA | "comprobar cobertura fibra por dirección" | Respuesta inmediata por dirección | ✔ desde 990 € | FALTA |
 | Mantenimiento informático para empresas | "mantenimiento informático empresas", "informático para empresa" + ciudad | Equipos, copias y seguridad al día | ✔ desde 39 €/mes | n/a (recurrente) |
 | Mantenimiento web / WordPress | "mantenimiento wordpress", "mantenimiento web empresa" | Web actualizada, con copias y cambios al mes | ✔ desde 39 €/mes | n/a (recurrente) |
 | Plan de operaciones e IA | "mantenimiento de automatizaciones" | Automatizaciones vigiladas y mejoradas | ✔ desde 39 €/mes | n/a (recurrente) |

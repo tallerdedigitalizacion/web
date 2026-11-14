@@ -166,13 +166,12 @@ export const offers: Record<string, Offer> = {
     ],
   },
   "/casos/conciliacion-proveedores/": {
-    price: 490,
-    fixed: true,
+    price: 990,
     deadline: "5 días laborables",
     includes: [
-      "Cruce de lo que te facturan los proveedores con lo que tienes dado de alta",
-      "Informe de lo que pagas sin tener o de diferencias de importe",
-      "Reunión para explicarte los resultados",
+      "Entrada en los portales de tus proveedores con un usuario propio para la IA",
+      "Cruce con lo que tienes dado de alta en tu sistema",
+      "Aviso por correo de lo que pagas sin tener o de diferencias de importe",
     ],
   },
   "/casos/dar-de-baja-software-historico/": {

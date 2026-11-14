@@ -61,9 +61,9 @@ const peopleFaq: [string, string] = [
 export const casePages: CasePage[] = [
   {
     slug: "conciliacion-proveedores",
-    title: "Auditoría de gastos de proveedores: lo que pagas sin usar | Taller de Digitalización",
+    title: "Sincronización de plataformas de proveedores: lo que pagas sin usar | Taller de Digitalización",
     description:
-      "Cruzo lo que te facturan tus proveedores con lo que tienes dado de alta en tu sistema para encontrar lo que pagas sin tener. Auditoría cerrada por 490 € + IVA.",
+      "Cruzo lo que te facturan tus proveedores con lo que tienes dado de alta en tu sistema para encontrar lo que pagas sin tener, y te aviso cuando algo no cuadra. Desde 990 € + IVA.",
     eyebrow: "Caso práctico",
     h1: "¿Estás pagando por servicios que ya no tienes?",
     intro:
@@ -73,7 +73,7 @@ export const casePages: CasePage[] = [
       "Un operador de telecomunicaciones paga a varios proveedores por cada línea o servicio de sus clientes. Cuando un cliente se da de baja o se porta a otra compañía, el proveedor no siempre avisa y el sistema de la empresa tampoco se entera, así que se sigue pagando por algo que ya no existe.",
       "Lo que hicimos fue un proceso que mira de forma automática lo que dice cada proveedor, lo compara con lo que hay en el sistema de gestión y, si algo no cuadra, manda un correo diciendo qué hay que revisar. La decisión de dar de baja o de reclamar la toma una persona.",
     ],
-    schemaService: "Auditoría y revisión automática de gastos de proveedores",
+    schemaService: "Sincronización de plataformas de proveedores",
     painTitle: "¿Te pasa algo de esto?",
     pains: [
       "Los proveedores te facturan servicios y nadie comprueba línea por línea si siguen vigentes.",
@@ -97,15 +97,9 @@ export const casePages: CasePage[] = [
     offersTitle: "Cómo se puede empezar",
     offers: [
       {
-        name: "Auditoría puntual de proveedores",
-        price: 490,
-        fixed: true,
-        text: "Cruzo una vez lo que te factura un proveedor con lo que tienes en tu sistema y te entrego un informe con las discrepancias: lo que pagas sin tener y lo que no cuadra. Precio cerrado. Si hay más de un proveedor, te doy el presupuesto cerrado antes de empezar.",
-      },
-      {
-        name: "Revisión automática de proveedores",
-        price: 1800,
-        text: "Lo mismo, pero repetido solo y con aviso por correo cuando aparece una discrepancia. El precio final depende de cuántos proveedores y sistemas haya que cruzar.",
+        name: "Sincronización de plataformas de proveedores",
+        price: 990,
+        text: "Monto el proceso que entra en los portales de tus proveedores, lo cruza con lo que tienes en tu sistema y te avisa por correo de lo que no cuadra: lo que pagas sin tener y las diferencias. Cuesta desde 990 € + IVA, y el final depende de cuántos proveedores y sistemas haya que cruzar. Te lo doy cerrado antes de empezar.",
       },
     ],
     needsTitle: "Qué necesito de tu lado",
@@ -115,7 +109,7 @@ export const casePages: CasePage[] = [
       ["Alguien que decida", "Una persona que revise las discrepancias y diga qué se da de baja y qué se reclama."],
     ],
     faq: [
-      ["¿Cuánto cuesta?", "La auditoría puntual cuesta 490 € + IVA, precio cerrado. La revisión automática parte de 1.800 € + IVA y te doy el precio cerrado antes de empezar, según cuántos proveedores y sistemas haya."],
+      ["¿Cuánto cuesta?", "Desde 990 € + IVA. Depende de cuántos proveedores y sistemas haya que cruzar. Antes de empezar te doy el precio cerrado."],
       ["¿Sirve si no soy un operador de telecomunicaciones?", "Sí. Sirve en cualquier empresa con proveedores que facturan por servicio o por unidad: licencias de software, líneas, suscripciones, alquileres. El caso práctico es de telecomunicaciones, pero la idea es la misma."],
       ["¿Y si mi sistema no tiene API?", "Es justo el caso práctico. Se puede automatizar el acceso a su pantalla con un usuario específico, y si el sistema permite exportar listados, aún más fácil."],
       peopleFaq,
@@ -126,7 +120,7 @@ export const casePages: CasePage[] = [
       ["Diagnóstico de caos operativo", "/diagnostico-caos-operativo/"],
     ],
     finalCta: "¿Quieres saber cuánto estás pagando por lo que no tienes? Lo cruzamos.",
-    formService: "Auditoría de gastos de proveedores",
+    formService: "Sincronización de plataformas de proveedores",
   },
   {
     slug: "dar-de-baja-software-historico",
@@ -621,7 +615,7 @@ export const casePages: CasePage[] = [
       privacyFaq,
     ],
     related: [
-      ["Auditoría de gastos de proveedores", "/casos/conciliacion-proveedores/"],
+      ["Sincronización de plataformas de proveedores", "/casos/conciliacion-proveedores/"],
       ["Automatizar facturas de proveedores", "/casos/entrada-facturas-automatica/"],
     ],
     finalCta: "¿No sabes si tus números son exactos? Rehagámoslos y comprobémoslo.",

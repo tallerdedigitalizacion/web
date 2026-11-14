@@ -21,7 +21,7 @@ Regla: el nombre del paquete es **el objeto que la gente busca**, con el resulta
 | Auditoría de procesos con plan de acción | Consultoría de procesos para pymes |
 | Conectar tus programas entre sí | Conectar tus programas (n8n, Make, Zapier, Holded, A3) |
 | Automatizar la entrada de facturas | Automatizar facturas de proveedores |
-| Revisar las facturas de tus proveedores («conciliación») | Auditoría de gastos de proveedores |
+| Revisar las facturas de tus proveedores («conciliación») | Sincronización de plataformas de proveedores |
 | Dar de baja un programa antiguo… | Migrar datos de un programa antiguo y cancelar la licencia |
 
 Pendiente de datos: «Creación de páginas web» se mantiene hasta ver el Planificador («diseño de páginas web» es la alternativa).
