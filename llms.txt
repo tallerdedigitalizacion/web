@@ -99,6 +99,7 @@ Dos formas de trabajar: planes mensuales (desde 39 €/mes + IVA, sin permanenci
 
 ## Blog
 
+- [Caso: Nimbus Telecom, una oficina que se reorganiza con IA para volver a vender](https://tallerdedigitalizacion.com/blog/caso-nimbus-telecom-administracion-ia/): Contraseñas, Google Workspace, web, cobertura y asistentes de IA: cómo estamos reorganizando la administración de Nimbus Telecom para liberar tiempo y vender.
 - [Caso: la app del Billar El Arrabal de Fuensalida, rescatada y simplificada](https://tallerdedigitalizacion.com/blog/caso-billar-arrabal-fuensalida/): Una aplicación a medias que no grababa bien las partidas, rescatada y simplificada con IA para el Billar El Arrabal de Fuensalida. Qué se hizo y qué aprendí.
 - [Cuadrar el gestor interno, la gestoría y el banco con IA](https://tallerdedigitalizacion.com/blog/cuadrar-gestor-gestoria-banco-con-ia/): Tres sistemas que deberían decir lo mismo y no lo dicen. Cómo una IA los cruzó en media hora y qué puede arreglar sola una PyME.
 - [Cómo aparecer en Google cuando buscan tu negocio en tu pueblo](https://tallerdedigitalizacion.com/blog/aparecer-en-google-negocio-local/): Ficha de Google, web, reseñas y directorios: lo que de verdad funciona para que un negocio local aparezca en Google y en los asistentes de IA.
